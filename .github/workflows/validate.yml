@@ -1,0 +1,36 @@
+name: Validate repository (no AWS deployment)
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python -m src.moodle_cloud validate
+      - run: python -m scripts.manual_bundle
+      - run: |
+          for script in scripts/*.sh .work/manual-transfer.sh; do
+            bash -n "$script"
+          done
+      - name: Build the pinned PHP 8.3 runtime and verify its configuration
+        run: docker build --tag moodle-php:ci scripts
+      - name: Lint PHP with the actual application runtime
+        run: |
+          for script in configure.php install-db.php; do
+            docker run --rm --network none --entrypoint php \
+              --mount "type=bind,src=$PWD/scripts,dst=/scripts,readonly" \
+              moodle-php:ci -l "/scripts/$script"
+          done
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.4
+      - run: terraform fmt -check -recursive infra
+      - run: terraform -chdir=infra/small init -backend=false -input=false
+      - run: terraform -chdir=infra/small validate
+      - run: terraform -chdir=infra/small test

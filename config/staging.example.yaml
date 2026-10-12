@@ -1,0 +1,13 @@
+# Copy to staging.yaml. This remains a small SSM lab, not the medium architecture.
+project: moodle-lab
+environment: staging
+region: ap-southeast-1
+size: small
+instance_type: t3.medium
+volume_gib: 30
+moodle_version: "4.5.15"
+wwwroot: http://localhost:8080
+backup_bucket: ""
+tags:
+  Owner: student
+  Purpose: restore-test
