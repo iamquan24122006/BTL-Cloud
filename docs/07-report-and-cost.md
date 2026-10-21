@@ -2,7 +2,7 @@
 
 ## 1. Dự toán theo thời gian dùng thực tế
 
-Đã xác nhận **4 thành viên và ngân sách AWS 400 USD**. Tạm hiểu đây là tổng ngân sách đồ án, không phải 400 USD/người hoặc 400 USD/tháng. Chưa biết loại tài khoản/credit và deadline; lịch dưới đây dùng giả định 4 tuần, region `ap-southeast-1` như cấu hình mẫu.
+Đã xác nhận **4 thành viên, ngân sách AWS 400 USD và tài khoản AWS thường** (13/10/2026). Tạm hiểu đây là tổng ngân sách đồ án, không phải 400 USD/người hoặc 400 USD/tháng. Chưa biết credit và deadline; lịch dưới đây dùng giả định 4 tuần, region `ap-southeast-1` như cấu hình mẫu.
 
 Phân bổ **300 USD cho kế hoạch triển khai và 100 USD dự phòng**. Đây là hạn mức nội bộ, không phải báo giá, hóa đơn dự kiến đã tính đủ hoặc cam kết đủ tiền cho mọi cấu hình. Nếu thanh toán bằng tiền, dự phòng còn phải bao gồm thuế/tỷ giá và phí chưa tính; nếu dùng credit, kiểm tra phạm vi áp dụng và ngày hết hạn.
 

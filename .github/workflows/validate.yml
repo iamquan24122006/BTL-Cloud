@@ -18,15 +18,16 @@ jobs:
           for script in scripts/*.sh .work/manual-transfer.sh; do
             bash -n "$script"
           done
-      - name: Build the pinned PHP 8.3 runtime and verify its configuration
-        run: docker build --tag moodle-php:ci scripts
-      - name: Lint PHP with the actual application runtime
-        run: |
-          for script in configure.php install-db.php; do
-            docker run --rm --network none --entrypoint php \
-              --mount "type=bind,src=$PWD/scripts,dst=/scripts,readonly" \
-              moodle-php:ci -l "/scripts/$script"
-          done
+      - name: Build and smoke-test the pinned PHP/Apache runtime
+        run: python -m scripts.check_runtime --image moodle-php:ci
+      - name: Save runtime check evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-check
+          path: .work/runtime-check/
+          if-no-files-found: ignore
+          retention-days: 7
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.13.4

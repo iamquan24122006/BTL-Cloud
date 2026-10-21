@@ -15,6 +15,8 @@ Terraform test dùng `mock_provider "aws"`; không tạo AWS resource. Nó kiể
 
 Unit test kiểm tra đầu vào và chốt apply/destroy. Test AWS call dùng mock, không chứng minh account hiện tại có quyền deploy. CI còn build image PHP 8.3, kiểm tra extension/Apache config và lint PHP bằng chính runtime đó; không chứa AWS credential hay bước deploy tự động. Build thành công chưa chứng minh host Ubuntu 26.04, systemd, kết nối DB và Moodle đã chạy được.
 
+Chạy `python -m scripts.check_runtime` để build/lint và thử Apache/PHP bằng fixture local. Kiểm tra PHP CLI/web thống nhất, giới hạn input, extensions, file code chỉ đọc, `/config.php` và `/.git/config` bị chặn. Báo cáo và log được lưu trong `.work/runtime-check/`; CI tải bộ bằng chứng này lên artifact giữ 7 ngày. Smoke test không mở cổng host và không thay thế F01–F13 trên AWS. Các test trong `test_runtime_check.py` kiểm tra việc báo lỗi/cleanup bằng mock, không chứng minh Docker đã chạy.
+
 ## 2. Kiểm tra chức năng trên AWS
 
 | ID | Thao tác | Kết quả phải có | Bằng chứng |

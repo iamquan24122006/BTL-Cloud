@@ -15,6 +15,8 @@ Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm 
 
 Chốt tài khoản AWS thường hay Academy/Learner Lab trước khi chạy. IaC hiện tạo IAM role/profile; nếu lab chỉ cho dùng role được cấp sẵn thì A cần sửa phần IAM và input tương ứng, kiểm thử lại trước deploy. Không dùng quyền AdministratorAccess để che một lỗi IAM.
 
+Nhóm đã xác nhận dùng **AWS thường** ngày 13/10/2026. Vẫn cần kiểm tra phiên đăng nhập, quyền của người deploy và credit thực tế; xác nhận loại tài khoản chưa có nghĩa là đã kết nối AWS.
+
 D giữ sổ chi phí toàn kỳ: 300 USD cho kế hoạch, 100 USD dự phòng. Một môi trường tích hợp dùng chung; staging chỉ tạo khi cần restore. Hạn mức này không phải báo giá AWS. Tra cấu hình theo region trong [AWS Pricing Calculator](https://calculator.aws/) và theo dõi [kế hoạch chi phí](07-report-and-cost.md).
 
 Đặt log thô, plan, backup, JMX/CSV có tài khoản thử trong `.work/` hoặc nơi riêng tư. Chỉ đưa ảnh/log đã loại secret vào báo cáo. Một người apply mỗi lần; không chia sẻ state qua chat hoặc Git.
@@ -24,6 +26,16 @@ D giữ sổ chi phí toàn kỳ: 300 USD cho kế hoạch, 100 USD dự phòng.
 ### Trên máy Windows đang mở repository
 
 Cài và mở Docker Desktop, chọn Linux containers; với backend WSL 2, làm theo [hướng dẫn Windows chính thức](https://docs.docker.com/desktop/setup/install/windows-install/). Không chạy `setup-host.sh` trên Windows: đó là script dành cho EC2 Ubuntu 26.04.
+
+Lệnh kiểm tra tự động đã có, dùng chung cho Windows/Linux và CI:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.check_runtime
+```
+
+Lệnh kiểm tra Docker engine, build image, lint PHP, so sánh PHP CLI/web, thử HTTP và chặn file cấu hình/`.git`. Log và report nằm trong `.work/runtime-check/<run-id>/`; container fixture được dọn sau kiểm tra, image/build cache được giữ. Không publish cổng ra host, không dùng credential, không gọi AWS. Đây là **smoke test runtime với trang PHP mẫu**, chưa cài Moodle hoặc database. Chỉ `status: passed` trong report cùng exit code 0 mới là đạt; lỗi engine/build không được tính là đã kiểm tra ứng dụng. Khi image đã build, có thể dùng `--skip-build` để kiểm tra lại image hiện tại.
+
+Nếu Docker Desktop thoát ngay sau mở, kiểm tra thông báo và điều khoản trong ứng dụng. Docker yêu cầu người dùng chấp nhận điều khoản trước khi tiếp tục; nếu không đồng ý, chọn máy Linux/Docker Engine hoặc CI thay thế. Script kiểm tra không tự chấp nhận điều khoản hay đổi thiết lập Docker.
 
 Trong PowerShell ở thư mục gốc repository:
 

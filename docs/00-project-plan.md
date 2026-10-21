@@ -16,7 +16,7 @@ Ba câu hỏi để trả lời bằng bằng chứng:
 
 ## 2. Phạm vi đã chọn
 
-Thông tin đã xác nhận: **nhóm 4 người, ngân sách AWS 400 USD**. Tạm hiểu 400 USD là tổng ngân sách cho đồ án; chưa xác nhận ngân sách theo tháng, loại tài khoản/credit hoặc deadline. Giữ lịch 4 tuần làm kế hoạch làm việc và kiểm tra quyền dịch vụ trước khi chọn cấu hình cloud cuối cùng.
+Thông tin đã xác nhận: **nhóm 4 người, ngân sách AWS 400 USD, dùng tài khoản AWS thường** (xác nhận ngày 13/10/2026). Tạm hiểu 400 USD là tổng ngân sách cho đồ án; chưa xác nhận ngân sách theo tháng, credit hoặc deadline. Giữ lịch 4 tuần làm kế hoạch làm việc và kiểm tra quyền dịch vụ trước khi chọn cấu hình cloud cuối cùng.
 
 | Mức | Sản phẩm cần có | Trạng thái trong repository |
 |---|---|---|
