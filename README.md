@@ -4,7 +4,11 @@
 
 **Thông số nhóm:** 4 thành viên; ngân sách AWS 400 USD. Kế hoạch tạm hiểu đây là tổng ngân sách đồ án, chia 300 USD cho các giai đoạn và 100 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Mục tiêu đề xuất là hoàn tất small và triển khai medium trong các cửa sổ lab có kiểm soát. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** repository có mã triển khai preset `small`, kiểm tra cấu hình, runbook và kế hoạch 4 tuần. Chưa triển khai vào tài khoản AWS, chưa đo hiệu năng thực tế. `medium`/`large` là thiết kế mở rộng, CLI hiện từ chối hai preset đó. Xem [kết quả kiểm tra](docs/08-validation.md).
+**Tình trạng ngày 05/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng EC2, backup S3, restore và reboot staging. Đã thử web dừng, S3 từ chối ghi và restore backup thiếu/hỏng; hệ thống phát hiện lỗi và phục hồi đúng. **58 unit test đạt**. Có fixture 50 tài khoản và workload tải mới, nhưng chưa hoàn tất phép đo chính thức. Còn giao diện/demo, cài tay/so sánh, CI và hồ sơ bàn giao để chốt P0. `medium`/`large` vẫn là thiết kế mở rộng. Xem [biên bản small](docs/13-small-acceptance.md) và [nhật ký chi tiết](docs/08-validation.md).
+
+**Lab hiện tại:** [config/sydney.yaml](config/sydney.yaml), tên `moodle-sydney-dev`, region `ap-southeast-2`; staging dùng [config/sydney-staging.yaml](config/sydney-staging.yaml). CLI mặc định dùng cấu hình Sydney; nên luôn truyền `--config` để thấy rõ môi trường đích. Giữ nguyên state riêng trong `.work/moodle-sydney-dev/` và `.work/moodle-sydney-staging/`.
+
+**Lab Singapore cũ:** `config/small-new.yaml` / `moodle-lab-v2-dev` từng dừng sau khi tạo 6 tài nguyên mạng vì thiếu `iam:CreateRole`. [Hướng dẫn IAM cũ](docs/10-iam-permissions.md) chỉ áp dụng lab đó; không dùng policy này để sửa quyền cho Sydney. Chưa đối chiếu lại inventory Singapore trong lượt tiếp tục này.
 
 ## Đọc theo thứ tự
 
@@ -49,6 +53,15 @@ python -m venv .venv
 ```
 
 Nếu `python` là Microsoft Store alias, dùng đường dẫn tới bản Python đã cài. `render` chỉ tạo `.work/<project>-<environment>/config.tfvars.json`. Không điền mật khẩu vào YAML.
+
+Khi Docker Desktop đang chạy Linux containers, kiểm tra runtime rồi cài/thử Moodle với PostgreSQL và backup/restore cục bộ:
+
+```powershell
+python -m scripts.check_runtime
+python -m scripts.check_moodle
+```
+
+Hai lệnh không gọi AWS; report nằm trong `.work/runtime-check/` và `.work/moodle-check/`. Kiểm thử ứng dụng dùng dữ liệu giả, tự dọn container/volume riêng và không thay thế nghiệm thu trên EC2. Xem [phạm vi kiểm thử](docs/06-test-plan.md).
 
 ```powershell
 python -m src.moodle_cloud doctor

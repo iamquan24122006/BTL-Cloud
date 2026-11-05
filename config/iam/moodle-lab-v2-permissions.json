@@ -1,0 +1,112 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CreateAndReadLabRoles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:ListRolePolicies",
+        "iam:ListRoleTags",
+        "iam:TagRole"
+      ],
+      "Resource": "arn:aws:iam::987673221265:role/moodle-lab-v2-dev-*"
+    },
+    {
+      "Sid": "CreateAndReadLabInstanceProfiles",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AddRoleToInstanceProfile",
+        "iam:CreateInstanceProfile",
+        "iam:GetInstanceProfile",
+        "iam:ListInstanceProfileTags",
+        "iam:TagInstanceProfile"
+      ],
+      "Resource": "arn:aws:iam::987673221265:instance-profile/moodle-lab-v2-dev-*"
+    },
+    {
+      "Sid": "AttachOnlySSMCoreToLabRoles",
+      "Effect": "Allow",
+      "Action": "iam:AttachRolePolicy",
+      "Resource": "arn:aws:iam::987673221265:role/moodle-lab-v2-dev-*",
+      "Condition": {
+        "ArnEquals": {
+          "iam:PolicyARN": "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        }
+      }
+    },
+    {
+      "Sid": "PassOnlyLabRolesToRequiredServices",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::987673221265:role/moodle-lab-v2-dev-*",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": [
+            "ec2.amazonaws.com",
+            "ssm.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "ReadSSMStatusInLabRegion",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:DescribeInstanceInformation",
+        "ssm:GetCommandInvocation"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "ap-southeast-1"
+        }
+      }
+    },
+    {
+      "Sid": "OperateOnlyTaggedLabNodes",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetConnectionStatus",
+        "ssm:SendCommand",
+        "ssm:StartSession"
+      ],
+      "Resource": "arn:aws:ec2:ap-southeast-1:987673221265:instance/*",
+      "Condition": {
+        "StringEquals": {
+          "ssm:resourceTag/Project": "moodle-lab-v2",
+          "ssm:resourceTag/Environment": "dev"
+        }
+      }
+    },
+    {
+      "Sid": "UseRunShellCommandDocument",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": "arn:aws:ssm:ap-southeast-1::document/AWS-RunShellScript"
+    },
+    {
+      "Sid": "UseShellAndPortForwardSessionDocuments",
+      "Effect": "Allow",
+      "Action": "ssm:StartSession",
+      "Resource": [
+        "arn:aws:ssm:ap-southeast-1:987673221265:document/SSM-SessionManagerRunShell",
+        "arn:aws:ssm:ap-southeast-1::document/AWS-StartPortForwardingSession"
+      ]
+    },
+    {
+      "Sid": "ManageOwnSessions",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:ResumeSession",
+        "ssm:TerminateSession",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": "arn:aws:ssm:ap-southeast-1:987673221265:session/${aws:userid}-*"
+    }
+  ]
+}

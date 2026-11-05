@@ -1,0 +1,12 @@
+project: moodle-sydney
+environment: dev
+region: ap-southeast-2
+size: small
+instance_type: t3.small
+volume_gib: 30
+moodle_version: "4.5.15"
+wwwroot: http://localhost:8080
+backup_bucket: moodle-sydney-backup-828676179987
+tags:
+  Owner: student
+  Purpose: coursework

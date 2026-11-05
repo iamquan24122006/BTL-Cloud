@@ -9,12 +9,14 @@ from src.moodle_cloud import ROOT, load_config
 
 
 def main():
-    config = load_config(sys.argv[1] if len(sys.argv) > 1 else ROOT / "config/dev.yaml")
+    config = load_config(sys.argv[1] if len(sys.argv) > 1 else ROOT / "config/sydney.yaml")
     deploy = {k: config[k] for k in ("moodle_version", "wwwroot", "backup_bucket", "region")}
     deploy["backup_prefix"] = f"{config['project']}-{config['environment']}"
+    deploy.update(project=config['project'], environment=config['environment'])
     files = {"/etc/moodle/deploy.json": (json.dumps(deploy).encode(), "0600")}
     for filename in ("bootstrap.sh", "configure.php", "install-db.php", "health.sh", "backup.sh",
-                     "setup-host.sh", "php-cli.sh", "moodle-web.sh", "Dockerfile", "moodle.ini", "moodle-apache.conf"):
+                     "setup-host.sh", "php-cli.sh", "moodle-web.sh", "Dockerfile", "moodle.ini", "moodle-apache.conf",
+                     "restore.sh", "verify_backup.py"):
         files[f"/opt/moodle-distribution/{filename}"] = ((ROOT / "scripts" / filename).read_bytes(), "0750" if filename.endswith(".sh") else "0644")
     lines = ["#!/usr/bin/env bash", "set -Eeuo pipefail", "[[ $EUID -eq 0 ]] || exit 1",
              "install -d -m 0755 /opt/moodle-distribution", "install -d -m 0750 /etc/moodle"]

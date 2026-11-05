@@ -1,5 +1,5 @@
 name: Validate repository (no AWS deployment)
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
@@ -28,6 +28,17 @@ jobs:
           path: .work/runtime-check/
           if-no-files-found: ignore
           retention-days: 7
+      - name: Install Moodle and verify a local backup/restore round trip
+        timeout-minutes: 35
+        run: python -m scripts.check_moodle --image moodle-php:ci
+      - name: Save Moodle integration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moodle-check
+          path: .work/moodle-check/
+          if-no-files-found: ignore
+          retention-days: 7
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.13.4
@@ -35,3 +46,6 @@ jobs:
       - run: terraform -chdir=infra/small init -backend=false -input=false
       - run: terraform -chdir=infra/small validate
       - run: terraform -chdir=infra/small test
+      - run: terraform -chdir=infra/backup init -backend=false -input=false
+      - run: terraform -chdir=infra/backup validate
+      - run: terraform -chdir=infra/backup test

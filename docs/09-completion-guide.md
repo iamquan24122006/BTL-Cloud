@@ -1,8 +1,22 @@
 # Hướng dẫn hoàn tất các phần còn thiếu
 
+## Điểm tiếp tục ngày 05/11/2026
+
+Biên bản mới nhất: [nghiệm thu small](13-small-acceptance.md). Đã bổ sung ca lỗi thật và fixture tải; phần đo chính thức đang chờ quyền chạy công cụ Windows, GUI chưa kiểm chứng và GitHub CI chưa xác nhận. Không đánh dấu hoàn tất P0 chỉ dựa trên unit test hoặc seeding thành công.
+
+Lab đang dùng là Sydney: `--config config/sydney.yaml`; staging là `--config config/sydney-staging.yaml`. Dev đã đạt kiểm tra chức năng và backup tự động S3. Staging đã đạt nghiệm thu sau restore, ghi file mới và reboot; web/cron/backup timer tự chạy lại. Xem [bằng chứng hiện tại](08-validation.md). Mục Singapore phía dưới là lịch sử, không dùng để chọn lab đích hiện tại.
+
+Việc tiếp theo: nghiệm thu giao diện/demo, đo tải dài hơn và lặp lại có metric, bổ sung kiểm tra failure recovery và hoàn thiện báo cáo/chi phí. JMeter smoke 2 tài khoản chạy lại đã đạt; nguyên nhân lỗi kết nối ở lượt trước chưa xác định. Quyền đọc S3 tạm của staging đã thu hồi sau nghiệm thu; nếu cần diễn tập restore mới, chuẩn bị lại quyền đọc giới hạn đúng bộ backup trước thao tác. Không chạy lại restore để thay thế bước kiểm tra bằng chứng đã có.
+
+**Công cụ và đăng nhập đã sẵn sàng:** người dùng đã cài AWS CLI 2.39.4. Dùng `$env:AWS_PROFILE = 'moodle-project'` trong PowerShell; STS đã xác nhận đúng account Sydney. Nếu terminal cũ chưa nhận PATH mới, mở terminal mới hoặc bổ sung `C:\Program Files\Amazon\AWSCLIV2` vào PATH của phiên. Profile mặc định thuộc account khác, vì vậy phải chọn profile project trước lệnh AWS/Terraform. Hiện không có bước cài đặt hay đăng nhập thủ công đang chặn.
+
+Phần người dùng cần tham gia: kiểm tra giao diện Moodle trên trình duyệt (teacher/student, bố cục, nộp bài, xem điểm) và chụp bằng chứng demo. Bài test HTTP đã có không thay thế đánh giá giao diện. Người vận hành có thể tự động mở tunnel; không cần tự chạy lệnh deploy. Khi phiên AWS hết hạn, người dùng hoàn tất xác thực trên trình duyệt. Không gửi mật khẩu/token qua chat.
+
 Tài liệu dành cho nhóm 4 người, tổng ngân sách dự kiến 400 USD, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển thêm.
 
 Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm tra chức năng → backup/restore → medium → đo tải → báo cáo/demo → cleanup**. Nếu chưa đủ thời gian cho medium, hoàn thành nghiệm thu small và ghi đúng giới hạn trong báo cáo.
+
+**Tiếp tục lab mới đang làm:** dùng `--config config/small-new.yaml` cho mọi lệnh CLI và chuỗi confirm `moodle-lab-v2-dev`. State nằm ở `.work/moodle-lab-v2-dev/`; đã tạo 6 tài nguyên mạng, còn IAM/EC2 vì thiếu quyền `iam:CreateRole`. Sau khi quyền được xử lý, lập lại plan, đọc diff rồi apply đúng môi trường này. Mẫu lệnh dùng `config/dev.yaml` phía dưới là lab mặc định, không phải cấu hình lab mới. Xem [nhật ký AWS](08-validation.md).
 
 ## 1. Chia việc và chuẩn bị buổi đầu
 
@@ -58,6 +72,8 @@ foreach ($ScriptName in 'configure.php','install-db.php') {
 **Đạt khi:** Docker có cả Client và Server, OSType là `linux`, build exit 0, PHP 8.3, Apache `Syntax OK`, hai file PHP không lỗi syntax. Dockerfile đã kiểm tra các extension khi build. Lưu ngày, commit và `docker image inspect --format '{{.Id}}' moodle-php:lab`.
 
 Đây mới là kiểm tra image. `docker run moodle-php:lab` riêng lẻ chưa tạo database, code Moodle, mount hay systemd; không coi nó là lệnh chạy toàn bộ ứng dụng. Ubuntu 26.04 phải được kiểm chứng tiếp trên EC2.
+
+Sau khi smoke test runtime đạt, có thể chạy `python -m scripts.check_moodle` để kiểm tra cài Moodle/PostgreSQL, đăng nhập HTTP, course/file, cron và restore trong Docker cục bộ. Script dùng dữ liệu giả và tự dọn container/volume riêng; log/report nằm trong `.work/moodle-check/`. Xem [phạm vi kiểm thử cục bộ](06-test-plan.md). Kết quả này không thay thế cài tay, cloud-init, systemd, SSM, backup S3 và restore trên EC2 ở các bước tiếp theo.
 
 Nếu không dùng được Docker Desktop, có thể build trên máy Ubuntu của thành viên khác hoặc chạy workflow `.github/workflows/validate.yml` khi đẩy repository lên GitHub. Workflow hiện chạy theo push/pull request, không có nút chạy thủ công riêng. Xem từng bước trong Actions; workflow không deploy AWS.
 

@@ -10,18 +10,26 @@ import os
 from pathlib import Path
 import re
 import shutil
+import shlex
 import subprocess
 import sys
+import time
 
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 INFRA = ROOT / "infra" / "small"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 
 class ConfigError(ValueError):
     pass
+
+
+class AwsError(ConfigError):
+    def __init__(self, code, message):
+        self.code = code
+        super().__init__(message)
 
 
 class UniqueLoader(yaml.SafeLoader):
@@ -107,12 +115,21 @@ def tf(config, *args, capture=False):
 
 
 def aws(config, *args):
-    return json.loads(run(["aws", "--region", config["region"], "--no-cli-pager", *args, "--output", "json"], capture=True))
+    try:
+        output = run(["aws", "--region", config["region"], "--no-cli-pager", *args, "--output", "json"], capture=True)
+        # Successful operations such as EC2 reboot and IAM delete have no body.
+        # Do not report a parse failure that could prompt repeating a mutation.
+        return json.loads(output) if output else {}
+    except subprocess.CalledProcessError as exc:
+        error = exc.stderr or "AWS CLI failed"
+        match = re.search(r"An error occurred \(([^)]+)\)", error)
+        raise AwsError(match[1] if match else "CLIError", error.strip()) from exc
 
 
 def fingerprint(config):
     digest = hashlib.sha256(json.dumps(config, sort_keys=True).encode())
     files = sorted(INFRA.glob("*.tf")) + sorted((ROOT / "scripts").glob("*"))
+    files += sorted((ROOT / "src").glob("*.py"))
     lockfile = INFRA / ".terraform.lock.hcl"
     if lockfile.exists():
         files.append(lockfile)
@@ -137,22 +154,44 @@ def init(config):
 
 
 def plan(config, destroy=False):
+    work = workspace(config)
+    work.mkdir(parents=True, exist_ok=True)
+    mode = "destroy" if destroy else "apply"
+    manifest = work / f"{mode}.json"
+    # Even a failed identity check or init invalidates the previous plan approval.
+    manifest.unlink(missing_ok=True)
     variables = render(config)
     identity = aws(config, "sts", "get-caller-identity")
     init(config)
-    work = workspace(config)
-    mode = "destroy" if destroy else "apply"
-    manifest = work / f"{mode}.json"
-    # Invalidate a previous approval artifact even if the new plan fails.
-    manifest.unlink(missing_ok=True)
     planfile = work / f"{mode}.tfplan"
     args = ["plan", "-input=false", "-lock-timeout=60s", f"-var-file={variables}", f"-out={planfile}"]
     if destroy:
         args.append("-destroy")
     tf(config, *args)
+    review = summarize_plan(json.loads(tf(config, "show", "-json", planfile, capture=True)))
+    (work / f"{mode}-review.json").write_text(json.dumps(review, indent=2) + "\n", encoding="utf-8")
     manifest.write_text(json.dumps({"fingerprint": fingerprint(config), "account": identity["Account"],
-                                    "mode": mode, "plan_sha256": hashlib.sha256(planfile.read_bytes()).hexdigest()}, indent=2), encoding="utf-8")
+                                    "mode": mode, "review": review,
+                                    "plan_sha256": hashlib.sha256(planfile.read_bytes()).hexdigest()}, indent=2), encoding="utf-8")
+    print(json.dumps(review, indent=2))
     print(f"Saved {mode} plan for AWS account {identity['Account']}. Review the Terraform output before applying.")
+
+
+def summarize_plan(payload):
+    result = {"create": 0, "update": 0, "delete": 0, "replace": 0, "data_loss_risk": False, "resources": []}
+    for resource in payload.get("resource_changes", []):
+        if resource.get("mode") != "managed":
+            continue
+        actions = resource["change"]["actions"]
+        if actions == ["no-op"]:
+            continue
+        for action in ("create", "update", "delete"):
+            result[action] += int(action in actions)
+        result["replace"] += int("create" in actions and "delete" in actions)
+        if resource["type"] == "aws_instance" and "delete" in actions:
+            result["data_loss_risk"] = True
+        result["resources"].append({"address": resource["address"], "actions": actions})
+    return result
 
 
 def apply(config, confirmation, destroy=False, allow_data_loss=False):
@@ -171,6 +210,8 @@ def apply(config, confirmation, destroy=False, allow_data_loss=False):
         raise ConfigError(f"Run plan{' --destroy' if destroy else ''} first") from exc
     if manifest.get("mode") != mode or manifest.get("fingerprint") != fingerprint(config) or manifest.get("plan_sha256") != plan_hash:
         raise ConfigError("Configuration, source or saved plan changed; generate and review a new plan")
+    if manifest.get("review", {}).get("data_loss_risk") and not allow_data_loss:
+        raise ConfigError("Plan deletes/replaces the small EC2 and its database/files; verify an external backup, then use --allow-data-loss")
     identity = aws(config, "sts", "get-caller-identity")
     if manifest.get("account") != identity["Account"]:
         raise ConfigError("AWS account changed since plan; refusing to apply")
@@ -184,34 +225,115 @@ def outputs(config):
     return json.loads(tf(config, "output", "-json", capture=True))
 
 
-def backup(config):
+def instance_id(config):
     result = outputs(config)
     if "instance_id" not in result:
         raise ConfigError("No instance in Terraform state; deploy small first")
-    instance = result["instance_id"]["value"]
+    return result["instance_id"]["value"]
+
+
+def wait_command(config, command, instance, timeout=3900, interval=5):
+    deadline = time.monotonic() + timeout
+    while True:
+        try:
+            invocation = aws(config, "ssm", "get-command-invocation", "--command-id", command,
+                             "--instance-id", instance)
+        except AwsError as exc:
+            if exc.code != "InvocationDoesNotExist":
+                raise
+            invocation = {"Status": "Pending"}
+        status = invocation["Status"]
+        if status == "Success":
+            if invocation.get("ResponseCode") != 0:
+                raise ConfigError("SSM returned Success without a zero response code")
+            print(invocation.get("StandardOutputContent", ""))
+            return invocation
+        if status not in ("Pending", "InProgress", "Delayed", "Cancelling"):
+            raise ConfigError(f"SSM command {command} ended with {status}; "
+                              + invocation.get("StandardErrorContent", ""))
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise ConfigError(f"Timed out waiting for {command}; the remote operation may still be running. Check command-status before retrying.")
+        time.sleep(min(interval, remaining))
+
+
+def remote(config, script, *, wait=False, timeout=3900):
+    instance = instance_id(config)
     response = aws(config, "ssm", "send-command", "--instance-ids", instance,
                    "--document-name", "AWS-RunShellScript", "--timeout-seconds", "60",
-                   "--parameters", json.dumps({"commands": ["/opt/moodle-distribution/backup.sh"], "executionTimeout": ["3600"]}))
+                   "--parameters", json.dumps({"commands": ["set -eu\n" + script], "executionTimeout": ["3600"]}))
     command = response["Command"]["CommandId"]
-    print(f"Backup queued, NOT yet verified. CommandId: {command}; InstanceId: {instance}")
+    print(f"Operation queued, NOT yet verified. CommandId: {command}; InstanceId: {instance}")
     print(f"Check completion: aws --region {config['region']} ssm get-command-invocation --command-id {command} --instance-id {instance}")
+    if wait:
+        wait_command(config, command, instance, timeout=timeout)
+        print("Remote command completed with exit code 0. Application acceptance is separate.")
+
+
+def backup(config, wait=False, timeout=3900):
+    remote(config, "/opt/moodle-distribution/backup.sh\n/opt/moodle-distribution/health.sh", wait=wait, timeout=timeout)
     if not config["backup_bucket"]:
         print("Local backup only: it will be lost when this EC2 volume is destroyed.")
 
 
+def preflight(config, expected_account):
+    if not re.fullmatch(r"\d{12}", expected_account):
+        raise ConfigError("expected-account must contain 12 digits")
+    missing = [name for name in ("terraform", "aws", "session-manager-plugin") if not shutil.which(name)]
+    if missing:
+        raise ConfigError("Missing tools: " + ", ".join(missing))
+    identity = aws(config, "sts", "get-caller-identity")
+    if identity["Account"] != expected_account:
+        raise ConfigError("AWS account does not match --expected-account")
+    print(json.dumps({"account": identity["Account"], "arn": identity["Arn"], "region": config["region"],
+                      "workspace": str(workspace(config)), "permissions": "not verified; no resources created"}, indent=2))
+
+
+def restore(config, uri, confirmation, allow_data_loss=False, wait=False, timeout=3900):
+    expected = f"{config['project']}-{config['environment']}"
+    if config['environment'] != 'staging' or confirmation != expected or not allow_data_loss:
+        raise ConfigError("Restore requires staging, its exact --confirm value and --allow-data-loss")
+    pattern = (r"s3://" + re.escape(config['backup_bucket']) + "/" + re.escape(config['project'])
+               + r"-(?:dev|staging)/\d{8}T\d{6}Z")
+    if not config['backup_bucket'] or not re.fullmatch(pattern, uri):
+        raise ConfigError("backup-uri must identify one timestamped set in this project's configured S3 bucket")
+    script = ("umask 077\n"
+              "destination=$(mktemp -d /var/backups/moodle-restore.XXXXXXXX)\n"
+              f"uri={shlex.quote(uri)}\n"
+              "for name in database.dump moodledata.tar.gz config.php code.txt runtime-image.txt runtime-Dockerfile SHA256SUMS manifest.json; do\n"
+              f"  aws --region {config['region']} s3 cp \"$uri/$name\" \"$destination/$name\" --only-show-errors\n"
+              "done\n"
+              f"/opt/moodle-distribution/restore.sh \"$destination\" --confirm {shlex.quote(expected)}")
+    remote(config, script, wait=wait, timeout=timeout)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", default=str(ROOT / "config" / "dev.yaml"))
+    parser.add_argument("--config", default=str(ROOT / "config" / "sydney.yaml"))
     parser.add_argument("--version", action="version", version=VERSION)
     sub = parser.add_subparsers(dest="command", required=True)
-    for name in ("doctor", "validate", "render", "init", "status", "backup"):
+    for name in ("doctor", "validate", "render", "init", "status"):
         sub.add_parser(name)
+    sub.add_parser("preflight").add_argument("--expected-account", required=True)
+    for name in ("backup", "health"):
+        action = sub.add_parser(name)
+        action.add_argument("--wait", action="store_true")
+        action.add_argument("--timeout", type=int, default=3900)
+    action = sub.add_parser("command-status")
+    action.add_argument("--command-id", required=True)
+    action.add_argument("--wait", action="store_true")
+    action.add_argument("--timeout", type=int, default=3900)
+    action = sub.add_parser("restore")
+    action.add_argument("--backup-uri", required=True)
+    action.add_argument("--confirm", required=True)
+    action.add_argument("--allow-data-loss", action="store_true")
+    action.add_argument("--wait", action="store_true")
+    action.add_argument("--timeout", type=int, default=3900)
     sub.add_parser("plan").add_argument("--destroy", action="store_true")
     for name in ("apply", "destroy"):
         action = sub.add_parser(name)
         action.add_argument("--confirm", required=True)
-        if name == "destroy":
-            action.add_argument("--allow-data-loss", action="store_true")
+        action.add_argument("--allow-data-loss", action="store_true")
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -220,6 +342,8 @@ def main(argv=None):
             print("Missing: " + ", ".join(missing) if missing else "Local tools: OK (AWS permissions not checked)")
             return 1 if missing else 0
         config = load_config(args.config)
+        if hasattr(args, "timeout") and args.timeout <= 0:
+            raise ConfigError("timeout must be positive")
         if args.command == "validate":
             print("Configuration: OK. Target small/dev or small/staging; no AWS request made.")
         elif args.command == "render":
@@ -234,7 +358,24 @@ def main(argv=None):
             print(json.dumps(outputs(config), indent=2))
             print("These are infrastructure outputs, not Moodle readiness or service health.")
         elif args.command == "backup":
-            backup(config)
+            backup(config, args.wait, args.timeout)
+        elif args.command == "health":
+            remote(config, "cloud-init status --wait\n/opt/moodle-distribution/health.sh", wait=args.wait, timeout=args.timeout)
+        elif args.command == "command-status":
+            if not re.fullmatch(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}", args.command_id):
+                raise ConfigError("command-id must be an SSM command UUID")
+            instance = instance_id(config)
+            if args.wait:
+                wait_command(config, args.command_id, instance, args.timeout)
+            else:
+                result = aws(config, "ssm", "get-command-invocation", "--command-id", args.command_id, "--instance-id", instance)
+                print(json.dumps(result, indent=2))
+                if result["Status"] != "Success" or result.get("ResponseCode") != 0:
+                    return 1
+        elif args.command == "preflight":
+            preflight(config, args.expected_account)
+        elif args.command == "restore":
+            restore(config, args.backup_uri, args.confirm, args.allow_data_loss, args.wait, args.timeout)
     except (ConfigError, OSError, subprocess.CalledProcessError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

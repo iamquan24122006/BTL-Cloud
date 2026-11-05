@@ -21,8 +21,8 @@ Thông tin đã xác nhận: **nhóm 4 người, ngân sách AWS 400 USD, dùng 
 | Mức | Sản phẩm cần có | Trạng thái trong repository |
 |---|---|---|
 | P0 — bắt buộc | Cài thủ công 1 EC2; lưu lệnh và kiểm tra | Runbook và script tương ứng |
-| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | Có mã nguồn; chưa apply AWS |
-| P0 | Cron, backup nhất quán, thử restore sang máy mới | Có script/runbook; chưa thử trên AWS |
+| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | 29 unit test đạt; lab mới `moodle-lab-v2-dev` đã apply 6 tài nguyên mạng, còn 4 tài nguyên do bị chặn `iam:CreateRole`; EC2 chưa tạo |
+| P0 | Cron, backup nhất quán, thử restore sang máy mới | Docker local đã qua cron và dump/archive/restore sang dữ liệu mới ngày 29/10/2026; script systemd/S3 và restore EC2 chưa được nghiệm thu |
 | P0 | Báo cáo, kịch bản demo, bảng đo tải/chi phí | Có mẫu và tiêu chí; chưa có số liệu thực nghiệm |
 | P1 — mở rộng | ALB, private app, RDS, EFS, Redis, ASG | Thiết kế; chưa có Terraform triển khai |
 | P2 — nâng cao | Multi-AZ cho các thành phần, AMI, plugin, upgrade tự động | Backlog; không đưa vào tuyên bố đã hoàn thành |
