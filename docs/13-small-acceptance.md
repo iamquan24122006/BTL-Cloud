@@ -13,7 +13,7 @@ Ngày cập nhật: 05/11/2026. Môi trường thực tế: Sydney, `config/sydn
 | Web dừng được health phát hiện, recovery đúng | Đạt, health exit 3 khi dừng; sau start health/nghiệp vụ đạt | `.work/moodle-sydney-staging/commands/20261105T074342Z-10ef3c/result.json` |
 | S3 từ chối ghi backup | Đạt, `AccessDenied`, backup exit 1; web/cron trở lại active và health đạt | Cùng invocation thử lỗi; log riêng trên host |
 | Backup thiếu file hoặc sai checksum | Đạt, restore exit 2 trước khi ghi đè; số user/course/submission không đổi, web vẫn active | Cùng invocation thử lỗi |
-| Plan lần hai | Đã review; có replacement EC2, chưa apply | `.work/small-final-plan.log`; phải giải thích nguyên nhân đầy đủ trước triển khai tiếp |
+| Plan lần hai | Có replacement EC2 do `user_data_base64` đổi; chưa apply | Đối chiếu payload cũ/mới của `.work/small-final-plan.log`: chỉ file bundle `/opt/moodle-distribution/verify_backup.py` đổi, các khóa cloud-config khác giữ nguyên. `user_data_replace_on_change = true` buộc thay EC2; đây là thay đổi mã bootstrap trong plan đã lưu, không phải bằng chứng AMI đổi. Phải lập/review plan mới trước triển khai tiếp |
 | Đọc qua SSM với 2 user | Các lượt đọc cũ đã đạt; chưa phải phép đo sức tải chính thức | Nhật ký 08 và summaries trong `.work/load/` |
 
 Thử lỗi chạy riêng staging từ 07:43:45 đến 07:46:31 UTC. Prefix thử S3 nằm ngoài phạm vi role staging; không cấp thêm IAM. Script khôi phục `deploy.json`, web/cron/backup timer trong EXIT trap. Fixture thiếu/hỏng được tạo bằng bản sao của backup đã kiểm chứng, giữ nguyên bản nguồn. `StandardErrorContent` có lỗi curl khi web cố ý dừng, là kết quả mong đợi, không phải lỗi recovery.
@@ -51,7 +51,17 @@ Ba lượt dùng ramp 120 giây, thời lượng yêu cầu 720 giây, tài kho�
 
 Log tunnel r3 ghi `An existing connection was forcibly closed by the remote host`. Vì vậy chưa thể quy lỗi cho Moodle hoặc kết luận sức tải EC2. Các summary riêng tư ở `.work/load/small-baseline-r*-summary.json`. JTL r3 thiếu header sau khi tái sử dụng đường dẫn của lượt đã dừng; đã bổ sung header chuẩn để phân tích, không sửa sample. Cần dùng đường dẫn mới cho mỗi lượt tiếp theo. CPUCreditBalance trước ma trận: 175,658 tại 09:27 UTC. Sau đo, snapshot SSM `df0111ea-21d0-4a29-8bfe-6a7b61887d53` xác nhận web/cron active, không swap hoặc task failures.
 
-AWS CLI đã báo session expired khi truy vấn lịch sử tunnel. Cần đăng nhập lại để tiếp tục thao tác cloud; chưa đo 25/50-user.
+Đã đăng nhập lại AWS thành công sau khi người dùng xác thực. STS xác nhận account `828676179987`, role `AccountFullAccessRole`; dev và staging đều SSM Online. Health mới qua SSM đạt trên dev (`e2480fe2-03fc-4067-a357-01e28d4e5755`) và staging (`0a44cbbe-a1ed-4b71-bc45-494ae593f5eb`), exit 0; không cần đăng nhập lại cho bước tiếp theo khi phiên còn hạn. Chưa đo 25/50-user.
+
+Bộ thu metric ma trận đã hoàn tất thành công, SSM `97231025-4583-4ccd-9f30-4675f251f9f0`; file riêng tư `.work/load/staging-matrix-metrics-20261105.jsonl`. Đối chiếu timestamp JTL cho từng lượt:
+
+| Lượt | Mẫu OS hợp lệ | CPU median / max | RAM dùng max | Swap max | DB connections max | Scheduled/adhoc failures |
+|---|---:|---:|---:|---:|---:|---|
+| r1 | 48 | 9,95% / 13,57% | 38,16% | 0 KiB | 3 | 0 / 0 |
+| r2 | 47 | 10,39% / 14,25% | 38,28% | 0 KiB | 3 | 0 / 0 |
+| r3 | 49 | 7,08% / 13,99% | 38,47% | 0 KiB | 3 | 0 / 0 |
+
+Không có lỗi sampler trong các cửa sổ này. Các mẫu OS chưa cho thấy cạn RAM/swap hoặc CPU cao trong lượt r3, nhưng chu kỳ lấy mẫu 15 giây và tunnel bị ngắt chưa đủ để khẳng định nguyên nhân của mọi response chậm. Summary riêng tư `.work/handover/metrics-baseline-summary.json`.
 
 ## Lệnh tiếp tục
 
