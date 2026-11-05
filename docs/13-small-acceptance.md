@@ -18,35 +18,49 @@ Ngày cập nhật: 05/11/2026. Môi trường thực tế: Sydney, `config/sydn
 
 Thử lỗi chạy riêng staging từ 07:43:45 đến 07:46:31 UTC. Prefix thử S3 nằm ngoài phạm vi role staging; không cấp thêm IAM. Script khôi phục `deploy.json`, web/cron/backup timer trong EXIT trap. Fixture thiếu/hỏng được tạo bằng bản sao của backup đã kiểm chứng, giữ nguyên bản nguồn. `StandardErrorContent` có lỗi curl khi web cố ý dừng, là kết quả mong đợi, không phải lỗi recovery.
 
-## Phép đo tải đang chuẩn bị
+## Smoke và metric đã thu
 
 - Có 50 tài khoản student giả, enrol vào course fixture trên staging; credential chỉ ở dataroot riêng tư, object S3 private và `.work/load/staging-users-private.csv`.
 - `python -m scripts.make_small_workload` sinh `tests/load/moodle-small.jmx`: 60% course, 20% download, 10% xem assignment, 10% chu kỳ logout/login. Tỷ lệ tính theo hành động logic; chu kỳ auth phát sinh nhiều HTTP request. Nộp bài/chấm điểm được kiểm tra ở acceptance riêng, chưa đo ghi bài dưới tải.
-- Smoke mới dừng sau khoảng 31 giây: hai Course gặp `NoHttpResponseException` qua SSM; không được dùng kết quả này để kết luận sức tải hoặc quy lỗi cho Moodle.
-- Đã chuẩn bị biến thể không dùng HTTP keep-alive, không bật retry; **chưa chạy xác minh được** vì Windows từ chối tạo tiến trình ngoài sandbox với `Access is denied (os error 5)` hai lần. Chưa xác nhận nguyên nhân lỗi socket.
-- Bộ thu `scripts/sample_metrics.py` lấy CPU theo delta, RAM/swap/disk, DB connections và faildelay mỗi 15 giây, không lấy query text/credential. Lệnh SSM `766d68c1-43f6-43d3-aad6-23e99f9e0d68` được gửi với giới hạn 9.300 giây; sampler tối đa 9.000 giây, rồi upload JSONL vào prefix staging. Có stop file `/run/moodle-load-small.stop` để kết thúc sớm. Chưa thu lại kết quả nên chưa kết luận metric đạt.
+- Smoke hỗn hợp v3 trên staging: 2 user, ramp 30 giây, chạy 147,928 giây, 72 sample, 0 lỗi; summary báo `passed`. p95: Course 2.068 giây, Download 0.324 giây, Assignment view 1.681 giây, Login 2.940 giây, Logout 0.819 giây. Bằng chứng `.work/load/staging-mixed-smoke-v3-summary.json` và JTL riêng tư. Đây chỉ là smoke qua SSM tunnel.
+- JMX smoke dùng kết nối HTTP mới cho mỗi request và không bật retry. Hai smoke cũ gặp lỗi tunnel; chỉ lượt v3 trên đây được tính.
+- Metric OS/DB lấy mỗi 15 giây trong 46,4 phút, 186 mẫu, bao gồm smoke v3; CPU median 0,97%, max 13,26%; RAM dùng max 37,6%; swap 0; disk max 16,1%; DB connections max 3; scheduled/adhoc task failures đều 0. Bằng chứng riêng tư `.work/load/staging-metrics-20261105.jsonl`. Phần lớn khoảng này không có tải kiểm soát, nên metric không chứng minh giới hạn năng lực.
 
 ## Các mục chưa đủ bằng chứng để đóng P0
 
 | Mục | Việc cần làm |
 |---|---|
 | Giao diện và demo | Công cụ browser tự dừng vì không xác minh được URL Chrome. Cần kiểm tra teacher/student bằng trình duyệt và lưu ảnh/video; chưa đánh dấu đạt |
-| Load/metric chính thức | Xác minh smoke mới trước; chạy ma trận 10/25/50 user với thời gian/ramp và ba lần lặp theo tài liệu 06/12; lưu CPU credits và metric OS tương ứng. Dừng tăng tải nếu có lỗi kéo dài |
+| Load/metric chính thức | Smoke đạt. Đã đo ba lượt 10-user; hai lượt không lỗi, lượt ba bị tunnel ngắt. Chưa đủ bằng chứng đạt ma trận 10/25/50 user; cần phục hồi phiên AWS và đường hầm ổn định trước khi đo tiếp |
 | Cài thủ công và so sánh | Runbook đã có; chưa có biên bản cài tay độc lập và thời gian đến ready để so sánh với tự động |
-| CI trên commit bàn giao | Đã mở `gh auth login` theo xác nhận người dùng; chưa có xác nhận đăng nhập xong hoặc lượt CI mới đạt |
+| CI trên commit bàn giao | Đạt trên commit `6eff8de`, nhánh `mq`: [run 1](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/41997113031) và [run 2](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/41997120727) đều success, gồm unit tests, Docker runtime/Moodle integration và Terraform small/backup |
 | Chi phí và cleanup | Cost Explorer đã trả dữ liệu toàn account nhưng không có service group trong khoảng 01–05/11, mọi ngày còn Estimated. Không coi đây là bằng chứng bill small bằng 0 USD. Cần số liệu billing khả dụng, inventory và lịch giữ/xóa tài nguyên được chốt |
 | Kiểm tra chéo | Thành viên khác thực hiện runbook/demo và ký xác nhận; agent không tự ký thay người kiểm tra |
 
 Hiện hai EC2 của small vẫn được giữ để đo/demo. Không tự xóa lab cũ ngoài state hoặc hủy lab đang dùng chỉ để đóng checklist. Kết quả P0 hiện tại: **chưa đóng nghiệm thu**, các chức năng nền tảng và ca lỗi nêu trên đã đạt.
 
-## Lệnh tiếp tục khi quyền chạy công cụ được phục hồi
+## Kết quả baseline 10-user
+
+Ba lượt dùng ramp 120 giây, thời lượng yêu cầu 720 giây, tài khoản riêng theo virtual user. Sample JTL bao gồm redirect subresults; console JMeter chỉ đếm sampler cha nên số lượng khác nhau.
+
+| Lượt | Giây quan sát | Sample JTL | Lỗi | Course p95 | Kết quả |
+|---|---:|---:|---:|---:|---|
+| r1 | 721,053 | 1.411 | 0 | 2.439 ms | Đạt assertion/thời lượng; login p95 4.305 ms |
+| r2 | 720,114 | 1.582 | 0 | 1.533 ms | Đạt assertion/thời lượng |
+| r3 | 725,051 | 886 | 10 | 4.654 ms | Không đạt; socket timeout rồi localhost connection refused |
+
+Log tunnel r3 ghi `An existing connection was forcibly closed by the remote host`. Vì vậy chưa thể quy lỗi cho Moodle hoặc kết luận sức tải EC2. Các summary riêng tư ở `.work/load/small-baseline-r*-summary.json`. JTL r3 thiếu header sau khi tái sử dụng đường dẫn của lượt đã dừng; đã bổ sung header chuẩn để phân tích, không sửa sample. Cần dùng đường dẫn mới cho mỗi lượt tiếp theo. CPUCreditBalance trước ma trận: 175,658 tại 09:27 UTC. Sau đo, snapshot SSM `df0111ea-21d0-4a29-8bfe-6a7b61887d53` xác nhận web/cron active, không swap hoặc task failures.
+
+AWS CLI đã báo session expired khi truy vấn lịch sử tunnel. Cần đăng nhập lại để tiếp tục thao tác cloud; chưa đo 25/50-user.
+
+## Lệnh tiếp tục
 
 Chọn `$env:AWS_PROFILE = 'moodle-project'`, kiểm tra STS đúng account trước mọi lệnh. Không apply plan đang có replacement EC2.
 
 ```powershell
 gh auth status
 python -m scripts.make_small_workload
-java -jar .work/tools/apache-jmeter-5.6.3/bin/ApacheJMeter.jar -n -t tests/load/moodle-small.jmx -q .work/load/staging.properties -Jusers=2 -Jramp=30 -Jduration=150 -l .work/load/staging-mixed-smoke-v2.jtl -j .work/load/staging-mixed-smoke-v2.log
+java -jar .work/tools/apache-jmeter-5.6.3/bin/ApacheJMeter.jar -n -t tests/load/moodle-small.jmx -q .work/load/staging.properties -Jusers=2 -Jramp=30 -Jduration=150 -l .work/load/staging-mixed-smoke-v3.jtl -j .work/load/staging-mixed-smoke-v3.log
 ```
 
-Đường dẫn Python/Java phải dùng bản đã cài trên máy; không tái sử dụng file JTL có sẵn. Summary cũ `scripts.summarize_jmeter` mô tả workload đọc 50/50; cần cập nhật scope/kiểm tra đủ nhãn và thời lượng trước khi dùng để tổng hợp workload mới. Không đưa CSV password, state, saved plan, config.php hoặc backup vào Git/bộ nộp.
+Đường dẫn Python/Java phải dùng bản đã cài trên máy; dùng đường dẫn JTL mới cho mỗi lượt. Summary hỗ trợ `--workload small --expected-users 2 --minimum-seconds 140 --ramp-seconds 30`; unit tests kiểm tra lượt ngắn/thiếu user bị từ chối và tách ramp/steady. Không đưa CSV password, state, saved plan, config.php hoặc backup vào Git/bộ nộp.
