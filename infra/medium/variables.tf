@@ -74,5 +74,5 @@ variable "artifact" {
   }
 }
 variable "secrets" {
-  type = object({ runtime_arn = string, migration_arn = string, redis_arn = string, redis_version = string })
+  type = object({ runtime_arn = string, migration_arn = string, redis_arn = string, redis_version = string, admin_arn = optional(string, "") })
 }

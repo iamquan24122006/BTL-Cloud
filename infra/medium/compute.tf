@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "runtime" {
       { Effect = "Allow", Action = ["ecr:GetAuthorizationToken"], Resource = "*" },
       { Effect = "Allow", Action = ["ecr:BatchGetImage", "ecr:GetDownloadUrlForLayer", "ecr:BatchCheckLayerAvailability"], Resource = "arn:aws:ecr:${var.region}:${var.account_id}:repository/${split("@", split("amazonaws.com/", var.artifact.image)[1])[0]}" },
       { Effect = "Allow", Action = ["s3:GetObject"], Resource = "arn:aws:s3:::${var.artifact.bucket}/${var.artifact.key}" },
-      { Effect = "Allow", Action = ["secretsmanager:GetSecretValue"], Resource = concat([var.secrets.runtime_arn, var.secrets.redis_arn], each.key == "runner" ? [var.secrets.migration_arn, aws_db_instance.medium.master_user_secret[0].secret_arn] : []) },
+      { Effect = "Allow", Action = ["secretsmanager:GetSecretValue"], Resource = concat([var.secrets.runtime_arn, var.secrets.redis_arn], each.key == "runner" ? compact([var.secrets.migration_arn, var.secrets.admin_arn, aws_db_instance.medium.master_user_secret[0].secret_arn]) : []) },
       { Effect = "Allow", Action = ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite"], Resource = aws_efs_file_system.medium.arn, Condition = { StringEquals = { "elasticfilesystem:AccessPointArn" = aws_efs_access_point.medium.arn } } },
       { Effect = "Allow", Action = ["logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogStreams"], Resource = "${aws_cloudwatch_log_group.medium.arn}:*" },
       { Effect = "Allow", Action = ["cloudwatch:PutMetricData"], Resource = "*", Condition = { StringEquals = { "cloudwatch:namespace" = "MoodleMedium" } } }

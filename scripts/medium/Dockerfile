@@ -1,7 +1,5 @@
 FROM php:8.3-apache-bookworm@sha256:b79a53c3fb1dd4b9f350a8d99d84951512b6c21044e61bbecfee8af030b3722e
-ARG RELEASE_COMMIT
 ARG MOODLE_COMMIT
-LABEL org.opencontainers.image.revision=$RELEASE_COMMIT
 RUN apt-get update && apt-get install -y --no-install-recommends \
       git ca-certificates curl libicu-dev libzip-dev libpng-dev libjpeg62-turbo-dev \
       libfreetype6-dev libpq-dev libxml2-dev \
@@ -28,3 +26,5 @@ RUN cp /opt/moodle-medium/config.php /var/www/moodle/config.php \
     && php -r 'foreach (["curl","dom","gd","intl","mbstring","pgsql","redis","soap","sodium","xml","zip"] as $e) {if (!extension_loaded($e)) {exit(1);}}'
 WORKDIR /var/www/moodle
 STOPSIGNAL SIGWINCH
+ARG RELEASE_COMMIT
+LABEL org.opencontainers.image.revision=$RELEASE_COMMIT

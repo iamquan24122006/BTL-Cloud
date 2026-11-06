@@ -61,7 +61,7 @@ resource "aws_ecr_repository" "moodle" {
 # Only metadata is managed here. Values are generated in memory and uploaded via
 # the AWS SDK/CLI, never passed as Terraform inputs or written into source YAML.
 resource "aws_secretsmanager_secret" "lab" {
-  for_each                = toset(["runtime", "migration", "redis"])
+  for_each                = toset(["runtime", "migration", "redis", "admin"])
   name                    = "${local.name}/${each.key}"
   recovery_window_in_days = 7
 }

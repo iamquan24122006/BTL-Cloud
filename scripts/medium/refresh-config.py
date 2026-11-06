@@ -41,3 +41,8 @@ if deploy['role'] == 'runner':
         raise ValueError('migration secret requires username=moodle_migration and a password of at least 24 characters')
     save('migration.json', migration)
     save('master.json', secret(deploy['master_secret_arn']), 0)
+    if deploy['secrets'].get('admin_arn'):
+        admin = secret(deploy['secrets']['admin_arn'])
+        if not all(isinstance(admin.get(k), str) and admin[k] for k in ('username', 'password', 'email')):
+            raise ValueError('admin secret requires username/password/email')
+        save('admin.json', admin)

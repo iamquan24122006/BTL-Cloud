@@ -85,11 +85,15 @@ def validate_medium(data):
         raise ConfigError("backend: use a valid state bucket in the configured region")
     if not bucket_name(data["backup_bucket"]) or len({backend['bucket'], artifact['bucket'], data['backup_bucket']}) != 3:
         raise ConfigError("medium requires separate nonempty state, artifact and backup buckets")
-    secrets = mapping(data, "secrets", {"runtime_arn", "migration_arn", "redis_arn", "redis_version"})
+    if isinstance(data.get('secrets'), dict):
+        data['secrets'].setdefault('admin_arn', '')
+    secrets = mapping(data, "secrets", {"runtime_arn", "migration_arn", "redis_arn", "redis_version", "admin_arn"})
     secret_prefix = f"arn:aws:secretsmanager:{data['region']}:{data['account_id']}:secret:"
     for key in ("runtime_arn", "migration_arn", "redis_arn"):
         if not matches(secrets[key], re.escape(secret_prefix) + r"[a-zA-Z0-9/_+=.@-]+"):
             raise ConfigError(f"secrets.{key}: expected a Secrets Manager ARN in this account/region")
+    if not isinstance(secrets['admin_arn'], str) or (secrets['admin_arn'] and not matches(secrets['admin_arn'], re.escape(secret_prefix) + r"[a-zA-Z0-9/_+=.@-]+")):
+        raise ConfigError('secrets.admin_arn: expected empty or a Secrets Manager ARN in this account/region')
     if secrets['runtime_arn'] == secrets['migration_arn']:
         raise ConfigError("secrets: runtime and migration credentials must be separate")
     if not matches(secrets["redis_version"], r"[a-zA-Z0-9-]{32,64}"):

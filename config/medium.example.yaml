@@ -30,6 +30,7 @@ artifact:
   key: releases/0000000000000000000000000000000000000000/medium.tar.gz
   sha256: "0000000000000000000000000000000000000000000000000000000000000000"
 secrets:
+  admin_arn: "" # Optional runner-only initial admin secret (JSON username/password/email).
   runtime_arn: arn:aws:secretsmanager:ap-southeast-1:111111111111:secret:moodle-runtime-EXAMPLE
   migration_arn: arn:aws:secretsmanager:ap-southeast-1:111111111111:secret:moodle-migration-EXAMPLE
   redis_arn: arn:aws:secretsmanager:ap-southeast-1:111111111111:secret:moodle-redis-EXAMPLE
