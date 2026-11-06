@@ -27,9 +27,9 @@ Systemd quản lý container web và lịch cron trên host. PHP CLI dùng cùng
 
 Giới hạn: một AZ, một máy, không HA; DB và file cùng mất nếu root volume mất; IP public vẫn tính phí dù web không public. Credential khởi tạo tại `/root/moodle-initial-admin.txt`, đổi sau khi đăng nhập.
 
-## 2. Medium — thiết kế P1, chưa có mã triển khai
+## 2. Medium — P1, đã có mã và chờ nghiệm thu AWS
 
-Theo kế hoạch nhóm 4 người/400 USD, P1 được ưu tiên sau small và restore drill. Cấu hình lab dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app để giới hạn scale-out. Có thể dùng 1 NAT cho cửa sổ lab, nhưng đây vẫn là điểm lỗi đơn. Giới hạn giờ chạy và cổng duyệt dự toán ở [kế hoạch chi phí](07-report-and-cost.md); đây chưa phải cấu hình Terraform đã triển khai.
+Mã P1 nằm trong `infra/medium/`, `scripts/medium/` và CLI schema medium. Cấu hình lab gồm 2 app node, 1 runner, RDS Single-AZ, EFS, hai Redis riêng cho session/MUC, ALB ở 2 AZ và ASG tối đa 3 app. Một NAT dùng cho cửa sổ lab và vẫn là điểm lỗi đơn. [Hướng dẫn N2](10-medium-n2.md) là quy trình triển khai hiện tại; các phần kiến trúc dự kiến dưới đây cần đọc cùng quyết định hiện thực trong hướng dẫn đó. Chưa có bằng chứng nghiệm thu AWS cho medium.
 
 ```mermaid
 flowchart TD

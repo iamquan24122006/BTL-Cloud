@@ -13,9 +13,11 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
       - run: python -m src.moodle_cloud validate
+      - run: python -m src.moodle_cloud --config config/medium.example.yaml validate
+      - run: python -m scripts.medium_bundle
       - run: python -m scripts.manual_bundle
       - run: |
-          for script in scripts/*.sh .work/manual-transfer.sh; do
+          for script in scripts/*.sh scripts/medium/*.sh .work/manual-transfer.sh; do
             bash -n "$script"
           done
       - name: Build and smoke-test the pinned PHP/Apache runtime
@@ -35,3 +37,31 @@ jobs:
       - run: terraform -chdir=infra/small init -backend=false -input=false
       - run: terraform -chdir=infra/small validate
       - run: terraform -chdir=infra/small test
+      - run: terraform -chdir=infra/medium init -backend=false -input=false
+      - run: terraform -chdir=infra/medium validate
+      - run: terraform -chdir=infra/medium test
+      - run: terraform -chdir=infra/backend init -backend=false -input=false
+      - run: terraform -chdir=infra/backend validate
+      - name: Validate isolated medium support and AMI builder roots
+        run: |
+          for root in infra/medium_support infra/medium_builder; do
+            terraform -chdir="$root" init -backend=false -input=false
+            terraform -chdir="$root" validate
+          done
+      - name: Build medium validation image (never published)
+        run: >-
+          docker build --platform linux/amd64 --file scripts/medium/Dockerfile
+          --build-arg RELEASE_COMMIT=0000000000000000000000000000000000000000
+          --build-arg MOODLE_COMMIT=215f44380bdc3ccf852a3a22e34f8423ff64033a
+          --tag moodle-medium:ci .
+      - run: python -m scripts.check_medium_runtime --image moodle-medium:ci
+      - name: Save medium check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: medium-runtime-check
+          path: |
+            .work/medium-runtime-check/report.json
+            .work/medium-runtime-check/*.log
+          if-no-files-found: ignore
+          retention-days: 7

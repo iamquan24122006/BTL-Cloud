@@ -153,6 +153,18 @@ class PlanGuardsTests(unittest.TestCase):
                 cli.apply(self.config, self.confirm)
         self.assertFalse((cli.workspace(self.config) / "apply.json").exists())
 
+    def test_apply_uses_verified_bytes_if_original_plan_is_replaced(self):
+        self.prepare()
+        original = cli.workspace(self.config) / 'apply.tfplan'
+        expected = original.read_bytes()
+
+        def terraform(config, *args):
+            original.write_bytes(b'a-concurrent-replan')
+            self.assertEqual(args[-1].read_bytes(), expected)
+
+        with patch.object(cli, 'aws', return_value={'Account': '111111111111'}), patch.object(cli, 'tf', side_effect=terraform):
+            cli.apply(self.config, self.confirm)
+
     def test_destroy_requires_data_loss_acknowledgement(self):
         self.prepare("destroy")
         with patch.object(cli, "aws") as api, self.assertRaisesRegex(cli.ConfigError, "allow-data-loss"):

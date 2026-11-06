@@ -2,9 +2,9 @@
 
 **Mục tiêu:** xây dựng quy trình tái lập từ cài Moodle thủ công, tới Terraform, rồi CLI đọc YAML; chứng minh bằng đăng nhập, tạo khóa học, cron, backup và khôi phục.
 
-**Thông số nhóm:** 4 thành viên; ngân sách AWS 400 USD. Kế hoạch tạm hiểu đây là tổng ngân sách đồ án, chia 300 USD cho các giai đoạn và 100 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Mục tiêu đề xuất là hoàn tất small và triển khai medium trong các cửa sổ lab có kiểm soát. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
+**Phạm vi hiện tại:** đặc tả ngày 03/11/2026 phân công 3 người: N1 small, N2 medium, N3 kiểm thử/vận hành và bằng chứng. Ngân sách tham khảo 400 USD trong kế hoạch cũ cần nhóm đối chiếu lại trước khi chạy AWS. Xem [phần bàn giao N2](docs/10-medium-n2.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** repository có mã triển khai preset `small`, kiểm tra cấu hình, runbook và kế hoạch 4 tuần. Chưa triển khai vào tài khoản AWS, chưa đo hiệu năng thực tế. `medium`/`large` là thiết kế mở rộng, CLI hiện từ chối hai preset đó. Xem [kết quả kiểm tra](docs/08-validation.md).
+**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium có ALB HTTPS, ASG hai app private, runner riêng, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Mã medium chưa được nghiệm thu trên AWS; không coi mock test hoặc Docker local là bằng chứng AWS. Xem [triển khai và checklist N2](docs/10-medium-n2.md).
 
 ## Đọc theo thứ tự
 
@@ -18,6 +18,7 @@ Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn ho
 6. [Backup, restore, nâng cấp, rollback và dọn dẹp](docs/05-operations.md).
 7. [Kiểm thử, đo tải và bằng chứng nghiệm thu](docs/06-test-plan.md).
 8. [Dự toán chi phí, dàn ý báo cáo và kịch bản demo](docs/07-report-and-cost.md).
+9. [Medium: hướng dẫn N2, artifact, backend, release và nghiệm thu](docs/10-medium-n2.md).
 
 ## Stack của bản đầu
 
@@ -66,7 +67,10 @@ python -m src.moodle_cloud status
 config/        YAML theo môi trường, không chứa secret
 docs/          Kế hoạch, sơ đồ và các runbook
 infra/small/   Terraform: VPC, subnet, IAM, SG, EC2
+infra/medium/  Terraform: hai AZ, ALB/ASG, RDS, EFS, Redis, runner, CloudWatch
+infra/backend/ Bootstrap bucket state riêng (versioning/encryption/public access block)
 scripts/       Host setup, Dockerfile, bootstrap, PHP CLI, health, backup
+scripts/medium/ Runtime nhiều node và operations có khóa chung
 src/           CLI Python
 tests/         Kiểm tra đầu vào và chốt an toàn của CLI
 .work/         State/plan/artifact cục bộ, không commit

@@ -1,6 +1,6 @@
 # Hướng dẫn hoàn tất các phần còn thiếu
 
-Tài liệu dành cho nhóm 4 người, tổng ngân sách dự kiến 400 USD, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển thêm.
+Tài liệu kế hoạch ban đầu dành cho nhóm 4 người, ngân sách dự kiến 400 USD, host Ubuntu Server 26.04. Phân công hiện tại theo đặc tả ngày 03/11/2026 là N1/N2/N3. Mã hiện có hỗ trợ small và medium; dùng [quy trình medium N2](10-medium-n2.md) thay cho hướng dẫn phát triển medium ban đầu bên dưới. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả AWS đã đạt.
 
 Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm tra chức năng → backup/restore → medium → đo tải → báo cáo/demo → cleanup**. Nếu chưa đủ thời gian cho medium, hoàn thành nghiệm thu small và ghi đúng giới hạn trong báo cáo.
 
@@ -218,7 +218,7 @@ Giữ `config.php` staging với mật khẩu DB mới; không chép config ngu�
 
 ## 7. Viết phần medium — A/B/C, chỉ sau khi small phục hồi được
 
-Đây là phần **chưa có mã**, không có lệnh apply medium dùng ngay. Không đổi `size: medium` trong YAML hiện tại; CLI sẽ từ chối. Giữ small làm baseline và triển khai medium ở môi trường riêng.
+Phần này giữ lại kế hoạch phát triển ban đầu để đối chiếu. Hiện mã medium đã có root/runtime/CLI riêng; dùng `config/medium.example.yaml` và [hướng dẫn N2](10-medium-n2.md) cho triển khai, không mở rộng YAML small bằng cách chỉ đổi `size`. Các dòng mô tả hạn chế mã bên dưới là hiện trạng trước khi phát triển medium. Giữ small làm baseline và triển khai medium ở môi trường riêng.
 
 ### Các thay đổi cần viết, theo thứ tự tích hợp
 

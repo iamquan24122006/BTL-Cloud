@@ -1,0 +1,11 @@
+.git
+.venv
+.work
+.aws
+output
+outputs
+**/.terraform
+**/__pycache__
+**/*.tfstate*
+**/*.tfplan
+**/.env*
