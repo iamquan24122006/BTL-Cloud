@@ -12,7 +12,7 @@ Việc tiếp theo: nghiệm thu giao diện/demo, đo tải dài hơn và lặp
 
 Phần người dùng cần tham gia: kiểm tra giao diện Moodle trên trình duyệt (teacher/student, bố cục, nộp bài, xem điểm) và chụp bằng chứng demo. Bài test HTTP đã có không thay thế đánh giá giao diện. Người vận hành có thể tự động mở tunnel; không cần tự chạy lệnh deploy. Khi phiên AWS hết hạn, người dùng hoàn tất xác thực trên trình duyệt. Không gửi mật khẩu/token qua chat.
 
-Tài liệu dành cho nhóm 4 người, tổng ngân sách dự kiến 400 USD, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển thêm.
+Tài liệu dành cho nhóm 4 người, tổng ngân sách 150 USD theo cập nhật ngày 07/11/2026, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển và dự toán lại.
 
 Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm tra chức năng → backup/restore → medium → đo tải → báo cáo/demo → cleanup**. Nếu chưa đủ thời gian cho medium, hoàn thành nghiệm thu small và ghi đúng giới hạn trong báo cáo.
 
@@ -31,7 +31,7 @@ Chốt tài khoản AWS thường hay Academy/Learner Lab trước khi chạy. I
 
 Nhóm đã xác nhận dùng **AWS thường** ngày 13/10/2026. Vẫn cần kiểm tra phiên đăng nhập, quyền của người deploy và credit thực tế; xác nhận loại tài khoản chưa có nghĩa là đã kết nối AWS.
 
-D giữ sổ chi phí toàn kỳ: 300 USD cho kế hoạch, 100 USD dự phòng. Một môi trường tích hợp dùng chung; staging chỉ tạo khi cần restore. Hạn mức này không phải báo giá AWS. Tra cấu hình theo region trong [AWS Pricing Calculator](https://calculator.aws/) và theo dõi [kế hoạch chi phí](07-report-and-cost.md).
+D giữ sổ chi phí toàn kỳ: 112,50 USD cho kế hoạch, 37,50 USD dự phòng, tổng 150 USD. Một môi trường tích hợp dùng chung; staging chỉ giữ trong cửa sổ thử nghiệm/demo. Hạn mức này không phải báo giá AWS. Tra cấu hình theo region trong [AWS Pricing Calculator](https://calculator.aws/) và theo dõi [kế hoạch chi phí](07-report-and-cost.md).
 
 Đặt log thô, plan, backup, JMX/CSV có tài khoản thử trong `.work/` hoặc nơi riêng tư. Chỉ đưa ảnh/log đã loại secret vào báo cáo. Một người apply mỗi lần; không chia sẻ state qua chat hoặc Git.
 
@@ -98,7 +98,7 @@ aws sts get-caller-identity
 
 Đối chiếu account hiển thị với account nhóm định dùng. Nếu dùng named profile, đặt `$env:AWS_PROFILE` trong terminal này để CLI Python và AWS CLI dùng cùng profile. STS thành công chưa chứng minh đủ quyền EC2/IAM/S3.
 
-Nếu tài khoản có quyền Billing, D tạo Budget và cảnh báo actual/forecast trước khi apply, rồi kiểm tra địa chỉ nhận cảnh báo. Theo dõi tổng kỳ đồ án tại các mốc 200/280/300/340 USD như kế hoạch; nếu kéo dài qua hai tháng phải cộng dồn, không chỉ nhìn budget tháng mới. Budget có độ trễ và không tự bảo đảm dừng mọi tài nguyên ở 400 USD. Learner Lab dùng thêm số credit và cơ chế cảnh báo được tài khoản cho phép.
+Nếu tài khoản có quyền Billing, D cấu hình budget actual/forecast và kiểm tra kênh nhận. Theo dõi tổng kỳ tại các mốc 75/105/112,50/127,50 USD; nếu qua hai tháng phải cộng dồn để giữ tổng 150 USD. Budget có độ trễ và không tự dừng mọi tài nguyên. Learner Lab dùng thêm số credit và cơ chế cảnh báo được tài khoản cho phép.
 
 Trước plan đầu tiên, A tạo bucket backup riêng trong region dự định dùng:
 

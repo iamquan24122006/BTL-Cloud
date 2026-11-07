@@ -16,7 +16,7 @@ Ba câu hỏi để trả lời bằng bằng chứng:
 
 ## 2. Phạm vi đã chọn
 
-Thông tin đã xác nhận: **nhóm 4 người, ngân sách AWS 400 USD, dùng tài khoản AWS thường** (xác nhận ngày 13/10/2026). Tạm hiểu 400 USD là tổng ngân sách cho đồ án; chưa xác nhận ngân sách theo tháng, credit hoặc deadline. Giữ lịch 4 tuần làm kế hoạch làm việc và kiểm tra quyền dịch vụ trước khi chọn cấu hình cloud cuối cùng.
+Thông tin đã xác nhận: **nhóm 4 người, dùng tài khoản AWS thường**. Ngày 07/11/2026, người dùng giảm tổng ngân sách AWS xuống **150 USD**. Đây là hạn mức toàn đồ án; cần cộng dồn nếu qua nhiều tháng và đối chiếu credit thực áp dụng. Giữ lịch 4 tuần làm kế hoạch tham khảo, ưu tiên hoàn tất small và dự toán lại trước khi mở medium.
 
 | Mức | Sản phẩm cần có | Trạng thái trong repository |
 |---|---|---|
@@ -69,7 +69,7 @@ Mỗi môi trường chỉ có một người thực hiện Terraform apply tạ
 
 | Ngày | Công việc | Chủ trì / phối hợp | Đầu ra/điều kiện qua cổng |
 |---|---|---|---|
-| 1 | Chốt quyền tài khoản, region, Budget và sổ chi phí | A / D | Xác định 400 USD tổng hay theo tháng, credit hay tiền; dịch vụ được phép |
+| 1 | Chốt quyền tài khoản, region, Budget và sổ chi phí | A / D | Theo dõi tổng 150 USD, credit thực áp dụng và dịch vụ được phép |
 | 2 | Đối chiếu phiên bản và thiết kế small/medium | A / B, C | ADR, mạng, hợp đồng module, kế hoạch state |
 | 3 | Cài Moodle thủ công; D lập smoke test; C đọc luồng cài | B / D, C | Nhật ký lệnh, phiên bản và thao tác kiểm tra |
 | 4 | Quyền file, cron, lỗi thường gặp; A chuẩn bị IaC | B / A, D | Login/course/upload/cron hoạt động |
@@ -93,14 +93,14 @@ Mỗi môi trường chỉ có một người thực hiện Terraform apply tạ
 
 | Giai đoạn | Hạn mức USD | Người theo dõi |
 |---|---:|---|
-| Tuần 1 — lab thủ công và restore đầu | 40 | D tổng hợp, B/C ghi tài nguyên |
-| Tuần 2 — Terraform/CLI và dựng lại small | 60 | D tổng hợp, A/C ghi tài nguyên |
-| Tuần 3 — tích hợp medium | 120 | D tổng hợp, A điều phối |
-| Tuần 4 — đo tải, restore và demo | 80 | D tổng hợp, cả nhóm cleanup |
-| Dự phòng toàn đồ án | 100 | Cả nhóm xem xét trước khi sử dụng |
-| **Tổng** | **400** | |
+| Tuần 1 — lab thủ công và restore đầu | 15 | D tổng hợp, B/C ghi tài nguyên |
+| Tuần 2 — Terraform/CLI và dựng lại small | 22,50 | D tổng hợp, A/C ghi tài nguyên |
+| Tuần 3 — tích hợp medium | 45 | D tổng hợp, A điều phối |
+| Tuần 4 — đo tải, restore và demo | 30 | D tổng hợp, cả nhóm cleanup |
+| Dự phòng toàn đồ án | 37,50 | Cả nhóm xem xét trước khi sử dụng |
+| **Tổng** | **150** | |
 
-Đây là phân bổ hạn mức, không phải giá AWS đã xác nhận. Tiền chưa dùng có thể chuyển sang tuần sau sau khi cập nhật sổ chi phí. Không nhân ngân sách thành 400 USD/người. Chi tiết cấu hình, giờ chạy và điều kiện mở P1 nằm trong [kế hoạch chi phí](07-report-and-cost.md).
+Đây là phân bổ hạn mức theo tỷ lệ cũ, không phải giá AWS đã xác nhận. Tiền chưa dùng có thể chuyển sang tuần sau sau khi cập nhật sổ chi phí. Tổng 150 USD áp dụng cho cả nhóm. Chi tiết cấu hình, giờ chạy và điều kiện mở P1 nằm trong [kế hoạch chi phí](07-report-and-cost.md).
 
 ## 6. Cổng nghiệm thu
 

@@ -2,7 +2,7 @@
 
 **Mục tiêu:** xây dựng quy trình tái lập từ cài Moodle thủ công, tới Terraform, rồi CLI đọc YAML; chứng minh bằng đăng nhập, tạo khóa học, cron, backup và khôi phục.
 
-**Thông số nhóm:** 4 thành viên; ngân sách AWS 400 USD. Kế hoạch tạm hiểu đây là tổng ngân sách đồ án, chia 300 USD cho các giai đoạn và 100 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Mục tiêu đề xuất là hoàn tất small và triển khai medium trong các cửa sổ lab có kiểm soát. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
+**Thông số nhóm:** 4 thành viên; tổng ngân sách AWS **150 USD**, giảm theo yêu cầu ngày 07/11/2026. Giữ tỷ lệ phân bổ hiện có: 112,50 USD cho các giai đoạn và 37,50 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Ưu tiên hoàn tất small; medium cần dự toán lại trong hạn mức còn lại. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
 **Tình trạng ngày 05/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng EC2, backup S3, restore và reboot staging. Đã thử web dừng, S3 từ chối ghi và restore backup thiếu/hỏng; hệ thống phát hiện lỗi và phục hồi đúng. **58 unit test đạt**. Có fixture 50 tài khoản và workload tải mới, nhưng chưa hoàn tất phép đo chính thức. Còn giao diện/demo, cài tay/so sánh, CI và hồ sơ bàn giao để chốt P0. `medium`/`large` vẫn là thiết kế mở rộng. Xem [biên bản small](docs/13-small-acceptance.md) và [nhật ký chi tiết](docs/08-validation.md).
 

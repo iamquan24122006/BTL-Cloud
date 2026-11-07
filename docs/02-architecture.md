@@ -96,7 +96,7 @@ Giới hạn: một AZ, một máy, không HA; DB và file cùng mất nếu roo
 
 ## 2. Medium — thiết kế P1, chưa có mã triển khai
 
-Theo kế hoạch nhóm 4 người/400 USD, P1 được ưu tiên sau small và restore drill. Cấu hình lab dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app để giới hạn scale-out. Có thể dùng 1 NAT cho cửa sổ lab, nhưng đây vẫn là điểm lỗi đơn. Giới hạn giờ chạy và cổng duyệt dự toán ở [kế hoạch chi phí](07-report-and-cost.md); đây chưa phải cấu hình Terraform đã triển khai.
+Ngân sách tổng đã giảm xuống 150 USD ngày 07/11/2026; ưu tiên hoàn tất small và restore drill. Cấu hình P1 dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app. Cần dự toán lại cửa sổ chạy theo [kế hoạch chi phí](07-report-and-cost.md) trước triển khai P1; đây chưa phải cấu hình Terraform đã triển khai.
 
 ```mermaid
 flowchart TD

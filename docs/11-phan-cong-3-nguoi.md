@@ -153,7 +153,7 @@ Người 2 có thể phát triển medium song song ngay từ đầu. Chỉ tri�
 - Backup/restore cần phối hợp: Người 3 phụ trách quy trình và kiểm chứng; Người 1/2 phụ trách tích hợp quyền, dịch vụ và điều khiển writer trong kiến trúc mình quản lý.
 - Mỗi người cập nhật hướng dẫn và viết phần báo cáo của mình khi thực hiện, không dồn toàn bộ tài liệu cho Người 3 cuối kỳ.
 - Dùng dữ liệu giả. Credential, state, saved plan và backup dữ liệu giữ riêng; chỉ đưa bằng chứng đã lọc vào báo cáo.
-- Theo dõi ngân sách chung 400 USD của nhóm; chỉ mở rộng sau khi kiểm tra phần chi phí còn lại và khoản dự phòng.
+- Theo dõi ngân sách chung 150 USD theo cập nhật ngày 07/11/2026; chỉ mở rộng sau khi kiểm tra chi phí còn lại và dự phòng.
 - Chỉ cleanup sau khi lưu đủ bằng chứng và kiểm chứng backup ngoài EC2; kiểm kê cả tài nguyên độc lập còn tính phí. Không xóa state trước khi xử lý hết tài nguyên liên quan.
 
 ## 8. Checklist chốt hoàn thành project

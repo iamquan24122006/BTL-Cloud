@@ -363,7 +363,7 @@ N1/N2 chịu trách nhiệm cấu hình tương ứng, N3 thực hiện kiểm t
 
 ### COST-01 — Chi phí đo được và tài nguyên kiểm kê được
 
-**Hành vi:** N3 giữ sổ chi phí tổng kỳ; N1/N2 cập nhật tài nguyên và giờ chạy. Ngân sách nhóm là 400 USD theo kế hoạch, với 300 USD có kế hoạch và 100 USD dự phòng; đây là phân bổ nội bộ, không phải báo giá dịch vụ đã xác minh.
+**Hành vi:** N3 giữ sổ chi phí tổng kỳ; N1/N2 cập nhật tài nguyên và giờ chạy. Ngày 07/11/2026 người dùng giảm ngân sách nhóm xuống 150 USD, phân bổ 112,50 USD kế hoạch và 37,50 USD dự phòng theo tỷ lệ cũ. Đây là hạn mức nội bộ, không phải báo giá dịch vụ đã xác minh.
 
 **Điều kiện đạt:** trước deploy medium có estimate theo region/SKU/giờ dùng thật; tính cả NAT, ALB, RDS, Redis, EFS, EC2/runner, IPv4, EBS, artifact, S3/version, logs và máy phát tải nếu có. Báo cáo phân biệt estimate, chi phí ghi nhận và credit thực áp dụng; ghi ngày lấy số liệu vì billing có độ trễ.
 

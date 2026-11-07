@@ -142,7 +142,7 @@ Một lượt apply trước đó với tên cũ bị lỗi DNS EC2/IAM; state c
 ## Các phần chưa được kiểm chứng tại thời điểm 29/10/2026
 
 - Cloud-init trên EC2 Ubuntu 26.04, cài package thực tế, systemd, reboot và script cài hoàn chỉnh.
-- IAM/SSM/S3 trong tài khoản AWS thực tế; nhóm đã xác nhận AWS thường/ngân sách dự kiến 400 USD, chưa nghiệm thu quyền và tài nguyên triển khai.
+- IAM/SSM/S3 trong tài khoản AWS thực tế: đây là trạng thái lịch sử tại lần ghi log này; xem biên bản small hiện tại. Hạn mức ngân sách mới là 150 USD từ 07/11/2026.
 - Moodle login/course/upload/cron trên máy mới.
 - Backup/restore round trip bằng script systemd/S3 trên EC2, failure recovery và lịch backup thực tế.
 - Hiệu năng, HA, khả năng scale, RTO/RPO và hóa đơn.
