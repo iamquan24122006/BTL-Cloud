@@ -49,3 +49,7 @@ jobs:
       - run: terraform -chdir=infra/backup init -backend=false -input=false
       - run: terraform -chdir=infra/backup validate
       - run: terraform -chdir=infra/backup test
+      - run: terraform -chdir=tests/load/infra fmt -check -recursive
+      - run: terraform -chdir=tests/load/infra init -backend=false -input=false
+      - run: terraform -chdir=tests/load/infra validate
+      - run: terraform -chdir=tests/load/infra test
