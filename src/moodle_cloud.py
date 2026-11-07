@@ -115,8 +115,13 @@ def tf(config, *args, capture=False):
 
 
 def aws(config, *args):
+    # Match run()'s UTF-8 decoder, including Unicode SSM/build output on Windows.
+    env = os.environ.copy()
+    env["PYTHONUTF8"] = "1"
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["AWS_CLI_FILE_ENCODING"] = "UTF-8"
     try:
-        output = run(["aws", "--region", config["region"], "--no-cli-pager", *args, "--output", "json"], capture=True)
+        output = run(["aws", "--region", config["region"], "--no-cli-pager", *args, "--output", "json"], env=env, capture=True)
         # Successful operations such as EC2 reboot and IAM delete have no body.
         # Do not report a parse failure that could prompt repeating a mutation.
         return json.loads(output) if output else {}

@@ -1,6 +1,8 @@
 import json
+import os
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -21,6 +23,20 @@ class OperationTests(unittest.TestCase):
             with self.assertRaises(json.JSONDecodeError):
                 cli.aws(self.config, "ec2", "describe-instances")
         runner.assert_called_once()
+
+    def test_unicode_aws_output_survives_an_ascii_parent_console(self):
+        real_run = cli.run
+        payload = {"StandardOutputContent": "build \u2192 complete"}
+
+        def fake_aws(args, **kwargs):
+            self.assertEqual(args[0], "aws")
+            code = ("import codecs,json,locale,sys; "
+                    "codecs.getwriter(locale.getpreferredencoding(False))(sys.stdout.buffer).write("
+                    "json.dumps({'StandardOutputContent': 'build \\u2192 complete'}, ensure_ascii=False))")
+            return real_run([sys.executable, "-c", code], **kwargs)
+
+        with patch.dict(os.environ, {"PYTHONIOENCODING": "ascii", "PYTHONUTF8": "0", "PYTHONCOERCECLOCALE": "0", "LC_ALL": "C"}), patch.object(cli, "run", side_effect=fake_aws):
+            self.assertEqual(cli.aws(self.config, "ssm", "get-command-invocation"), payload)
 
     def test_ssm_eventual_consistency_and_pending_status_are_retried(self):
         with patch.object(cli, "aws", side_effect=[cli.AwsError("InvocationDoesNotExist", "not ready"),
