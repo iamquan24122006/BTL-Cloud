@@ -1,5 +1,26 @@
 # Biên bản nghiệm thu small
 
+## Cập nhật ngày 07/11/2026 UTC (08/11 tại máy người vận hành)
+
+Cập nhật này thay thế trạng thái chờ của các mục tương ứng trong nhật ký 05/11 bên dưới. **Chưa ký đóng P0**; không dùng kết quả một phần của bài tải đang chạy làm kết luận cuối.
+
+| Hạng mục | Trạng thái mới và bằng chứng |
+|---|---|
+| Ngân sách | Đã giảm tổng dự án còn **150 USD**: dự kiến 112,50 USD, dự phòng 37,50 USD. Budget AWS `moodle-sydney-small-202611` đã tạo, SNS→SSE-SQS confirmed và thử gửi/nhận nonce thành công. Scope toàn account, usage trước credit/refund; không có email, không tự ngắt EC2. Report riêng `.work/moodle-sydney-budget/channel-report.json`; xem tài liệu 07 |
+| CI | Commit `904c113`, cả [push](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/42392570020) và [pull request](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/42392573502) success. Có 63 unit test, runtime/Moodle integration, PHP lint và Terraform mock tests cho small, backup, load fixture và budget |
+| Cài từng bước | EC2 sạch cùng AMI, thao tác từng pha theo runbook qua SSM, không gọi toàn bộ bootstrap. Đã seed rồi verify đầy đủ nghiệp vụ/HTTP. Đây là lượt do agent vận hành, chưa phải lượt thử độc lập của thành viên nhóm. Tổng thời gian các pha remote ban đầu 343,509 giây; wall time gồm khoảng nghỉ nhiều ngày, không dùng để kết luận cài tay chậm hơn tự động |
+| Admin | Đã đổi admin trên dev và máy cài thử, xác minh mật khẩu cũ bị từ chối, thu hồi phiên cũ, cập nhật fixture/quyền file và verify nghiệp vụ đầy đủ. Dev đã có backup mới `20261107T171622Z`; bộ mới chưa diễn tập restore. Staging chờ kết thúc bài tải trước khi đổi admin/backup. Bằng chứng đầy đủ: SSM `6f8bbae5-70a8-4427-9218-fd03ab4a3840`, `0079f489-5561-4c9e-a6a9-201863c0d49a`, `5adcb35a-4b5c-43aa-b731-780da24e146d` |
+| Tải trong VPC | Generator riêng trong VPC staging, relay TCP có giới hạn peer qua SG tạm, không mở ingress public. Smoke 2-user và ba lượt 10/25-user đạt assertion, user count và thời lượng; tất cả sample không lỗi. Course p95 lần lượt 139/137/136 ms (10-user), 194/210/196 ms (25-user). Các lượt 50-user đang chạy; chưa kết luận ma trận hoàn tất. Summary riêng `.work/live-matrix/20261107T153956Z-users-*-summary.json`; không trộn với kết quả SSM tunnel cũ |
+| Chi phí | Cost Explorer đã trả usage 5,4670580578 USD và credit −5,4670580635 USD cho toàn account, mọi region, cửa sổ 01/11 inclusive–07/11 exclusive; các ngày đều Estimated. Chênh lệch gần 0 do credit/làm tròn không có nghĩa không phát sinh usage. Estimate riêng tài nguyên core tại 15:33 UTC là 7,6216 USD, khác scope/cửa sổ với billing và không được cộng chồng; chưa phải hóa đơn cuối |
+| Cleanup | Máy cài thử và generator được lập kế hoạch dọn riêng sau khi lưu kết quả. Chưa xác nhận đã xóa trong snapshot này. Dev/staging và monitor budget giữ để vận hành/demo; không xóa lab cũ ngoài state |
+| Giao diện/kiểm tra chéo | Chưa đạt bằng chứng. Công cụ điều khiển Chrome tự dừng do không xác minh URL, không tiếp tục tự động hóa giao diện. Cần người nhận kiểm tra và ký; agent không ký thay. [Checklist bàn giao](14-small-handover.md) |
+
+Rotation ban đầu chỉ hoàn tất phần PHP vì Docker interactive đọc mất phần script còn lại khi chạy `bash -s`; đã sửa runner riêng sang file script, stdin `/dev/null`. Lần tiếp theo phát hiện umask 077 làm fixture mới thiếu quyền group; đã đặt rõ 0640 root:www-data trước atomic replace. Chỉ các invocation verify đầy đủ nêu trên được tính là hoàn tất; log thử lỗi vẫn giữ để đối chiếu.
+
+State theo dõi riêng: `.work/finish-small-state.json` (load/metric/cleanup), `.work/security/final-state.json` (rotation/backup staging sau tải). Không gửi các file secret/state/backup trong gói source. Khi bài tải kết thúc, phải đối chiếu các state và cập nhật biên bản trước khi gọi Small hoàn tất.
+
+## Nhật ký trước đó — 05/11/2026
+
 Ngày cập nhật: 05/11/2026. Môi trường thực tế: Sydney, `config/sydney.yaml` và `config/sydney-staging.yaml`. Đây là biên bản theo bằng chứng; chưa ký đóng P0 khi còn mục chờ.
 
 ## Kết quả đã chứng minh

@@ -22,6 +22,8 @@ PHP nằm trong container. Chạy lệnh Moodle bằng `sudo /opt/moodle-distrib
 
 Sau bước PHP, người vận hành cập nhật nguyên tử `acceptance.json`, cập nhật file quản trị riêng tư `/root/moodle-initial-admin.txt` mode 0600, chạy lại acceptance HTTP, xuất fixture private và tạo backup mới. File mang tên initial được cập nhật để chứa credential hiện hành sau rotation; sau restore vẫn phải đối chiếu với DB nguồn như bước restore bên dưới. Chỉ xóa JSON tạm khi mọi kiểm tra và export đã thành công; status không chứa secret nằm ở `/var/lib/moodle-distribution/admin-rotation-status.json`.
 
+Đặt rõ `chmod 0640` và owner root:www-data cho fixture mới trước khi atomic replace: `umask 077` có thể làm mode truyền vào `open` thành 0600. Khi chạy nhiều lệnh qua shell stdin, dùng file script với stdin `/dev/null` hoặc đóng stdin ở lệnh `php-cli.sh`; Docker `--interactive` có thể đọc mất các lệnh tiếp theo của `bash -s`. Kiểm tra stdout có đủ kết quả verify/export, không chỉ dựa vào exit 0 của bước PHP đầu tiên.
+
 Fixture thử nghiệm được version trên S3. Ghi VersionId trước/sau rotation và liên kết với backup tương ứng; fixture hiện tại không tự khớp credential của một dump cũ. Giữ các version/backup cần cho diễn tập trong nơi riêng tư. Kết quả CLI/HTTP không thay thế kiểm tra bố cục giao diện hoặc chữ ký kiểm tra chéo của thành viên nhóm.
 
 ## 2. Chuẩn bị S3 backup độc lập
