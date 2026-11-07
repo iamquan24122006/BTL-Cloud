@@ -20,6 +20,8 @@ jobs:
           done
       - name: Build and smoke-test the pinned PHP/Apache runtime
         run: python -m scripts.check_runtime --image moodle-php:ci
+      - name: Lint administrator rotation acceptance
+        run: docker run --rm --network none --entrypoint php --mount "type=bind,src=$PWD/tests/integration,dst=/checks,readonly" moodle-php:ci -l /checks/rotate_admin.php
       - name: Save runtime check evidence
         if: always()
         uses: actions/upload-artifact@v4
