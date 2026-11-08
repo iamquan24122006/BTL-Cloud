@@ -1,5 +1,27 @@
 # Biên bản nghiệm thu small
 
+## Đối chiếu bằng chứng cục bộ ngày 08/11/2026
+
+Chạy lại **63 unit test: đạt**. AWS CLI 2.39.4 báo phiên `moodle-project` hết hạn khi gọi STS/SSM; chưa có xác nhận cloud mới trong lượt này. Không suy ra trạng thái thực tế của ma trận từ state cục bộ `running`.
+
+Đã đối chiếu các summary lưu tại `.work/live-matrix/20261107T153956Z-users-*-summary.json`:
+
+| User | Lượt | Giây quan sát | Sample JTL | Lỗi | Course p95 (ms) | Summary |
+|---|---|---:|---:|---:|---:|---|
+| 10 | r1 | 719,892 | 1.701 | 0 | 139 | passed |
+| 10 | r2 | 719,972 | 1.766 | 0 | 137 | passed |
+| 10 | r3 | 719,756 | 1.784 | 0 | 136 | passed |
+| 25 | r1 | 779,427 | 4.517 | 0 | 194 | passed |
+| 25 | r2 | 780,058 | 4.557 | 0 | 210 | passed |
+| 25 | r3 | 779,628 | 4.543 | 0 | 196 | passed |
+| 50 | r1 | 1.199,996 | 13.394 | 0 | 414 | passed |
+| 50 | r2 | 1.199,803 | 13.242 | 0 | 401 | passed |
+| 50 | r3 | Chưa thu | — | — | — | Chờ xác minh |
+
+Smoke riêng 2 user: 147,442 giây, 70 sample, 0 lỗi, Course p95 107 ms. `passed` xác nhận assertion, số user và thời lượng; chưa có SLA latency được chốt. Workload đọc course/download/xem assignment và logout/login trong VPC, không đo ghi bài nộp hoặc render trình duyệt; cache ấm giữa các lượt. Chưa có bộ metric đầy đủ được đối chiếu và chưa kết luận năng lực tối đa.
+
+Đã bổ sung [demo từng bước](15-small-demo.md), [dịch vụ sử dụng](16-small-services.md) và `scripts/demo-small.ps1`. Script đã được kiểm tra cú pháp PowerShell; tunnel thực tế chưa chạy lại do phiên AWS hết hạn. Cần xác minh invocation ma trận/metric cũ trước khi khởi chạy lại, lưu kết quả, hoàn tất rotation/backup staging và cleanup máy tạm, kiểm tra GUI rồi người nhận kiểm tra chéo. **P0 chưa đóng** cho đến khi có đủ bằng chứng này.
+
 ## Cập nhật ngày 07/11/2026 UTC (08/11 tại máy người vận hành)
 
 Cập nhật này thay thế trạng thái chờ của các mục tương ứng trong nhật ký 05/11 bên dưới. **Chưa ký đóng P0**; không dùng kết quả một phần của bài tải đang chạy làm kết luận cuối.

@@ -2,6 +2,8 @@
 
 Môi trường vận hành: Sydney (`ap-southeast-2`), profile `moodle-project`; dev dùng `config/sydney.yaml`, staging dùng `config/sydney-staging.yaml`. Chọn rõ cấu hình trước mỗi lệnh. Kết quả và các mục còn chờ ký nằm trong [biên bản nghiệm thu](13-small-acceptance.md); medium/large chưa triển khai.
 
+Thao tác demo cụ thể, tài khoản/vai trò và cách xử lý sự cố: [Demo Small](15-small-demo.md). Danh sách dịch vụ AWS và công cụ dùng thật: [Dịch vụ Small](16-small-services.md). Script `scripts/demo-small.ps1` chọn dev/staging, kiểm tra đúng account, EC2 và SSM trước khi mở tunnel; `-CheckOnly` chỉ kiểm tra, không mở session.
+
 ## Nhận mã và kiểm tra
 
 Nhánh bàn giao là `mq`. Cài Python theo `requirements.txt`, Terraform, AWS CLI và Session Manager plugin; kiểm tra phiên bằng STS. So khớp account với hồ sơ riêng của lab trước khi thực hiện thao tác AWS. Không dùng profile mặc định của máy nếu chưa đối chiếu.

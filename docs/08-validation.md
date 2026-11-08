@@ -1,5 +1,11 @@
 # Nhật ký kiểm chứng repository
 
+## Tiếp tục Small ngày 08/11/2026
+
+Unit test chạy lại bằng Python có PyYAML: **63/63 đạt**, không gọi AWS thật. Đối chiếu local summaries thấy smoke 2 user, ba lượt 10 user, ba lượt 25 user và hai lượt 50 user đều `passed`, 0 lỗi. Hai lượt 50 user có Course p95 414/401 ms; chưa có summary r3 cục bộ, chưa xác nhận toàn ma trận/metric/cleanup. STS và SSM báo phiên `moodle-project` hết hạn; AWS CLI hiện 2.39.4. Không thay đổi hạ tầng AWS trong bước đối chiếu này.
+
+Bổ sung kịch bản demo 12–15 phút, ma trận dịch vụ thực tế và helper PowerShell mở SSM tunnel có kiểm tra account/instance/SSM/cổng 8080. Helper dùng JSON parameter file để tránh lỗi quote PowerShell; không tự login/apply/restore. Kiểm tra parser PowerShell và `git diff --check` đạt. Việc mở tunnel và GUI cần phiên AWS hợp lệ; kết quả local không thay thế kiểm chứng trên cloud. Trạng thái hiện hành ở [biên bản small](13-small-acceptance.md).
+
 ## Thử lỗi và chuẩn bị bàn giao small ngày 05/11/2026
 
 Xem [biên bản small](13-small-acceptance.md) để đối chiếu các tiêu chí đã đạt và còn chờ. Bổ sung bằng chứng AWS thật cho web dừng/recovery, backup bị S3 `AccessDenied` và restore thiếu/hỏng bị từ chối trước ghi đè: `.work/moodle-sydney-staging/commands/20261105T074342Z-10ef3c/result.json`, SSM `Success`, exit 0. Nghiệp vụ sau ca lỗi đạt.
