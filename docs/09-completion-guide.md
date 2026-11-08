@@ -1,8 +1,22 @@
 # Hướng dẫn hoàn tất các phần còn thiếu
 
-Tài liệu dành cho nhóm 4 người, tổng ngân sách dự kiến 400 USD, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển thêm.
+## Điểm tiếp tục ngày 05/11/2026
+
+Biên bản mới nhất: [nghiệm thu small](13-small-acceptance.md). CI commit chức năng `6eff8de` đã đạt; ca lỗi thật, smoke và ba baseline 10-user đã có bằng chứng. Hai baseline không lỗi, lượt ba bị tunnel ngắt; chưa đo 25/50-user. GUI/demo, cài tay so sánh, kiểm tra chéo và chốt chi phí/cleanup vẫn mở. Không đánh dấu hoàn tất P0 khi chưa có đủ bằng chứng.
+
+Lab đang dùng là Sydney: `--config config/sydney.yaml`; staging là `--config config/sydney-staging.yaml`. Dev đã đạt kiểm tra chức năng và backup tự động S3. Staging đã đạt nghiệm thu sau restore, ghi file mới và reboot; web/cron/backup timer tự chạy lại. Xem [bằng chứng hiện tại](08-validation.md). Mục Singapore phía dưới là lịch sử, không dùng để chọn lab đích hiện tại.
+
+Việc tiếp theo: nghiệm thu giao diện/demo, đo tải dài hơn và lặp lại có metric, bổ sung kiểm tra failure recovery và hoàn thiện báo cáo/chi phí. JMeter smoke 2 tài khoản chạy lại đã đạt; nguyên nhân lỗi kết nối ở lượt trước chưa xác định. Quyền đọc S3 tạm của staging đã thu hồi sau nghiệm thu; nếu cần diễn tập restore mới, chuẩn bị lại quyền đọc giới hạn đúng bộ backup trước thao tác. Không chạy lại restore để thay thế bước kiểm tra bằng chứng đã có.
+
+**Công cụ và đăng nhập đã sẵn sàng:** người dùng đã cài AWS CLI 2.39.4. Dùng `$env:AWS_PROFILE = 'moodle-project'` trong PowerShell; STS đã xác nhận đúng account Sydney. Nếu terminal cũ chưa nhận PATH mới, mở terminal mới hoặc bổ sung `C:\Program Files\Amazon\AWSCLIV2` vào PATH của phiên. Profile mặc định thuộc account khác, vì vậy phải chọn profile project trước lệnh AWS/Terraform. Hiện không có bước cài đặt hay đăng nhập thủ công đang chặn.
+
+Phần người dùng cần tham gia: kiểm tra giao diện Moodle trên trình duyệt (teacher/student, bố cục, nộp bài, xem điểm) và chụp bằng chứng demo. Bài test HTTP đã có không thay thế đánh giá giao diện. Người vận hành có thể tự động mở tunnel; không cần tự chạy lệnh deploy. Khi phiên AWS hết hạn, người dùng hoàn tất xác thực trên trình duyệt. Không gửi mật khẩu/token qua chat.
+
+Tài liệu dành cho nhóm 4 người, tổng ngân sách 150 USD theo cập nhật ngày 07/11/2026, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển và dự toán lại.
 
 Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm tra chức năng → backup/restore → medium → đo tải → báo cáo/demo → cleanup**. Nếu chưa đủ thời gian cho medium, hoàn thành nghiệm thu small và ghi đúng giới hạn trong báo cáo.
+
+**Lab Singapore cũ (lịch sử):** `config/small-new.yaml`, state `.work/moodle-lab-v2-dev/`, từng dừng sau 6 tài nguyên mạng do thiếu `iam:CreateRole`. Không dùng lab này cho thao tác tiếp tục small Sydney. Mẫu `config/dev.yaml` phía dưới cũng là cấu hình lịch sử; dùng Sydney dev/staging tương ứng. Xem [nhật ký AWS](08-validation.md).
 
 ## 1. Chia việc và chuẩn bị buổi đầu
 
@@ -17,7 +31,7 @@ Chốt tài khoản AWS thường hay Academy/Learner Lab trước khi chạy. I
 
 Nhóm đã xác nhận dùng **AWS thường** ngày 13/10/2026. Vẫn cần kiểm tra phiên đăng nhập, quyền của người deploy và credit thực tế; xác nhận loại tài khoản chưa có nghĩa là đã kết nối AWS.
 
-D giữ sổ chi phí toàn kỳ: 300 USD cho kế hoạch, 100 USD dự phòng. Một môi trường tích hợp dùng chung; staging chỉ tạo khi cần restore. Hạn mức này không phải báo giá AWS. Tra cấu hình theo region trong [AWS Pricing Calculator](https://calculator.aws/) và theo dõi [kế hoạch chi phí](07-report-and-cost.md).
+D giữ sổ chi phí toàn kỳ: 112,50 USD cho kế hoạch, 37,50 USD dự phòng, tổng 150 USD. Một môi trường tích hợp dùng chung; staging chỉ giữ trong cửa sổ thử nghiệm/demo. Hạn mức này không phải báo giá AWS. Tra cấu hình theo region trong [AWS Pricing Calculator](https://calculator.aws/) và theo dõi [kế hoạch chi phí](07-report-and-cost.md).
 
 Đặt log thô, plan, backup, JMX/CSV có tài khoản thử trong `.work/` hoặc nơi riêng tư. Chỉ đưa ảnh/log đã loại secret vào báo cáo. Một người apply mỗi lần; không chia sẻ state qua chat hoặc Git.
 
@@ -59,7 +73,9 @@ foreach ($ScriptName in 'configure.php','install-db.php') {
 
 Đây mới là kiểm tra image. `docker run moodle-php:lab` riêng lẻ chưa tạo database, code Moodle, mount hay systemd; không coi nó là lệnh chạy toàn bộ ứng dụng. Ubuntu 26.04 phải được kiểm chứng tiếp trên EC2.
 
-Nếu không dùng được Docker Desktop, có thể build trên máy Ubuntu của thành viên khác hoặc chạy workflow `.github/workflows/validate.yml` khi đẩy repository lên GitHub. Workflow hiện chạy theo push/pull request, không có nút chạy thủ công riêng. Xem từng bước trong Actions; workflow không deploy AWS.
+Sau khi smoke test runtime đạt, có thể chạy `python -m scripts.check_moodle` để kiểm tra cài Moodle/PostgreSQL, đăng nhập HTTP, course/file, cron và restore trong Docker cục bộ. Script dùng dữ liệu giả và tự dọn container/volume riêng; log/report nằm trong `.work/moodle-check/`. Xem [phạm vi kiểm thử cục bộ](06-test-plan.md). Kết quả này không thay thế cài tay, cloud-init, systemd, SSM, backup S3 và restore trên EC2 ở các bước tiếp theo.
+
+Nếu không dùng được Docker Desktop, có thể build trên máy Ubuntu của thành viên khác hoặc chạy workflow `.github/workflows/validate.yml` khi đẩy repository lên GitHub. Workflow hỗ trợ push, pull request và workflow_dispatch. Xem từng bước trong Actions; workflow không deploy AWS.
 
 | Lỗi | Xử lý |
 |---|---|
@@ -82,7 +98,7 @@ aws sts get-caller-identity
 
 Đối chiếu account hiển thị với account nhóm định dùng. Nếu dùng named profile, đặt `$env:AWS_PROFILE` trong terminal này để CLI Python và AWS CLI dùng cùng profile. STS thành công chưa chứng minh đủ quyền EC2/IAM/S3.
 
-Nếu tài khoản có quyền Billing, D tạo Budget và cảnh báo actual/forecast trước khi apply, rồi kiểm tra địa chỉ nhận cảnh báo. Theo dõi tổng kỳ đồ án tại các mốc 200/280/300/340 USD như kế hoạch; nếu kéo dài qua hai tháng phải cộng dồn, không chỉ nhìn budget tháng mới. Budget có độ trễ và không tự bảo đảm dừng mọi tài nguyên ở 400 USD. Learner Lab dùng thêm số credit và cơ chế cảnh báo được tài khoản cho phép.
+Nếu tài khoản có quyền Billing, D cấu hình budget actual/forecast và kiểm tra kênh nhận. Theo dõi tổng kỳ tại các mốc 75/105/112,50/127,50 USD; nếu qua hai tháng phải cộng dồn để giữ tổng 150 USD. Budget có độ trễ và không tự dừng mọi tài nguyên. Learner Lab dùng thêm số credit và cơ chế cảnh báo được tài khoản cho phép.
 
 Trước plan đầu tiên, A tạo bucket backup riêng trong region dự định dùng:
 

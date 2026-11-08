@@ -126,6 +126,23 @@ class PlanGuardsTests(unittest.TestCase):
         with self.assertRaisesRegex(cli.ConfigError, "changed"):
             cli.apply(self.config, self.confirm)
 
+    def test_apply_rejects_changed_cli_source(self):
+        self.prepare()
+        (self.root / "src").mkdir()
+        (self.root / "src/moodle_cloud.py").write_text("changed deployment logic", encoding="utf-8")
+        with self.assertRaisesRegex(cli.ConfigError, "changed"):
+            cli.apply(self.config, self.confirm)
+
+    def test_replacement_requires_data_loss_acknowledgement(self):
+        self.prepare()
+        manifest = cli.workspace(self.config) / "apply.json"
+        payload = json.loads(manifest.read_text())
+        payload["review"] = {"data_loss_risk": True}
+        manifest.write_text(json.dumps(payload))
+        with patch.object(cli, "aws") as api, self.assertRaisesRegex(cli.ConfigError, "allow-data-loss"):
+            cli.apply(self.config, self.confirm)
+        api.assert_not_called()
+
     def test_apply_rejects_changed_plan(self):
         self.prepare()
         (cli.workspace(self.config) / "apply.tfplan").write_bytes(b"tampered")

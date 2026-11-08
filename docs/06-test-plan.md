@@ -17,6 +17,18 @@ Unit test kiểm tra đầu vào và chốt apply/destroy. Test AWS call dùng m
 
 Chạy `python -m scripts.check_runtime` để build/lint và thử Apache/PHP bằng fixture local. Kiểm tra PHP CLI/web thống nhất, giới hạn input, extensions, file code chỉ đọc, `/config.php` và `/.git/config` bị chặn. Báo cáo và log được lưu trong `.work/runtime-check/`; CI tải bộ bằng chứng này lên artifact giữ 7 ngày. Smoke test không mở cổng host và không thay thế F01–F13 trên AWS. Các test trong `test_runtime_check.py` kiểm tra việc báo lỗi/cleanup bằng mock, không chứng minh Docker đã chạy.
 
+Sau khi runtime đã build, chạy kiểm thử ứng dụng cục bộ:
+
+```powershell
+python -m scripts.check_moodle
+```
+
+Script tải mã Moodle từ commit đã ghim cho 4.5.15 và image PostgreSQL 16 đã ghim digest; cài bằng `configure.php`/`install-db.php` của repo, tạo course/teacher/student và file giả, thử đăng nhập HTTP và tải file có kiểm tra hash, chạy cron, dump/archive rồi phục hồi sang database, code và moodledata mới với mật khẩu DB mới. Kiểm tra lại vai trò, dữ liệu, đăng nhập, file và khả năng ghi sau restore. Không publish cổng host; tài nguyên Docker mang tên ngẫu nhiên cùng nhãn riêng và được dọn cuối lượt. Mật khẩu không vào argv hoặc log. Log và report nằm trong `.work/moodle-check/`; chỉ exit code 0 cùng `status: passed` mới là đạt. Workflow CI đã thêm bài kiểm tra này sau smoke test runtime và lưu artifact `moodle-check` trong 7 ngày; chưa có kết quả chạy GitHub Actions trong phiên này.
+
+Đây là kiểm thử Docker cục bộ, không chạy `bootstrap.sh`, `health.sh` hay `backup.sh` dành cho systemd trên EC2; không xác nhận Ubuntu 26.04, SSM, S3 hoặc các mục nghiệm thu AWS. Dump/archive local không phải bằng chứng backup S3. Chỉ dùng tài khoản và dữ liệu giả trong bài kiểm tra này.
+
+Khi cần chẩn đoán, `--keep-on-failure` giữ riêng container/volume của lượt lỗi, kể cả dữ liệu và credential giả. Dọn bằng `python -m scripts.check_moodle --cleanup .work/moodle-check/<run-id>/report.json`; lệnh kiểm tra nhãn sở hữu trước khi xóa. Không bật tùy chọn giữ lại cho lượt kiểm tra thông thường.
+
 ## 2. Kiểm tra chức năng trên AWS
 
 | ID | Thao tác | Kết quả phải có | Bằng chứng |

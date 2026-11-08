@@ -1,5 +1,5 @@
 name: Validate repository (no AWS deployment)
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
@@ -20,12 +20,25 @@ jobs:
           done
       - name: Build and smoke-test the pinned PHP/Apache runtime
         run: python -m scripts.check_runtime --image moodle-php:ci
+      - name: Lint administrator rotation acceptance
+        run: docker run --rm --network none --entrypoint php --mount "type=bind,src=$PWD/tests/integration,dst=/checks,readonly" moodle-php:ci -l /checks/rotate_admin.php
       - name: Save runtime check evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: runtime-check
           path: .work/runtime-check/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Install Moodle and verify a local backup/restore round trip
+        timeout-minutes: 35
+        run: python -m scripts.check_moodle --image moodle-php:ci
+      - name: Save Moodle integration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moodle-check
+          path: .work/moodle-check/
           if-no-files-found: ignore
           retention-days: 7
       - uses: hashicorp/setup-terraform@v3
@@ -35,3 +48,13 @@ jobs:
       - run: terraform -chdir=infra/small init -backend=false -input=false
       - run: terraform -chdir=infra/small validate
       - run: terraform -chdir=infra/small test
+      - run: terraform -chdir=infra/backup init -backend=false -input=false
+      - run: terraform -chdir=infra/backup validate
+      - run: terraform -chdir=infra/backup test
+      - run: terraform -chdir=infra/budget init -backend=false -input=false
+      - run: terraform -chdir=infra/budget validate
+      - run: terraform -chdir=infra/budget test
+      - run: terraform -chdir=tests/load/infra fmt -check -recursive
+      - run: terraform -chdir=tests/load/infra init -backend=false -input=false
+      - run: terraform -chdir=tests/load/infra validate
+      - run: terraform -chdir=tests/load/infra test

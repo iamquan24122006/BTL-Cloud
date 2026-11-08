@@ -62,6 +62,7 @@ deploy = json.loads(Path('/etc/moodle/deploy.json').read_text())
     'restore_tested': False
 }, indent=2))
 PY
+python3 /opt/moodle-distribution/verify_backup.py "$destination" >/dev/null
 # Resume users before the network upload; a second resume in the EXIT trap is safe.
 /opt/moodle-distribution/php-cli.sh /var/www/moodle/admin/cli/maintenance.php --disable
 systemctl start moodle-web.service moodle-cron.timer

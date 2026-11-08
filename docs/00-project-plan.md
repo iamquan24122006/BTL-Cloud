@@ -16,13 +16,13 @@ Ba câu hỏi để trả lời bằng bằng chứng:
 
 ## 2. Phạm vi đã chọn
 
-Thông tin đã xác nhận: **nhóm 4 người, ngân sách AWS 400 USD, dùng tài khoản AWS thường** (xác nhận ngày 13/10/2026). Tạm hiểu 400 USD là tổng ngân sách cho đồ án; chưa xác nhận ngân sách theo tháng, credit hoặc deadline. Giữ lịch 4 tuần làm kế hoạch làm việc và kiểm tra quyền dịch vụ trước khi chọn cấu hình cloud cuối cùng.
+Thông tin đã xác nhận: **nhóm 4 người, dùng tài khoản AWS thường**. Ngày 07/11/2026, người dùng giảm tổng ngân sách AWS xuống **150 USD**. Đây là hạn mức toàn đồ án; cần cộng dồn nếu qua nhiều tháng và đối chiếu credit thực áp dụng. Giữ lịch 4 tuần làm kế hoạch tham khảo, ưu tiên hoàn tất small và dự toán lại trước khi mở medium.
 
 | Mức | Sản phẩm cần có | Trạng thái trong repository |
 |---|---|---|
 | P0 — bắt buộc | Cài thủ công 1 EC2; lưu lệnh và kiểm tra | Runbook và script tương ứng |
-| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | Có mã nguồn; chưa apply AWS |
-| P0 | Cron, backup nhất quán, thử restore sang máy mới | Có script/runbook; chưa thử trên AWS |
+| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | 29 unit test đạt; lab mới `moodle-lab-v2-dev` đã apply 6 tài nguyên mạng, còn 4 tài nguyên do bị chặn `iam:CreateRole`; EC2 chưa tạo |
+| P0 | Cron, backup nhất quán, thử restore sang máy mới | Docker local đã qua cron và dump/archive/restore sang dữ liệu mới ngày 29/10/2026; script systemd/S3 và restore EC2 chưa được nghiệm thu |
 | P0 | Báo cáo, kịch bản demo, bảng đo tải/chi phí | Có mẫu và tiêu chí; chưa có số liệu thực nghiệm |
 | P1 — mở rộng | ALB, private app, RDS, EFS, Redis, ASG | Thiết kế; chưa có Terraform triển khai |
 | P2 — nâng cao | Multi-AZ cho các thành phần, AMI, plugin, upgrade tự động | Backlog; không đưa vào tuyên bố đã hoàn thành |
@@ -69,7 +69,7 @@ Mỗi môi trường chỉ có một người thực hiện Terraform apply tạ
 
 | Ngày | Công việc | Chủ trì / phối hợp | Đầu ra/điều kiện qua cổng |
 |---|---|---|---|
-| 1 | Chốt quyền tài khoản, region, Budget và sổ chi phí | A / D | Xác định 400 USD tổng hay theo tháng, credit hay tiền; dịch vụ được phép |
+| 1 | Chốt quyền tài khoản, region, Budget và sổ chi phí | A / D | Theo dõi tổng 150 USD, credit thực áp dụng và dịch vụ được phép |
 | 2 | Đối chiếu phiên bản và thiết kế small/medium | A / B, C | ADR, mạng, hợp đồng module, kế hoạch state |
 | 3 | Cài Moodle thủ công; D lập smoke test; C đọc luồng cài | B / D, C | Nhật ký lệnh, phiên bản và thao tác kiểm tra |
 | 4 | Quyền file, cron, lỗi thường gặp; A chuẩn bị IaC | B / A, D | Login/course/upload/cron hoạt động |
@@ -93,14 +93,14 @@ Mỗi môi trường chỉ có một người thực hiện Terraform apply tạ
 
 | Giai đoạn | Hạn mức USD | Người theo dõi |
 |---|---:|---|
-| Tuần 1 — lab thủ công và restore đầu | 40 | D tổng hợp, B/C ghi tài nguyên |
-| Tuần 2 — Terraform/CLI và dựng lại small | 60 | D tổng hợp, A/C ghi tài nguyên |
-| Tuần 3 — tích hợp medium | 120 | D tổng hợp, A điều phối |
-| Tuần 4 — đo tải, restore và demo | 80 | D tổng hợp, cả nhóm cleanup |
-| Dự phòng toàn đồ án | 100 | Cả nhóm xem xét trước khi sử dụng |
-| **Tổng** | **400** | |
+| Tuần 1 — lab thủ công và restore đầu | 15 | D tổng hợp, B/C ghi tài nguyên |
+| Tuần 2 — Terraform/CLI và dựng lại small | 22,50 | D tổng hợp, A/C ghi tài nguyên |
+| Tuần 3 — tích hợp medium | 45 | D tổng hợp, A điều phối |
+| Tuần 4 — đo tải, restore và demo | 30 | D tổng hợp, cả nhóm cleanup |
+| Dự phòng toàn đồ án | 37,50 | Cả nhóm xem xét trước khi sử dụng |
+| **Tổng** | **150** | |
 
-Đây là phân bổ hạn mức, không phải giá AWS đã xác nhận. Tiền chưa dùng có thể chuyển sang tuần sau sau khi cập nhật sổ chi phí. Không nhân ngân sách thành 400 USD/người. Chi tiết cấu hình, giờ chạy và điều kiện mở P1 nằm trong [kế hoạch chi phí](07-report-and-cost.md).
+Đây là phân bổ hạn mức theo tỷ lệ cũ, không phải giá AWS đã xác nhận. Tiền chưa dùng có thể chuyển sang tuần sau sau khi cập nhật sổ chi phí. Tổng 150 USD áp dụng cho cả nhóm. Chi tiết cấu hình, giờ chạy và điều kiện mở P1 nằm trong [kế hoạch chi phí](07-report-and-cost.md).
 
 ## 6. Cổng nghiệm thu
 

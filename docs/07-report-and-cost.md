@@ -2,20 +2,20 @@
 
 ## 1. Dự toán theo thời gian dùng thực tế
 
-Đã xác nhận **4 thành viên, ngân sách AWS 400 USD và tài khoản AWS thường** (13/10/2026). Tạm hiểu đây là tổng ngân sách đồ án, không phải 400 USD/người hoặc 400 USD/tháng. Chưa biết credit và deadline; lịch dưới đây dùng giả định 4 tuần, region `ap-southeast-1` như cấu hình mẫu.
+Ngày 07/11/2026, người dùng giảm tổng ngân sách AWS xuống **150 USD** cho cả đồ án. Nhóm dùng tài khoản AWS thường; đây không phải hạn mức mỗi người hoặc mỗi tháng. Môi trường small đang dùng Sydney `ap-southeast-2`; lịch 4 tuần là kế hoạch tham khảo và medium cần dự toán lại trước triển khai.
 
-Phân bổ **300 USD cho kế hoạch triển khai và 100 USD dự phòng**. Đây là hạn mức nội bộ, không phải báo giá, hóa đơn dự kiến đã tính đủ hoặc cam kết đủ tiền cho mọi cấu hình. Nếu thanh toán bằng tiền, dự phòng còn phải bao gồm thuế/tỷ giá và phí chưa tính; nếu dùng credit, kiểm tra phạm vi áp dụng và ngày hết hạn.
+Giữ tỷ lệ phân bổ cũ: **112,50 USD cho kế hoạch triển khai và 37,50 USD dự phòng**. Đây là hạn mức nội bộ, không phải báo giá, hóa đơn đã tính đủ hoặc cam kết đủ tiền cho mọi cấu hình. Nếu thanh toán bằng tiền, dự phòng còn phải bao gồm thuế/tỷ giá và phí chưa tính; nếu dùng credit, kiểm tra phạm vi áp dụng và ngày hết hạn.
 
 | Giai đoạn | Hạn mức USD | Công việc được ưu tiên |
 |---|---:|---|
-| Tuần 1 | 40 | Small thủ công, dữ liệu giả, backup/restore đầu tiên |
-| Tuần 2 | 60 | IaC/CLI, dựng lại small, staging tạm thời |
-| Tuần 3 | 120 | Medium: ALB, RDS, EFS, Redis, ASG và cron runner |
-| Tuần 4 | 80 | Đo tải, restore drill, diễn tập và demo |
-| Dự phòng | 100 | Sửa lỗi, chi phí lưu lại, phát sinh và nghĩa vụ thanh toán |
-| **Tổng** | **400** | **Mục tiêu chi có kế hoạch: tối đa 300 USD** |
+| Tuần 1 | 15 | Small thủ công, dữ liệu giả, backup/restore đầu tiên |
+| Tuần 2 | 22,50 | IaC/CLI, dựng lại small, staging tạm thời |
+| Tuần 3 | 45 | Medium: chỉ triển khai sau khi dự toán lại |
+| Tuần 4 | 30 | Đo tải, restore drill, diễn tập và demo |
+| Dự phòng | 37,50 | Sửa lỗi, chi phí lưu lại, phát sinh và nghĩa vụ thanh toán |
+| **Tổng** | **150** | **Mục tiêu chi có kế hoạch: tối đa 112,50 USD** |
 
-Ubuntu 26.04 và Docker/PHP chạy trên EC2 small đã dự toán; chưa thêm ECS, ECR hay máy riêng cho container. Tính cả giờ build image, EBS chứa Docker layers/build cache và lưu lượng tải image/package. Theo dõi đĩa trước backup/restore; ngân sách 400 USD không tự tăng theo thay đổi hệ điều hành.
+Small dùng Ubuntu 26.04 và Docker/PHP trên EC2; chưa triển khai ECS/ECR. Tính cả giờ build, EBS chứa Docker layers, máy cài thử, máy phát tải và thời gian chờ. Giữ tổng 150 USD khi thay đổi thời lượng hoặc cấu hình. Các giờ giả định dưới đây cần được đối chiếu lại với hạn mức mới trước P1.
 
 ### Cấu hình và thời lượng để đưa vào Calculator
 
@@ -43,8 +43,8 @@ Một NAT, RDS Single-AZ và một cache node giúp giảm phạm vi lab nhưng 
 ### Cơ chế kiểm soát ngân sách của nhóm
 
 - D cập nhật sổ chi phí mỗi buổi: số đã ghi nhận, phần chưa cập nhật, tài nguyên còn chạy/lưu, dự toán đến lúc cleanup và tiền dự phòng còn lại. A xác nhận danh sách tài nguyên, C xác nhận backup trước thao tác xóa.
-- Mốc lũy kế 200 USD: kiểm tra lại dự toán. 280 USD: dừng bổ sung dịch vụ/phép thử ngoài kế hoạch. 300 USD: đóng phần triển khai có kế hoạch; chỉ dùng dự phòng cho nhu cầu cụ thể đã thống nhất. 340 USD: ưu tiên hoàn tất bằng chứng và cleanup. Không đợi số hiển thị chạm 400 USD.
-- Với tài khoản có quyền Billing, tạo budget theo **toàn kỳ đồ án** hoặc theo dõi lũy kế xuyên tháng, không để mốc reset hàng tháng làm mất dấu tổng 400 USD. Thêm cảnh báo actual và forecast theo các mốc phù hợp. Cảnh báo có độ trễ và không phải giới hạn cứng. [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
+- Mốc lũy kế 75 USD: kiểm tra lại dự toán. 105 USD: dừng bổ sung phép thử ngoài kế hoạch. 112,50 USD: đóng phần triển khai có kế hoạch; dùng dự phòng cho nhu cầu đã thống nhất. 127,50 USD: ưu tiên bằng chứng và cleanup. Không đợi số hiển thị chạm 150 USD.
+- Theo dõi **toàn kỳ đồ án**, cộng dồn xuyên tháng để giữ tổng 150 USD. Budget AWS tháng hiện tại đặt 150 USD, cảnh báo actual 75% và forecast 100%; khi sang tháng phải trừ phần đã dùng khỏi hạn mức còn lại. Cảnh báo có độ trễ và không phải giới hạn cứng. [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
 - Với AWS Academy/Learner Lab, trước hết kiểm tra quy định tài khoản, số credit còn lại và quyền dịch vụ/role được cấp. Terraform small hiện tự tạo IAM role/profile; nếu tài khoản chỉ cho dùng role có sẵn thì phải điều chỉnh IaC trước deploy. Chưa giả định mọi dịch vụ hoặc quyền tạo Budget đều được phép.
 - Dùng một môi trường tích hợp chung; dev cá nhân chủ yếu validate/mock tests ở local. Khi cần staging phục hồi thì tạo tạm, không giữ bốn stack AWS riêng cho bốn thành viên.
 
@@ -81,7 +81,7 @@ Chi phí = tổng(instance-hours × giá/giờ)
 
 Không nhân giá tháng của EBS với 40/730 chỉ vì EC2 chạy 40 giờ: volume vẫn tồn tại khi stop. Hủy EC2 small sẽ xóa root volume theo cấu hình; snapshot, S3 và các tài nguyên độc lập có thể còn tính phí. Cần kiểm kê sau mỗi buổi.
 
-Kiểm tra địa chỉ nhận cảnh báo và quyền xem chi phí của D; chưa có budget/alert nào được tạo trong tài khoản AWS bởi lần cập nhật tài liệu này.
+Ngày 07/11/2026 đã tạo budget `moodle-sydney-small-202611` với limit 150 USD cho kỳ 01/11–01/12 (mốc cuối không gồm ngày đó). Budget theo dõi usage unblended toàn account trước credit/refund; alert actual >75% và forecast >100%. SNS/SQS đặt tại Sydney, API Budgets dùng provider billing toàn cục. Subscription nội bộ đã confirmed và phép thử SNS → SSE-SQS đã gửi/nhận, acknowledge đúng thông điệp nonce. Chưa có email recipient; người vận hành kiểm tra queue trong thời hạn lưu 7 ngày. Phép thử xác minh đường nhận, không tạo chi phí giả để vượt threshold. Hướng dẫn: [budget module](../infra/budget/README.md); bằng chứng riêng tư `.work/moodle-sydney-budget/channel-report.json`.
 
 Không kết luận Free Tier đủ dựa trên tên instance: xem quyền lợi, credit, ngày mở tài khoản và giá dịch vụ của chính tài khoản. Trong bài báo cáo trình bày cả giá trước credit để người khác có thể tái lập dự toán.
 

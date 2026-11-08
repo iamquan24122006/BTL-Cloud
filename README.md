@@ -2,9 +2,15 @@
 
 **Mục tiêu:** xây dựng quy trình tái lập từ cài Moodle thủ công, tới Terraform, rồi CLI đọc YAML; chứng minh bằng đăng nhập, tạo khóa học, cron, backup và khôi phục.
 
-**Thông số nhóm:** 4 thành viên; ngân sách AWS 400 USD. Kế hoạch tạm hiểu đây là tổng ngân sách đồ án, chia 300 USD cho các giai đoạn và 100 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Mục tiêu đề xuất là hoàn tất small và triển khai medium trong các cửa sổ lab có kiểm soát. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
+**Thông số nhóm:** 4 thành viên; tổng ngân sách AWS **150 USD**, giảm theo yêu cầu ngày 07/11/2026. Giữ tỷ lệ phân bổ hiện có: 112,50 USD cho các giai đoạn và 37,50 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Ưu tiên hoàn tất small; medium cần dự toán lại trong hạn mức còn lại. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** repository có mã triển khai preset `small`, kiểm tra cấu hình, runbook và kế hoạch 4 tuần. Chưa triển khai vào tài khoản AWS, chưa đo hiệu năng thực tế. `medium`/`large` là thiết kế mở rộng, CLI hiện từ chối hai preset đó. Xem [kết quả kiểm tra](docs/08-validation.md).
+**Tình trạng cập nhật ngày 08/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng, backup S3, restore, reboot staging và các ca lỗi phục hồi. **63 unit test chạy lại đều đạt**; CI commit `904c113` trước đó xanh ở cả push và pull request. Cài từng bước trên EC2 sạch đã chạy và kiểm tra nghiệp vụ đầy đủ. Bằng chứng tải riêng trong VPC đã lưu đủ ba lượt 10-user, ba lượt 25-user và hai lượt 50-user, tất cả 0 lỗi; còn thu kết quả lượt 50-user cuối, metric và xác nhận cleanup. Phiên AWS hết hạn khi kiểm tra lại, nên chưa xác minh trạng thái cloud mới. Budget AWS 150 USD và kênh cảnh báo nội bộ đã kiểm chứng trước đó. Còn kiểm tra giao diện và kiểm tra chéo của người nhận để ký P0. `medium`/`large` vẫn là thiết kế mở rộng. Xem [biên bản small](docs/13-small-acceptance.md), [hướng dẫn bàn giao](docs/14-small-handover.md) và [nhật ký chi tiết](docs/08-validation.md).
+
+**Demo small:** làm theo [kịch bản thao tác 12–15 phút](docs/15-small-demo.md); mở site bằng `.\scripts\demo-small.ps1 -Environment dev -ExpectedAccount <ACCOUNT_ID>`, thay `<ACCOUNT_ID>` bằng account lab đã xác minh. [Danh sách dịch vụ thực tế](docs/16-small-services.md) giải thích vai trò từng dịch vụ AWS và phần mềm trong bản small.
+
+**Lab hiện tại:** [config/sydney.yaml](config/sydney.yaml), tên `moodle-sydney-dev`, region `ap-southeast-2`; staging dùng [config/sydney-staging.yaml](config/sydney-staging.yaml). CLI mặc định dùng cấu hình Sydney; nên luôn truyền `--config` để thấy rõ môi trường đích. Giữ nguyên state riêng trong `.work/moodle-sydney-dev/` và `.work/moodle-sydney-staging/`.
+
+**Lab Singapore cũ:** `config/small-new.yaml` / `moodle-lab-v2-dev` từng dừng sau khi tạo 6 tài nguyên mạng vì thiếu `iam:CreateRole`. [Hướng dẫn IAM cũ](docs/10-iam-permissions.md) chỉ áp dụng lab đó; không dùng policy này để sửa quyền cho Sydney. Chưa đối chiếu lại inventory Singapore trong lượt tiếp tục này.
 
 ## Đọc theo thứ tự
 
@@ -49,6 +55,15 @@ python -m venv .venv
 ```
 
 Nếu `python` là Microsoft Store alias, dùng đường dẫn tới bản Python đã cài. `render` chỉ tạo `.work/<project>-<environment>/config.tfvars.json`. Không điền mật khẩu vào YAML.
+
+Khi Docker Desktop đang chạy Linux containers, kiểm tra runtime rồi cài/thử Moodle với PostgreSQL và backup/restore cục bộ:
+
+```powershell
+python -m scripts.check_runtime
+python -m scripts.check_moodle
+```
+
+Hai lệnh không gọi AWS; report nằm trong `.work/runtime-check/` và `.work/moodle-check/`. Kiểm thử ứng dụng dùng dữ liệu giả, tự dọn container/volume riêng và không thay thế nghiệm thu trên EC2. Xem [phạm vi kiểm thử](docs/06-test-plan.md).
 
 ```powershell
 python -m src.moodle_cloud doctor

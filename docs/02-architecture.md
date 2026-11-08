@@ -1,5 +1,72 @@
 # Kiến trúc và kế hoạch mở rộng
 
+## 0. Toàn cảnh hệ thống
+
+Sơ đồ dưới đây nối luồng triển khai/vận hành với runtime. Khung `small` là cấu hình đã có mã Terraform; `medium` là hướng mở rộng P1, chưa triển khai.
+
+```mermaid
+flowchart LR
+    OP[Người vận hành]
+    CFG[YAML không chứa secret]
+    CLI[Python CLI<br/>validate · render · plan · apply · status]
+    TF[Terraform<br/>saved plan + state riêng]
+    AWSAPI[AWS API]
+
+    OP -->|chọn cấu hình| CFG
+    CFG --> CLI
+    CLI --> TF
+    TF --> AWSAPI
+
+    subgraph SMALL[Small · đã có mã]
+      direction TB
+      subgraph VPCSM[VPC · một AZ]
+        EC2SM[EC2 Ubuntu 26.04<br/>EBS gp3 mã hóa]
+        WEB[Apache + PHP 8.3<br/>Docker · Moodle 4.5]
+        PG[(PostgreSQL 16)]
+        DATA[(moodledata)]
+        JOBS[systemd<br/>cron + backup]
+        EC2SM --> WEB
+        WEB --> PG
+        WEB --> DATA
+        JOBS --> WEB
+        JOBS --> PG
+        JOBS --> DATA
+      end
+      S3SM[(S3 backup<br/>tùy chọn)]
+      EC2SM -. quyền ghi giới hạn .-> S3SM
+    end
+
+    AWSAPI -->|Terraform tạo tài nguyên| EC2SM
+    OP -->|AWS CLI + SSM port forwarding<br/>localhost:8080| SSM[AWS Systems Manager]
+    SSM --> EC2SM
+
+    subgraph MEDIUM[Medium · thiết kế P1]
+      direction TB
+      USER[Người học] --> HTTPS[Route 53 + ALB HTTPS/ACM]
+      subgraph VPCMD[VPC · tối thiểu hai AZ]
+        APP[ASG · app node private]
+        CRON[Cron / release runner]
+        RDS[(RDS PostgreSQL)]
+        EFS[(EFS · moodledata)]
+        REDIS[(Redis · session + MUC)]
+        HTTPS --> APP
+        APP --> RDS
+        APP --> EFS
+        APP --> REDIS
+        CRON --> RDS
+        CRON --> EFS
+        CRON --> REDIS
+      end
+      S3MD[(S3 backup + manifest)]
+      OBS[CloudWatch logs · metrics · alarms]
+      APP -. log/metric .-> OBS
+      CRON -. log/metric .-> OBS
+      RDS -. backup .-> S3MD
+    end
+```
+
+Small chỉ truy cập qua SSM tunnel; không mở cổng web inbound. Medium bổ sung endpoint HTTPS công khai qua ALB, còn app/DB nằm trong private subnet. Các dịch vụ và đường nối của medium là mục tiêu thiết kế, chưa phải tài nguyên được Terraform hiện tại tạo ra.
+
 ## 1. Small — đã có mã Terraform
 
 ```mermaid
@@ -29,7 +96,7 @@ Giới hạn: một AZ, một máy, không HA; DB và file cùng mất nếu roo
 
 ## 2. Medium — thiết kế P1, chưa có mã triển khai
 
-Theo kế hoạch nhóm 4 người/400 USD, P1 được ưu tiên sau small và restore drill. Cấu hình lab dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app để giới hạn scale-out. Có thể dùng 1 NAT cho cửa sổ lab, nhưng đây vẫn là điểm lỗi đơn. Giới hạn giờ chạy và cổng duyệt dự toán ở [kế hoạch chi phí](07-report-and-cost.md); đây chưa phải cấu hình Terraform đã triển khai.
+Ngân sách tổng đã giảm xuống 150 USD ngày 07/11/2026; ưu tiên hoàn tất small và restore drill. Cấu hình P1 dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app. Cần dự toán lại cửa sổ chạy theo [kế hoạch chi phí](07-report-and-cost.md) trước triển khai P1; đây chưa phải cấu hình Terraform đã triển khai.
 
 ```mermaid
 flowchart TD

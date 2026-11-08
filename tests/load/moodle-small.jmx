@@ -1,0 +1,468 @@
+<?xml version='1.0' encoding='utf-8'?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Small P0 workload: 60/20/10/10 logical actions" enabled="true">
+      <stringProp name="TestPlan.comments">Each random choice is one logical action: 60% course, 20% download, 10% assignment view, 10% logout/login cycle. The cycle emits multiple HTTP samples; percentages do not describe HTTP request counts. Submission writes are covered by the separate functional acceptance, not this load test. HTTP keep-alive is disabled for the SSM tunnel; every request opens a fresh connection. No HTTP retries.</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments">
+        <collectionProp name="Arguments.arguments" />
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Independent user sessions" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stopthread</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(users,2)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(ramp,10)}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration,120)}</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Private unique accounts" enabled="true">
+          <stringProp name="filename">${__P(users_csv)}</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="variableNames">username,password</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="ignoreFirstLine">true</boolProp>
+          <boolProp name="quotedData">true</boolProp>
+          <boolProp name="recycle">false</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+        </CSVDataSet>
+        <hashTree />
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="Selected site origin" enabled="true">
+          <stringProp name="HTTPSampler.domain">${__P(host,localhost)}</stringProp>
+          <stringProp name="HTTPSampler.port">${__P(port,8080)}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${__P(protocol,http)}</stringProp>
+          <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        </ConfigTestElement>
+        <hashTree />
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="Separate cookie jar per user" enabled="true">
+          <collectionProp name="CookieManager.cookies" />
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <stringProp name="CookieManager.policy">standard</stringProp>
+        </CookieManager>
+        <hashTree />
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login form" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments" />
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/login/index.php</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+          <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Login CSRF token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">logintoken</stringProp>
+            <stringProp name="RegexExtractor.regex">name="logintoken"[^&gt;]*value="([^"]+)"</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">TOKEN_MISSING</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree />
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">if (vars.get('logintoken') == 'TOKEN_MISSING') { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Login token missing'); }</stringProp>
+          </JSR223Assertion>
+          <hashTree />
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="username" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">username</stringProp>
+                <stringProp name="Argument.value">${username}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="password" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">password</stringProp>
+                <stringProp name="Argument.value">${password}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="logintoken" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">logintoken</stringProp>
+                <stringProp name="Argument.value">${logintoken}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/login/index.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+          <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">if (prev.getURL().getPath().contains('/login/')) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Authentication failed'); }</stringProp>
+          </JSR223Assertion>
+          <hashTree />
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Logout session key" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">sesskey</stringProp>
+            <stringProp name="RegexExtractor.regex">"sesskey":"([^"]+)"</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">SESSION_KEY_MISSING</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree />
+        </hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Read workload until duration ends" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">-1</stringProp>
+        </LoopController>
+        <hashTree>
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think 3 to 8 seconds" enabled="true">
+            <stringProp name="ConstantTimer.delay">${__P(think_ms,3000)}</stringProp>
+            <stringProp name="RandomTimer.range">${__P(think_range_ms,5000)}</stringProp>
+          </UniformRandomTimer>
+          <hashTree />
+          <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Choose one logical action" enabled="true">
+            <stringProp name="SwitchController.value">${__Random(0,9,)}</stringProp>
+          </SwitchController>
+          <hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="0" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="1" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="2" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="3" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="4" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="5" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Course" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/course/view.php?id=${__P(course_id,2)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/course/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('course_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Private course assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="6" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Download" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">${__P(file_path)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def hash = java.security.MessageDigest.getInstance('SHA-256').digest(prev.getResponseData()).encodeHex().toString(); if (hash != props.getProperty('file_sha256')) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('File assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="7" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Download" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">${__P(file_path)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def hash = java.security.MessageDigest.getInstance('SHA-256').digest(prev.getResponseData()).encodeHex().toString(); if (hash != props.getProperty('file_sha256')) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('File assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="8" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Assignment view" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/mod/assign/view.php?id=${__P(assignment_id)}</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath() != '/mod/assign/view.php' || !prev.getResponseDataAsString().contains(props.getProperty('assignment_marker'))) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Assignment assertion failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="9" enabled="true" />
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Logout" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/login/logout.php?sesskey=${sesskey}&amp;loginpage=1</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (vars.get('sesskey') == 'SESSION_KEY_MISSING' || !prev.getURL().getPath().contains('/login/')) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Logout failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login form" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments" />
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/login/index.php</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Login CSRF token" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">logintoken</stringProp>
+                  <stringProp name="RegexExtractor.regex">name="logintoken"[^&gt;]*value="([^"]+)"</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">TOKEN_MISSING</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree />
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (vars.get('logintoken') == 'TOKEN_MISSING') { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Login token missing'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="username" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">username</stringProp>
+                      <stringProp name="Argument.value">${username}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="password" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">password</stringProp>
+                      <stringProp name="Argument.value">${password}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="logintoken" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.name">logintoken</stringProp>
+                      <stringProp name="Argument.value">${logintoken}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.path">/login/index.php</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout">10000</stringProp>
+                <stringProp name="HTTPSampler.response_timeout">45000</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Business assertion" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">if (prev.getURL().getPath().contains('/login/')) { AssertionResult.setFailure(true); AssertionResult.setFailureMessage('Authentication failed'); }</stringProp>
+                </JSR223Assertion>
+                <hashTree />
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Logout session key" enabled="true">
+                  <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                  <stringProp name="RegexExtractor.refname">sesskey</stringProp>
+                  <stringProp name="RegexExtractor.regex">"sesskey":"([^"]+)"</stringProp>
+                  <stringProp name="RegexExtractor.template">$1$</stringProp>
+                  <stringProp name="RegexExtractor.default">SESSION_KEY_MISSING</stringProp>
+                  <stringProp name="RegexExtractor.match_number">1</stringProp>
+                </RegexExtractor>
+                <hashTree />
+              </hashTree>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

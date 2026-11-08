@@ -5,6 +5,8 @@ locals {
     "configure.php"      = "0644"
     "install-db.php"     = "0644"
     "backup.sh"          = "0750"
+    "restore.sh"         = "0750"
+    "verify_backup.py"   = "0644"
     "health.sh"          = "0750"
     "setup-host.sh"      = "0750"
     "php-cli.sh"         = "0750"
@@ -33,6 +35,8 @@ locals {
           backup_bucket  = var.backup_bucket
           backup_prefix  = local.name
           region         = var.region
+          project        = var.project
+          environment    = var.environment
         }))
     }])
     runcmd = [["bash", "/opt/moodle-distribution/bootstrap.sh"]]
