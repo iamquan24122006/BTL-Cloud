@@ -43,6 +43,7 @@ def main(argv=None):
     parser.add_argument('--build', action='store_true')
     parser.add_argument('--tag', default='moodle-medium:build')
     parser.add_argument('--moodle-commit', help='Verified upstream commit for tag v4.5.15 (40 hex digits)')
+    parser.add_argument('--base-runtime', help='Optional verified Moodle runtime in private ECR, pinned by digest')
     args = parser.parse_args(argv)
     checksum = build_bundle(args.output)
     print(json.dumps({'bundle': str(args.output), 'sha256': checksum}, indent=2))
@@ -52,9 +53,16 @@ def main(argv=None):
         if subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=normal'], cwd=ROOT, text=True).strip():
             parser.error('Commit the reviewed source before building a release; dirty/untracked inputs are not publishable')
         revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-        subprocess.run(['docker', 'build', '--platform', 'linux/amd64', '--file', str(ROOT / 'scripts/medium/Dockerfile'),
+        buildfile = ROOT / 'scripts/medium/Dockerfile'
+        extra = []
+        if args.base_runtime:
+            if not re.fullmatch(r'\d{12}\.dkr\.ecr\.[a-z0-9-]+\.amazonaws\.com/[a-z0-9/_-]+@sha256:[a-f0-9]{64}', args.base_runtime):
+                parser.error('--base-runtime must be an immutable private ECR URI')
+            buildfile = ROOT / 'scripts/medium/Dockerfile.release'
+            extra = ['--build-arg', 'BASE_RUNTIME=' + args.base_runtime]
+        subprocess.run(['docker', 'build', '--platform', 'linux/amd64', '--file', str(buildfile),
                         '--build-arg', 'RELEASE_COMMIT=' + revision, '--build-arg', 'MOODLE_COMMIT=' + args.moodle_commit,
-                        '--tag', args.tag, str(ROOT)], check=True)
+                        *extra, '--tag', args.tag, str(ROOT)], check=True)
         print('Built source release ' + revision + '. Push once; deploy only its returned @sha256 digest.')
     return 0
 
