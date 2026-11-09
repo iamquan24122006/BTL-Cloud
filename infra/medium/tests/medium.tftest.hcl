@@ -1,4 +1,7 @@
 mock_provider "aws" {
+  mock_resource "aws_iam_service_linked_role" {
+    defaults = { arn = "arn:aws:iam::111111111111:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_moodle-test" }
+  }
   mock_data "aws_ec2_managed_prefix_list" {
     defaults = { id = "pl-00000000000000000" }
   }

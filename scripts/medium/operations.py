@@ -126,11 +126,25 @@ class Operations:
             cursor.execute('GRANT USAGE ON SCHEMA public TO moodle_runtime')
 
     def grants(self):
-        with self.connection.cursor() as cursor:
-            cursor.execute('GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO moodle_runtime')
-            cursor.execute('GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO moodle_runtime')
-            cursor.execute('ALTER DEFAULT PRIVILEGES FOR ROLE moodle_migration IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO moodle_runtime')
-            cursor.execute('ALTER DEFAULT PRIVILEGES FOR ROLE moodle_migration IN SCHEMA public GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO moodle_runtime')
+        # RDS's managed master is not a true PostgreSQL superuser and cannot
+        # change another role's default privileges. Use the schema owner itself.
+        owned = self.connect(self.migration)
+        try:
+            owned.autocommit = True
+            with owned.cursor() as cursor:
+                cursor.execute("SELECT c.relname,c.relkind FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND left(c.relname,4)='mdl_' AND c.relowner=(SELECT oid FROM pg_roles WHERE rolname=current_user)")
+                objects = cursor.fetchall()
+                for kinds, privileges, object_type in [
+                    ({'r', 'p', 'v', 'm', 'f'}, 'SELECT, INSERT, UPDATE, DELETE', 'TABLE'),
+                    ({'S'}, 'USAGE, SELECT, UPDATE', 'SEQUENCE'),
+                ]:
+                    names = [sql.Identifier('public', name) for name, kind in objects if kind in kinds]
+                    if names:
+                        cursor.execute(sql.SQL('GRANT ' + privileges + ' ON ' + object_type + ' {} TO moodle_runtime').format(sql.SQL(',').join(names)))
+                cursor.execute('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO moodle_runtime')
+                cursor.execute('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO moodle_runtime')
+        finally:
+            owned.close()
 
     def apps(self):
         result = self.aws('ec2', 'describe-instances', '--filters',

@@ -38,6 +38,11 @@ resource "aws_iam_role" "runner" {
   name_prefix        = "${substr(local.name, 0, 26)}-runner-"
   assume_role_policy = local.trust_ec2
 }
+resource "aws_iam_service_linked_role" "autoscaling" {
+  aws_service_name = "autoscaling.amazonaws.com"
+  custom_suffix    = substr(local.name, 0, 24)
+  description      = "Dedicated service-linked role for ${local.name}"
+}
 resource "aws_iam_role_policy_attachment" "ssm" {
   for_each   = { app = aws_iam_role.app.name, runner = aws_iam_role.runner.name }
   role       = each.value
@@ -104,12 +109,13 @@ resource "aws_launch_template" "app" {
   }
 }
 resource "aws_autoscaling_group" "app" {
-  name                = "${local.name}-app"
-  min_size            = 2
-  desired_capacity    = 2
-  max_size            = 3
-  vpc_zone_identifier = [for s in aws_subnet.app : s.id]
-  target_group_arns   = [aws_lb_target_group.app.arn]
+  name                    = "${local.name}-app"
+  min_size                = 2
+  desired_capacity        = 2
+  max_size                = 3
+  service_linked_role_arn = aws_iam_service_linked_role.autoscaling.arn
+  vpc_zone_identifier     = [for s in aws_subnet.app : s.id]
+  target_group_arns       = [aws_lb_target_group.app.arn]
   # Shared DB/EFS/cache failures must not cause a replacement storm.
   # ALB gates traffic; ASG replaces EC2 failures. Investigate unhealthy apps via logs/SSM.
   health_check_type         = "EC2"
@@ -117,6 +123,21 @@ resource "aws_autoscaling_group" "app" {
   launch_template {
     id      = aws_launch_template.app.id
     version = tostring(aws_launch_template.app.latest_version)
+  }
+  tag {
+    key                 = "Project"
+    value               = var.project
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "Environment"
+    value               = var.environment
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "Owner"
+    value               = "N2"
+    propagate_at_launch = true
   }
   instance_refresh {
     strategy = "Rolling"
