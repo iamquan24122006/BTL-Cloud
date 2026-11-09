@@ -1,0 +1,82 @@
+{
+  "node-new-proof": {
+    "instance_id": "i-09fe1690ecdc65e47",
+    "command_id": "7582c4e5-8efc-43fa-987a-e32148f19984",
+    "proof": [
+      {
+        "role": "app",
+        "release": "87da9a6a37239090b1113349a850b50375126811",
+        "image": "860366539351.dkr.ecr.ap-southeast-1.amazonaws.com/moodle-n2-dev/moodle@sha256:547a6dcc97533d4a0bead1a6185db4640f1bc5f6e8ba25a19a4ea0e7d06ee130",
+        "container_image_matches": true
+      },
+      {
+        "private_file_acceptance_http200": 17
+      }
+    ],
+    "access_log_samples": [
+      "[09/Nov/2026:15:49:37 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 191503",
+      "[09/Nov/2026:15:49:38 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 195320",
+      "[09/Nov/2026:15:49:38 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 196894"
+    ]
+  },
+  "node-existing-proof": {
+    "instance_id": "i-0b88ff68eca9f7cdf",
+    "command_id": "29a27450-15b6-4130-acb8-d2685bb53973",
+    "proof": [
+      {
+        "role": "app",
+        "release": "87da9a6a37239090b1113349a850b50375126811",
+        "image": "860366539351.dkr.ecr.ap-southeast-1.amazonaws.com/moodle-n2-dev/moodle@sha256:547a6dcc97533d4a0bead1a6185db4640f1bc5f6e8ba25a19a4ea0e7d06ee130",
+        "container_image_matches": true
+      },
+      {
+        "private_file_acceptance_http200": 18
+      }
+    ],
+    "access_log_samples": [
+      "[09/Nov/2026:15:49:37 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 183136",
+      "[09/Nov/2026:15:49:38 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 185381",
+      "[09/Nov/2026:15:49:38 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 182728"
+    ]
+  },
+  "node-restore-a-proof": {
+    "instance_id": "i-07916d5460e014980",
+    "command_id": "c3627725-bac3-4987-81e7-19548e1fbf1f",
+    "proof": [
+      {
+        "role": "app",
+        "release": "87da9a6a37239090b1113349a850b50375126811",
+        "image": "860366539351.dkr.ecr.ap-southeast-1.amazonaws.com/moodle-n2-dev/moodle@sha256:547a6dcc97533d4a0bead1a6185db4640f1bc5f6e8ba25a19a4ea0e7d06ee130",
+        "container_image_matches": true
+      },
+      {
+        "private_file_acceptance_http200": 7
+      }
+    ],
+    "access_log_samples": [
+      "[09/Nov/2026:15:54:57 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 188297",
+      "[09/Nov/2026:15:54:58 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 181797",
+      "[09/Nov/2026:15:54:59 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 183694"
+    ]
+  },
+  "node-restore-b-proof": {
+    "instance_id": "i-0c30e5d809f569282",
+    "command_id": "d1e6b92d-080c-4ad8-aa7f-8eb0c1c0486f",
+    "proof": [
+      {
+        "role": "app",
+        "release": "87da9a6a37239090b1113349a850b50375126811",
+        "image": "860366539351.dkr.ecr.ap-southeast-1.amazonaws.com/moodle-n2-dev/moodle@sha256:547a6dcc97533d4a0bead1a6185db4640f1bc5f6e8ba25a19a4ea0e7d06ee130",
+        "container_image_matches": true
+      },
+      {
+        "private_file_acceptance_http200": 8
+      }
+    ],
+    "access_log_samples": [
+      "[09/Nov/2026:15:54:58 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 187526",
+      "[09/Nov/2026:15:54:58 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 195198",
+      "[09/Nov/2026:15:54:59 +0000] GET /pluginfile.php/17/mod_resource/content/1/H\\xe1\\xbb\\x8dc li\\xe1\\xbb\\x87u ti\\xe1\\xba\\xbfng Vi\\xe1\\xbb\\x87t.txt 200 190084"
+    ]
+  }
+}

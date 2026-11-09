@@ -14,13 +14,24 @@ require_once($CFG->dirroot . '/mod/assign/locallib.php');
 \core\session\manager::set_user(get_admin());
 set_config('noemailever', 1);
 $manifestpath = $CFG->dataroot . '/.distribution/fixture.json';
-if (is_file($manifestpath)) { echo file_get_contents($manifestpath); exit(0); }
+if (is_file($manifestpath)) {
+    $existing = json_decode(file_get_contents($manifestpath), true, 512, JSON_THROW_ON_ERROR);
+    foreach ($existing['users'] as $entry) {
+        $user = $DB->get_record('user', ['id' => $entry['id'], 'username' => $entry['username']], '*', MUST_EXIST);
+        if ((int)$user->mnethostid === 0) {
+            user_update_user((object)['id' => $user->id, 'mnethostid' => $CFG->mnet_localhost_id], false);
+        } elseif ((int)$user->mnethostid !== (int)$CFG->mnet_localhost_id) {
+            throw new RuntimeException('Fixture user belongs to another MNet host');
+        }
+    }
+    echo file_get_contents($manifestpath); exit(0);
+}
 $users = [];
 foreach (['teacher' => 'Teacher', 'student_a' => 'Student A', 'student_b' => 'Student B', 'student_c' => 'Student C'] as $key => $name) {
     $username = 'cloud_' . $key;
     $user = $DB->get_record('user', ['username' => $username, 'deleted' => 0]);
     if (!$user) {
-        $user = (object)['username' => $username, 'auth' => 'manual', 'confirmed' => 1,
+        $user = (object)['username' => $username, 'auth' => 'manual', 'confirmed' => 1, 'mnethostid' => $CFG->mnet_localhost_id,
             'firstname' => $name, 'lastname' => 'CloudLab', 'email' => $username . '@example.invalid',
             'emailstop' => 1, 'timezone' => 'Asia/Ho_Chi_Minh', 'country' => 'VN',
             'password' => substr(hash_hmac('sha256', $username, $initial['password']), 0, 32) . 'Aa7!'];

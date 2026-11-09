@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "time_unix": 1794239371.0575745,
+  "scope": "Second Terraform plan contends with real restore apply on the same S3 backend/key",
+  "returncode": 1,
+  "s3_status_code": 412,
+  "s3_error": "PreconditionFailed",
+  "lock_operation": "OperationTypeApply"
+}

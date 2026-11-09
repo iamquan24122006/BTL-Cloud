@@ -141,7 +141,7 @@ RDS có deletion protection và final snapshot, EFS có `prevent_destroy`. Do đ
 
 ## 7. Checklist bằng chứng bàn giao N3
 
-Tất cả các ca dưới đây **Chờ nghiệm thu AWS** cho đến khi có output thực tế đã lọc bí mật.
+Bảng dưới đây là checklist đầy đủ. Kết quả thực chạy ngày 09/11/2026 và giới hạn của từng bằng chứng nằm trong [nhật ký AWS](12-medium-live-lab.md); N3 kiểm tra lại trước khi chốt nghiệm thu toàn bộ.
 
 | Mã | Ca cần chạy và evidence tối thiểu |
 |---|---|

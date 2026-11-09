@@ -79,6 +79,13 @@ def main(argv=None):
         return status, hashlib.sha256(body).hexdigest()
 
     try:
+        administrator = Client(args.url)
+        status, body, location = administrator.login(admin['username'], admin['password'])
+        check('login-admin', status == 200 and '/login/index.php' not in location
+              and any('/login/logout.php?' in link for link in Form(body).links))
+        status, body, _ = administrator.get('/admin/search.php')
+        check('admin-site-settings', status == 200 and b'Site administration' in body
+              and 'query' in Form(body).inputs)
         clients = {}
         for key, user in fixture['users'].items():
             client = Client(args.url)
@@ -105,6 +112,7 @@ def main(argv=None):
             check('submission-' + key + '-peer-denied', hash_response(clients[other], submission['path'])[1] != submission['sha256'])
             status, body, _ = clients[key].get('/mod/assign/view.php?id=' + str(assignment['cmid']))
             check('grade-feedback-' + key, status == 200 and ('FEEDBACK-' + key.upper() + '-OK').encode() in body)
+            check('grade-value-' + key, (str(submission['grade']) + '.00').encode() in body)
             check('private-peer-feedback-' + key, ('FEEDBACK-' + other.upper() + '-OK').encode() not in body)
         course = fixture['courses']['CLOUD-C01']
         status, body, _ = clients['teacher'].get('/course/edit.php?id=' + str(course))

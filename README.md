@@ -4,7 +4,7 @@
 
 **Phạm vi hiện tại:** đặc tả ngày 03/11/2026 phân công 3 người: N1 small, N2 medium, N3 kiểm thử/vận hành và bằng chứng. Ngân sách tham khảo 400 USD trong kế hoạch cũ cần nhóm đối chiếu lại trước khi chạy AWS. Xem [phần bàn giao N2](docs/10-medium-n2.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium có ALB HTTPS, ASG hai app private, runner riêng, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Mã medium chưa được nghiệm thu trên AWS; không coi mock test hoặc Docker local là bằng chứng AWS. Xem [triển khai và checklist N2](docs/10-medium-n2.md).
+**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium đã chạy trên AWS với hai app private, runner riêng, ALB/ASG, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Đã thử thay app và backup/restore sang medium mới; 47 kiểm tra HTTPS đạt ở mỗi site. Lab dùng HTTPS tạm của CloudFront theo lựa chọn người dùng; MED-02 về domain/ACM/HTTPS tại ALB còn chờ phụ thuộc. Xem [nhật ký AWS và bằng chứng](docs/12-medium-live-lab.md), [triển khai và checklist N2](docs/10-medium-n2.md).
 
 ## Đọc theo thứ tự
 

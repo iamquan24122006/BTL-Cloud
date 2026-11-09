@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "time": "2026-11-09T15:43:11.253268+00:00",
+  "source": "moodle-n2-dev-med",
+  "wwwroot": "https://d30wbiaf9ui8kr.cloudfront.net",
+  "db_major": 16,
+  "moodle_version": "4.5.15",
+  "files": {
+    "database.dump": "a6f8485399098c7fb786989af4d52410070b2f4390628a70363e4aa2e4ae0c3e",
+    "moodledata.tar.gz": "497ccf9dd5f8ce8b44472188362a5f27023ed63e71de87663dd7ab3baa382b87"
+  },
+  "artifact": {
+    "bucket": "moodle-n2-dev-860366539351-ap-southeast-1-artifacts",
+    "image": "860366539351.dkr.ecr.ap-southeast-1.amazonaws.com/moodle-n2-dev/moodle@sha256:547a6dcc97533d4a0bead1a6185db4640f1bc5f6e8ba25a19a4ea0e7d06ee130",
+    "key": "releases/87da9a6a37239090b1113349a850b50375126811/medium.tar.gz",
+    "release": "87da9a6a37239090b1113349a850b50375126811",
+    "sha256": "a5ec8210a307fc409fdb8caab503da59e04f8674754eae81c9072a9d30625604"
+  },
+  "prefix": "s3://moodle-n2-dev-860366539351-ap-southeast-1-backups/moodle-n2-dev-med/20261109T154309"
+}

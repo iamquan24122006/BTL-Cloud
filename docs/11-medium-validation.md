@@ -1,16 +1,17 @@
 # Kết quả kiểm tra mã N2
 
-Ngày kiểm tra: 06/11/2026. Checkout local: `master`, thay đổi chưa commit/push. Không tạo, sửa hoặc xóa tài nguyên AWS trong lần phát triển này. Không dùng kết quả dưới đây để ghi `Đạt` cho ca nghiệm thu AWS.
+Kiểm tra local ban đầu ngày 06/11/2026, chạy bổ sung ngày 09/11/2026 trên nhánh local `n2-medium-lab`. Kết quả dưới đây phân biệt kiểm tra local và triển khai thật trong [nhật ký AWS](12-medium-live-lab.md). Chưa push được lên remote; artifact AWS ghim commit `87da9a6a37239090b1113349a850b50375126811`.
 
 | Phạm vi | Kết quả thực chạy |
 |---|---|
-| Python unit tests | **39 test đạt**: schema small/medium, input âm, offline render, state isolation/backend lock config, fingerprint, saved plan/account/confirmation/single use, race đổi plan, worker timeout và migration bị gián đoạn |
+| Python unit tests | **40 test đạt**: schema small/medium, input âm, offline render, state isolation/backend lock config, fingerprint, saved plan/account/confirmation/single use, race đổi plan, worker timeout và migration bị gián đoạn |
 | Validate/render CLI | Small và YAML medium mẫu hợp lệ; render medium tách workspace và không xuất backend vào tfvars |
-| Terraform medium | `fmt -check`, `validate` đạt; **1 mock test đạt**, toàn bộ resource/data được mock, không gọi AWS |
-| Terraform backend | `fmt -check`, `validate` đạt; chưa apply bucket |
+| Terraform medium | `fmt -check`, `validate` đạt; **2 mock test đạt**, domain/ACM và CloudFront tạm; toàn bộ resource/data được mock, không gọi AWS |
+| Terraform backend | `fmt -check`, `validate` đạt; AWS bucket thật nằm trong nhật ký riêng |
 | Shell/Python/PHP | Shell syntax và Python compile đạt; tất cả PHP medium lint đạt trong image build |
 | Image medium | Build Linux amd64 đạt, PHP 8.3, Redis extension 6.1.0, Moodle tag 4.5.15 được đối chiếu upstream commit |
 | Docker integration | **45 bước đạt** với Moodle thật, PostgreSQL 16 TLS và hai Redis TLS, hai app container, shared Docker volume |
+| Fixture teacher/student local | Chạy thêm fixture bằng API Moodle thật trên image release `d58bd838...`; tạo course, enrolment, học liệu, bài nộp và chấm điểm đạt. Sau đó phát hiện/sửa `mnethostid` qua kiểm tra login AWS |
 | Cleanup kiểm thử | Không còn container, volume hoặc network có prefix `moodle-n2-` sau chạy |
 | GitHub Actions | Workflow được cập nhật; chưa có bằng chứng một lượt chạy GitHub Actions trên remote |
 
@@ -31,4 +32,4 @@ Báo cáo và log local nằm ở `.work/medium-runtime-check-final/`; kết qu�
 
 Hai lỗi phát hiện và đã sửa trong tích hợp: cấu hình `reverseproxy` không phù hợp public Host của ALB gây login 500; xóa MUC store đã có mapping làm release chạy lại thất bại. Bộ kiểm tra hiện tái hiện hai luồng này.
 
-Docker shared volume không phải EFS; local PostgreSQL/Redis không phải RDS/ElastiCache. Test HTTP nội bộ mô phỏng header của proxy, không chứng minh domain/ACM/HTTPS public. AMI Ubuntu 26.04, EFS TLS/IAM, S3 lock thực, quyền IAM, SSM dừng writer, ASG thay node, backup/restore medium trên AWS và bộ fixture teacher/student vẫn **Chờ nghiệm thu**. Đầu vào và checklist ở [bàn giao N2](10-medium-n2.md).
+Docker shared volume không phải EFS; local PostgreSQL/Redis không phải RDS/ElastiCache. Test HTTP nội bộ không chứng minh HTTPS public. Những ca AWS thực chạy ngày 09/11/2026, cùng các ca còn chờ N3, được đối chiếu ở [nhật ký và bằng chứng AWS](12-medium-live-lab.md). Domain/ACM tại ALB, trình duyệt desktop/mobile, upload vượt giới hạn và đo tải so sánh chưa được xác nhận bởi bộ kiểm tra local này.
