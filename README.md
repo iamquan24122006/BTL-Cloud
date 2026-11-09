@@ -4,7 +4,7 @@
 
 **Phạm vi hiện tại:** đặc tả ngày 03/11/2026 phân công 3 người: N1 small, N2 medium, N3 kiểm thử/vận hành và bằng chứng. Ngân sách tham khảo 400 USD trong kế hoạch cũ cần nhóm đối chiếu lại trước khi chạy AWS. Xem [phần bàn giao N2](docs/10-medium-n2.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium đã chạy trên AWS với hai app private, runner riêng, ALB/ASG, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Đã thử thay app và backup/restore sang medium mới; 47 kiểm tra HTTPS đạt ở mỗi site. Lab dùng HTTPS tạm của CloudFront theo lựa chọn người dùng; MED-02 về domain/ACM/HTTPS tại ALB còn chờ phụ thuộc. Xem [nhật ký AWS và bằng chứng](docs/12-medium-live-lab.md), [triển khai và checklist N2](docs/10-medium-n2.md).
+**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium đã chạy trên AWS với hai app private, runner riêng, ALB/ASG, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Đã thử thay app và backup/restore sang medium mới. Ngày 10/11/2026 đã hoàn tất MED-02 bằng hostname miễn phí Dynu, chứng chỉ ACM và HTTPS ngay tại ALB; chạy lại 47 kiểm tra LMS và 16 kiểm tra HTTPS đạt. Xem [MED-02 và URL hiện tại](docs/13-medium-med02.md), [nhật ký AWS](docs/12-medium-live-lab.md), [triển khai và checklist N2](docs/10-medium-n2.md).
 
 ## Đọc theo thứ tự
 
@@ -19,6 +19,7 @@ Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn ho
 7. [Kiểm thử, đo tải và bằng chứng nghiệm thu](docs/06-test-plan.md).
 8. [Dự toán chi phí, dàn ý báo cáo và kịch bản demo](docs/07-report-and-cost.md).
 9. [Medium: hướng dẫn N2, artifact, backend, release và nghiệm thu](docs/10-medium-n2.md).
+10. [MED-02: domain miễn phí, ACM, HTTPS tại ALB và bằng chứng](docs/13-medium-med02.md).
 
 ## Stack của bản đầu
 

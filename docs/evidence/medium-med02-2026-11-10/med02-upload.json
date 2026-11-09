@@ -1,0 +1,13 @@
+{
+  "resource_url": "https://www.moodle-cloud-distribution.mywire.org/mod/resource/view.php?id=6",
+  "file_name": "Kiểm tra HTTPS.txt",
+  "sha256": "6dfc2fcce86a03b7f389b846263a8efd6b67eaf50c8f78b7bdb85444a0025bcc",
+  "bytes": 64,
+  "student_download_sha256": "6dfc2fcce86a03b7f389b846263a8efd6b67eaf50c8f78b7bdb85444a0025bcc",
+  "file_url": "https://www.moodle-cloud-distribution.mywire.org/pluginfile.php/37/mod_resource/content/1/Ki%E1%BB%83m%20tra%20HTTPS.txt",
+  "student_download_matches": true,
+  "guest_denied": true,
+  "unenrolled_student_denied": true,
+  "status": "passed",
+  "finished_unix": 1794248778.3751993
+}

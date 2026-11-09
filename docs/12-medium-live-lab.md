@@ -1,5 +1,7 @@
 # Lab AWS medium N2 — nhật ký triển khai
 
+**Cập nhật 10/11/2026:** lab đã chuyển sang **https://www.moodle-cloud-distribution.mywire.org**, dùng hostname miễn phí Dynu và ACM/HTTPS trực tiếp tại ALB. MED-02 đã có bằng chứng đạt; xem [nhật ký chuyển domain](13-medium-med02.md). Nội dung dưới đây ghi lại giai đoạn CloudFront ngày 09/11/2026; URL và instance IDs trong giai đoạn đó là dữ liệu lịch sử.
+
 Người dùng đã yêu cầu tiếp tục triển khai AWS, chọn cửa sổ chạy thử khoảng **2 giờ** và URL HTTPS tạm bằng CloudFront vì chưa có domain. `MED-02` (ACM/domain/HTTPS ngay tại ALB) vẫn để chờ nghiệm thu. Không thay đổi máy small hiện có.
 
 ## Inventory trước mutation
@@ -30,7 +32,7 @@ Nguồn giá là [AWS Price List Query API](https://docs.aws.amazon.com/awsaccou
 
 Ngày 09/11/2026 đã triển khai thật, release/schema thành công, chạy fixture teacher/student, thử thay app, tạo backup S3 và restore sang medium mới. Người dùng yêu cầu **giữ lab chính chạy để xem/demo** sau nghiệm thu; chưa có lịch tự hủy. Môi trường restore được dọn riêng sau khi kiểm tra đạt. Metadata, state/plan, log đầy đủ ở `.work/medium-live/`; chỉ chia sẻ các bằng chứng đã lọc trong [thư mục evidence](evidence/medium-2026-11-09/README.md).
 
-## Môi trường demo chính
+## Môi trường demo tại thời điểm kiểm tra 09/11/2026
 
 | Thành phần | Giá trị đã xác minh |
 |---|---|

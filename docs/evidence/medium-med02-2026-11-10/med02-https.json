@@ -1,0 +1,111 @@
+{
+  "started_unix": 1794248443.6763036,
+  "url": "https://www.moodle-cloud-distribution.mywire.org",
+  "checks": [
+    {
+      "name": "dns-points-directly-to-alb",
+      "passed": true
+    },
+    {
+      "name": "tls-chain-and-hostname-verified",
+      "passed": true
+    },
+    {
+      "name": "tls-version-modern",
+      "passed": true
+    },
+    {
+      "name": "http-301-to-correct-https-url",
+      "passed": true
+    },
+    {
+      "name": "https-login-page-200",
+      "passed": true
+    },
+    {
+      "name": "no-redirect-to-old-domain",
+      "passed": true
+    },
+    {
+      "name": "hsts-present",
+      "passed": true
+    },
+    {
+      "name": "login-page-no-http-assets-or-form",
+      "passed": true
+    },
+    {
+      "name": "teacher-login-over-alb",
+      "passed": true
+    },
+    {
+      "name": "session-cookie-secure",
+      "passed": true
+    },
+    {
+      "name": "session-cookie-httponly",
+      "passed": true
+    },
+    {
+      "name": "session-cookie-matches-new-host",
+      "passed": true
+    },
+    {
+      "name": "course-correct-https-host",
+      "passed": true
+    },
+    {
+      "name": "course-no-http-assets-or-form",
+      "passed": true
+    },
+    {
+      "name": "assignment-correct-https-host",
+      "passed": true
+    },
+    {
+      "name": "assignment-no-http-assets-or-form",
+      "passed": true
+    }
+  ],
+  "dns_cname": [
+    "moodle-n2-dev-med-850643930.ap-southeast-1.elb.amazonaws.com"
+  ],
+  "tls": {
+    "version": "TLSv1.3",
+    "cipher": "TLS_AES_128_GCM_SHA256",
+    "subject_alt_names": [
+      [
+        "DNS",
+        "www.moodle-cloud-distribution.mywire.org"
+      ]
+    ],
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "Amazon"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "Amazon RSA 2048 S20"
+        ]
+      ]
+    ],
+    "not_before": "Nov  9 17:01:40 2026 GMT",
+    "not_after": "May 26 18:01:40 2027 GMT"
+  },
+  "http_redirect": {
+    "status": 301,
+    "location": "https://www.moodle-cloud-distribution.mywire.org:443/login/index.php?med02_probe=redirect"
+  },
+  "status": "passed",
+  "finished_unix": 1794248451.9487305
+}
