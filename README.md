@@ -4,7 +4,7 @@
 
 **Phạm vi hiện tại:** đặc tả ngày 03/11/2026 phân công 3 người: N1 small, N2 medium, N3 kiểm thử/vận hành và bằng chứng. Ngân sách tham khảo 400 USD trong kế hoạch cũ cần nhóm đối chiếu lại trước khi chạy AWS. Xem [phần bàn giao N2](docs/10-medium-n2.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng:** có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium đã chạy trên AWS với hai app private, runner riêng, ALB/ASG, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Đã thử thay app và backup/restore sang medium mới. Ngày 10/11/2026 đã hoàn tất MED-02 bằng hostname miễn phí Dynu, chứng chỉ ACM và HTTPS ngay tại ALB; chạy lại 47 kiểm tra LMS và 16 kiểm tra HTTPS đạt. Xem [MED-02 và URL hiện tại](docs/13-medium-med02.md), [nhật ký AWS](docs/12-medium-live-lab.md), [triển khai và checklist N2](docs/10-medium-n2.md).
+**Tình trạng:** lab Singapore đã được [cleanup và kiểm kê](docs/15-aws-cleanup.md) ngày 10/11/2026 theo yêu cầu ngừng phí; URL/IDs là lịch sử nghiệm thu. Có mã Terraform/runtime/CLI cho `small` và `medium`; `large`/production vẫn bị từ chối. Medium đã chạy trên AWS với hai app private, runner riêng, ALB/ASG, RDS, EFS, Redis session/cache riêng và backend S3 có khóa. Đã thử thay app và backup/restore sang medium mới. MED-02 với ACM/HTTPS tại ALB đã chạy lại 47 kiểm tra LMS và 16 kiểm tra HTTPS đạt. Xem [bằng chứng MED-02](docs/13-medium-med02.md), [nhật ký AWS](docs/12-medium-live-lab.md), [checklist N2](docs/10-medium-n2.md).
 
 ## Đọc theo thứ tự
 

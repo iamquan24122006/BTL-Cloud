@@ -1,34 +1,45 @@
 # Cleanup AWS và lưu trữ offline — 10/11/2026
 
-Người dùng yêu cầu xóa môi trường để ngừng phí, thay cho yêu cầu giữ lab demo trước đó. Phạm vi đã kiểm kê trong account `860366539351`, Singapore: medium `moodle-n2-dev-med`, small cũ `moodle-lab-dev`, builder `moodle-n2-dev-builder`, ba bucket support, ECR, secret, AMI và snapshot liên quan. Không áp dụng cho account/profile Sydney của N1 chưa được xác định ở phiên này.
+**Đã dọn xong lab Singapore trong account `860366539351`.** Inventory cuối lúc **04:34:39 UTC / 11:34:39 giờ Việt Nam** không còn các tài nguyên lab tính phí đã kiểm kê. S3 và CloudFront toàn account cũng trống. URL demo cũ đã ngừng hoạt động.
 
-## Trạng thái thực hiện
+Đây là thực hiện yêu cầu xóa để ngừng phí, thay cho yêu cầu giữ demo trước đó. Không chứng nhận account/profile Sydney của N1 hoặc mọi dịch vụ tại mọi region. Chi phí đã phát sinh trước cleanup vẫn có thể xuất hiện trên Billing.
 
-**Đang thực hiện; chưa xác nhận hết tài nguyên tính phí.** Kết nối từ máy tới AWS/GitHub bị timeout trong lúc tải backup. Không coi việc dừng web/cron là dừng phí EC2, ALB, NAT, RDS, Redis hoặc storage.
+## Kết quả và bằng chứng
 
-Các bước đã hoàn tất trước khi mất kết nối:
+| Nhóm | Kết quả |
+|---|---|
+| EC2/ASG | Đã thu hồi hai app, runner, small cũ và builder; không còn EC2 chạy/stop trong inventory Singapore |
+| Ổ đĩa/IP/mạng | EBS, EIP, NAT Gateway, ALB và VPC endpoint đều trống |
+| Dữ liệu | Không còn RDS instance, EFS hoặc Redis replication group |
+| Snapshot/artifact | Không còn manual RDS/Redis snapshot, AMI/EBS snapshot hoặc ECR repository |
+| S3 | Đã tải về máy, xóa current objects, versions/delete markers/multipart và cả ba bucket backup/artifact/state |
+| Quan sát | Không còn CloudWatch log group/metric alarm/dashboard hoặc AWS Backup vault đã kiểm |
+| HTTPS/CDN | ACM của lab đã xóa; CloudFront không còn distribution |
+| Secret | Không còn secret active; 8 secret nguồn/restore đang chờ xóa theo recovery window |
+| Công cụ tạm | Lambda cleanup và IAM role/policy tạm đã gỡ; không còn Lambda function trong region |
 
-- Medium: giữ operation lock, dừng/drain cron, chặn web writer trên cả hai app và runtime DB; backup cuối `moodle-n2-dev-med/20261109T185426` trên bucket backup. SSM `024bd9e5-67aa-4940-ace5-7cc0da03f1ae` hoàn tất thành công. Giữ maintenance để dữ liệu không thay đổi sau backup.
-- Small: chạy script backup chuẩn, kiểm đủ checksum DB/file/config/code/runtime rồi upload một archive riêng. SSM `abb9ddf1-812d-403e-894a-3fa68b6c8d72` hoàn tất thành công. SHA-256 archive: `ffa69f97ec51e71b139af9928f42ce5b9a366a04a85fdead1946c28be72c37cc`. Web/cron đã dừng sau backup.
-- Đã tải xong backup, artifact và state vào khu vực private. SHA-256 của cả bốn bộ backup medium (gồm bộ cuối `20261109T185426`) và archive small đã khớp; có `archive-verified.json`. Image runtime đã export, kiểm tar đọc được và lưu SHA-256 trong `runtime-archive.json`. Bản offline cuối chưa được restore-test; không dùng việc có backup để ký ca restore mới đạt.
+Hồ sơ đã lọc: [inventory, thao tác và checksum offline](evidence/cleanup-2026-11-10/README.md). Truy vấn thêm 16 region không thấy EC2/RDS ở các nơi trả lời thành công; **Tokyo EC2/EBS timeout**, ghi rõ trong JSON. Tagging us-east-1 trả metadata IAM/payment toàn cục; không xóa thông tin thanh toán của account.
 
-Mã/hướng dẫn N3 đã push trên nhánh `khoi`. Tại mốc ghi nhận này chưa có marker `destroy-complete.json`: medium đang lập plan và chờ đọc Secrets Manager; small đang init provider. Chưa có inventory sau destroy để chứng nhận ngừng phí. Cần kiểm tra các log và trạng thái process trước khi chạy lại, tránh hai phiên Terraform cùng mutation; nếu process đã dừng mà còn lock phải xác minh chủ lock trước khi phục hồi.
+## Cách xử lý timeout và state
 
-## Vị trí riêng trên máy triển khai
+Small và builder hoàn tất saved destroy plan, mỗi root 10 tài nguyên. Medium hoàn tất 72 tài nguyên; chỉ gỡ bảo vệ trong root cleanup riêng sau khi backup nhất quán đã được tải/kiểm. Root chuẩn trong Git vẫn có RDS deletion protection và EFS prevent_destroy.
 
-`.work/medium-live/private/offline-20261110/` chứa dữ liệu cần bảo vệ; không commit, không gửi vào báo cáo. Khi archive hoàn tất, `archive-verified.json` đối chiếu SHA-256 DB và moodledata theo từng manifest, cùng hash archive small; `runtime-archive.json` ghi hash image archive. Nếu chuyển máy, bàn giao qua kho riêng có kiểm soát quyền.
+Plan medium trước đó kẹt hơn 30 phút ở GetSecretValue. Đã xác minh/dừng đúng process và giải phóng đúng lock `OperationTypePlan` của chính phiên này. Root cleanup riêng bỏ việc đọc token Redis, giữ nguyên auth token bằng ignore_changes; plan bảo vệ chỉ có một cập nhật RDS. Không đổi token hoặc runtime đang chạy. Sau đó saved destroy plan được kiểm account/project/hash rồi áp dụng.
 
-Saved plans, bản sao root cleanup và logs riêng ở `.work/medium-live/cleanup-all/` cùng các file `cleanup-all-*.log`. Root Terraform chuẩn trong Git tiếp tục có deletion protection/prevent_destroy; các thay đổi gỡ bảo vệ chỉ nằm trong bản cleanup riêng.
+Support đã xóa 16 tài nguyên qua Terraform. Endpoint Secrets Manager từ máy vẫn timeout nên bốn secret được lên lịch xóa bằng Lambda tạm trong cùng account. Role chỉ có DeleteSecret/DescribeSecret cho đúng bốn ARN và ListSecrets để kiểm kê, không có GetSecretValue. Audit xác nhận không còn secret active; sau đó xóa Lambda/role/policy. Các secret đã đánh dấu xóa **không tính phí trong recovery window**, theo [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_delete-secret.html).
 
-## Thứ tự dọn và xác minh
+Không ghi support Terraform apply là hoàn tất 20 tài nguyên: local cleanup state còn giữ bốn ID secret đã scheduled để đối chiếu. Không xóa/chỉnh state nhằm bỏ quên tài nguyên. Khi endpoint hoạt động lại hoặc sau recovery window, có thể refresh đúng cleanup state để đối chiếu việc xóa hẳn. Support plan cuối dùng `-refresh=false` sau khi xác minh account, backup và inventory; chỉ gồm delete đúng project, không bỏ khóa hoặc dùng `-target`.
 
-1. Tải và kiểm backup/artifact/state, lưu image offline; xác nhận đúng account.
-2. Root medium riêng: review plan chỉ tắt RDS deletion protection/chọn không tạo snapshot cuối vì giữ dữ liệu offline; gỡ EFS prevent_destroy trong bản riêng. Apply plan thay bảo vệ, sau đó lập/review/apply saved destroy plan. Không xóa remote state trước bước này.
-3. Destroy small và builder từ state riêng, đối chiếu instance ID trước apply; root EBS phải được xóa chứ không chỉ stop EC2.
-4. Dọn AMI/EBS snapshot, manual RDS/Redis snapshot đã giữ từ drill. Xóa certificate ACM riêng sau khi listener ALB đã gỡ.
-5. Tải state cuối, xóa mọi object version/delete marker và multipart ở đúng ba bucket, destroy support/ECR/secret metadata. Bucket state chỉ xóa khi các root dùng nó đã destroy xong.
-6. Kiểm kê lại EC2/EBS/EIP/NAT/ALB/RDS/EFS/Redis/S3/ECR/logs/alarms/secret/snapshot; ghi tài nguyên còn lại và lý do. Kiểm region khác bằng API nếu có quyền; không khẳng định toàn account đã sạch chỉ từ một region.
+Saved plans, state và logs ở `.work/medium-live/cleanup-all/`, `cleanup-medium-retry.log`, `cleanup-support-retry.log`, `cleanup-secrets-lambda.log` và `cleanup-verification.log`. Giữ riêng các file này; state/plan có thể chứa dữ liệu nhạy cảm.
 
-Tên Dynu miễn phí có thể giữ để lần dựng lại cập nhật CNAME tới ALB mới. URL demo không sử dụng được khi đã dọn hạ tầng; không dùng nó như site hiện hành. Billing còn có thể ghi nhận chi phí đã phát sinh trước cleanup; số trên Billing không giảm về 0 ngay khi xóa tài nguyên.
+## Backup và image đã giữ riêng
 
-Xem [hướng dẫn N3](14-n3-acceptance-guide.md) để dựng lại và chạy các ca còn thiếu.
+Thư mục trên máy triển khai: `.work/medium-live/private/offline-20261110/`, không nằm trong Git.
+
+- Medium: dừng/drain cron, giữ operation lock, chặn web writer và runtime DB; backup cuối `moodle-n2-dev-med/20261109T185426`, SSM `024bd9e5-67aa-4940-ace5-7cc0da03f1ae` thành công. Bốn bộ backup medium đã tải xuống và kiểm SHA-256 DB/file theo manifest.
+- Small: backup cuối `20261109T185518Z`, SSM `abb9ddf1-812d-403e-894a-3fa68b6c8d72` thành công. Hash archive: `ffa69f97ec51e71b139af9928f42ce5b9a366a04a85fdead1946c28be72c37cc`.
+- Có artifact bundle, state đã lưu trước cleanup, bản state cuối small/builder/support, image runtime export và metadata kiểm tar/SHA-256. Xem `archive-verified.json` và `runtime-archive.json` trong thư mục riêng.
+
+Backup cuối này **chưa được restore-test**. Lượt restore medium trước đã có bằng chứng riêng, không tự chứng nhận bộ cuối. Cloud backup/artifact đã xóa để ngừng phí; muốn phục hồi cần nhận bản offline qua kênh riêng, tạo lại prerequisite và kiểm tương thích source/digest theo [hướng dẫn N3](14-n3-acceptance-guide.md).
+
+Tên Dynu miễn phí được giữ để dùng lại. Lần deploy sau phải tạo ACM/AMI/bucket/ECR/secret và cập nhật DNS tới ALB mới; không dùng nguyên ARN/ID/URL cũ như một môi trường còn hoạt động.

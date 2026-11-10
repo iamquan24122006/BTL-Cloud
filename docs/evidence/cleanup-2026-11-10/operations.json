@@ -1,0 +1,25 @@
+{
+  "medium": {
+    "saved_plan_sha256": "0c96b7109e9be6f5790f271f910595ee400ed4a563be95665a34dee6653f350e",
+    "planned_managed_deletions": 72,
+    "completed_utc": "2026-11-10T04:21:57.173548+00:00"
+  },
+  "small": {
+    "saved_plan_sha256": "fdc3c5d1b902da705a5e9543fbda7fe7afc2ee0d09e4d8edec6e262ac1fe19c0",
+    "planned_managed_deletions": 10,
+    "completed_utc": "2026-11-10T03:47:59.015886+00:00"
+  },
+  "builder": {
+    "saved_plan_sha256": "561ef1cdc970fed407034cf72cc58ac1a091c94ea5897d7e753f68d489bd5c1c",
+    "planned_managed_deletions": 10,
+    "completed_utc": "2026-11-10T03:49:56.402878+00:00"
+  },
+  "support": {
+    "saved_plan_sha256": "92bb4bfcfa99d243c95bcef35169105d3073bf79acdffd59b65755bf904292de",
+    "planned_managed_deletions": 20,
+    "completed_utc": "2026-11-10T04:34:13.388974+00:00",
+    "method": "Terraform deleted 16 support resources; 4 secrets scheduled for deletion through temporary Lambda because local Secrets Manager endpoint timed out. Lambda and IAM role removed.",
+    "terraform_apply_complete": false,
+    "state_retained": "Four scheduled secret IDs retained in cleanup state for audit, no state entries manually removed."
+  }
+}
