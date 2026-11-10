@@ -10,7 +10,9 @@ Các bước đã hoàn tất trước khi mất kết nối:
 
 - Medium: giữ operation lock, dừng/drain cron, chặn web writer trên cả hai app và runtime DB; backup cuối `moodle-n2-dev-med/20261109T185426` trên bucket backup. SSM `024bd9e5-67aa-4940-ace5-7cc0da03f1ae` hoàn tất thành công. Giữ maintenance để dữ liệu không thay đổi sau backup.
 - Small: chạy script backup chuẩn, kiểm đủ checksum DB/file/config/code/runtime rồi upload một archive riêng. SSM `abb9ddf1-812d-403e-894a-3fa68b6c8d72` hoàn tất thành công. SHA-256 archive: `ffa69f97ec51e71b139af9928f42ce5b9a366a04a85fdead1946c28be72c37cc`. Web/cron đã dừng sau backup.
-- Đã lưu image runtime medium về máy; đang tải backup/artifact/state vào khu vực private. Bản offline cuối chưa được restore-test; không dùng việc có backup để ký ca restore mới đạt.
+- Đã tải xong backup, artifact và state vào khu vực private. SHA-256 của cả bốn bộ backup medium (gồm bộ cuối `20261109T185426`) và archive small đã khớp; có `archive-verified.json`. Image runtime đã export, kiểm tar đọc được và lưu SHA-256 trong `runtime-archive.json`. Bản offline cuối chưa được restore-test; không dùng việc có backup để ký ca restore mới đạt.
+
+Mã/hướng dẫn N3 đã push trên nhánh `khoi`. Tại mốc ghi nhận này chưa có marker `destroy-complete.json`: medium đang lập plan và chờ đọc Secrets Manager; small đang init provider. Chưa có inventory sau destroy để chứng nhận ngừng phí. Cần kiểm tra các log và trạng thái process trước khi chạy lại, tránh hai phiên Terraform cùng mutation; nếu process đã dừng mà còn lock phải xác minh chủ lock trước khi phục hồi.
 
 ## Vị trí riêng trên máy triển khai
 
