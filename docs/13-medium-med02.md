@@ -1,5 +1,7 @@
 # MED-02 — Domain miễn phí và HTTPS tại ALB
 
+**Vòng đời sau nghiệm thu:** người dùng đã yêu cầu cleanup AWS. URL và IDs trong bài là dữ liệu của lượt nghiệm thu, không bảo đảm còn hoạt động; xem [trạng thái cleanup](15-aws-cleanup.md) và [dựng lại cho N3](14-n3-acceptance-guide.md).
+
 Ngày nghiệm thu triển khai N2: **10/11/2026, giờ Việt Nam**. Trạng thái: **Đạt trong lượt kiểm tra này**, có hồ sơ để N3 kiểm tra lại. Các sự kiện AWS ghi UTC vào tối 09/11/2026.
 
 URL hiện tại: **https://www.moodle-cloud-distribution.mywire.org**.

@@ -8,6 +8,8 @@
 
 ## Đọc theo thứ tự
 
+**Bàn giao N3 và vòng đời lab:** người dùng đã yêu cầu dọn AWS để ngừng phí. Xem [trạng thái cleanup thực tế](docs/15-aws-cleanup.md) trước khi dùng URL/ARN/AMI lịch sử. [Hướng dẫn N3](docs/14-n3-acceptance-guide.md) trình bày dựng lại, kiểm thử bổ sung, restore, cảnh báo, đo tải và bàn giao; có [mẫu biên bản](docs/templates/n3-run.md) và [ma trận 20 ca](docs/templates/n3-results.csv). Nhánh bàn giao N2 là `khoi`; phần small mới của N1 ở `mq`, cần dùng đúng checkout và AWS profile.
+
 Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn hoàn tất các phần còn thiếu](docs/09-completion-guide.md): build Docker, deploy/kiểm tra small, restore, phát triển medium, đo tải và bàn giao.
 
 1. [Phạm vi, yêu cầu và kế hoạch 4 tuần](docs/00-project-plan.md).

@@ -1,5 +1,7 @@
 # Bàn giao N2 — medium và công cụ triển khai
 
+**Cập nhật bàn giao:** nhánh N2 hiện là `khoi`. Quyền GitHub đã được xác minh lại có WRITE; ghi chú 404 bên dưới là lịch sử. Người dùng yêu cầu dọn lab để ngừng phí; đọc [cleanup](15-aws-cleanup.md) và [hướng dẫn N3](14-n3-acceptance-guide.md) trước khi deploy hoặc truy cập URL cũ.
+
 Phạm vi đối chiếu: `12-dac-ta-tinh-nang-va-nghiem-thu (1).md`, N2, CLI-01…06 và MED-01…12. Công việc nằm trên nhánh local `n2-medium-lab`; chưa lấy được nhánh remote `mq` hoặc push lên remote trước đó trả 404. Medium đã triển khai và kiểm tra trên AWS ngày 09–10/11/2026, gồm thay app, backup/restore và [MED-02 với ACM/HTTPS tại ALB](13-medium-med02.md). N3 kiểm tra lại hồ sơ trước khi chốt toàn bộ tiêu chí.
 
 Kết quả đã chạy cục bộ: [nhật ký kiểm tra N2](11-medium-validation.md), gồm unit test, Terraform mock và Docker integration hai app.
