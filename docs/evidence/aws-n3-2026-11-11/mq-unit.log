@@ -1,0 +1,627 @@
+python.exe : test_archive_cannot_escape_target_or_create_links_and_devices
+
+(test_backup.BackupVerificationTests.test_archive_cannot_escape_target_or_create_links_and_devices) ... ok
+
+At line:2 char:68
+
++ ... deps/pure'; & D:/Code/Cloud/BTL-Cloud/.venv/Scripts/python.exe -m uni ...
+
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (test_archive_ca...devices) ... ok:String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+test_checksum_paths_and_duplicates_are_rejected
+
+(test_backup.BackupVerificationTests.test_checksum_paths_and_duplicates_are_rejected) ... ok
+
+test_complete_backup_is_verified_without_claiming_restore
+
+(test_backup.BackupVerificationTests.test_complete_backup_is_verified_without_claiming_restore) ... ok
+
+test_corrupt_missing_and_incomplete_sets_are_rejected
+
+(test_backup.BackupVerificationTests.test_corrupt_missing_and_incomplete_sets_are_rejected) ... ok
+
+test_manifest_cannot_omit_a_payload (test_backup.BackupVerificationTests.test_manifest_cannot_omit_a_payload) ... ok
+
+test_wrong_code_and_runtime_are_rejected
+
+(test_backup.BackupVerificationTests.test_wrong_code_and_runtime_are_rejected) ... ok
+
+test_wrong_database_format_is_rejected_even_with_valid_checksum
+
+(test_backup.BackupVerificationTests.test_wrong_database_format_is_rejected_even_with_valid_checksum) ... ok
+
+test_default_config (test_cli.ConfigurationTests.test_default_config) ... ok
+
+test_duplicate_yaml_keys_rejected (test_cli.ConfigurationTests.test_duplicate_yaml_keys_rejected) ... ok
+
+test_invalid_inputs_are_rejected (test_cli.ConfigurationTests.test_invalid_inputs_are_rejected) ... ok
+
+test_non_mapping_yaml_rejected (test_cli.ConfigurationTests.test_non_mapping_yaml_rejected) ... ok
+
+test_required_key (test_cli.ConfigurationTests.test_required_key) ... ok
+
+test_secrets_and_unknown_keys_rejected (test_cli.ConfigurationTests.test_secrets_and_unknown_keys_rejected) ... ok
+
+test_unsafe_yaml_tag_rejected (test_cli.ConfigurationTests.test_unsafe_yaml_tag_rejected) ... ok
+
+test_apply_needs_confirmation (test_cli.PlanGuardsTests.test_apply_needs_confirmation) ... ok
+
+test_apply_needs_saved_plan (test_cli.PlanGuardsTests.test_apply_needs_saved_plan) ... ok
+
+test_apply_rejects_changed_account (test_cli.PlanGuardsTests.test_apply_rejects_changed_account) ... ok
+
+test_apply_rejects_changed_cli_source (test_cli.PlanGuardsTests.test_apply_rejects_changed_cli_source) ... ok
+
+test_apply_rejects_changed_config (test_cli.PlanGuardsTests.test_apply_rejects_changed_config) ... ok
+
+test_apply_rejects_changed_plan (test_cli.PlanGuardsTests.test_apply_rejects_changed_plan) ... ok
+
+test_apply_rejects_changed_source (test_cli.PlanGuardsTests.test_apply_rejects_changed_source) ... ok
+
+test_destroy_requires_data_loss_acknowledgement
+
+(test_cli.PlanGuardsTests.test_destroy_requires_data_loss_acknowledgement) ... ok
+
+test_destroy_uses_destroy_plan (test_cli.PlanGuardsTests.test_destroy_uses_destroy_plan) ... ok
+
+test_environment_state_isolation (test_cli.PlanGuardsTests.test_environment_state_isolation) ... ok
+
+test_failed_apply_also_consumes_manifest (test_cli.PlanGuardsTests.test_failed_apply_also_consumes_manifest) ... ok
+
+test_render_offline (test_cli.PlanGuardsTests.test_render_offline) ... ok
+
+test_replacement_requires_data_loss_acknowledgement
+
+(test_cli.PlanGuardsTests.test_replacement_requires_data_loss_acknowledgement) ... ok
+
+test_successful_apply_consumes_manifest (test_cli.PlanGuardsTests.test_successful_apply_consumes_manifest) ... ok
+
+test_bad_confirmation_does_not_call_aws
+
+(test_cloud_acceptance.CloudAcceptanceGuardsTests.test_bad_confirmation_does_not_call_aws) ... ERROR: Target
+
+confirmation does not match configuration
+
+ok
+
+test_restored_fixture_cannot_be_read_from_an_unrelated_bucket
+
+(test_cloud_acceptance.CloudAcceptanceGuardsTests.test_restored_fixture_cannot_be_read_from_an_unrelated_bucket) ... ok
+
+test_wrong_account_does_not_submit_a_command
+
+(test_cloud_acceptance.CloudAcceptanceGuardsTests.test_wrong_account_does_not_submit_a_command) ... ERROR: AWS account
+
+does not match expected-account
+
+ok
+
+test_assertion_failures_are_counted_separately_from_latency
+
+(test_load_test.LoadReportTests.test_assertion_failures_are_counted_separately_from_latency) ... ok
+
+test_jmeter_small_summary_passes_complete_run_and_separates_ramp
+
+(test_load_test.LoadReportTests.test_jmeter_small_summary_passes_complete_run_and_separates_ramp) ... ok
+
+test_jmeter_small_summary_rejects_short_and_underpopulated_run
+
+(test_load_test.LoadReportTests.test_jmeter_small_summary_rejects_short_and_underpopulated_run) ... ok
+
+test_nearest_rank_percentile_handles_small_and_empty_samples
+
+(test_load_test.LoadReportTests.test_nearest_rank_percentile_handles_small_and_empty_samples) ... ok
+
+test_tokens_and_html_escaped_logout_links_are_parsed
+
+(test_load_test.LoadReportTests.test_tokens_and_html_escaped_logout_links_are_parsed) ... ok
+
+test_cleanup_refuses_a_container_with_a_different_owner
+
+(test_moodle_check.MoodleCheckGuardsTests.test_cleanup_refuses_a_container_with_a_different_owner) ... ok
+
+test_cleanup_report_outside_private_workspace_is_rejected
+
+(test_moodle_check.MoodleCheckGuardsTests.test_cleanup_report_outside_private_workspace_is_rejected) ... ok
+
+Infrastructure operation finished. Check cloud-init and Moodle health separately.
+
+Infrastructure operation finished. Check cloud-init and Moodle health separately.
+
+{
+
+  "samples": 12,
+
+  "elapsed_seconds": 31.0,
+
+  "transactions": {
+
+    "Assignment view": {
+
+      "samples": 2,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 0.065
+
+    },
+
+    "Course": {
+
+      "samples": 4,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 0.129
+
+    },
+
+    "Download": {
+
+      "samples": 2,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 0.065
+
+    },
+
+    "Login": {
+
+      "samples": 2,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 0.065
+
+    },
+
+    "Logout": {
+
+      "samples": 2,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 0.065
+
+    }
+
+  },
+
+  "scope": "JMeter small: 60% course / 20% download / 10% assignment view / 10% auth cycle by logical actions; fresh HTTP connections; no submission writes or browser rendering",
+
+  "observed_users": 2,
+
+  "expected_users": 2,
+
+  "minimum_seconds": 31.0,
+
+  "ramp_seconds": 30.0,
+
+  "steady": {
+
+    "samples": 2,
+
+    "elapsed_seconds": 1.0,
+
+    "transactions": {
+
+      "Course": {
+
+        "samples": 2,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 2.0
+
+      }
+
+    }
+
+  },
+
+  "status": "passed",
+
+  "conclusion": "Protocol smoke/load observations only; record workload, unique users, ramp, duration, CPU credits and repeats before capacity conclusions"
+
+}
+
+{
+
+  "samples": 5,
+
+  "elapsed_seconds": 1.0,
+
+  "transactions": {
+
+    "Assignment view": {
+
+      "samples": 1,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 1.0
+
+    },
+
+    "Course": {
+
+      "samples": 1,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 1.0
+
+    },
+
+    "Download": {
+
+      "samples": 1,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 1.0
+
+    },
+
+    "Login": {
+
+      "samples": 1,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 1.0
+
+    },
+
+    "Logout": {
+
+      "samples": 1,
+
+      "errors": 0,
+
+      "error_percent": 0.0,
+
+      "p50_ms_success": 1000.0,
+
+      "p95_ms_success": 1000.0,
+
+      "p99_ms_success": 1000.0,
+
+      "throughput_per_second": 1.0
+
+    }
+
+  },
+
+  "scope": "JMeter small: 60% course / 20% download / 10% assignment view / 10% auth cycle by logical actions; fresh HTTP connections; no submission writes or browser rendering",
+
+  "observed_users": 1,
+
+  "expected_users": 2,
+
+  "minimum_seconds": 140.0,
+
+  "ramp_seconds": 0,
+
+  "steady": {
+
+    "samples": 5,
+
+    "elapsed_seconds": 1.0,
+
+    "transactions": {
+
+      "Assignment view": {
+
+        "samples": 1,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 1.0
+
+      },
+
+      "Course": {
+
+        "samples": 1,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 1.0
+
+      },
+
+      "Download": {
+
+        "samples": 1,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 1.0
+
+      },
+
+      "Login": {
+
+        "samples": 1,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 1.0
+
+      },
+
+      "Logout": {
+
+        "samples": 1,
+
+        "errors": 0,
+
+        "error_percent": 0.0,
+
+        "p50_ms_success": 1000.0,
+
+        "p95_ms_success": 1000.0,
+
+        "p99_ms_success": 1000.0,
+
+        "throughput_per_second": 1.0
+
+      }
+
+    }
+
+  },
+
+  "status": "failed",
+
+  "conclusion": "Protocol smoke/load observations only; record workload, unique users, ramp, duration, CPU credits and repeats before capacity conclusions"
+
+}
+
+Moodle integration: failed. Report: C:\Users\flore\AppData\Local\Temp\tmpd4fwm1ft\.work\moodle-check\20261111T164439Z-012d0d854b1b\report.json
+
+test_non_linux_engine_does_not_create_resources
+
+(test_moodle_check.MoodleCheckGuardsTests.test_non_linux_engine_does_not_create_resources) ... ok
+
+[private]
+
+test_private_output_is_redacted_and_input_is_not_in_arguments
+
+(test_moodle_check.MoodleCheckGuardsTests.test_private_output_is_redacted_and_input_is_not_in_arguments) ... ok
+
+test_task_failure_is_rejected_even_when_cron_exits_zero
+
+(test_moodle_check.MoodleCheckGuardsTests.test_task_failure_is_rejected_even_when_cron_exits_zero) ... ok
+
+[timeout]
+
+test_timeout_keeps_partial_evidence_without_exposing_passwords
+
+(test_moodle_check.MoodleCheckGuardsTests.test_timeout_keeps_partial_evidence_without_exposing_passwords) ... ok
+
+test_backup_waits_for_result_and_checks_health_in_same_shell
+
+(test_operations.OperationTests.test_backup_waits_for_result_and_checks_health_in_same_shell) ... ok
+
+test_failed_plan_authentication_invalidates_old_approval
+
+(test_operations.OperationTests.test_failed_plan_authentication_invalidates_old_approval) ... ok
+
+test_nonempty_invalid_aws_json_is_still_rejected
+
+(test_operations.OperationTests.test_nonempty_invalid_aws_json_is_still_rejected) ... ok
+
+test_plan_review_detects_root_volume_data_loss_and_ignores_data_reads
+
+(test_operations.OperationTests.test_plan_review_detects_root_volume_data_loss_and_ignores_data_reads) ... ok
+
+test_preflight_rejects_wrong_account_before_mutation
+
+(test_operations.OperationTests.test_preflight_rejects_wrong_account_before_mutation) ... ok
+
+test_restore_downloads_exact_set_without_interpolating_arbitrary_paths
+
+(test_operations.OperationTests.test_restore_downloads_exact_set_without_interpolating_arbitrary_paths) ... ok
+
+test_restore_rejects_dev_and_unconfirmed_data_loss_before_aws
+
+(test_operations.OperationTests.test_restore_rejects_dev_and_unconfirmed_data_loss_before_aws) ... ok
+
+test_ssm_eventual_consistency_and_pending_status_are_retried
+
+(test_operations.OperationTests.test_ssm_eventual_consistency_and_pending_status_are_retried) ... ok
+
+test_ssm_permission_errors_are_not_retried (test_operations.OperationTests.test_ssm_permission_errors_are_not_retried)
+
+... ok
+
+test_ssm_terminal_failures_and_false_success_are_rejected
+
+(test_operations.OperationTests.test_ssm_terminal_failures_and_false_success_are_rejected) ... ok
+
+test_ssm_timeout_does_not_submit_a_second_operation
+
+(test_operations.OperationTests.test_ssm_timeout_does_not_submit_a_second_operation) ... ok
+
+test_successful_empty_aws_response_does_not_fail_or_repeat_mutation
+
+(test_operations.OperationTests.test_successful_empty_aws_response_does_not_fail_or_repeat_mutation) ... ok
+
+test_unicode_aws_output_survives_an_ascii_parent_console
+
+(test_operations.OperationTests.test_unicode_aws_output_survives_an_ascii_parent_console) ... ok
+
+Operation queued, NOT yet verified. CommandId: fixture; InstanceId: i-fixture
+
+Check completion: aws --region ap-southeast-2 ssm get-command-invocation --command-id fixture --instance-id i-fixture
+
+Remote command completed with exit code 0. Application acceptance is separate.
+
+
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmprkjco8sd\run\report.json
+
+test_engine_failure_cannot_report_success_or_start_build
+
+(test_runtime_check.RuntimeCheckTests.test_engine_failure_cannot_report_success_or_start_build) ... ok
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmp2tr45uyx\run\report.json
+
+test_failed_cleanup_prevents_success_report
+
+(test_runtime_check.RuntimeCheckTests.test_failed_cleanup_prevents_success_report) ... ok
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmptkn26y1g\run\report.json
+
+test_web_cli_drift_fails_and_removes_only_owned_container
+
+(test_runtime_check.RuntimeCheckTests.test_web_cli_drift_fails_and_removes_only_owned_container) ... ok
+
+test_wrong_php_and_missing_extensions_are_rejected
+
+(test_runtime_check.RuntimeCheckTests.test_wrong_php_and_missing_extensions_are_rejected) ... ok
+
+test_cpu_uses_interval_delta_and_db_sample_contains_only_counts
+
+(test_sample_metrics.MetricSamplingTests.test_cpu_uses_interval_delta_and_db_sample_contains_only_counts) ... ok
+
+test_db_failure_does_not_copy_sensitive_stderr_into_metrics
+
+(test_sample_metrics.MetricSamplingTests.test_db_failure_does_not_copy_sensitive_stderr_into_metrics) ... ok
+
+test_response_after_client_half_close_is_preserved
+
+(test_tcp_bridge.TCPBridgeTests.test_response_after_client_half_close_is_preserved) ... ok
+
+test_unlisted_peer_cannot_reach_backend (test_tcp_bridge.TCPBridgeTests.test_unlisted_peer_cannot_reach_backend) ... ok
+
+
+
+----------------------------------------------------------------------
+
+Ran 63 tests in 0.456s
+
+
+
+OK

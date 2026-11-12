@@ -1,0 +1,22 @@
+{
+  "CommandId": "17b53916-2c98-4f56-9ce4-aa43c208f8ab",
+  "InstanceId": "i-0a2d4365b51114ed9",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T15:56:35.038Z",
+  "ExecutionElapsedTime": "PT0.955S",
+  "ExecutionEndDateTime": "2026-11-11T15:56:35.038Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "BOOT_ID=ec26c64c-cfc2-421a-9354-5a499b12e3e1\n2026-11-11T15:56:35+00:00\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

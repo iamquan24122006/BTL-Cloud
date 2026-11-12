@@ -1,0 +1,9 @@
+{
+  "source_commit": "2d4288921b23940de6d8aef5fa5888f48451fcd5",
+  "jmeter": "5.6.3",
+  "jmeter_sha512": "5978a1a35edb5a7d428e270564ff49d2b1b257a65e17a759d259a9283fc17093e522fe46f474a043864aea6910683486340706d745fcdf3db1505fd71e689083",
+  "jmx_sha256": "38a20adfdfb2596319bb9071888cfcbc11cb6d70cae1f36d4217b72059bbfbb0",
+  "scope": "Same-region private VPC generator; 60/20/10/10 logical actions; no submission writes during load",
+  "runner_sha256": "c3a7bbec040d850ebbe9f13f48deb11e2e1af973b2c5c65cdc256dffe7518a6c",
+  "runner_patch": "Create missing results parent before first run"
+}

@@ -1,0 +1,22 @@
+{
+  "CommandId": "0bb5c85c-dffe-43d0-8d82-e53d84bf3150",
+  "InstanceId": "i-0a2d4365b51114ed9",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T15:53:06.765Z",
+  "ExecutionElapsedTime": "PT1M27.289S",
+  "ExecutionEndDateTime": "2026-11-11T15:54:33.765Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "{\n  \"status\": \"verified\",\n  \"format\": 2,\n  \"moodle_version\": \"4.5.15\",\n  \"code_commit\": \"215f44380bdc3ccf852a3a22e34f8423ff64033a\",\n  \"runtime_image\": \"sha256:7ec699387872993a2c7be4f02912da8f0b88aa0c9f955cc38ee89ca9a562b53c\",\n  \"checksums\": {\n    \"database.dump\": \"64d13808e68e39e961e77c2a87052c5a076e77165300bd306e0e9ad0927d8d28\",\n    \"moodledata.tar.gz\": \"3c40566276d62e25789851c2dd85c2fa003067a43b0aa3e3e4451c90624b35ca\",\n    \"config.php\": \"f327e45b1950bc32fdd2acaca07d28995e5ba2f49db8b4c231824ae798fe966a\",\n    \"code.txt\": \"2741674d89824bdad64ab3c3355d4a02dcac4b281b5a31b14abfb6f47fadfc9f\",\n    \"runtime-image.txt\": \"014555bd220708581801a2c9058f1df5e8da93132abcdb77de12a7821345ac2c\",\n    \"runtime-Dockerfile\": \"745c1bde3b3b00dde22feedbfe62ede7977c4603006c899656ca5b30697a9fae\"\n  },\n  \"restore_tested\": false\n}\nBackup verification failed: Checksum mismatch: database.dump\nCORRUPT_BACKUP_REJECTED_BEFORE_MUTATION\n{\n  \"status\": \"verified\",\n  \"format\": 2,\n  \"moodle_version\": \"4.5.15\",\n  \"code_commit\": \"215f44380bdc3ccf852a3a22e34f8423ff64033a\",\n  \"runtime_image\": \"sha256:7ec699387872993a2c7be4f02912da8f0b88aa0c9f955cc38ee89ca9a562b53c\",\n  \"checksums\": {\n    \"database.dump\": \"64d13808e68e39e961e77c2a87052c5a076e77165300bd306e0e9ad0927d8d28\",\n    \"moodledata.tar.gz\": \"3c40566276d62e25789851c2dd85c2fa003067a43b0aa3e3e4451c90624b35ca\",\n    \"config.php\": \"f327e45b1950bc32fdd2acaca07d28995e5ba2f49db8b4c231824ae798fe966a\",\n    \"code.txt\": \"2741674d89824bdad64ab3c3355d4a02dcac4b281b5a31b14abfb6f47fadfc9f\",\n    \"runtime-image.txt\": \"014555bd220708581801a2c9058f1df5e8da93132abcdb77de12a7821345ac2c\",\n    \"runtime-Dockerfile\": \"745c1bde3b3b00dde22feedbfe62ede7977c4603006c899656ca5b30697a9fae\"\n  },\n  \"restore_tested\": false\n}\n== Maintenance mode (http://localhost:8080) ==\nYour site is currently in CLI maintenance mode, no web access is allowed.\n== Maintenance mode (http://localhost:8080) ==\nMaintenance mode has been disabled and the site is running normally again\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\nRestore completed on moodle-lab-staging. Verify login, course, submissions, grades and file hashes.\nPrevious target data: /var/backups/moodle/before-restore-20261111T155310Z-57003. Backup timer remains stopped pending acceptance.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160015,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/19\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n{\"write_read_sha256\":\"9a82628021e865959daeeb918fcc5f0ba2de7737b9263e2428bbd238aa801c99\"}\n2026-11-11T15:54:34+00:00\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "curl: (7) Failed to connect to localhost port 8080 after 0 ms: Could not connect to server\n",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

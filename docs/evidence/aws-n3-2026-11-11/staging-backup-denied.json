@@ -1,0 +1,22 @@
+{
+  "CommandId": "547763ec-66bd-469c-9560-905924489565",
+  "InstanceId": "i-0a2d4365b51114ed9",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-12T17:38:14.669Z",
+  "ExecutionElapsedTime": "PT2M44.226S",
+  "ExecutionEndDateTime": "2026-11-12T17:40:58.669Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "AWS_S3_ACCESS_DENIED_CONFIRMED\nORIGINAL_DEPLOY_CONFIG_WILL_BE_RESTORED\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160015,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/19\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

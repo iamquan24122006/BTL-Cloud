@@ -1,0 +1,109 @@
+{
+  "started_utc": "2026-11-11T17:07:47.513079+00:00",
+  "url": "http://localhost:8081",
+  "checks": [
+    {
+      "name": "login-admin",
+      "passed": true
+    },
+    {
+      "name": "login-teacher",
+      "passed": true
+    },
+    {
+      "name": "login-student",
+      "passed": true
+    },
+    {
+      "name": "login-studentb",
+      "passed": true
+    },
+    {
+      "name": "login-outsider",
+      "passed": true
+    },
+    {
+      "name": "wrong-password-rejected",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-admin",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-teacher",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-student",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-studentb",
+      "passed": true
+    },
+    {
+      "name": "private-file-denied-guest",
+      "passed": true
+    },
+    {
+      "name": "private-file-denied-outsider",
+      "passed": true
+    },
+    {
+      "name": "teacher-course-edit-form",
+      "passed": true
+    },
+    {
+      "name": "student-course-edit-denied",
+      "passed": true
+    },
+    {
+      "name": "student-admin-denied",
+      "passed": true
+    },
+    {
+      "name": "student-grade-visible-student",
+      "passed": true
+    },
+    {
+      "name": "own-feedback-visible-student",
+      "passed": true
+    },
+    {
+      "name": "peer-feedback-private-student",
+      "passed": true
+    },
+    {
+      "name": "student-grade-visible-studentb",
+      "passed": true
+    },
+    {
+      "name": "own-feedback-visible-studentb",
+      "passed": true
+    },
+    {
+      "name": "peer-feedback-private-studentb",
+      "passed": true
+    },
+    {
+      "name": "teacher-sees-both-submissions",
+      "passed": true
+    },
+    {
+      "name": "logout-link-present",
+      "passed": true
+    },
+    {
+      "name": "logout-denies-private-file",
+      "passed": true
+    },
+    {
+      "name": "old-cookie-replay-denied",
+      "passed": true
+    }
+  ],
+  "scope": "HTTP via encrypted SSM tunnel; synthetic fixture, no browser rendering",
+  "status": "passed",
+  "finished_utc": "2026-11-11T17:09:55.454153+00:00"
+}

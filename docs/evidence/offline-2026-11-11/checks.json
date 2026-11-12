@@ -1,0 +1,424 @@
+[
+  {
+    "name": "identity",
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "log": "identity.log"
+  },
+  {
+    "name": "working-tree",
+    "command": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "exit_code": 0,
+    "log": "working-tree.log"
+  },
+  {
+    "name": "python-yaml",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-c",
+      "import sys,yaml;print(sys.version);print(yaml.__version__);print(\"C extension:\",yaml.__with_libyaml__)"
+    ],
+    "exit_code": 0,
+    "log": "python-yaml.log"
+  },
+  {
+    "name": "unit",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "unit.log"
+  },
+  {
+    "name": "dev-validate",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "src.moodle_cloud",
+      "--config",
+      "config/dev.yaml",
+      "validate"
+    ],
+    "exit_code": 0,
+    "log": "dev-validate.log"
+  },
+  {
+    "name": "dev-render",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "src.moodle_cloud",
+      "--config",
+      "config/dev.yaml",
+      "render"
+    ],
+    "exit_code": 0,
+    "log": "dev-render.log"
+  },
+  {
+    "name": "medium.example-validate",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "src.moodle_cloud",
+      "--config",
+      "config/medium.example.yaml",
+      "validate"
+    ],
+    "exit_code": 0,
+    "log": "medium.example-validate.log"
+  },
+  {
+    "name": "medium.example-render",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "src.moodle_cloud",
+      "--config",
+      "config/medium.example.yaml",
+      "render"
+    ],
+    "exit_code": 0,
+    "log": "medium.example-render.log"
+  },
+  {
+    "name": "medium-bundle",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "scripts.medium_bundle"
+    ],
+    "exit_code": 0,
+    "log": "medium-bundle.log"
+  },
+  {
+    "name": "manual-bundle",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "scripts.manual_bundle"
+    ],
+    "exit_code": 0,
+    "log": "manual-bundle.log"
+  },
+  {
+    "name": "python-compile",
+    "command": [
+      "D:\\Code\\Cloud\\BTL-Cloud\\.venv\\Scripts\\python.exe",
+      "-m",
+      "compileall",
+      "-q",
+      "src",
+      "scripts",
+      "tests"
+    ],
+    "exit_code": 0,
+    "log": "python-compile.log"
+  },
+  {
+    "name": "bash-scripts-backup.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\backup.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-backup.sh.log"
+  },
+  {
+    "name": "bash-scripts-bootstrap.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\bootstrap.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-bootstrap.sh.log"
+  },
+  {
+    "name": "bash-scripts-health.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\health.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-health.sh.log"
+  },
+  {
+    "name": "bash-scripts-moodle-web.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\moodle-web.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-moodle-web.sh.log"
+  },
+  {
+    "name": "bash-scripts-php-cli.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\php-cli.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-php-cli.sh.log"
+  },
+  {
+    "name": "bash-scripts-setup-host.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\setup-host.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-scripts-setup-host.sh.log"
+  },
+  {
+    "name": "bash-medium-bake-host.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\medium\\bake-host.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-medium-bake-host.sh.log"
+  },
+  {
+    "name": "bash-medium-bootstrap.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\medium\\bootstrap.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-medium-bootstrap.sh.log"
+  },
+  {
+    "name": "bash-medium-container.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\medium\\container.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-medium-container.sh.log"
+  },
+  {
+    "name": "bash-medium-operation.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\medium\\operation.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-medium-operation.sh.log"
+  },
+  {
+    "name": "bash-medium-prepare-host.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\scripts\\medium\\prepare-host.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-medium-prepare-host.sh.log"
+  },
+  {
+    "name": "bash-.work-manual-transfer.sh",
+    "command": [
+      "C:/msys64/usr/bin/bash.exe",
+      "-n",
+      "D:\\Code\\Cloud\\BTL-Cloud\\.work\\manual-transfer.sh"
+    ],
+    "exit_code": 0,
+    "log": "bash-.work-manual-transfer.sh.log"
+  },
+  {
+    "name": "terraform-version",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "version"
+    ],
+    "exit_code": 0,
+    "log": "terraform-version.log"
+  },
+  {
+    "name": "terraform-fmt",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "fmt",
+      "-check",
+      "-recursive",
+      "infra"
+    ],
+    "exit_code": 0,
+    "log": "terraform-fmt.log"
+  },
+  {
+    "name": "small-init",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/small",
+      "init",
+      "-backend=false",
+      "-input=false",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "small-init.log"
+  },
+  {
+    "name": "small-validate",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/small",
+      "validate",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "small-validate.log"
+  },
+  {
+    "name": "small-test",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/small",
+      "test",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "small-test.log"
+  },
+  {
+    "name": "medium-init",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium",
+      "init",
+      "-backend=false",
+      "-input=false",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium-init.log"
+  },
+  {
+    "name": "medium-validate",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium",
+      "validate",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium-validate.log"
+  },
+  {
+    "name": "medium-test",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium",
+      "test",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium-test.log"
+  },
+  {
+    "name": "backend-init",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/backend",
+      "init",
+      "-backend=false",
+      "-input=false",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "backend-init.log"
+  },
+  {
+    "name": "backend-validate",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/backend",
+      "validate",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "backend-validate.log"
+  },
+  {
+    "name": "medium_support-init",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium_support",
+      "init",
+      "-backend=false",
+      "-input=false",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium_support-init.log"
+  },
+  {
+    "name": "medium_support-validate",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium_support",
+      "validate",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium_support-validate.log"
+  },
+  {
+    "name": "medium_builder-init",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium_builder",
+      "init",
+      "-backend=false",
+      "-input=false",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium_builder-init.log"
+  },
+  {
+    "name": "medium_builder-validate",
+    "command": [
+      "C:/Users/flore/AppData/Local/Microsoft/WinGet/Packages/Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe/terraform.exe",
+      "-chdir=infra/medium_builder",
+      "validate",
+      "-no-color"
+    ],
+    "exit_code": 0,
+    "log": "medium_builder-validate.log"
+  },
+  {
+    "name": "docker-version",
+    "command": [
+      "docker",
+      "version"
+    ],
+    "exit_code": 0,
+    "log": "docker-version.log"
+  }
+]

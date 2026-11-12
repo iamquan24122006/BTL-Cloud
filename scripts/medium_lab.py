@@ -107,7 +107,7 @@ def prepare(args):
     base_ami = max(images, key=lambda i: i['CreationDate'])['ImageId']
     shared = {'region': args.region, 'account_id': args.account, 'project': args.project, 'environment': 'dev'}
     save(WORK / 'medium_support/config.tfvars.json', shared)
-    builder = dict(shared, base_ami=base_ami, bake={
+    builder = dict(shared, base_ami=base_ami, instance_type=args.builder_instance_type, bake={
         'awscli_version': args.awscli_version, 'awscli_sha256': checksums['awscli.zip'],
         'cloudwatch_url': urls['cloudwatch.deb'], 'cloudwatch_sha256': checksums['cloudwatch.deb'],
         'efs_version': args.efs_version, 'efs_commit': efs_commit,
@@ -165,6 +165,8 @@ def main(argv=None):
     parser.add_argument('--project', default='moodle-n2')
     parser.add_argument('--awscli-version', default='2.38.5')
     parser.add_argument('--efs-version', default='v3.3.4')
+    parser.add_argument('--builder-instance-type', choices=['t3.small', 't3.medium'], default='t3.medium',
+                        help='Use t3.small when the account Free plan does not allow t3.medium')
     parser.add_argument('--confirm')
     args = parser.parse_args(argv)
     {'prepare': prepare, 'plan': plan, 'apply': apply}[args.action](args)
