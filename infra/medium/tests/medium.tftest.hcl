@@ -1,5 +1,14 @@
 mock_provider "aws" {
   override_during = plan
+  mock_resource "aws_efs_file_system" {
+    defaults = { id = "fs-00000000000000000" }
+  }
+  mock_resource "aws_efs_access_point" {
+    defaults = { id = "fsap-00000000000000000" }
+  }
+  mock_resource "aws_elasticache_replication_group" {
+    defaults = { primary_endpoint_address = "mock-redis.example.com" }
+  }
   mock_resource "aws_iam_service_linked_role" {
     defaults = { arn = "arn:aws:iam::111111111111:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_moodle-test" }
   }
