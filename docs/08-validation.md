@@ -1,5 +1,11 @@
 # Nhật ký kiểm chứng repository
 
+## Tích hợp Small và Medium ngày 12/11/2026
+
+Hợp nhất small trên master `b1bcbe2` và medium từ khoi `82e95c9`, giải quyết xung đột CLI, manual bundle, CI và tài liệu. **89 unit test đạt**; validate hai YAML, compile Python, sinh bundle small/medium, Bash syntax và Terraform fmt đạt. Giữ default Sydney, state small, health/backup/restore/command-status và data-loss guard; ghép schema/backend/runner medium và snapshot saved plan chống re-plan đồng thời. Regression kiểm tra routing preset/account/prefix; công cụ acceptance small từ chối YAML medium trước khi gọi AWS.
+
+CI cũ của khoi thất bại khi teardown mock EFS do `prevent_destroy`, dù các assertion đã đạt. Mock tests medium chuyển sang plan với mock values ở plan, không gỡ bảo vệ tài nguyên thật. Workflow tích hợp giữ đầy đủ runtime/restore và Terraform checks của cả small và medium. Kết quả chạy CI trên commit tích hợp cần đối chiếu GitHub Actions/PR tương ứng; kiểm tra local không chứng minh deploy AWS mới. Không chạy apply/restore/destroy AWS trong lượt hợp nhất. Xem [hợp đồng bản tích hợp](17-small-medium-integration.md).
+
 ## Tiếp tục Small ngày 08/11/2026
 
 Unit test chạy lại bằng Python có PyYAML: **63/63 đạt**, không gọi AWS thật. Đối chiếu local summaries thấy smoke 2 user, ba lượt 10 user, ba lượt 25 user và hai lượt 50 user đều `passed`, 0 lỗi. Hai lượt 50 user có Course p95 414/401 ms; chưa có summary r3 cục bộ, chưa xác nhận toàn ma trận/metric/cleanup. STS và SSM báo phiên `moodle-project` hết hạn; AWS CLI hiện 2.39.4. Không thay đổi hạ tầng AWS trong bước đối chiếu này.

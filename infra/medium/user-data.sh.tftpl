@@ -1,0 +1,9 @@
+#!/bin/bash
+set -Eeuo pipefail
+umask 027
+install -d -m 0750 /etc/moodle /opt/moodle-medium
+printf '%s' '${config}' | base64 -d >/etc/moodle/deploy.json
+aws --region '${region}' s3 cp 's3://${bucket}/${key}' /opt/moodle-medium/bundle.tar.gz --only-show-errors
+printf '%s  %s\n' '${sha256}' /opt/moodle-medium/bundle.tar.gz | sha256sum -c -
+tar -xzf /opt/moodle-medium/bundle.tar.gz -C /opt/moodle-medium --no-same-owner
+exec bash /opt/moodle-medium/bootstrap.sh

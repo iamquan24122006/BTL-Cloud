@@ -1,0 +1,26 @@
+{
+  "CertificateArn": "arn:aws:acm:ap-southeast-1:860366539351:certificate/f50651fc-3d2c-4b9f-9674-3947a2182036",
+  "DomainName": "www.moodle-cloud-distribution.mywire.org",
+  "Status": "ISSUED",
+  "SubjectAlternativeNames": [
+    "www.moodle-cloud-distribution.mywire.org"
+  ],
+  "DomainValidationOptions": [
+    {
+      "DomainName": "www.moodle-cloud-distribution.mywire.org",
+      "ValidationDomain": "www.moodle-cloud-distribution.mywire.org",
+      "ValidationStatus": "SUCCESS",
+      "ResourceRecord": {
+        "Name": "_28219c134d281f5a2c416ea86b53db9f.www.moodle-cloud-distribution.mywire.org.",
+        "Type": "CNAME",
+        "Value": "_d7a1bfab35e3fe588a32d3229dbe7429.wzccmgtwzk.acm-validations.aws."
+      },
+      "ValidationMethod": "DNS"
+    }
+  ],
+  "NotBefore": "2026-11-10T00:01:40+07:00",
+  "NotAfter": "2027-05-27T01:01:40+07:00",
+  "KeyAlgorithm": "RSA-2048",
+  "SignatureAlgorithm": "SHA256WITHRSA",
+  "Type": "AMAZON_ISSUED"
+}

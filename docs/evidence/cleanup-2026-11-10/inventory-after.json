@@ -1,0 +1,40 @@
+{
+  "account": "860366539351",
+  "region": "ap-southeast-1",
+  "verified_utc": "2026-11-10T04:34:39.532109+00:00",
+  "resources": {
+    "instances": [],
+    "volumes": [],
+    "addresses": [],
+    "nat_gateways": [],
+    "load_balancers": [],
+    "databases": [],
+    "rds_manual_snapshots": [],
+    "redis": [],
+    "redis_snapshots": [],
+    "efs": [],
+    "images": [],
+    "ebs_snapshots": [],
+    "ecr": [],
+    "buckets_global": [],
+    "lambda_functions": [],
+    "alarms": [],
+    "logs": [],
+    "vpc_endpoints": [],
+    "cloudfront_global": null,
+    "secrets_active": []
+  },
+  "empty": true,
+  "scope": "Singapore service inventory; S3 and CloudFront global. Other accounts/regions not certified.",
+  "offline_backup_verified": true,
+  "runtime_archive_verified": true,
+  "secret_verification": {
+    "method": "Temporary same-account Lambda ListSecrets audit; no GetSecretValue permission",
+    "scheduled_count": 8,
+    "helper_removed": true
+  },
+  "additional_checks": {
+    "backup_vaults": 0,
+    "cloudwatch_dashboards": 0
+  }
+}

@@ -1,5 +1,7 @@
 # Terraform và CLI
 
+Tài liệu này mô tả preset **small**. Với **medium**, dùng [bàn giao và quy trình N2](10-medium-n2.md), bao gồm backend S3, preflight và runner riêng.
+
 ## Điều kiện
 
 Python >=3.11, PyYAML theo requirements, Terraform >=1.10,<2, AWS CLI, Session Manager plugin. Người vận hành cần quyền tạo/quản lý VPC, subnet/route/IGW/SG, EC2/EBS và IAM role/profile trong phạm vi đồ án; `iam:PassRole` chỉ role EC2 tương ứng. Quyền SSM StartSession/SendCommand chỉ instance lab và tài liệu SSM cần dùng. Chính sách chính xác phụ thuộc quyền tổ chức, không đề xuất gắn AdministratorAccess chỉ để tránh sửa lỗi quyền.

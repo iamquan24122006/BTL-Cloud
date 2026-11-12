@@ -1,0 +1,63 @@
+{
+  "time": "2026-11-09T16:10:07+00:00",
+  "courseid": 2,
+  "enrolments": {
+    "teacher": {
+      "userid": 3,
+      "c01_enrolled": true,
+      "c01_roles": [
+        "editingteacher"
+      ],
+      "local_mnet_host": true
+    },
+    "student_a": {
+      "userid": 4,
+      "c01_enrolled": true,
+      "c01_roles": [
+        "student"
+      ],
+      "local_mnet_host": true
+    },
+    "student_b": {
+      "userid": 5,
+      "c01_enrolled": true,
+      "c01_roles": [
+        "student"
+      ],
+      "local_mnet_host": true
+    },
+    "student_c": {
+      "userid": 6,
+      "c01_enrolled": false,
+      "c01_roles": [],
+      "local_mnet_host": true
+    }
+  },
+  "assignmentid": 1,
+  "settings": {
+    "duedate": "1794842678",
+    "cutoffdate": "0",
+    "allowsubmissionsfromdate": "0",
+    "submissiondrafts": "1",
+    "teamsubmission": "0",
+    "grade": "100",
+    "maxattempts": "1",
+    "attemptreopenmethod": "none",
+    "blindmarking": "0",
+    "markingworkflow": "0"
+  },
+  "submissions": [
+    {
+      "id": "1",
+      "userid": "4",
+      "status": "submitted",
+      "attemptnumber": "0"
+    },
+    {
+      "id": "2",
+      "userid": "5",
+      "status": "submitted",
+      "attemptnumber": "0"
+    }
+  ]
+}

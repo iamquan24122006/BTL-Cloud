@@ -15,6 +15,8 @@ from src import moodle_cloud as cli
 
 
 def command_script(config, *, seed=False, fixture_uri=None):
+    if config["size"] != "small":
+        raise cli.ConfigError("cloud_acceptance supports small only; use scripts.acceptance for medium")
     source = b64encode((cli.ROOT / "tests/integration/moodle.php").read_bytes()).decode("ascii")
     commands = ["set -eu", "umask 077", "exec 9>/run/moodle-backup.lock", "flock -n 9",
                 "test -f /var/lib/moodle-distribution/installed",
@@ -63,6 +65,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         config = cli.load_config(args.config)
+        if config["size"] != "small":
+            raise cli.ConfigError("cloud_acceptance supports small only; use scripts.acceptance for medium")
         expected = f"{config['project']}-{config['environment']}"
         if args.confirm != expected:
             raise cli.ConfigError("Target confirmation does not match configuration")

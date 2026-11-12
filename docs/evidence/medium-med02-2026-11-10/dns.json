@@ -1,0 +1,26 @@
+[
+  {
+    "name": "www.moodle-cloud-distribution.mywire.org",
+    "status": 0,
+    "answers": [
+      {
+        "name": "www.moodle-cloud-distribution.mywire.org.",
+        "type": 5,
+        "TTL": 120,
+        "data": "moodle-n2-dev-med-850643930.ap-southeast-1.elb.amazonaws.com."
+      }
+    ]
+  },
+  {
+    "name": "_28219c134d281f5a2c416ea86b53db9f.www.moodle-cloud-distribution.mywire.org.",
+    "status": 0,
+    "answers": [
+      {
+        "name": "_28219c134d281f5a2c416ea86b53db9f.www.moodle-cloud-distribution.mywire.org.",
+        "type": 5,
+        "TTL": 120,
+        "data": "_d7a1bfab35e3fe588a32d3229dbe7429.wzccmgtwzk.acm-validations.aws."
+      }
+    ]
+  }
+]

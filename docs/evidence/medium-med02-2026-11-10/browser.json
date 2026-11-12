@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "browser": "Chrome 156.0.8078.80",
+  "platform": "Windows",
+  "tested_viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "role": "teacher"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "role": "student_a"
+    }
+  ],
+  "device_emulation": false,
+  "real_mobile_hardware_tested": false,
+  "teacher_uploaded_file_over_https": true,
+  "student_grade_93_and_private_feedback_visible": true,
+  "screenshots": [
+    "desktop-course.png",
+    "mobile-course.png",
+    "mobile-grade.png"
+  ],
+  "narrow_course_onboarding_dismissed": true,
+  "narrow_tables_use_moodle_horizontal_scrolling": true,
+  "narrow_table_metrics": [
+    {
+      "width": 374,
+      "scrollWidth": 452,
+      "overflowX": "auto"
+    },
+    {
+      "width": 374,
+      "scrollWidth": 374,
+      "overflowX": "auto"
+    }
+  ]
+}

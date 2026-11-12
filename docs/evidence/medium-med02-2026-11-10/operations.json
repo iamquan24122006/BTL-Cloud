@@ -1,0 +1,191 @@
+{
+  "backup-before-med02": {
+    "command_id": "c164d481-c95e-4d7a-9764-e19eee100385",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "events": [
+      {
+        "time": "2026-11-09T18:00:42.396299+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:00:51.422609+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:00:51.452004+00:00",
+        "step": "backup-started",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:00:57.457885+00:00",
+        "step": "backup-uploaded:s3://moodle-n2-dev-860366539351-ap-southeast-1-backups/moodle-n2-dev-med/20261109T180051",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:01:01.599999+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      }
+    ]
+  },
+  "med02-fence": {
+    "command_id": "a2a5fd9f-85a4-4855-8baa-e68e6bd6d9f3",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "events": [
+      {
+        "time": "2026-11-09T18:07:08.064935+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:07:17.083992+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:07:17.111901+00:00",
+        "step": "backup-started",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:07:23.043001+00:00",
+        "step": "backup-uploaded:s3://moodle-n2-dev-860366539351-ap-southeast-1-backups/moodle-n2-dev-med/20261109T180717",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      }
+    ]
+  },
+  "med02-cutover": {
+    "command_id": "995c56ff-f5a1-4c4e-9948-94c987354857",
+    "instance_id": "i-03cc4bc46f65f8b67",
+    "status": "Success",
+    "events": [
+      {
+        "app_bootstrap_verified": "i-078a1b5fb14d960fb",
+        "command_id": "c6ba21e0-7bcd-411b-acce-2f0785670f32"
+      },
+      {
+        "app_bootstrap_verified": "i-0e109bdc77ae51d99",
+        "command_id": "c6ba21e0-7bcd-411b-acce-2f0785670f32"
+      },
+      {
+        "time": "2026-11-09T18:20:06.500038+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:20:15.610621+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "before": {
+          "old_wwwroot": "https://d30wbiaf9ui8kr.cloudfront.net",
+          "new_wwwroot": "https://www.moodle-cloud-distribution.mywire.org",
+          "matching_columns": [
+            {
+              "table": "mdl_adminpresets",
+              "column": "site",
+              "matching_rows": 2,
+              "new_max_length": 48,
+              "column_limit": 255
+            },
+            {
+              "table": "mdl_config_log",
+              "column": "value",
+              "matching_rows": 1,
+              "new_max_length": 225,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_config_plugins",
+              "column": "value",
+              "matching_rows": 1,
+              "new_max_length": 225,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_logstore_standard_log",
+              "column": "other",
+              "matching_rows": 1,
+              "new_max_length": 341,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_mnet_host",
+              "column": "wwwroot",
+              "matching_rows": 1,
+              "new_max_length": 48,
+              "column_limit": 255
+            },
+            {
+              "table": "mdl_notifications",
+              "column": "fullmessage",
+              "matching_rows": 12,
+              "new_max_length": 482,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_notifications",
+              "column": "fullmessagehtml",
+              "matching_rows": 12,
+              "new_max_length": 676,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_notifications",
+              "column": "contexturl",
+              "matching_rows": 6,
+              "new_max_length": 80,
+              "column_limit": null
+            }
+          ],
+          "overflow_columns": []
+        }
+      },
+      {
+        "after": {
+          "old_wwwroot": "https://d30wbiaf9ui8kr.cloudfront.net",
+          "new_wwwroot": "https://www.moodle-cloud-distribution.mywire.org",
+          "matching_columns": [
+            {
+              "table": "mdl_config_log",
+              "column": "value",
+              "matching_rows": 1,
+              "new_max_length": 225,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_config_plugins",
+              "column": "value",
+              "matching_rows": 1,
+              "new_max_length": 225,
+              "column_limit": null
+            },
+            {
+              "table": "mdl_logstore_standard_log",
+              "column": "other",
+              "matching_rows": 1,
+              "new_max_length": 341,
+              "column_limit": null
+            }
+          ],
+          "overflow_columns": []
+        }
+      },
+      {
+        "time": "2026-11-09T18:20:31.680615+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T18:20:31.703400+00:00",
+        "step": "domain-cutover-complete",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      }
+    ]
+  }
+}

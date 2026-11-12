@@ -1,0 +1,12 @@
+output "url" { value = local.public_url }
+output "frontend" { value = var.frontend }
+output "alb_dns_name" { value = aws_lb.medium.dns_name }
+output "target_group_arn" { value = aws_lb_target_group.app.arn }
+output "asg_name" { value = aws_autoscaling_group.app.name }
+output "runner_id" { value = aws_instance.runner.id }
+output "db_endpoint" { value = aws_db_instance.medium.address }
+output "efs_id" { value = aws_efs_file_system.medium.id }
+output "release" { value = var.artifact.release }
+output "log_group" { value = aws_cloudwatch_log_group.medium.name }
+output "backup_bucket" { value = var.backup_bucket }
+output "ssm_shell_command" { value = "aws --region ${var.region} ssm start-session --target ${aws_instance.runner.id}" }

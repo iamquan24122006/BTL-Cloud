@@ -1,0 +1,41 @@
+{
+  "instances": [],
+  "vpc": [],
+  "asg": [],
+  "database": [],
+  "redis": [],
+  "efs": [],
+  "cloudfront": [],
+  "final_snapshot": {
+    "id": "moodle-n2-restore-dev-med-final-20261109t155534",
+    "status": "available",
+    "encrypted": true,
+    "source": "moodle-n2-restore-dev-med"
+  },
+  "temporary_secret_deletion": [
+    {
+      "kind": "runtime",
+      "arn": "arn:aws:secretsmanager:ap-southeast-1:860366539351:secret:moodle-n2-restore-dev/runtime-87ew0Q",
+      "scheduled": "2026-11-16T23:11:01.055000+07:00"
+    },
+    {
+      "kind": "migration",
+      "arn": "arn:aws:secretsmanager:ap-southeast-1:860366539351:secret:moodle-n2-restore-dev/migration-SeXrUo",
+      "scheduled": "2026-11-16T23:11:05.742000+07:00"
+    },
+    {
+      "kind": "redis",
+      "arn": "arn:aws:secretsmanager:ap-southeast-1:860366539351:secret:moodle-n2-restore-dev/redis-YAPinW",
+      "scheduled": "2026-11-16T23:11:10.336000+07:00"
+    },
+    {
+      "kind": "admin",
+      "arn": "arn:aws:secretsmanager:ap-southeast-1:860366539351:secret:moodle-n2-restore-dev/admin-xIWvDg",
+      "scheduled": "2026-11-16T23:11:14.850000+07:00"
+    }
+  ],
+  "status": "passed",
+  "terraform_destroyed": 71,
+  "source_retained_by_user_request": true,
+  "verified_utc": "2026-11-09T16:11:59.255438+00:00"
+}

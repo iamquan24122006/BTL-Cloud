@@ -10,6 +10,8 @@ from src.moodle_cloud import ROOT, load_config
 
 def main():
     config = load_config(sys.argv[1] if len(sys.argv) > 1 else ROOT / "config/sydney.yaml")
+    if config["size"] != "small":
+        raise SystemExit("manual_bundle supports small only; use scripts.medium_bundle for medium")
     deploy = {k: config[k] for k in ("moodle_version", "wwwroot", "backup_bucket", "region")}
     deploy["backup_prefix"] = f"{config['project']}-{config['environment']}"
     deploy.update(project=config['project'], environment=config['environment'])
