@@ -1,0 +1,20 @@
+# Reuse an immutable, previously verified Moodle 4.5.15 runtime dependency.
+# medium_bundle requires --base-runtime to be an ECR URI with a SHA-256 digest.
+ARG BASE_RUNTIME=php:8.3-apache-bookworm@sha256:b79a53c3fb1dd4b9f350a8d99d84951512b6c21044e61bbecfee8af030b3722e
+FROM ${BASE_RUNTIME}
+COPY scripts/moodle.ini /usr/local/etc/php/conf.d/99-moodle.ini
+COPY scripts/medium/apache.conf /etc/apache2/sites-available/medium.conf
+COPY scripts/medium/*.php /opt/moodle-medium/
+RUN cp /opt/moodle-medium/config.php /var/www/moodle/config.php \
+    && cp /opt/moodle-medium/ready.php /var/www/moodle/_ready.php \
+    && printf 'Listen 8080\n' >/etc/apache2/ports.conf \
+    && printf 'auto_prepend_file=/opt/moodle-medium/gate.php\n' >/usr/local/etc/php/conf.d/98-gate.ini \
+    && a2dissite 000-default && a2enmod rewrite headers && a2ensite medium \
+    && apache2ctl configtest \
+    && php -r 'define("MOODLE_INTERNAL",true); define("MATURITY_STABLE",200); require "/var/www/moodle/version.php"; if (!str_starts_with($release,"4.5.15")) {exit(1);} foreach (["curl","dom","gd","intl","mbstring","pgsql","redis","soap","sodium","xml","zip"] as $e) {if (!extension_loaded($e)) {exit(1);}}'
+WORKDIR /var/www/moodle
+STOPSIGNAL SIGWINCH
+ARG RELEASE_COMMIT
+ARG BASE_RUNTIME
+LABEL org.opencontainers.image.revision=$RELEASE_COMMIT
+LABEL org.opencontainers.image.base.name=$BASE_RUNTIME

@@ -1,0 +1,17 @@
+{
+  "verified_utc": "2026-11-10T03:27:38.570683+00:00",
+  "medium_manifests": [
+    "backups\\moodle-n2-dev-med\\20261109T154309\\manifest.json",
+    "backups\\moodle-n2-dev-med\\20261109T180051\\manifest.json",
+    "backups\\moodle-n2-dev-med\\20261109T180717\\manifest.json",
+    "backups\\moodle-n2-dev-med\\20261109T185426\\manifest.json"
+  ],
+  "small_archive_sha256": "ffa69f97ec51e71b139af9928f42ce5b9a366a04a85fdead1946c28be72c37cc",
+  "backup_bytes": 21701037,
+  "runtime_archive": {
+    "bytes": 301962240,
+    "sha256": "25067c511768bb50b01e976f1cb207b74678048d1bf65c2491a3d5097ce20492",
+    "tar_readable": true
+  },
+  "restore_tested_for_final_backup": false
+}

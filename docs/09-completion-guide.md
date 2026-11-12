@@ -12,7 +12,7 @@ Việc tiếp theo: nghiệm thu giao diện/demo, đo tải dài hơn và lặp
 
 Phần người dùng cần tham gia: kiểm tra giao diện Moodle trên trình duyệt (teacher/student, bố cục, nộp bài, xem điểm) và chụp bằng chứng demo. Bài test HTTP đã có không thay thế đánh giá giao diện. Người vận hành có thể tự động mở tunnel; không cần tự chạy lệnh deploy. Khi phiên AWS hết hạn, người dùng hoàn tất xác thực trên trình duyệt. Không gửi mật khẩu/token qua chat.
 
-Tài liệu dành cho nhóm 4 người, tổng ngân sách 150 USD theo cập nhật ngày 07/11/2026, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có chỉ triển khai `small`; `medium` cần phát triển và dự toán lại.
+Tài liệu dành cho nhóm 4 người, tổng ngân sách 150 USD theo cập nhật ngày 07/11/2026, host Ubuntu Server 26.04. Đây là các việc **cần thực hiện và ghi bằng chứng**, không phải kết quả đã đạt. Mã hiện có hỗ trợ `small` và `medium`; hướng dẫn phát triển medium phía dưới là kế hoạch ban đầu. Dùng [quy trình N2](10-medium-n2.md) và [CLI tích hợp](17-small-medium-integration.md) cho triển khai hiện tại; dự toán lại trước khi dựng lại lab đã cleanup.
 
 Thứ tự: **build runtime → cài tay → deploy small bằng CLI → kiểm tra chức năng → backup/restore → medium → đo tải → báo cáo/demo → cleanup**. Nếu chưa đủ thời gian cho medium, hoàn thành nghiệm thu small và ghi đúng giới hạn trong báo cáo.
 
@@ -234,7 +234,7 @@ Giữ `config.php` staging với mật khẩu DB mới; không chép config ngu�
 
 ## 7. Viết phần medium — A/B/C, chỉ sau khi small phục hồi được
 
-Đây là phần **chưa có mã**, không có lệnh apply medium dùng ngay. Không đổi `size: medium` trong YAML hiện tại; CLI sẽ từ chối. Giữ small làm baseline và triển khai medium ở môi trường riêng.
+Phần này giữ lại kế hoạch phát triển ban đầu để đối chiếu. Hiện mã medium đã có root/runtime/CLI riêng; dùng `config/medium.example.yaml` và [hướng dẫn N2](10-medium-n2.md) cho triển khai, không mở rộng YAML small bằng cách chỉ đổi `size`. Các dòng mô tả hạn chế mã bên dưới là hiện trạng trước khi phát triển medium. Giữ small làm baseline và triển khai medium ở môi trường riêng.
 
 ### Các thay đổi cần viết, theo thứ tự tích hợp
 

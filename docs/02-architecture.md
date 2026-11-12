@@ -40,7 +40,7 @@ flowchart LR
     OP -->|AWS CLI + SSM port forwarding<br/>localhost:8080| SSM[AWS Systems Manager]
     SSM --> EC2SM
 
-    subgraph MEDIUM[Medium · thiết kế P1]
+    subgraph MEDIUM[Medium · lab P1]
       direction TB
       USER[Người học] --> HTTPS[Route 53 + ALB HTTPS/ACM]
       subgraph VPCMD[VPC · tối thiểu hai AZ]
@@ -65,7 +65,7 @@ flowchart LR
     end
 ```
 
-Small chỉ truy cập qua SSM tunnel; không mở cổng web inbound. Medium bổ sung endpoint HTTPS công khai qua ALB, còn app/DB nằm trong private subnet. Các dịch vụ và đường nối của medium là mục tiêu thiết kế, chưa phải tài nguyên được Terraform hiện tại tạo ra.
+Small chỉ truy cập qua SSM tunnel; không mở cổng web inbound. Medium bổ sung endpoint HTTPS công khai qua ALB, còn app/DB nằm trong private subnet. Medium có mã trong `infra/medium/` và bằng chứng triển khai riêng; lab Singapore đã được cleanup ngày 10/11/2026. Xem [bản tích hợp](17-small-medium-integration.md) trước khi dựng lại.
 
 ## 1. Small — đã có mã Terraform
 
@@ -94,9 +94,9 @@ Systemd quản lý container web và lịch cron trên host. PHP CLI dùng cùng
 
 Giới hạn: một AZ, một máy, không HA; DB và file cùng mất nếu root volume mất; IP public vẫn tính phí dù web không public. Credential khởi tạo tại `/root/moodle-initial-admin.txt`, đổi sau khi đăng nhập.
 
-## 2. Medium — thiết kế P1, chưa có mã triển khai
+## 2. Medium — lab P1, có mã và bằng chứng AWS
 
-Ngân sách tổng đã giảm xuống 150 USD ngày 07/11/2026; ưu tiên hoàn tất small và restore drill. Cấu hình P1 dự kiến gồm 2 app node, 1 cron runner, RDS Single-AZ, EFS và Redis dùng chung, ALB ở 2 AZ; ASG tối đa 3 app. Cần dự toán lại cửa sổ chạy theo [kế hoạch chi phí](07-report-and-cost.md) trước triển khai P1; đây chưa phải cấu hình Terraform đã triển khai.
+Mã P1 nằm trong `infra/medium/`, `scripts/medium/` và CLI schema medium. Lab gồm hai app private, runner riêng, RDS Single-AZ, EFS, hai Redis cho session/MUC, ALB ở hai AZ và ASG tối đa ba app. Đã có [bằng chứng AWS](12-medium-live-lab.md), [HTTPS tại ALB](13-medium-med02.md) và [cleanup ngày 10/11](15-aws-cleanup.md). Một NAT, DB và cache vẫn là các điểm lỗi đơn. Tổng ngân sách dự án giữ **150 USD** theo master; phải dự toán lại trước khi dựng lại. Xem [hướng dẫn N2](10-medium-n2.md).
 
 ```mermaid
 flowchart TD

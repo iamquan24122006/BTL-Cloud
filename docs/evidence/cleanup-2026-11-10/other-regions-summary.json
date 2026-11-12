@@ -1,0 +1,226 @@
+{
+  "ap-south-1": {
+    "tagged": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "instances": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "eu-north-1": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    }
+  },
+  "eu-west-3": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "eu-west-2": {
+    "instances": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "eu-west-1": {
+    "volumes": {
+      "count": 0
+    },
+    "instances": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "ap-northeast-3": {
+    "tagged": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "instances": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "ap-northeast-2": {
+    "tagged": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    }
+  },
+  "ap-northeast-1": {
+    "rds": {
+      "count": 0
+    },
+    "volumes": {
+      "error": "\naws: [ERROR]: Connect timeout on endpoint URL: \"https://ec2.ap-northeast-1.amazonaws.com/\"\n"
+    },
+    "instances": {
+      "error": "\naws: [ERROR]: Connect timeout on endpoint URL: \"https://ec2.ap-northeast-1.amazonaws.com/\"\n"
+    },
+    "tagged": {
+      "count": 0
+    }
+  },
+  "ca-central-1": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    }
+  },
+  "sa-east-1": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    }
+  },
+  "ap-southeast-2": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    }
+  },
+  "eu-central-1": {
+    "instances": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    }
+  },
+  "us-east-1": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 3
+    }
+  },
+  "us-east-2": {
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    },
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    }
+  },
+  "us-west-1": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    }
+  },
+  "us-west-2": {
+    "instances": {
+      "count": 0
+    },
+    "volumes": {
+      "count": 0
+    },
+    "rds": {
+      "count": 0
+    },
+    "tagged": {
+      "count": 0
+    }
+  }
+}

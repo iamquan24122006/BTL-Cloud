@@ -1,0 +1,580 @@
+{
+  "account": {
+    "UserId": "AIDA4QUOXRJL6ZTF6TL4L",
+    "Account": "860366539351",
+    "Arn": "arn:aws:iam::860366539351:user/test_user"
+  },
+  "compute": [
+    {
+      "id": "i-09fe1690ecdc65e47",
+      "name": "moodle-n2-dev-med-app",
+      "state": "running",
+      "private_ip": "10.43.10.38",
+      "public_ip": null,
+      "az": "ap-southeast-1a"
+    },
+    {
+      "id": "i-0ead190c8db53bdd6",
+      "name": "moodle-n2-dev-med-runner",
+      "state": "running",
+      "private_ip": "10.43.10.161",
+      "public_ip": null,
+      "az": "ap-southeast-1a"
+    },
+    {
+      "id": "i-0b88ff68eca9f7cdf",
+      "name": "moodle-n2-dev-med-app",
+      "state": "running",
+      "private_ip": "10.43.11.231",
+      "public_ip": null,
+      "az": "ap-southeast-1b"
+    }
+  ],
+  "old_small": [
+    {
+      "id": "i-0fde36cb6cb884f28",
+      "state": "running"
+    }
+  ],
+  "rds": {
+    "id": "moodle-n2-dev-med",
+    "state": "available",
+    "engine": "postgres",
+    "version": "16.13",
+    "public": false,
+    "encrypted": true,
+    "deletion_protection": true
+  },
+  "efs": {
+    "id": "fs-05678c2b60740bcde",
+    "state": "available",
+    "encrypted": true
+  },
+  "efs_mounts": [
+    {
+      "id": "fsmt-00ac888843f6e0a98",
+      "state": "available",
+      "az": "ap-southeast-1b"
+    },
+    {
+      "id": "fsmt-0c9900a514221c6b7",
+      "state": "available",
+      "az": "ap-southeast-1a"
+    }
+  ],
+  "redis": [
+    {
+      "id": "moodle-n2-dev-med-cache",
+      "state": "available",
+      "tls": true,
+      "encrypted": true,
+      "auth": true
+    },
+    {
+      "id": "moodle-n2-dev-med-session",
+      "state": "available",
+      "tls": true,
+      "encrypted": true,
+      "auth": true
+    }
+  ],
+  "asg": {
+    "name": "moodle-n2-dev-med-app",
+    "min": 2,
+    "desired": 2,
+    "max": 3,
+    "health_type": "EC2",
+    "instances": [
+      {
+        "id": "i-09fe1690ecdc65e47",
+        "state": "InService",
+        "health": "Healthy"
+      },
+      {
+        "id": "i-0b88ff68eca9f7cdf",
+        "state": "InService",
+        "health": "Healthy"
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "i-09fe1690ecdc65e47",
+      "state": "healthy"
+    },
+    {
+      "id": "i-0b88ff68eca9f7cdf",
+      "state": "healthy"
+    }
+  ],
+  "stickiness": [
+    {
+      "Key": "stickiness.type",
+      "Value": "lb_cookie"
+    },
+    {
+      "Key": "stickiness.lb_cookie.duration_seconds",
+      "Value": "86400"
+    },
+    {
+      "Key": "stickiness.app_cookie.duration_seconds",
+      "Value": "86400"
+    },
+    {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+    },
+    {
+      "Key": "stickiness.app_cookie.cookie_name",
+      "Value": ""
+    }
+  ],
+  "alarms": [
+    {
+      "name": "moodle-n2-dev-med-BackupSuccess-missing",
+      "state": "ALARM",
+      "metric": "BackupSuccess"
+    },
+    {
+      "name": "moodle-n2-dev-med-CronSuccess-missing",
+      "state": "OK",
+      "metric": "CronSuccess"
+    },
+    {
+      "name": "moodle-n2-dev-med-app-cpu",
+      "state": "OK",
+      "metric": "CPUUtilization"
+    },
+    {
+      "name": "moodle-n2-dev-med-disk_used_percent",
+      "state": "OK",
+      "metric": "disk_used_percent"
+    },
+    {
+      "name": "moodle-n2-dev-med-mem_used_percent",
+      "state": "OK",
+      "metric": "mem_used_percent"
+    },
+    {
+      "name": "moodle-n2-dev-med-target-5xx",
+      "state": "OK",
+      "metric": "HTTPCode_Target_5XX_Count"
+    },
+    {
+      "name": "moodle-n2-dev-med-unhealthy-targets",
+      "state": "OK",
+      "metric": "UnHealthyHostCount"
+    }
+  ],
+  "logs": [
+    {
+      "name": "i-0b88ff68eca9f7cdf/web",
+      "last_event": 1794240058943
+    },
+    {
+      "name": "i-0ead190c8db53bdd6/operations",
+      "last_event": 1794239745414
+    },
+    {
+      "name": "i-09fe1690ecdc65e47/web",
+      "last_event": 1794239694477
+    },
+    {
+      "name": "i-0ead190c8db53bdd6/web",
+      "last_event": 1794239539258
+    },
+    {
+      "name": "i-02989bad4c677f72b/web",
+      "last_event": 1794238861191
+    },
+    {
+      "name": "i-09fe1690ecdc65e47/bootstrap",
+      "last_event": 1794238815779
+    },
+    {
+      "name": "i-0b88ff68eca9f7cdf/bootstrap",
+      "last_event": 1794237889251
+    },
+    {
+      "name": "i-079e743c719a211bd/web",
+      "last_event": 1794237795751
+    },
+    {
+      "name": "i-02989bad4c677f72b/bootstrap",
+      "last_event": 1794237576879
+    },
+    {
+      "name": "i-0ead190c8db53bdd6/bootstrap",
+      "last_event": 1794237566226
+    },
+    {
+      "name": "i-07d160ebf0b8c5aa8/operations",
+      "last_event": 1794236889166
+    },
+    {
+      "name": "i-07d160ebf0b8c5aa8/web",
+      "last_event": 1794236885075
+    }
+  ],
+  "security_groups": [
+    {
+      "id": "sg-01532d1330ea25328",
+      "name": "moodle-n2-dev-med-alb-0383b6263fb4b79bffc14b3ded",
+      "inbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 80,
+          "ToPort": 80,
+          "UserIdGroupPairs": [],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": [
+            {
+              "PrefixListId": "pl-31a34658"
+            }
+          ]
+        }
+      ],
+      "outbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 8080,
+          "ToPort": 8080,
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-03dab072078791430"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "id": "sg-036bb5d804019f9b5",
+      "name": "moodle-n2-dev-med-efs-adde6b991a159ec722095c4b05",
+      "inbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 2049,
+          "ToPort": 2049,
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-03dab072078791430"
+            },
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-051652468a91b2dc3"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "outbound": []
+    },
+    {
+      "id": "sg-0c93b9f56cfe79563",
+      "name": "moodle-n2-dev-med-redis-783900c346701eb1cb19e3df34",
+      "inbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 6379,
+          "ToPort": 6379,
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-03dab072078791430"
+            },
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-051652468a91b2dc3"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "outbound": []
+    },
+    {
+      "id": "sg-0d8ccd9bde5ead960",
+      "name": "default",
+      "inbound": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-0d8ccd9bde5ead960"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "outbound": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "id": "sg-051652468a91b2dc3",
+      "name": "moodle-n2-dev-med-runner-267ad5cc51e4ebbba31e9a3f45",
+      "inbound": [],
+      "outbound": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "id": "sg-036f66457f376ca1b",
+      "name": "moodle-n2-dev-med-db-c7c32b965b2a121d7d6ce07410",
+      "inbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 5432,
+          "ToPort": 5432,
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-051652468a91b2dc3"
+            },
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-03dab072078791430"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "outbound": []
+    },
+    {
+      "id": "sg-03dab072078791430",
+      "name": "moodle-n2-dev-med-app-2f4aa5e475d6fbc86c5536e2e4",
+      "inbound": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 8080,
+          "ToPort": 8080,
+          "UserIdGroupPairs": [
+            {
+              "UserId": "860366539351",
+              "GroupId": "sg-01532d1330ea25328"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ],
+      "outbound": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [],
+          "IpRanges": [
+            {
+              "CidrIp": "0.0.0.0/0"
+            }
+          ],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "rtb-07690e6d2d499d405",
+      "routes": [
+        {
+          "DestinationCidrBlock": "10.43.0.0/16",
+          "GatewayId": "local",
+          "Origin": "CreateRouteTable",
+          "State": "active"
+        }
+      ],
+      "associations": [
+        "subnet-09583229361f0475f",
+        "subnet-0f009c4bdeeda0d02"
+      ]
+    },
+    {
+      "id": "rtb-08f7321cd4d7e2729",
+      "routes": [
+        {
+          "DestinationCidrBlock": "10.43.0.0/16",
+          "GatewayId": "local",
+          "Origin": "CreateRouteTable",
+          "State": "active"
+        }
+      ],
+      "associations": []
+    },
+    {
+      "id": "rtb-07c176bc831956509",
+      "routes": [
+        {
+          "DestinationCidrBlock": "10.43.0.0/16",
+          "GatewayId": "local",
+          "Origin": "CreateRouteTable",
+          "State": "active"
+        },
+        {
+          "DestinationCidrBlock": "0.0.0.0/0",
+          "NatGatewayId": "nat-033c9ae443e99f6c7",
+          "Origin": "CreateRoute",
+          "State": "active"
+        }
+      ],
+      "associations": [
+        "subnet-0c8e9cd027e11ccae",
+        "subnet-0895339dec797de83"
+      ]
+    },
+    {
+      "id": "rtb-0c6ebafc50427bada",
+      "routes": [
+        {
+          "DestinationCidrBlock": "10.43.0.0/16",
+          "GatewayId": "local",
+          "Origin": "CreateRouteTable",
+          "State": "active"
+        },
+        {
+          "DestinationCidrBlock": "0.0.0.0/0",
+          "GatewayId": "igw-0a9939c7c0929e003",
+          "Origin": "CreateRoute",
+          "State": "active"
+        }
+      ],
+      "associations": [
+        "subnet-063c7ec82837cf6d3",
+        "subnet-0aee88af898002913"
+      ]
+    }
+  ],
+  "subnets": [
+    {
+      "id": "subnet-0f009c4bdeeda0d02",
+      "az": "ap-southeast-1a",
+      "cidr": "10.43.20.0/24",
+      "name": "moodle-n2-dev-med-data-ap-southeast-1a"
+    },
+    {
+      "id": "subnet-063c7ec82837cf6d3",
+      "az": "ap-southeast-1b",
+      "cidr": "10.43.1.0/24",
+      "name": "moodle-n2-dev-med-public-ap-southeast-1b"
+    },
+    {
+      "id": "subnet-0aee88af898002913",
+      "az": "ap-southeast-1a",
+      "cidr": "10.43.0.0/24",
+      "name": "moodle-n2-dev-med-public-ap-southeast-1a"
+    },
+    {
+      "id": "subnet-0c8e9cd027e11ccae",
+      "az": "ap-southeast-1a",
+      "cidr": "10.43.10.0/24",
+      "name": "moodle-n2-dev-med-app-ap-southeast-1a"
+    },
+    {
+      "id": "subnet-0895339dec797de83",
+      "az": "ap-southeast-1b",
+      "cidr": "10.43.11.0/24",
+      "name": "moodle-n2-dev-med-app-ap-southeast-1b"
+    },
+    {
+      "id": "subnet-09583229361f0475f",
+      "az": "ap-southeast-1b",
+      "cidr": "10.43.21.0/24",
+      "name": "moodle-n2-dev-med-data-ap-southeast-1b"
+    }
+  ],
+  "listeners": [
+    {
+      "port": 80,
+      "protocol": "HTTP"
+    }
+  ],
+  "cloudfront": {
+    "status": "Deployed",
+    "domain": "d30wbiaf9ui8kr.cloudfront.net",
+    "origin_protocol": "http-only",
+    "viewer_policy": "redirect-to-https",
+    "cache_policy": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+  },
+  "latest_web_logs": [
+    {
+      "timestamp": 1794240685478,
+      "message": "{\"log\":\"[09/Nov/2026:16:11:20 +0000] GET /_ready.php 200 162806\\n\",\"stream\":\"stdout\",\"time\":\"2026-11-09T16:11:20.420919953Z\"}"
+    },
+    {
+      "timestamp": 1794240710591,
+      "message": "{\"log\":\"[09/Nov/2026:16:11:50 +0000] GET /_ready.php 200 170688\\n\",\"stream\":\"stdout\",\"time\":\"2026-11-09T16:11:50.23269243Z\"}"
+    },
+    {
+      "timestamp": 1794240715477,
+      "message": "{\"log\":\"[09/Nov/2026:16:11:50 +0000] GET /_ready.php 200 160562\\n\",\"stream\":\"stdout\",\"time\":\"2026-11-09T16:11:50.449278223Z\"}"
+    }
+  ],
+  "latest_operation_logs": [
+    {
+      "timestamp": 1794240731896,
+      "message": "Cron completed at 16:12:10 in 0.040194 seconds. Memory used: 31.6\u00a0MB. Continuing to check for tasks for 121 more seconds."
+    },
+    {
+      "timestamp": 1794240731896,
+      "message": "Ran 0 adhoc tasks found at Mon, 09 Nov 2026 16:12:11 +0000"
+    },
+    {
+      "timestamp": 1794240731896,
+      "message": "Cron run completed correctly"
+    }
+  ],
+  "collected_utc": "2026-11-09T16:12:16.601992+00:00",
+  "alb": {
+    "DNSName": "moodle-n2-dev-med-850643930.ap-southeast-1.elb.amazonaws.com",
+    "Scheme": "internet-facing",
+    "AvailabilityZones": [
+      {
+        "ZoneName": "ap-southeast-1b",
+        "SubnetId": "subnet-063c7ec82837cf6d3",
+        "LoadBalancerAddresses": []
+      },
+      {
+        "ZoneName": "ap-southeast-1a",
+        "SubnetId": "subnet-0aee88af898002913",
+        "LoadBalancerAddresses": []
+      }
+    ]
+  }
+}

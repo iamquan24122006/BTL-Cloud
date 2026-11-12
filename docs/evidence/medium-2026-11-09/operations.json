@@ -1,0 +1,192 @@
+{
+  "release-recovery": {
+    "command_id": "50b40de9-4460-44fb-b447-83379c06e247",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "response_code": 0,
+    "events": [
+      {
+        "time": "2026-11-09T15:20:33.688524+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:20:42.867789+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:20:42.894409+00:00",
+        "step": "upgrade-started",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:20:54.298629+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      }
+    ]
+  },
+  "backup-source": {
+    "command_id": "98f8cef3-4f30-4ad1-b2ac-f2dbbc89a81e",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "response_code": 0,
+    "events": [
+      {
+        "time": "2026-11-09T15:42:59.441897+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:43:08.996084+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:43:09.022977+00:00",
+        "step": "backup-started",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:43:15.496143+00:00",
+        "step": "backup-uploaded:s3://moodle-n2-dev-860366539351-ap-southeast-1-backups/moodle-n2-dev-med/20261109T154309",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:43:19.632411+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      }
+    ]
+  },
+  "restore-target": {
+    "command_id": "2433897d-1bbf-496e-a779-19d6db48c167",
+    "instance_id": "i-0dd7c99430b49ee58",
+    "status": "Success",
+    "response_code": 0,
+    "events": [
+      {
+        "time": "2026-11-09T15:52:23.440845+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:52:33.545626+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:52:33.564133+00:00",
+        "step": "restore-started",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:53:25.721244+00:00",
+        "step": "restore-loaded-maintenance-retained-run-resume-after-review",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "preserved_course_ids": [
+          2,
+          3
+        ],
+        "preserved_user_ids": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "preserved_submission_ids": [
+          1,
+          2
+        ],
+        "grades": [
+          [
+            4,
+            93.0
+          ],
+          [
+            5,
+            85.0
+          ]
+        ],
+        "target_wwwroot": "https://d318ck82a5ict7.cloudfront.net",
+        "source_config_not_restored": true
+      },
+      {
+        "time": "2026-11-09T15:53:30.079390+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "driver": "pgsql",
+        "sslmode": "verify-full",
+        "tls": {
+          "ssl": "t",
+          "version": "TLSv1.3",
+          "cipher": "TLS_AES_256_GCM_SHA384"
+        }
+      }
+    ]
+  },
+  "gate-probe": {
+    "command_id": "1f9f24eb-ecc2-4087-8d89-88ceaa5867d6",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "response_code": 0,
+    "events": [
+      {
+        "time": "2026-11-09T15:52:29.733884+00:00",
+        "step": "maintenance-enabled",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "time": "2026-11-09T15:52:38.997324+00:00",
+        "step": "writers-stopped",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "node": "i-09fe1690ecdc65e47",
+        "command_id": "fbf5dc5b-b103-4d08-a79d-8ba2151eb9ea",
+        "status": "Success",
+        "response_code": 0,
+        "output": "/login/index.php 503\n/_ready.php 503\n"
+      },
+      {
+        "node": "i-0b88ff68eca9f7cdf",
+        "command_id": "fbf5dc5b-b103-4d08-a79d-8ba2151eb9ea",
+        "status": "Success",
+        "response_code": 0,
+        "output": "/login/index.php 503\n/_ready.php 503\n"
+      },
+      {
+        "time": "2026-11-09T15:52:52.693208+00:00",
+        "step": "complete-check-health-and-LMS",
+        "release": "87da9a6a37239090b1113349a850b50375126811"
+      },
+      {
+        "scheduled_failures": 0,
+        "adhoc_failures": 0,
+        "adhoc_overdue_10m": 0
+      }
+    ]
+  },
+  "runtime-proof": {
+    "command_id": "e7525fcc-5263-4f4a-b1f2-6d3033d02ab0",
+    "instance_id": "i-0ead190c8db53bdd6",
+    "status": "Success",
+    "response_code": 0,
+    "events": [
+      {
+        "driver": "pgsql",
+        "sslmode": "verify-full",
+        "tls": {
+          "ssl": "t",
+          "version": "TLSv1.3",
+          "cipher": "TLS_AES_256_GCM_SHA384"
+        }
+      }
+    ]
+  }
+}

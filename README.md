@@ -4,7 +4,9 @@
 
 **Thông số nhóm:** 4 thành viên; tổng ngân sách AWS **150 USD**, giảm theo yêu cầu ngày 07/11/2026. Giữ tỷ lệ phân bổ hiện có: 112,50 USD cho các giai đoạn và 37,50 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Ưu tiên hoàn tất small; medium cần dự toán lại trong hạn mức còn lại. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
-**Tình trạng cập nhật ngày 08/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng, backup S3, restore, reboot staging và các ca lỗi phục hồi. **63 unit test chạy lại đều đạt**; CI commit `904c113` trước đó xanh ở cả push và pull request. Cài từng bước trên EC2 sạch đã chạy và kiểm tra nghiệp vụ đầy đủ. Bằng chứng tải riêng trong VPC đã lưu đủ ba lượt 10-user, ba lượt 25-user và hai lượt 50-user, tất cả 0 lỗi; còn thu kết quả lượt 50-user cuối, metric và xác nhận cleanup. Phiên AWS hết hạn khi kiểm tra lại, nên chưa xác minh trạng thái cloud mới. Budget AWS 150 USD và kênh cảnh báo nội bộ đã kiểm chứng trước đó. Còn kiểm tra giao diện và kiểm tra chéo của người nhận để ký P0. `medium`/`large` vẫn là thiết kế mở rộng. Xem [biên bản small](docs/13-small-acceptance.md), [hướng dẫn bàn giao](docs/14-small-handover.md) và [nhật ký chi tiết](docs/08-validation.md).
+**Bản tích hợp ngày 12/11/2026:** mã small của master và medium của khoi được hợp nhất vào một CLI; xem [cách dùng và kiểm chứng bản tích hợp](docs/17-small-medium-integration.md). Medium đã có [bằng chứng chạy AWS](docs/12-medium-live-lab.md), [HTTPS tại ALB](docs/13-medium-med02.md), và [cleanup ngày 10/11](docs/15-aws-cleanup.md). URL/AMI/ARN của medium trong hồ sơ là lịch sử, cần dựng lại trước demo. Large/production chưa được hỗ trợ.
+
+**Hồ sơ small ngày 08/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng, backup S3, restore, reboot staging và các ca lỗi phục hồi. **63 unit test chạy lại đều đạt**; CI commit `904c113` trước đó xanh ở cả push và pull request. Cài từng bước trên EC2 sạch đã chạy và kiểm tra nghiệp vụ đầy đủ. Bằng chứng tải riêng trong VPC đã lưu đủ ba lượt 10-user, ba lượt 25-user và hai lượt 50-user, tất cả 0 lỗi; còn thu kết quả lượt 50-user cuối, metric và xác nhận cleanup. Phiên AWS hết hạn khi kiểm tra lại, nên chưa xác minh trạng thái cloud mới. Budget AWS 150 USD và kênh cảnh báo nội bộ đã kiểm chứng trước đó. Còn kiểm tra giao diện và kiểm tra chéo của người nhận để ký P0. Kết quả small này không thay thế hồ sơ medium hoặc nghiệm thu tích hợp. Xem [biên bản small](docs/13-small-acceptance.md), [hướng dẫn bàn giao](docs/14-small-handover.md) và [nhật ký chi tiết](docs/08-validation.md).
 
 **Demo small:** làm theo [kịch bản thao tác 12–15 phút](docs/15-small-demo.md); mở site bằng `.\scripts\demo-small.ps1 -Environment dev -ExpectedAccount <ACCOUNT_ID>`, thay `<ACCOUNT_ID>` bằng account lab đã xác minh. [Danh sách dịch vụ thực tế](docs/16-small-services.md) giải thích vai trò từng dịch vụ AWS và phần mềm trong bản small.
 
@@ -13,6 +15,8 @@
 **Lab Singapore cũ:** `config/small-new.yaml` / `moodle-lab-v2-dev` từng dừng sau khi tạo 6 tài nguyên mạng vì thiếu `iam:CreateRole`. [Hướng dẫn IAM cũ](docs/10-iam-permissions.md) chỉ áp dụng lab đó; không dùng policy này để sửa quyền cho Sydney. Chưa đối chiếu lại inventory Singapore trong lượt tiếp tục này.
 
 ## Đọc theo thứ tự
+
+**Bàn giao N3 và vòng đời lab:** người dùng đã yêu cầu dọn AWS để ngừng phí. Xem [trạng thái cleanup thực tế](docs/15-aws-cleanup.md) trước khi dùng URL/ARN/AMI lịch sử. [Hướng dẫn N3](docs/14-n3-acceptance-guide.md) trình bày dựng lại, kiểm thử bổ sung, restore, cảnh báo, đo tải và bàn giao; có [mẫu biên bản](docs/templates/n3-run.md) và [ma trận 20 ca](docs/templates/n3-results.csv). Nhánh `master` tích hợp phần N1 từ `mq` và N2 từ `khoi`; luôn chọn đúng YAML, AWS profile và account cho môi trường đích. Cleanup Singapore của N2 không chứng nhận trạng thái account Sydney của N1.
 
 Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn hoàn tất các phần còn thiếu](docs/09-completion-guide.md): build Docker, deploy/kiểm tra small, restore, phát triển medium, đo tải và bàn giao.
 
@@ -24,6 +28,8 @@ Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn ho
 6. [Backup, restore, nâng cấp, rollback và dọn dẹp](docs/05-operations.md).
 7. [Kiểm thử, đo tải và bằng chứng nghiệm thu](docs/06-test-plan.md).
 8. [Dự toán chi phí, dàn ý báo cáo và kịch bản demo](docs/07-report-and-cost.md).
+9. [Medium: hướng dẫn N2, artifact, backend, release và nghiệm thu](docs/10-medium-n2.md).
+10. [MED-02: domain miễn phí, ACM, HTTPS tại ALB và bằng chứng](docs/13-medium-med02.md).
 
 ## Stack của bản đầu
 
@@ -81,7 +87,10 @@ python -m src.moodle_cloud status
 config/        YAML theo môi trường, không chứa secret
 docs/          Kế hoạch, sơ đồ và các runbook
 infra/small/   Terraform: VPC, subnet, IAM, SG, EC2
+infra/medium/  Terraform: hai AZ, ALB/ASG, RDS, EFS, Redis, runner, CloudWatch
+infra/backend/ Bootstrap bucket state riêng (versioning/encryption/public access block)
 scripts/       Host setup, Dockerfile, bootstrap, PHP CLI, health, backup
+scripts/medium/ Runtime nhiều node và operations có khóa chung
 src/           CLI Python
 tests/         Kiểm tra đầu vào và chốt an toàn của CLI
 .work/         State/plan/artifact cục bộ, không commit

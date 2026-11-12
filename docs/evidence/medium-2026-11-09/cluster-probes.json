@@ -1,0 +1,42 @@
+{
+  "time_unix": 1794239250.81237,
+  "status": "passed",
+  "nodes": [
+    "i-09fe1690ecdc65e47",
+    "i-0b88ff68eca9f7cdf"
+  ],
+  "moodle_lock": [
+    {
+      "CommandId": "7761364c-38f3-4e8c-afd0-88885b21a536",
+      "InstanceId": "i-09fe1690ecdc65e47",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "StandardOutputContent": "ACQUIRED\n",
+      "StandardErrorContent": ""
+    },
+    {
+      "CommandId": "902a6509-1c02-4dc3-9b81-fe6470882f95",
+      "InstanceId": "i-0ead190c8db53bdd6",
+      "Status": "Failed",
+      "ResponseCode": 3,
+      "StandardOutputContent": "BUSY\n",
+      "StandardErrorContent": "failed to run commands: exit status 3"
+    }
+  ],
+  "muc_write": {
+    "CommandId": "55b68c9d-e211-4b88-9d7e-b7bf4c2e3168",
+    "InstanceId": "i-09fe1690ecdc65e47",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "CACHE_WRITTEN\n",
+    "StandardErrorContent": ""
+  },
+  "muc_read": {
+    "CommandId": "1bca69ec-c2e3-46fb-93ef-e1d259e15eb4",
+    "InstanceId": "i-0b88ff68eca9f7cdf",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "SHARED_CACHE_CONFIRMED\n",
+    "StandardErrorContent": ""
+  }
+}
