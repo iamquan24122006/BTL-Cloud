@@ -1,0 +1,22 @@
+{
+  "CommandId": "1be92d68-bdd6-428e-8e29-c80e095f1e70",
+  "InstanceId": "i-02f94043ce763d4ce",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T15:16:21.731Z",
+  "ExecutionElapsedTime": "PT2.332S",
+  "ExecutionEndDateTime": "2026-11-11T15:16:23.731Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "UTC: 2026-11-11T15:16:21+00:00\nstatus: done\nOS: Ubuntu 26.04.1 LTS\nPRESENT /var/lib/moodle-distribution/installed\nPRESENT /opt/moodle-distribution/health.sh\nPRESENT /opt/moodle-distribution/php-cli.sh\nactive\nactive\nactive\nNEXT LEFT LAST                        PASSED UNIT              ACTIVATES\n-       - Wed 2026-11-11 15:16:20 UTC 1s ago moodle-cron.timer moodle-cron.service\n\n1 timers listed.\nPass --all to see loaded but inactive timers, too.\nmoodle-cron 7ec699387872 Up 1 second\nmoodle-web 7ec699387872 Up 2 weeks\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n\nHTTP checks\n/login/index.php 303\n/config.php 403\n/.git/config 403\n\nDB version\nPostgreSQL 16.15 (Ubuntu 16.15-1.pgdg26.04+2) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit\n\nDisk\nFilesystem      Size  Used Avail Use% Mounted on\n/dev/root        28G  8.2G   20G  30% /\n/dev/root        28G  8.2G   20G  30% /\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

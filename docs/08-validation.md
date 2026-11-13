@@ -1,5 +1,11 @@
 # Nhật ký kiểm chứng repository
 
+## Tiếp tục tích hợp khoi ngày 14/11/2026
+
+Đã đối chiếu PR #2 merged ngày 12/11, cả hai CI tại head `8397e72` và CI merge commit master `699dfc6` đều success. Khoi có thêm commit `2440d08` (13/11), được ghép tiếp trên master: lựa chọn builder t3.small, kiểm tra canary namespace khác khi purge MUC và hồ sơ N3/offline. Đưa patch tạo thư mục cha load runner trong hồ sơ N3 vào source thực tế; không thay cơ chế thư mục kết quả độc quyền.
+
+Chạy lại **89 unit test đạt**; Terraform fmt, init backend=false/validate medium_builder với provider 6.72.0 và Bash syntax load runner đạt. Không gọi AWS apply/restore/destroy. CI đầy đủ của bản cập nhật kiểm chứng runtime small/medium và canary mới. Kết quả tải N3 thuộc account riêng: đủ lượt/user/thời lượng và không lỗi nghiệp vụ, nhưng 50-user r2/r3 không đạt ngưỡng p95 tương tác 3 giây. Không sửa evidence để đổi kết quả này hoặc gộp với phép đo Sydney cũ.
+
 ## Tích hợp Small và Medium ngày 12/11/2026
 
 Hợp nhất small trên master `b1bcbe2` và medium từ khoi `82e95c9`, giải quyết xung đột CLI, manual bundle, CI và tài liệu. **89 unit test đạt**; validate hai YAML, compile Python, sinh bundle small/medium, Bash syntax và Terraform fmt đạt. Giữ default Sydney, state small, health/backup/restore/command-status và data-loss guard; ghép schema/backend/runner medium và snapshot saved plan chống re-plan đồng thời. Regression kiểm tra routing preset/account/prefix; công cụ acceptance small từ chối YAML medium trước khi gọi AWS.

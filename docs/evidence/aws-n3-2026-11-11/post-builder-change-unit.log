@@ -1,0 +1,145 @@
+./.venv/Scripts/python.exe : test_default_config (test_cli.ConfigurationTests.test_default_config) ... ok
+
+At line:2 char:62
+
++ ... pure).Path; ./.venv/Scripts/python.exe -m unittest discover -s tests  ...
+
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    + CategoryInfo          : NotSpecified: (test_default_co..._config) ... ok:String) [], RemoteException
+
+    + FullyQualifiedErrorId : NativeCommandError
+
+
+
+test_duplicate_yaml_keys_rejected (test_cli.ConfigurationTests.test_duplicate_yaml_keys_rejected) ... ok
+
+test_invalid_inputs_are_rejected (test_cli.ConfigurationTests.test_invalid_inputs_are_rejected) ... ok
+
+test_non_mapping_yaml_rejected (test_cli.ConfigurationTests.test_non_mapping_yaml_rejected) ... ok
+
+test_required_key (test_cli.ConfigurationTests.test_required_key) ... ok
+
+test_secrets_and_unknown_keys_rejected (test_cli.ConfigurationTests.test_secrets_and_unknown_keys_rejected) ... ok
+
+test_unsafe_yaml_tag_rejected (test_cli.ConfigurationTests.test_unsafe_yaml_tag_rejected) ... ok
+
+test_apply_needs_confirmation (test_cli.PlanGuardsTests.test_apply_needs_confirmation) ... ok
+
+test_apply_needs_saved_plan (test_cli.PlanGuardsTests.test_apply_needs_saved_plan) ... ok
+
+test_apply_rejects_changed_account (test_cli.PlanGuardsTests.test_apply_rejects_changed_account) ... ok
+
+test_apply_rejects_changed_config (test_cli.PlanGuardsTests.test_apply_rejects_changed_config) ... ok
+
+test_apply_rejects_changed_plan (test_cli.PlanGuardsTests.test_apply_rejects_changed_plan) ... ok
+
+test_apply_rejects_changed_source (test_cli.PlanGuardsTests.test_apply_rejects_changed_source) ... ok
+
+test_apply_uses_verified_bytes_if_original_plan_is_replaced
+
+(test_cli.PlanGuardsTests.test_apply_uses_verified_bytes_if_original_plan_is_replaced) ... ok
+
+test_destroy_requires_data_loss_acknowledgement
+
+(test_cli.PlanGuardsTests.test_destroy_requires_data_loss_acknowledgement) ... ok
+
+test_destroy_uses_destroy_plan (test_cli.PlanGuardsTests.test_destroy_uses_destroy_plan) ... ok
+
+test_environment_state_isolation (test_cli.PlanGuardsTests.test_environment_state_isolation) ... ok
+
+test_failed_apply_also_consumes_manifest (test_cli.PlanGuardsTests.test_failed_apply_also_consumes_manifest) ... ok
+
+test_render_offline (test_cli.PlanGuardsTests.test_render_offline) ... ok
+
+test_successful_apply_consumes_manifest (test_cli.PlanGuardsTests.test_successful_apply_consumes_manifest) ... ok
+
+test_backend_change_requires_explicit_migration
+
+(test_medium.MediumTests.test_backend_change_requires_explicit_migration) ... ok
+
+test_bundle_is_deterministic (test_medium.MediumTests.test_bundle_is_deterministic) ... ok
+
+test_cloudfront_is_explicit_temporary_mode (test_medium.MediumTests.test_cloudfront_is_explicit_temporary_mode) ... ok
+
+test_duplicate_nested_yaml_key (test_medium.MediumTests.test_duplicate_nested_yaml_key) ... ok
+
+test_failed_replan_invalidates_previous_manifest
+
+(test_medium.MediumTests.test_failed_replan_invalidates_previous_manifest) ... ok
+
+test_fingerprint_includes_nested_runtime_and_userdata_template
+
+(test_medium.MediumTests.test_fingerprint_includes_nested_runtime_and_userdata_template) ... ok
+
+test_medium_schema_and_offline_render (test_medium.MediumTests.test_medium_schema_and_offline_render) ... ok
+
+test_missing_tools_prevent_aws_calls (test_medium.MediumTests.test_missing_tools_prevent_aws_calls) ... ok
+
+test_negative_medium_inputs (test_medium.MediumTests.test_negative_medium_inputs) ... ok
+
+test_nested_unknown_keys_and_secret_values_rejected
+
+(test_medium.MediumTests.test_nested_unknown_keys_and_secret_values_rejected) ... ok
+
+test_preflight_wrong_account_stops_before_other_aws_calls
+
+(test_medium.MediumTests.test_preflight_wrong_account_stops_before_other_aws_calls) ... ok
+
+test_s3_backend_has_lock_and_account_isolation
+
+(test_medium.MediumTests.test_s3_backend_has_lock_and_account_isolation) ... ok
+
+test_state_isolated_by_preset_account_and_environment
+
+(test_medium.MediumTests.test_state_isolated_by_preset_account_and_environment) ... ok
+
+test_interrupted_migration_cannot_be_retried_automatically
+
+(test_medium_operations.WorkerFailureTests.test_interrupted_migration_cannot_be_retried_automatically) ... ok
+
+test_timeout_stops_worker_before_allowing_next_operation
+
+(test_medium_operations.WorkerFailureTests.test_timeout_stops_worker_before_allowing_next_operation) ... ok
+
+test_uncertain_docker_worker_keeps_recovery_marker
+
+(test_medium_operations.WorkerFailureTests.test_uncertain_docker_worker_keeps_recovery_marker) ... ok
+
+Infrastructure operation finished. Check cloud-init and Moodle health separately.
+
+Infrastructure operation finished. Check cloud-init and Moodle health separately.
+
+Infrastructure operation finished. Check cloud-init and Moodle health separately.
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmpx0dhogzk\run\report.json
+
+test_engine_failure_cannot_report_success_or_start_build
+
+(test_runtime_check.RuntimeCheckTests.test_engine_failure_cannot_report_success_or_start_build) ... ok
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmpimypvag4\run\report.json
+
+test_failed_cleanup_prevents_success_report
+
+(test_runtime_check.RuntimeCheckTests.test_failed_cleanup_prevents_success_report) ... ok
+
+Runtime check: failed. Report: C:\Users\flore\AppData\Local\Temp\tmpb2iybhh8\run\report.json
+
+test_web_cli_drift_fails_and_removes_only_owned_container
+
+(test_runtime_check.RuntimeCheckTests.test_web_cli_drift_fails_and_removes_only_owned_container) ... ok
+
+test_wrong_php_and_missing_extensions_are_rejected
+
+(test_runtime_check.RuntimeCheckTests.test_wrong_php_and_missing_extensions_are_rejected) ... ok
+
+
+
+----------------------------------------------------------------------
+
+Ran 40 tests in 0.313s
+
+
+
+OK

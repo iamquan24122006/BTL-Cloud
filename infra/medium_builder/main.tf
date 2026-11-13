@@ -10,6 +10,14 @@ variable "account_id" { type = string }
 variable "project" { type = string }
 variable "environment" { type = string }
 variable "base_ami" { type = string }
+variable "instance_type" {
+  type    = string
+  default = "t3.medium"
+  validation {
+    condition     = contains(["t3.small", "t3.medium"], var.instance_type)
+    error_message = "Use a supported x86_64 builder: t3.small or t3.medium."
+  }
+}
 variable "bake" {
   type = object({
     awscli_version = string, awscli_sha256 = string,
@@ -85,7 +93,7 @@ resource "aws_iam_instance_profile" "builder" {
 }
 resource "aws_instance" "builder" {
   ami                         = var.base_ami
-  instance_type               = "t3.medium"
+  instance_type               = var.instance_type
   subnet_id                   = aws_subnet.builder.id
   vpc_security_group_ids      = [aws_security_group.builder.id]
   associate_public_ip_address = true

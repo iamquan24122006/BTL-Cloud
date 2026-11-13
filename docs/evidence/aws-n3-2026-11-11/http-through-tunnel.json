@@ -1,0 +1,81 @@
+{
+  "started_utc": "2026-11-11T15:42:48.012318+00:00",
+  "url": "http://localhost:8081",
+  "checks": [
+    {
+      "name": "login-admin",
+      "passed": true
+    },
+    {
+      "name": "login-teacher",
+      "passed": true
+    },
+    {
+      "name": "login-student",
+      "passed": true
+    },
+    {
+      "name": "login-studentb",
+      "passed": true
+    },
+    {
+      "name": "login-outsider",
+      "passed": true
+    },
+    {
+      "name": "wrong-password-rejected",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-admin",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-teacher",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-student",
+      "passed": true
+    },
+    {
+      "name": "text-file-sha256-studentb",
+      "passed": true
+    },
+    {
+      "name": "private-file-denied-guest",
+      "passed": true
+    },
+    {
+      "name": "private-file-denied-outsider",
+      "passed": true
+    },
+    {
+      "name": "teacher-course-edit-form",
+      "passed": true
+    },
+    {
+      "name": "student-course-edit-denied",
+      "passed": true
+    },
+    {
+      "name": "student-admin-denied",
+      "passed": true
+    },
+    {
+      "name": "logout-link-present",
+      "passed": true
+    },
+    {
+      "name": "logout-denies-private-file",
+      "passed": true
+    },
+    {
+      "name": "old-cookie-replay-denied",
+      "passed": true
+    }
+  ],
+  "scope": "HTTP via encrypted SSM tunnel; synthetic fixture, no browser rendering",
+  "status": "passed",
+  "finished_utc": "2026-11-11T15:44:54.509064+00:00"
+}

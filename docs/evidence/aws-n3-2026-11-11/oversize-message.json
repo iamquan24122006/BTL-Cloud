@@ -1,0 +1,22 @@
+{
+  "CommandId": "1dcc71ff-3456-4392-b157-8dcf3c846acd",
+  "InstanceId": "i-0a2d4365b51114ed9",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T16:14:00.917Z",
+  "ExecutionElapsedTime": "PT2.385S",
+  "ExecutionEndDateTime": "2026-11-11T16:14:02.917Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "{\"status\":\"passed\",\"http\":200,\"bytes\":68157440,\"error_message\":\"The file you tried to upload is too large for the server to process.\"}\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

@@ -89,6 +89,8 @@ python -m scripts.medium_lab plan --account $Account --region $Region --project 
 python -m scripts.medium_lab apply --account $Account --region $Region --project $Project --confirm $Account
 ```
 
+Nếu account Free plan từ chối builder `t3.medium`, chạy lại `prepare` với `--builder-instance-type t3.small`, rồi lập/review plan mới trên **state hiện có** trước khi apply. Mặc định vẫn là `t3.medium`. Lượt N3 ngày 11/11 đã xác minh builder `t3.small` tạo được AMI đủ dependency; không tự nâng cấp billing để vượt giới hạn account. Kiểm tra thêm quota vCPU và loại máy trong YAML medium trước apply; quyền đọc inventory không chứng minh mọi thao tác tạo tài nguyên sẽ được phép.
+
 `prepare` tải dependency từ nguồn chính thức và ghi hash; `plan`/`apply` quản lý hai root riêng. Không đổi project giữa các bước. Kết quả nằm ở `.work/medium-live/medium_support/outputs.json` và `medium_builder/outputs.json`; giữ cả local state bootstrap riêng, không đặt nó trong chính bucket đang quản lý.
 
 Lấy builder ID, vào SSM và kiểm tra:

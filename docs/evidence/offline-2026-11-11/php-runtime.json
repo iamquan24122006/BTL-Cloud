@@ -1,0 +1,110 @@
+{
+  "started_utc": "2026-11-11T14:55:08.730050+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "engine",
+      "log": "engine.log",
+      "returncode": 0
+    },
+    {
+      "name": "build",
+      "log": "build.log",
+      "returncode": 0
+    },
+    {
+      "name": "image",
+      "log": "image.log",
+      "returncode": 0
+    },
+    {
+      "name": "lint-configure-php",
+      "log": "lint-configure-php.log",
+      "returncode": 0
+    },
+    {
+      "name": "lint-install-db-php",
+      "log": "lint-install-db-php.log",
+      "returncode": 0
+    },
+    {
+      "name": "php-cli",
+      "log": "php-cli.log",
+      "returncode": 0
+    },
+    {
+      "name": "apache-config",
+      "log": "apache-config.log",
+      "returncode": 0
+    },
+    {
+      "name": "web-start",
+      "log": "web-start.log",
+      "returncode": 0
+    },
+    {
+      "name": "web-probe",
+      "log": "web-probe.log",
+      "returncode": 0
+    },
+    {
+      "name": "web-logs",
+      "log": "web-logs.log",
+      "returncode": 0
+    },
+    {
+      "name": "cleanup",
+      "log": "cleanup.log",
+      "returncode": 0
+    }
+  ],
+  "scope": "PHP/Apache fixture only; excludes Moodle install, DB, systemd, AWS and restore",
+  "engine": "linux/x86_64",
+  "image_id": "sha256:f68ebfecf1171bab8697cfd941e4b10e63073a2e28f369626f3bebbdc444c4ac",
+  "cli": {
+    "php": "8.3.35",
+    "max_input_vars": 5000,
+    "extensions": {
+      "curl": true,
+      "dom": true,
+      "gd": true,
+      "intl": true,
+      "mbstring": true,
+      "pgsql": true,
+      "pdo_pgsql": true,
+      "soap": true,
+      "sodium": true,
+      "xml": true,
+      "zip": true,
+      "bcmath": true,
+      "Zend OPcache": true
+    }
+  },
+  "http": {
+    "web": {
+      "php": "8.3.35",
+      "max_input_vars": 5000,
+      "extensions": {
+        "curl": true,
+        "dom": true,
+        "gd": true,
+        "intl": true,
+        "mbstring": true,
+        "pgsql": true,
+        "pdo_pgsql": true,
+        "soap": true,
+        "sodium": true,
+        "xml": true,
+        "zip": true,
+        "bcmath": true,
+        "Zend OPcache": true
+      }
+    },
+    "blocked": {
+      "/config.php": 403,
+      "/.git/config": 403
+    },
+    "code_readonly": true
+  },
+  "finished_utc": "2026-11-11T15:00:22.967858+00:00"
+}
