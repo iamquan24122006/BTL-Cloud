@@ -2,6 +2,8 @@
 
 **Mục tiêu:** xây dựng quy trình tái lập từ cài Moodle thủ công, tới Terraform, rồi CLI đọc YAML; chứng minh bằng đăng nhập, tạo khóa học, cron, backup và khôi phục.
 
+**Cập nhật ngày 14/11/2026:** bổ sung commit N3 `2440d08` từ khoi: builder có thể chọn `t3.small`, integration kiểm tra purge cache không ảnh hưởng namespace khác và hồ sơ [nghiệm thu/tải N3](docs/evidence/aws-n3-2026-11-11/README.md). Lượt N3 ở account riêng có đủ ba lần lặp 10/25/50 user; 50-user r2/r3 không đạt ngưỡng p95 tương tác 3 giây dù không lỗi nghiệp vụ. Đây không phải kết quả Sydney cũ hoặc bằng chứng medium mới đã triển khai xong. Bản sửa tạo thư mục cha cho load runner cũng được đưa vào source.
+
 **Thông số nhóm:** 4 thành viên; tổng ngân sách AWS **150 USD**, giảm theo yêu cầu ngày 07/11/2026. Giữ tỷ lệ phân bổ hiện có: 112,50 USD cho các giai đoạn và 37,50 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Ưu tiên hoàn tất small; medium cần dự toán lại trong hạn mức còn lại. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
 
 **Bản tích hợp ngày 12/11/2026:** mã small của master và medium của khoi được hợp nhất vào một CLI; xem [cách dùng và kiểm chứng bản tích hợp](docs/17-small-medium-integration.md). Medium đã có [bằng chứng chạy AWS](docs/12-medium-live-lab.md), [HTTPS tại ALB](docs/13-medium-med02.md), và [cleanup ngày 10/11](docs/15-aws-cleanup.md). URL/AMI/ARN của medium trong hồ sơ là lịch sử, cần dựng lại trước demo. Large/production chưa được hỗ trợ.

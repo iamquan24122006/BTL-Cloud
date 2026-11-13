@@ -1,0 +1,7 @@
+tests\small.tftest.hcl... in progress
+  run "small_security_and_payload"... pass
+  run "backup_permission_is_scoped"... pass
+tests\small.tftest.hcl... tearing down
+tests\small.tftest.hcl... pass
+
+Success! 2 passed, 0 failed.

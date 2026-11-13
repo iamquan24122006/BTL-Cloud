@@ -181,7 +181,16 @@ foreach(['app-a','app-b'] as $host){[$code,$body]=request($host,'/user/profile.p
 echo "Login retained across A/B\n";
 '''
         self.cli('login-across-nodes', '-r', login)
+        cache_probe = ('$s=json_decode(file_get_contents("/etc/moodle/runtime.json"),true); '
+                       '$r=new Redis();$r->connect("tls://cache",6379,2,null,0,2,'
+                       '["stream"=>["cafile"=>"/etc/ssl/certs/ca-certificates.crt"]]);'
+                       '$r->auth($s["redis"]["token"]);')
+        self.cli('unrelated-cache-write', '-r', cache_probe +
+                 '$r->set("n3-other-site:canary","preserve-other-site");')
         self.cli('purge-cache', '/var/www/moodle/admin/cli/purge_caches.php', migration=True)
+        self.cli('unrelated-cache-after-purge', '-r', cache_probe +
+                 'if($r->get("n3-other-site:canary")!=="preserve-other-site"){exit(1);}'
+                 '$r->del("n3-other-site:canary");')
         self.cli('login-after-purge', '-r', login)
         # Confirm MUC purge has not removed Redis sessions (session key count remains nonzero).
         self.cli('session-after-purge', '-r', '$s=json_decode(file_get_contents("/etc/moodle/runtime.json"),true); $r=new Redis();$r->connect("tls://session",6379,2,null,0,2,["stream"=>["cafile"=>"/etc/ssl/certs/ca-certificates.crt"]]);$r->auth($s["redis"]["token"]);if($r->dbSize()<1){exit(1);}')

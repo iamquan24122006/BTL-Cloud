@@ -38,3 +38,11 @@ Restore medium qua CLI dùng `--backup-uri s3://<bucket>/<restore_source_prefix>
 - Mock test medium kiểm tra **plan**, với dữ liệu mock có sẵn từ plan. Cách này kiểm tra cả hai frontend và các assertion hạ tầng mà không tạo mock state cần destroy, giữ nguyên `prevent_destroy` EFS và deletion protection RDS. [HashiCorp: provider mocking](https://developer.hashicorp.com/terraform/language/tests/mocking).
 
 Các bằng chứng AWS ngày 09–10/11 của medium là hồ sơ triển khai trước hợp nhất. Không tuyên bố đã chạy lại deploy/restore AWS cho commit tích hợp; việc đó cần cửa sổ lab, credential và prerequisite được tạo lại. CI/offline không thay thế nghiệm thu live, phép đo tải hoặc kiểm tra chéo N3.
+
+## Cập nhật khoi ngày 14/11/2026
+
+PR #2 đã merge vào master `699dfc6`; CI của cả hai lượt PR và merge commit đều thành công. Sau đó tích hợp commit N3 `2440d08` (13/11) mà vẫn giữ CLI, state và mock tests đã sửa của master.
+
+Builder thêm tùy chọn `python -m scripts.medium_lab prepare --builder-instance-type t3.small ...`; mặc định `t3.medium` và các bước plan/review theo state hiện có giữ nguyên. Runtime integration thêm canary trên namespace Redis khác trước/sau purge MUC để phát hiện flush dữ liệu ngoài site. Load runner tạo thư mục `results` nếu generator mới chưa có; thư mục từng lượt vẫn tạo độc quyền để không ghi đè kết quả cũ.
+
+Hồ sơ [AWS N3](evidence/aws-n3-2026-11-11/README.md) và [offline](evidence/offline-2026-11-11/README.md) giữ đúng commit, account và thời điểm riêng. Không gộp phép đo N3 với Sydney; đặc biệt 50-user r2/r3 có p95 vượt ngưỡng dù sample không báo lỗi nghiệp vụ. Medium của lượt N3 còn chờ DNS/ACM tại thời điểm ghi hồ sơ; đây không phải kiểm chứng lại live cho bản source tích hợp này.

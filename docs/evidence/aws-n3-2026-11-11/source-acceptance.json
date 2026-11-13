@@ -1,0 +1,22 @@
+{
+  "CommandId": "7e34066a-3729-471d-afb4-4f50a1aa809e",
+  "InstanceId": "i-02f94043ce763d4ce",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T15:26:17.235Z",
+  "ExecutionElapsedTime": "PT8.06S",
+  "ExecutionEndDateTime": "2026-11-11T15:26:25.235Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "Database, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160015,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/19\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

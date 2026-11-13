@@ -1,0 +1,217 @@
+{
+  "samples": 4845,
+  "elapsed_seconds": 1206.318,
+  "transactions": {
+    "Assignment view": {
+      "samples": 270,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 19123.0,
+      "p95_ms_success": 26014.0,
+      "p99_ms_success": 29424.0,
+      "throughput_per_second": 0.224
+    },
+    "Course": {
+      "samples": 1672,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 12050.0,
+      "p95_ms_success": 17160.0,
+      "p99_ms_success": 19740.0,
+      "throughput_per_second": 1.386
+    },
+    "Download": {
+      "samples": 541,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 4050.0,
+      "p95_ms_success": 7179.0,
+      "p99_ms_success": 8489.0,
+      "throughput_per_second": 0.448
+    },
+    "Login": {
+      "samples": 310,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 30282.0,
+      "p95_ms_success": 39683.0,
+      "p99_ms_success": 43391.0,
+      "throughput_per_second": 0.257
+    },
+    "Login form": {
+      "samples": 312,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 3725.0,
+      "p95_ms_success": 7632.0,
+      "p99_ms_success": 9480.0,
+      "throughput_per_second": 0.259
+    },
+    "Login-0": {
+      "samples": 310,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 9302.0,
+      "p95_ms_success": 14542.0,
+      "p99_ms_success": 15936.0,
+      "throughput_per_second": 0.257
+    },
+    "Login-1": {
+      "samples": 310,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 2562.0,
+      "p95_ms_success": 4879.0,
+      "p99_ms_success": 5752.0,
+      "throughput_per_second": 0.257
+    },
+    "Login-2": {
+      "samples": 310,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 17118.0,
+      "p95_ms_success": 24153.0,
+      "p99_ms_success": 26244.0,
+      "throughput_per_second": 0.257
+    },
+    "Logout": {
+      "samples": 270,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 8271.0,
+      "p95_ms_success": 12256.0,
+      "p99_ms_success": 14210.0,
+      "throughput_per_second": 0.224
+    },
+    "Logout-0": {
+      "samples": 270,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 3878.0,
+      "p95_ms_success": 6690.0,
+      "p99_ms_success": 7731.0,
+      "throughput_per_second": 0.224
+    },
+    "Logout-1": {
+      "samples": 270,
+      "errors": 0,
+      "error_percent": 0.0,
+      "p50_ms_success": 3994.0,
+      "p95_ms_success": 7439.0,
+      "p99_ms_success": 9042.0,
+      "throughput_per_second": 0.224
+    }
+  },
+  "scope": "JMeter small: 60% course / 20% download / 10% assignment view / 10% auth cycle by logical actions; fresh HTTP connections; no submission writes or browser rendering",
+  "observed_users": 50,
+  "expected_users": 50,
+  "minimum_seconds": 1190.0,
+  "ramp_seconds": 300.0,
+  "steady": {
+    "samples": 3399,
+    "elapsed_seconds": 906.318,
+    "transactions": {
+      "Assignment view": {
+        "samples": 201,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 20800.0,
+        "p95_ms_success": 27164.0,
+        "p99_ms_success": 29424.0,
+        "throughput_per_second": 0.222
+      },
+      "Course": {
+        "samples": 1244,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 12980.0,
+        "p95_ms_success": 17705.0,
+        "p99_ms_success": 19955.0,
+        "throughput_per_second": 1.373
+      },
+      "Download": {
+        "samples": 388,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 4708.0,
+        "p95_ms_success": 7420.0,
+        "p99_ms_success": 8562.0,
+        "throughput_per_second": 0.428
+      },
+      "Login": {
+        "samples": 193,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 32610.0,
+        "p95_ms_success": 41025.0,
+        "p99_ms_success": 44820.0,
+        "throughput_per_second": 0.213
+      },
+      "Login form": {
+        "samples": 193,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 4912.0,
+        "p95_ms_success": 8777.0,
+        "p99_ms_success": 11506.0,
+        "throughput_per_second": 0.213
+      },
+      "Login-0": {
+        "samples": 193,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 10755.0,
+        "p95_ms_success": 15115.0,
+        "p99_ms_success": 17135.0,
+        "throughput_per_second": 0.213
+      },
+      "Login-1": {
+        "samples": 202,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 3040.0,
+        "p95_ms_success": 4960.0,
+        "p99_ms_success": 5760.0,
+        "throughput_per_second": 0.223
+      },
+      "Login-2": {
+        "samples": 203,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 18721.0,
+        "p95_ms_success": 24562.0,
+        "p99_ms_success": 26392.0,
+        "throughput_per_second": 0.224
+      },
+      "Logout": {
+        "samples": 193,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 9173.0,
+        "p95_ms_success": 12839.0,
+        "p99_ms_success": 15848.0,
+        "throughput_per_second": 0.213
+      },
+      "Logout-0": {
+        "samples": 193,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 4397.0,
+        "p95_ms_success": 6870.0,
+        "p99_ms_success": 8013.0,
+        "throughput_per_second": 0.213
+      },
+      "Logout-1": {
+        "samples": 196,
+        "errors": 0,
+        "error_percent": 0.0,
+        "p50_ms_success": 4629.0,
+        "p95_ms_success": 7754.0,
+        "p99_ms_success": 9508.0,
+        "throughput_per_second": 0.216
+      }
+    }
+  },
+  "status": "passed",
+  "conclusion": "Protocol smoke/load observations only; record workload, unique users, ramp, duration, CPU credits and repeats before capacity conclusions"
+}

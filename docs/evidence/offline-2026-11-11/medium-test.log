@@ -1,0 +1,7 @@
+tests\medium.tftest.hcl... in progress
+  run "temporary_https_without_private_response_cache"... pass
+  run "bounded_private_cluster"... pass
+tests\medium.tftest.hcl... tearing down
+tests\medium.tftest.hcl... pass
+
+Success! 2 passed, 0 failed.

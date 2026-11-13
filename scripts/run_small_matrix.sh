@@ -16,6 +16,7 @@ cd "$root"
 stamp=$(date -u +%Y%m%dT%H%M%SZ)
 results="$root/results/matrix-$stamp"
 destination="${uri%/}/results/$stamp/"
+mkdir -p -m 0700 "$root/results"
 mkdir -m 0700 "$results"
 monitor=''
 final_status=failed

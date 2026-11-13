@@ -1,0 +1,22 @@
+{
+  "CommandId": "6f71d211-a6c1-481f-b783-52c0e2b5edca",
+  "InstanceId": "i-0a2d4365b51114ed9",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T16:04:14.358Z",
+  "ExecutionElapsedTime": "PT4.117S",
+  "ExecutionEndDateTime": "2026-11-11T16:04:18.358Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "No syntax errors detected in /opt/moodle-distribution/n3-upload.php\n{\"status\":\"passed\",\"valid_bytes\":62914560,\"oversize_bytes\":68157440,\"effective_limit\":67108864,\"php_upload\":\"64M\",\"php_post\":\"64M\",\"filename\":\"H\u1ecdc li\u1ec7u th\u1eed nghi\u1ec7m 60 MiB.bin\",\"sha256\":\"c7d6d9e1c5565fcc2b9764a52f5d2742d2606deb402e5caf1e90348f9dd5d008\",\"download_sha256\":\"c7d6d9e1c5565fcc2b9764a52f5d2742d2606deb402e5caf1e90348f9dd5d008\",\"oversize_http\":200,\"resource_cmid\":5}\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

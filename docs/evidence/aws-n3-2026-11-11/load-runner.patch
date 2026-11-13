@@ -1,0 +1,12 @@
+﻿diff --git a/scripts/run_small_matrix.sh b/scripts/run_small_matrix.sh
+index cc8d3b8..1f3073f 100644
+--- a/scripts/run_small_matrix.sh
++++ b/scripts/run_small_matrix.sh
+@@ -16,6 +16,7 @@ cd "$root"
+ stamp=$(date -u +%Y%m%dT%H%M%SZ)
+ results="$root/results/matrix-$stamp"
+ destination="${uri%/}/results/$stamp/"
++mkdir -p -m 0700 "$root/results"
+ mkdir -m 0700 "$results"
+ monitor=''
+ final_status=failed

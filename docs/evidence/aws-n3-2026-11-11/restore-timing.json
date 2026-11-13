@@ -1,0 +1,8 @@
+{
+  "backup_created_utc": "2026-11-11T15:34:46.613569+00:00",
+  "restore_command_start": "2026-11-11T15:53:06.765Z",
+  "restore_command_end": "2026-11-11T15:54:33.765Z",
+  "restore_command_seconds": 87.0,
+  "backup_age_at_drill_start_seconds": 1100.151431,
+  "scope": "Command includes download/negative integrity test/positive restore/LMS/new-write validation. Backup age is not measured data loss; no post-backup transaction chain or SLA."
+}

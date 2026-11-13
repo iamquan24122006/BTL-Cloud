@@ -1,0 +1,11 @@
+tests\fixture.tftest.hcl... in progress
+
+  run "private_generator_and_scoped_access"... pass
+
+tests\fixture.tftest.hcl... tearing down
+
+tests\fixture.tftest.hcl... pass
+
+
+
+Success! 1 passed, 0 failed.

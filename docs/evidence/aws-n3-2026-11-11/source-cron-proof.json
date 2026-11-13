@@ -1,0 +1,22 @@
+{
+  "CommandId": "36d1785a-ff28-4ff5-873b-45fc714fc9b9",
+  "InstanceId": "i-02f94043ce763d4ce",
+  "Comment": "",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-11T16:53:03.338Z",
+  "ExecutionElapsedTime": "PT1.248S",
+  "ExecutionEndDateTime": "2026-11-11T16:53:04.338Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "2026-11-11T16:53:03+00:00\n{\"scheduled_failures\" : 0, \"adhoc_failures\" : 0, \"scheduled_with_recorded_run\" : 90}\n[{\"classname\":\"workshopallocation_scheduled\\\\task\\\\cron_task\",\"result\":0,\"timestart\":1794415982.5003000000,\"timeend\":1794415982.5089000000}, \n {\"classname\":\"tool_monitor\\\\task\\\\clean_events\",\"result\":0,\"timestart\":1794415982.4269000000,\"timeend\":1794415982.4285000000}, \n {\"classname\":\"tool_messageinbound\\\\task\\\\pickup_task\",\"result\":0,\"timestart\":1794415982.3098000000,\"timeend\":1794415982.3157000000}]\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Execute scheduled task: Background processing for workshop module (mod_workshop\\task\\cron_task)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Scheduled task complete: Background processing for workshop module (mod_workshop\\task\\cron_task)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Execute scheduled task: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Scheduled task complete: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Execute scheduled task: Cleanup event monitor events (tool_monitor\\task\\clean_events)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Scheduled task complete: Cleanup event monitor events (tool_monitor\\task\\clean_events)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Execute scheduled task: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\nNov 11 16:53:02 ip-10-42-1-191 php-cli.sh[1045270]: Scheduled task complete: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

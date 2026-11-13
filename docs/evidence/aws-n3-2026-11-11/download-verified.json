@@ -1,0 +1,16 @@
+{
+  "status": "verified",
+  "format": 2,
+  "moodle_version": "4.5.15",
+  "code_commit": "215f44380bdc3ccf852a3a22e34f8423ff64033a",
+  "runtime_image": "sha256:7ec699387872993a2c7be4f02912da8f0b88aa0c9f955cc38ee89ca9a562b53c",
+  "checksums": {
+    "database.dump": "64d13808e68e39e961e77c2a87052c5a076e77165300bd306e0e9ad0927d8d28",
+    "moodledata.tar.gz": "3c40566276d62e25789851c2dd85c2fa003067a43b0aa3e3e4451c90624b35ca",
+    "config.php": "f327e45b1950bc32fdd2acaca07d28995e5ba2f49db8b4c231824ae798fe966a",
+    "code.txt": "2741674d89824bdad64ab3c3355d4a02dcac4b281b5a31b14abfb6f47fadfc9f",
+    "runtime-image.txt": "014555bd220708581801a2c9058f1df5e8da93132abcdb77de12a7821345ac2c",
+    "runtime-Dockerfile": "745c1bde3b3b00dde22feedbfe62ede7977c4603006c899656ca5b30697a9fae"
+  },
+  "restore_tested": false
+}
