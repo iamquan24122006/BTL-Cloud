@@ -27,7 +27,7 @@ resource "aws_db_instance" "medium" {
   parameter_group_name        = aws_db_parameter_group.medium.name
   publicly_accessible         = false
   multi_az                    = false
-  backup_retention_period     = 7
+  backup_retention_period     = var.db_backup_retention_days
   auto_minor_version_upgrade  = false
   deletion_protection         = true
   skip_final_snapshot         = false

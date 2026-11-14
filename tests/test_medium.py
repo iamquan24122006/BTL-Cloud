@@ -50,6 +50,18 @@ class MediumTests(unittest.TestCase):
             with self.subTest(key=key, value=value), self.assertRaises(cli.ConfigError):
                 self.load(dict(self.config, **{key: value}))
 
+    def test_rds_backup_retention_preserves_default_and_supports_restricted_accounts(self):
+        legacy = dict(self.config)
+        legacy.pop('db_backup_retention_days', None)
+        self.assertEqual(self.load(legacy)['db_backup_retention_days'], 7)
+        for days in (1, 35):
+            config = self.load(dict(legacy, db_backup_retention_days=days))
+            with patch.object(cli, 'ROOT', self.root):
+                self.assertEqual(json.loads(cli.render(config).read_text())['db_backup_retention_days'], days)
+        for value in (0, 36, True, 1.5, '1'):
+            with self.subTest(value=value), self.assertRaises(cli.ConfigError):
+                self.load(dict(legacy, db_backup_retention_days=value))
+
     def test_nested_unknown_keys_and_secret_values_rejected(self):
         for section in ('artifact', 'backend', 'secrets'):
             data = copy.deepcopy(self.config)

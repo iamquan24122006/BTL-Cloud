@@ -92,6 +92,8 @@ python -m src.moodle_cloud --config config/medium.dev.yaml apply --confirm <proj
 python -m src.moodle_cloud --config config/medium.dev.yaml status
 ```
 
+`db_backup_retention_days` mặc định là **7**, nhận số nguyên **1–35** và không cho tắt automated backup. Nếu AWS trả `FreeTierRestrictionError` vì giới hạn retention của Free Plan, chọn **1** cho lab, lập lại saved plan rồi apply tiếp từ state hiện có; không cần tạo lại các tài nguyên đã thành công hoặc nâng cấp account plan. Backup nhất quán database + moodledata lên S3 vẫn là quy trình riêng, phải kiểm chứng restore. Xem [RDS backup retention](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html).
+
 Sau apply, dùng output `ssm_shell_command` vào runner, kiểm tra `cloud-init status --wait`, Docker image digest, EFS mount TLS/IAM và log bootstrap. App chưa ready trước release là trạng thái dự kiến; không sửa health thành static 200. Trên runner, tạo riêng `/etc/moodle/admin.json` bằng editor, owner `root:www-data`, mode `0640`, thư mục mode `0750`; JSON gồm `username`, `password`, `email`. Không truyền password bằng lệnh có lịch sử. Chạy:
 
 ```bash

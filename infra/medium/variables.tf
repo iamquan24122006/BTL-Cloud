@@ -59,6 +59,14 @@ variable "availability_zones" {
 variable "vpc_cidr" { type = string }
 variable "db_instance_type" { type = string }
 variable "db_allocated_storage" { type = number }
+variable "db_backup_retention_days" {
+  type    = number
+  default = 7
+  validation {
+    condition     = var.db_backup_retention_days >= 1 && var.db_backup_retention_days <= 35 && floor(var.db_backup_retention_days) == var.db_backup_retention_days
+    error_message = "Keep automated backups enabled with an integer retention from 1 to 35 days."
+  }
+}
 variable "redis_node_type" { type = string }
 variable "backup_bucket" { type = string }
 variable "restore_source_prefix" {

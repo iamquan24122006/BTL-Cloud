@@ -17,6 +17,7 @@ availability_zones: [ap-southeast-1a, ap-southeast-1b]
 vpc_cidr: 10.43.0.0/16
 db_instance_type: db.t4g.micro
 db_allocated_storage: 20
+db_backup_retention_days: 7 # Use 1 for an AWS Free Plan that restricts RDS retention; S3 Moodle backups are separate.
 redis_node_type: cache.t4g.micro
 backup_bucket: moodle-example-backups
 restore_source_prefix: "" # Fresh restore target: explicitly grant read access to the source site prefix.
