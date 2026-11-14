@@ -113,6 +113,8 @@ resource "aws_autoscaling_group" "app" {
   min_size                = 2
   desired_capacity        = 2
   max_size                = 3
+  metrics_granularity     = "1Minute"
+  enabled_metrics         = ["GroupDesiredCapacity", "GroupInServiceInstances", "GroupPendingInstances", "GroupTotalInstances"]
   service_linked_role_arn = aws_iam_service_linked_role.autoscaling.arn
   vpc_zone_identifier     = [for s in aws_subnet.app : s.id]
   target_group_arns       = [aws_lb_target_group.app.arn]
@@ -147,6 +149,23 @@ resource "aws_autoscaling_group" "app" {
     }
   }
   depends_on = [aws_efs_mount_target.medium, aws_efs_file_system_policy.medium, aws_route_table_association.app, aws_iam_role_policy.runtime, aws_lb_listener.http, aws_lb_listener.https]
+  lifecycle {
+    # Scaling owns the live desired count after the initial two-node creation.
+    ignore_changes = [desired_capacity]
+  }
+}
+resource "aws_autoscaling_policy" "requests" {
+  name                      = "${local.name}-requests"
+  autoscaling_group_name    = aws_autoscaling_group.app.name
+  policy_type               = "TargetTrackingScaling"
+  estimated_instance_warmup = 300
+  target_tracking_configuration {
+    target_value = var.app_requests_per_target
+    predefined_metric_specification {
+      predefined_metric_type = "ALBRequestCountPerTarget"
+      resource_label         = "${aws_lb.medium.arn_suffix}/${aws_lb_target_group.app.arn_suffix}"
+    }
+  }
 }
 resource "aws_instance" "runner" {
   ami                         = var.ami_id

@@ -1,0 +1,147 @@
+{
+  "create": 15,
+  "update": 8,
+  "delete": 0,
+  "replace": 0,
+  "data_loss_risk": false,
+  "resources": [
+    {
+      "address": "aws_autoscaling_group.app",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_autoscaling_policy.requests",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_dashboard.medium",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.cpu",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.database[\"CPUUtilization\"]",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.database[\"FreeStorageSpace\"]",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.database[\"FreeableMemory\"]",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.delivery_probe",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.efs_io",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.errors",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.host[\"disk_used_percent\"]",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.host[\"mem_used_percent\"]",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.operations[\"BackupSuccess\"]",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.operations[\"CronSuccess\"]",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.redis_memory[\"cache\"]",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.redis_memory[\"session\"]",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.runner_cpu",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.unhealthy",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_sns_topic.operations",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_sns_topic_policy.operations",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_sns_topic_subscription.operations",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_sqs_queue.operations",
+      "actions": [
+        "create"
+      ]
+    },
+    {
+      "address": "aws_sqs_queue_policy.operations",
+      "actions": [
+        "create"
+      ]
+    }
+  ]
+}

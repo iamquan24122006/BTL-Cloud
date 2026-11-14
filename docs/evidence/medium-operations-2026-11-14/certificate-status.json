@@ -1,0 +1,5 @@
+{
+  "CertificateArn": "arn:aws:acm:ap-southeast-2:828676179987:certificate/8a051ea8-60ae-4589-ab39-7a44b6bea671",
+  "DomainName": "www.moodle-cloud-distribution.mywire.org",
+  "Status": "PENDING_VALIDATION"
+}

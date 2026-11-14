@@ -1,5 +1,14 @@
 mock_provider "aws" {
   override_during = plan
+  mock_resource "aws_sns_topic" {
+    defaults = { arn = "arn:aws:sns:ap-southeast-1:111111111111:mock-operations" }
+  }
+  mock_resource "aws_sqs_queue" {
+    defaults = { arn = "arn:aws:sqs:ap-southeast-1:111111111111:mock-operations", url = "https://sqs.ap-southeast-1.amazonaws.com/111111111111/mock-operations" }
+  }
+  mock_resource "aws_cloudwatch_metric_alarm" {
+    defaults = { arn = "arn:aws:cloudwatch:ap-southeast-1:111111111111:alarm:mock" }
+  }
   mock_resource "aws_efs_file_system" {
     defaults = { id = "fs-00000000000000000" }
   }
@@ -28,10 +37,10 @@ mock_provider "aws" {
     defaults = { id = "lt-00000000000000000" }
   }
   mock_resource "aws_lb" {
-    defaults = { arn = "arn:aws:elasticloadbalancing:ap-southeast-1:111111111111:loadbalancer/app/moodle/0000000000000000" }
+    defaults = { arn = "arn:aws:elasticloadbalancing:ap-southeast-1:111111111111:loadbalancer/app/moodle/0000000000000000", arn_suffix = "app/moodle/0000000000000000" }
   }
   mock_resource "aws_lb_target_group" {
-    defaults = { arn = "arn:aws:elasticloadbalancing:ap-southeast-1:111111111111:targetgroup/moodle/0000000000000000" }
+    defaults = { arn = "arn:aws:elasticloadbalancing:ap-southeast-1:111111111111:targetgroup/moodle/0000000000000000", arn_suffix = "targetgroup/moodle/0000000000000000" }
   }
   mock_data "aws_secretsmanager_secret_version" {
     defaults = { secret_string = "{\"token\":\"TestingToken1234567890\"}" }
@@ -101,6 +110,22 @@ variables {
 }
 run "bounded_private_cluster" {
   command = plan # No mock state to tear down; EFS prevent_destroy stays enabled.
+  assert {
+    condition     = aws_autoscaling_policy.requests.policy_type == "TargetTrackingScaling" && aws_autoscaling_policy.requests.target_tracking_configuration[0].predefined_metric_specification[0].predefined_metric_type == "ALBRequestCountPerTarget" && aws_autoscaling_policy.requests.target_tracking_configuration[0].target_value == 600
+    error_message = "Scaling must respond to per-target ALB traffic within the bounded ASG."
+  }
+  assert {
+    condition     = aws_sqs_queue.operations.sqs_managed_sse_enabled && aws_sqs_queue.operations.message_retention_seconds == 1209600 && aws_sns_topic_subscription.operations.protocol == "sqs"
+    error_message = "Alarms require an encrypted durable receiver."
+  }
+  assert {
+    condition     = length(aws_cloudwatch_metric_alarm.cpu.alarm_actions) == 1 && length(aws_cloudwatch_metric_alarm.cpu.ok_actions) == 1 && length(aws_cloudwatch_metric_alarm.database) == 3 && length(aws_cloudwatch_metric_alarm.redis_memory) == 2
+    error_message = "Application, database and cache alarms must include alarm and recovery delivery."
+  }
+  assert {
+    condition     = length(local.dashboard_metrics) == 10 && jsondecode(aws_sqs_queue_policy.operations.policy).Statement[0].Condition.ArnEquals["aws:SourceArn"] == aws_sns_topic.operations.arn
+    error_message = "Dashboard must cover the stack; inbox publishing must be limited to its topic."
+  }
   assert {
     condition     = aws_autoscaling_group.app.min_size == 2 && aws_autoscaling_group.app.desired_capacity == 2 && aws_autoscaling_group.app.max_size == 3
     error_message = "The lab must maintain two app nodes, bounded at three."

@@ -1,0 +1,31 @@
+{
+  "ScalingPolicies": [
+    {
+      "AutoScalingGroupName": "moodle-medium-dev-med-app",
+      "PolicyName": "moodle-medium-dev-med-requests",
+      "PolicyARN": "arn:aws:autoscaling:ap-southeast-2:828676179987:scalingPolicy:73e6fca4-f59f-49c4-8221-060b1bab781b:autoScalingGroupName/moodle-medium-dev-med-app:policyName/moodle-medium-dev-med-requests",
+      "PolicyType": "TargetTrackingScaling",
+      "StepAdjustments": [],
+      "EstimatedInstanceWarmup": 300,
+      "Alarms": [
+        {
+          "AlarmName": "TargetTracking-moodle-medium-dev-med-app-AlarmHigh-4652cc6a-7580-4fd9-8023-cb706fba4ef1",
+          "AlarmARN": "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:TargetTracking-moodle-medium-dev-med-app-AlarmHigh-4652cc6a-7580-4fd9-8023-cb706fba4ef1"
+        },
+        {
+          "AlarmName": "TargetTracking-moodle-medium-dev-med-app-AlarmLow-620e1f4f-1436-4b61-a498-23007c2582e5",
+          "AlarmARN": "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:TargetTracking-moodle-medium-dev-med-app-AlarmLow-620e1f4f-1436-4b61-a498-23007c2582e5"
+        }
+      ],
+      "TargetTrackingConfiguration": {
+        "PredefinedMetricSpecification": {
+          "PredefinedMetricType": "ALBRequestCountPerTarget",
+          "ResourceLabel": "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9/targetgroup/mdl-70739a79bea2d9f13977d3f1e8/bd6d4b95523529c1"
+        },
+        "TargetValue": 600.0,
+        "DisableScaleIn": false
+      },
+      "Enabled": true
+    }
+  ]
+}

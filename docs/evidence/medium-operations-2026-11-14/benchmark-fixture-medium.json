@@ -1,0 +1,10 @@
+{
+  "course_id": 6,
+  "course_marker": "Cloud Benchmark Lab",
+  "users": 50,
+  "file_path": "/pluginfile.php/98/mod_resource/content/1/benchmark.bin",
+  "file_sha256": "f08b3a5188a0e42e8f80eee202e376a9fc514834602957750a4a895248206f3c",
+  "file_bytes": 1048576,
+  "assignment_id": 10,
+  "assignment_marker": "Benchmark assignment"
+}

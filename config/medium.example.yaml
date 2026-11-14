@@ -3,6 +3,7 @@ project: moodle-lab
 environment: dev
 region: ap-southeast-1
 size: medium
+app_requests_per_target: 600 # Per app node per minute; tune from a representative benchmark. ASG stays within 2-3 nodes.
 account_id: "111111111111"
 instance_type: t3.medium
 volume_gib: 30

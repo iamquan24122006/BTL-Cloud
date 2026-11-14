@@ -1,0 +1,316 @@
+{
+  "alarms": [
+    {
+      "AlarmName": "moodle-medium-dev-med-BackupSuccess-missing",
+      "StateValue": "OK",
+      "MetricName": "BackupSuccess",
+      "Namespace": "MoodleMedium",
+      "Dimensions": [
+        {
+          "Name": "Site",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 1.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "breaching"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-CronSuccess-missing",
+      "StateValue": "OK",
+      "MetricName": "CronSuccess",
+      "Namespace": "MoodleMedium",
+      "Dimensions": [
+        {
+          "Name": "Site",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 1.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "breaching"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-app-cpu",
+      "StateValue": "OK",
+      "MetricName": "CPUUtilization",
+      "Namespace": "AWS/EC2",
+      "Dimensions": [
+        {
+          "Name": "AutoScalingGroupName",
+          "Value": "moodle-medium-dev-med-app"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-cache-memory",
+      "StateValue": "OK",
+      "MetricName": "DatabaseMemoryUsagePercentage",
+      "Namespace": "AWS/ElastiCache",
+      "Dimensions": [
+        {
+          "Name": "CacheClusterId",
+          "Value": "moodle-medium-dev-med-cache-001"
+        },
+        {
+          "Name": "CacheNodeId",
+          "Value": "0001"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-db-CPUUtilization",
+      "StateValue": "OK",
+      "MetricName": "CPUUtilization",
+      "Namespace": "AWS/RDS",
+      "Dimensions": [
+        {
+          "Name": "DBInstanceIdentifier",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-db-FreeStorageSpace",
+      "StateValue": "OK",
+      "MetricName": "FreeStorageSpace",
+      "Namespace": "AWS/RDS",
+      "Dimensions": [
+        {
+          "Name": "DBInstanceIdentifier",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 2147483648.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-db-FreeableMemory",
+      "StateValue": "OK",
+      "MetricName": "FreeableMemory",
+      "Namespace": "AWS/RDS",
+      "Dimensions": [
+        {
+          "Name": "DBInstanceIdentifier",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 104857600.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-disk_used_percent",
+      "StateValue": "OK",
+      "MetricName": "disk_used_percent",
+      "Namespace": "MoodleMedium",
+      "Dimensions": [
+        {
+          "Name": "Site",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 85.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-efs-io",
+      "StateValue": "OK",
+      "MetricName": "PercentIOLimit",
+      "Namespace": "AWS/EFS",
+      "Dimensions": [
+        {
+          "Name": "FileSystemId",
+          "Value": "fs-0be9bf83e04fd81af"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-mem_used_percent",
+      "StateValue": "OK",
+      "MetricName": "mem_used_percent",
+      "Namespace": "MoodleMedium",
+      "Dimensions": [
+        {
+          "Name": "Site",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 85.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-notification-probe",
+      "StateValue": "OK",
+      "MetricName": "NotificationProbe",
+      "Namespace": "MoodleMedium",
+      "Dimensions": [
+        {
+          "Name": "Site",
+          "Value": "moodle-medium-dev-med"
+        }
+      ],
+      "Threshold": 0.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "notBreaching"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-runner-cpu",
+      "StateValue": "OK",
+      "MetricName": "CPUUtilization",
+      "Namespace": "AWS/EC2",
+      "Dimensions": [
+        {
+          "Name": "InstanceId",
+          "Value": "i-0a905507feca34c32"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-session-memory",
+      "StateValue": "OK",
+      "MetricName": "DatabaseMemoryUsagePercentage",
+      "Namespace": "AWS/ElastiCache",
+      "Dimensions": [
+        {
+          "Name": "CacheClusterId",
+          "Value": "moodle-medium-dev-med-session-001"
+        },
+        {
+          "Name": "CacheNodeId",
+          "Value": "0001"
+        }
+      ],
+      "Threshold": 80.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-target-5xx",
+      "StateValue": "OK",
+      "MetricName": "HTTPCode_Target_5XX_Count",
+      "Namespace": "AWS/ApplicationELB",
+      "Dimensions": [
+        {
+          "Name": "LoadBalancer",
+          "Value": "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9"
+        }
+      ],
+      "Threshold": 5.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "notBreaching"
+    },
+    {
+      "AlarmName": "moodle-medium-dev-med-unhealthy-targets",
+      "StateValue": "OK",
+      "MetricName": "UnHealthyHostCount",
+      "Namespace": "AWS/ApplicationELB",
+      "Dimensions": [
+        {
+          "Name": "LoadBalancer",
+          "Value": "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9"
+        },
+        {
+          "Name": "TargetGroup",
+          "Value": "targetgroup/mdl-70739a79bea2d9f13977d3f1e8/bd6d4b95523529c1"
+        }
+      ],
+      "Threshold": 0.0,
+      "AlarmActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "OKActions": [
+        "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+      ],
+      "TreatMissingData": "missing"
+    }
+  ]
+}

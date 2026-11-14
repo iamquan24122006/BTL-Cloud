@@ -68,6 +68,14 @@ variable "db_backup_retention_days" {
   }
 }
 variable "redis_node_type" { type = string }
+variable "app_requests_per_target" {
+  type    = number
+  default = 600
+  validation {
+    condition     = var.app_requests_per_target >= 60 && var.app_requests_per_target <= 6000 && floor(var.app_requests_per_target) == var.app_requests_per_target
+    error_message = "Use an integer from 60 to 6000 requests per target per minute."
+  }
+}
 variable "backup_bucket" { type = string }
 variable "restore_source_prefix" {
   type    = string

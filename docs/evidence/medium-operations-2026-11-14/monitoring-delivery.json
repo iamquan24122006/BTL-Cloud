@@ -1,0 +1,110 @@
+{
+  "started_utc": "2026-11-14T16:31:16.987552+00:00",
+  "site": "moodle-medium-dev-med",
+  "dashboard_name": "moodle-medium-dev-med-operations",
+  "dashboard_widgets": 11,
+  "alarms": [
+    {
+      "name": "moodle-medium-dev-med-BackupSuccess-missing",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-CronSuccess-missing",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-app-cpu",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-cache-memory",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-db-CPUUtilization",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-db-FreeStorageSpace",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-db-FreeableMemory",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-disk_used_percent",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-efs-io",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-mem_used_percent",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-runner-cpu",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-session-memory",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-target-5xx",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    },
+    {
+      "name": "moodle-medium-dev-med-unhealthy-targets",
+      "state": "OK",
+      "alarm_delivery": true,
+      "recovery_delivery": true
+    }
+  ],
+  "probe_transitions": [
+    "ALARM",
+    "OK"
+  ],
+  "received_notifications": [
+    {
+      "state": "ALARM",
+      "changed_utc": "2026-11-14T16:32:26.179+0000",
+      "message_id": "fb226a63-9d29-48e2-b06f-3156a503a093"
+    },
+    {
+      "state": "OK",
+      "changed_utc": "2026-11-14T16:35:26.179+0000",
+      "message_id": "edaea119-fe80-465d-8ec1-fb6b7d1737c4"
+    }
+  ],
+  "status": "passed",
+  "finished_utc": "2026-11-14T16:36:36.995783+00:00"
+}

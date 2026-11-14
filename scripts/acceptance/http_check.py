@@ -59,12 +59,16 @@ def main(argv=None):
     parser.add_argument('--url', required=True)
     parser.add_argument('--fixture', type=Path, required=True)
     parser.add_argument('--admin-credentials', type=Path, required=True)
+    parser.add_argument('--fixture-credentials', type=Path,
+                        help='Private {users: {role: {username, password}}} file; use after rotating the initial admin password')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     if urlsplit(args.url).scheme != 'https':
         parser.error('Real endpoint acceptance requires HTTPS')
     fixture = json.loads(args.fixture.read_text(encoding='utf-8'))
     admin = json.loads(args.admin_credentials.read_text(encoding='utf-8'))
+    fixture_credentials = (json.loads(args.fixture_credentials.read_text(encoding='utf-8'))['users']
+                           if args.fixture_credentials else None)
     checks = []
     report = {'url': args.url, 'started_unix': time.time(), 'scope': 'Real HTTPS, seeded roles/files/assignment; separate ASG/restore evidence required', 'checks': checks}
 
@@ -89,7 +93,14 @@ def main(argv=None):
         clients = {}
         for key, user in fixture['users'].items():
             client = Client(args.url)
-            password = hmac.new(admin['password'].encode(), user['username'].encode(), hashlib.sha256).hexdigest()[:32] + 'Aa7!'
+            if fixture_credentials is not None:
+                credential = fixture_credentials[key]
+                if credential['username'] != user['username']:
+                    raise RuntimeError('Fixture credential username does not match fixture')
+                password = credential['password']
+            else:
+                # Backwards compatibility for the initial deterministic seed only.
+                password = hmac.new(admin['password'].encode(), user['username'].encode(), hashlib.sha256).hexdigest()[:32] + 'Aa7!'
             status, body, location = client.login(user['username'], password)
             check('login-' + key, status == 200 and '/login/index.php' not in location and b'CloudLab' in body)
             clients[key] = client

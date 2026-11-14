@@ -1,0 +1,299 @@
+{
+  "name": "moodle-medium-dev-med-operations",
+  "widgets": [
+    {
+      "height": 3,
+      "properties": {
+        "alarms": [
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-app-cpu",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-unhealthy-targets",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-target-5xx",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-efs-io",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-runner-cpu",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-BackupSuccess-missing",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-CronSuccess-missing",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-disk_used_percent",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-mem_used_percent",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-db-CPUUtilization",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-db-FreeStorageSpace",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-db-FreeableMemory",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-cache-memory",
+          "arn:aws:cloudwatch:ap-southeast-2:828676179987:alarm:moodle-medium-dev-med-session-memory"
+        ],
+        "title": "Medium operational alarms"
+      },
+      "type": "alarm",
+      "width": 24,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ApplicationELB",
+            "TargetResponseTime",
+            "LoadBalancer",
+            "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "p95",
+        "title": "ALB latency (p95 seconds)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 0,
+      "y": 3
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ApplicationELB",
+            "RequestCount",
+            "LoadBalancer",
+            "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9"
+          ],
+          [
+            "AWS/ApplicationELB",
+            "HTTPCode_Target_5XX_Count",
+            "LoadBalancer",
+            "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Sum",
+        "title": "ALB requests and target errors",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 12,
+      "y": 3
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ApplicationELB",
+            "HealthyHostCount",
+            "LoadBalancer",
+            "app/moodle-medium-dev-med/6cd9fbf9ab3f9cb9",
+            "TargetGroup",
+            "targetgroup/mdl-70739a79bea2d9f13977d3f1e8/bd6d4b95523529c1"
+          ],
+          [
+            "AWS/AutoScaling",
+            "GroupDesiredCapacity",
+            "AutoScalingGroupName",
+            "moodle-medium-dev-med-app"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Average",
+        "title": "Healthy targets and desired apps (2-3)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 0,
+      "y": 9
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/EC2",
+            "CPUUtilization",
+            "AutoScalingGroupName",
+            "moodle-medium-dev-med-app"
+          ],
+          [
+            "AWS/EC2",
+            "CPUUtilization",
+            "InstanceId",
+            "i-0a905507feca34c32"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Average",
+        "title": "App / runner CPU (%)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 12,
+      "y": 9
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/RDS",
+            "CPUUtilization",
+            "DBInstanceIdentifier",
+            "moodle-medium-dev-med"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Average",
+        "title": "RDS CPU (%)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 0,
+      "y": 15
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/RDS",
+            "FreeableMemory",
+            "DBInstanceIdentifier",
+            "moodle-medium-dev-med"
+          ],
+          [
+            "AWS/RDS",
+            "FreeStorageSpace",
+            "DBInstanceIdentifier",
+            "moodle-medium-dev-med"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Minimum",
+        "title": "RDS free memory / disk (bytes)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 12,
+      "y": 15
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ElastiCache",
+            "DatabaseMemoryUsagePercentage",
+            "CacheClusterId",
+            "moodle-medium-dev-med-cache-001",
+            "CacheNodeId",
+            "0001"
+          ],
+          [
+            "AWS/ElastiCache",
+            "DatabaseMemoryUsagePercentage",
+            "CacheClusterId",
+            "moodle-medium-dev-med-session-001",
+            "CacheNodeId",
+            "0001"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Maximum",
+        "title": "Redis memory (%)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 0,
+      "y": 21
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "AWS/EFS",
+            "PercentIOLimit",
+            "FileSystemId",
+            "fs-0be9bf83e04fd81af"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Maximum",
+        "title": "EFS IO limit (%)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 12,
+      "y": 21
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "MoodleMedium",
+            "mem_used_percent",
+            "Site",
+            "moodle-medium-dev-med"
+          ],
+          [
+            "MoodleMedium",
+            "disk_used_percent",
+            "Site",
+            "moodle-medium-dev-med"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Maximum",
+        "title": "Host memory / disk (%)",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 0,
+      "y": 27
+    },
+    {
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [
+            "MoodleMedium",
+            "CronSuccess",
+            "Site",
+            "moodle-medium-dev-med"
+          ],
+          [
+            "MoodleMedium",
+            "BackupSuccess",
+            "Site",
+            "moodle-medium-dev-med"
+          ]
+        ],
+        "period": 300,
+        "region": "ap-southeast-2",
+        "stat": "Sum",
+        "title": "Runner cron / backup successes",
+        "view": "timeSeries"
+      },
+      "type": "metric",
+      "width": 12,
+      "x": 12,
+      "y": 27
+    }
+  ]
+}

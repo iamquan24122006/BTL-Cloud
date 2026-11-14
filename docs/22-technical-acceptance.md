@@ -1,5 +1,7 @@
 # Biên bản nghiệm thu kỹ thuật — 14/11/2026
 
+Cập nhật tiếp theo: đường thông báo ALARM/OK, dashboard và việc đổi mật khẩu admin/dùng chung tài khoản đã có [bằng chứng bổ sung](evidence/medium-operations-2026-11-14/README.md). Policy scaling đã triển khai; bài kiểm thử scale-out/in dưới tải và HTTPS tên miền vẫn cần kết quả riêng. Biên bản bên dưới phản ánh đúng lượt review ban đầu, không tự đổi thành nghiệm thu đầy đủ.
+
 ## Kết luận
 
 **Chưa đủ điều kiện nghiệm thu đầy đủ P0 + P1 theo đặc tả hiện hành.** Phần chức năng LMS, vận hành cơ bản và các đường phục hồi đã kiểm tra có bằng chứng đạt; bản small/medium hiện dùng được cho demo. Kết luận này giữ nguyên các yêu cầu đích, không coi URL CloudFront là thay thế cho HTTPS tại ALB hoặc ASG thay node là bằng chứng autoscaling theo tải.

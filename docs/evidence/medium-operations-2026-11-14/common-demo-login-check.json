@@ -1,0 +1,17 @@
+{
+  "urls": {
+    "small": "https://d1cnnw3mivc0q5.cloudfront.net",
+    "medium": "https://dc988tccg64gh.cloudfront.net"
+  },
+  "checks": {
+    "small-admin": true,
+    "small-teacher": true,
+    "small-student": true,
+    "medium-admin": true,
+    "medium-teacher": true,
+    "medium-student": true,
+    "medium-old-admin-rejected": true
+  },
+  "status": "passed",
+  "passwords_printed": false
+}

@@ -1,0 +1,19 @@
+{
+  "alarms.json": "362c79fafae0877c2f89f2bd3c2fc449e6968e0355f6e168232f7f95ee9060ee",
+  "asg.json": "bf8d98bc6d2bbb75809ed4ae5b34acd21125c0cf7f65777a7895b1ae7e6b11ef",
+  "autoscaling-policy.json": "ba4c7b564868dcd6b73205b6a7b2fe002a40c9e8d24dada2f410ce4dce4a8b50",
+  "benchmark-fixture-medium.json": "0a6ca94abddde5726b0e34d5faf3620b3bd4539f96036540b4872c3be687b277",
+  "benchmark-fixture-small.json": "78b81002a6abb53cf2338f8cf175987a158278cd655913bce92a1c9288ded103",
+  "certificate-status.json": "4c3ddab565ff612482d4c4cd0d3b7d1552db7c593eb38c033c2bb2b68f16ba9f",
+  "common-demo-login-check.json": "9b310efbdf2d8cb429e6660cfca372ee80d10f918b965eeb457c9ad7b79ec8e7",
+  "dashboard.json": "a35dccea9d98b56f414144be04354e6a8cde8d9d9b5dafe287bd521a1cd1ce64",
+  "deployment-plan.json": "e02df31364f830453d674fbc081b9b5800ea974d1a8fbb29de34167e304f706e",
+  "http-after-common-accounts.json": "097fde0b831546cc0c6e318cfccf78820387705393065479f87fa3e5f162f4f4",
+  "inbox.json": "4a1a3c9761139e9b123aae7b9163bfc029f043801f92f0e69282f0cf486b3236",
+  "monitoring-delivery.json": "acfbf29dcfe10b4981ea7b254dd1021e44b9ae4195819425c654969830fe2edf",
+  "outputs.json": "22aad8cb60f778184a4a83cc3d8686d5370908db7dd946f4c62798216fced4e7",
+  "README.md": "2d22f5414d2e0866c9518accd7310e7811f5deda4976406efb67e66b868e245b",
+  "secret-refresh.json": "6ac336d75561d88cfc550797e7a00c85e47873280a3f8b29093b328784763224",
+  "small-acceptance.json": "96fc42aafb1b8cb3dbae8236b8f151dfe57bf8362f2aa5e899bc64f35a1220a0",
+  "summary.json": "ee6136a6bf37a2c74dd4758ec93f8189e17a77738217016817d98f946c7ec3ab"
+}

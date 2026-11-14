@@ -68,6 +68,16 @@ class MediumTests(unittest.TestCase):
             data[section]['password'] = 'do-not-accept'
             with self.subTest(section=section), self.assertRaises(cli.ConfigError):
                 self.load(data)
+
+    def test_scaling_target_is_bounded_and_backwards_compatible(self):
+        legacy = dict(self.config)
+        legacy.pop('app_requests_per_target', None)
+        self.assertEqual(self.load(legacy)['app_requests_per_target'], 600)
+        for value in (60, 6000):
+            self.assertEqual(self.load(dict(legacy, app_requests_per_target=value))['app_requests_per_target'], value)
+        for value in (0, 59, 6001, True, 120.5, '600'):
+            with self.subTest(value=value), self.assertRaises(cli.ConfigError):
+                self.load(dict(legacy, app_requests_per_target=value))
         for field, value in [('image', 'repo:latest'), ('release', 'main'), ('sha256', 'bad'), ('key', '../escape')]:
             data = copy.deepcopy(self.config)
             data['artifact'][field] = value

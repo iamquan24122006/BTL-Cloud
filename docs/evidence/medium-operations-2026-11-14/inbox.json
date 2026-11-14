@@ -1,0 +1,7 @@
+{
+  "Attributes": {
+    "SqsManagedSseEnabled": "true",
+    "MessageRetentionPeriod": "1209600",
+    "QueueArn": "arn:aws:sqs:ap-southeast-2:828676179987:moodle-medium-dev-med-operations"
+  }
+}

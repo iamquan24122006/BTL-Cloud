@@ -17,9 +17,13 @@ Công cụ triển khai và vận hành **Moodle Learning Management System trê
 
 Mở trực tiếp bằng trình duyệt, không cần localhost hoặc SSM tunnel. Sử dụng tài khoản được nhóm bàn giao qua kênh riêng; mật khẩu không được công bố trong README.
 
+Hai demo Sydney hiện dùng chung ba username **`admin`**, **`teacher`**, **`student`** và mật khẩu tương ứng. Đã kiểm tra cả sáu lượt đăng nhập HTTPS; mỗi site giữ khóa học, dữ liệu và phiên đăng nhập riêng.
+
 Demo minh họa luồng **đăng nhập → khóa học → học liệu → bài nộp → điểm và phản hồi**. Xem [kịch bản demo](docs/15-small-demo.md) và [hướng dẫn small public](docs/20-small-public.md).
 
 Small dev Sydney đang dùng CloudFront HTTPS; staging giữ truy cập qua SSM. Khả dụng của demo phụ thuộc lịch giữ/dừng tài nguyên của nhóm.
+
+Medium đã có policy tự mở rộng trong giới hạn **2–3 app**, dashboard CloudWatch và **14 cảnh báo vận hành**. Luồng thông báo **ALARM → SNS/SQS → OK** đã được thử thực tế; HTTPS tên miền và kiểm thử scaling dưới tải được ghi riêng trong [hồ sơ vận hành medium](docs/23-medium-operations.md).
 
 ## Kiến trúc hệ thống
 

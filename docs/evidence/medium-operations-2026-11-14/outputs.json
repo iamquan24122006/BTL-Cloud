@@ -1,0 +1,18 @@
+{
+  "alarm_queue_url": "https://sqs.ap-southeast-2.amazonaws.com/828676179987/moodle-medium-dev-med-operations",
+  "alarm_topic_arn": "arn:aws:sns:ap-southeast-2:828676179987:moodle-medium-dev-med-operations",
+  "alb_dns_name": "moodle-medium-dev-med-22320273.ap-southeast-2.elb.amazonaws.com",
+  "asg_name": "moodle-medium-dev-med-app",
+  "backup_bucket": "moodle-medium-dev-828676179987-ap-southeast-2-backups",
+  "dashboard_name": "moodle-medium-dev-med-operations",
+  "db_endpoint": "moodle-medium-dev-med.clougquq8ypg.ap-southeast-2.rds.amazonaws.com",
+  "efs_id": "fs-0be9bf83e04fd81af",
+  "frontend": "cloudfront",
+  "log_group": "/moodle/moodle-medium-dev-med",
+  "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+  "runner_id": "i-0a905507feca34c32",
+  "scaling_policy_arn": "arn:aws:autoscaling:ap-southeast-2:828676179987:scalingPolicy:73e6fca4-f59f-49c4-8221-060b1bab781b:autoScalingGroupName/moodle-medium-dev-med-app:policyName/moodle-medium-dev-med-requests",
+  "ssm_shell_command": "aws --region ap-southeast-2 ssm start-session --target i-0a905507feca34c32",
+  "target_group_arn": "arn:aws:elasticloadbalancing:ap-southeast-2:828676179987:targetgroup/mdl-70739a79bea2d9f13977d3f1e8/bd6d4b95523529c1",
+  "url": "https://dc988tccg64gh.cloudfront.net"
+}

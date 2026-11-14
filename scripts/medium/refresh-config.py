@@ -22,6 +22,7 @@ def save(name, value, group=33):
     temporary = directory / (name + '.new')
     fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o640)
     os.fchown(fd, 0, group)
+    os.fchmod(fd, 0o640)
     with os.fdopen(fd, 'w') as stream:
         json.dump(value, stream)
     temporary.replace(path)

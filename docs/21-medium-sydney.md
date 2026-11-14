@@ -2,6 +2,8 @@
 
 URL nguồn: **https://dc988tccg64gh.cloudfront.net**. Đây là lab nhiều app node dùng URL Amazon. Theo dõi kết quả và thời điểm kiểm tra trong [bằng chứng medium Sydney](evidence/medium-sydney-2026-11-14/README.md).
 
+Cập nhật sau lượt nghiệm thu ban đầu: đã triển khai policy tự mở rộng 2–3 app, dashboard và nơi nhận cảnh báo; xác minh cả thông báo ALARM/OK. Hai URL demo dùng chung `admin`, `teacher`, `student`, đã thử sáu lượt đăng nhập. Xem [hướng dẫn vận hành và tài khoản](23-medium-operations.md) và [bằng chứng bổ sung](evidence/medium-operations-2026-11-14/README.md). Các kết quả restore/ASG thay node dưới đây giữ nguyên thời điểm và phạm vi ban đầu.
+
 ## Cấu hình thực tế
 
 | Thành phần | Cấu hình |

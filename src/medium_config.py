@@ -9,7 +9,7 @@ class ConfigError(ValueError):
 
 MEDIUM_KEYS = {
     "account_id", "domain", "certificate_arn", "ami_id", "availability_zones",
-    "vpc_cidr", "artifact", "backend", "secrets", "db_instance_type",
+    "vpc_cidr", "artifact", "backend", "secrets", "db_instance_type", "app_requests_per_target",
     "db_allocated_storage", "db_backup_retention_days", "redis_node_type", "hosted_zone_id", "restore_source_prefix", "frontend",
 }
 
@@ -38,6 +38,7 @@ def bucket_name(value):
 def validate_medium(data):
     data.setdefault('frontend', 'acm')
     data.setdefault('db_backup_retention_days', 7)
+    data.setdefault('app_requests_per_target', 600)
     missing = MEDIUM_KEYS - data.keys()
     if missing:
         raise ConfigError("medium missing keys: " + ", ".join(sorted(missing)))
@@ -105,6 +106,8 @@ def validate_medium(data):
         raise ConfigError("db_allocated_storage: integer from 20 to 100 GiB")
     if type(data['db_backup_retention_days']) is not int or not 1 <= data['db_backup_retention_days'] <= 35:
         raise ConfigError('db_backup_retention_days: integer from 1 to 35; automated backups cannot be disabled')
+    if type(data['app_requests_per_target']) is not int or not 60 <= data['app_requests_per_target'] <= 6000:
+        raise ConfigError('app_requests_per_target: integer from 60 to 6000 requests per target per minute')
     if data["redis_node_type"] not in ("cache.t3.micro", "cache.t3.small", "cache.t4g.micro", "cache.t4g.small"):
         raise ConfigError("redis_node_type: unsupported lab node")
     if not isinstance(data["hosted_zone_id"], str) or (data["hosted_zone_id"] and not matches(data["hosted_zone_id"], r"Z[A-Z0-9]+")):

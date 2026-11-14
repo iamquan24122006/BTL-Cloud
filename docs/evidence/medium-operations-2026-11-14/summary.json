@@ -1,0 +1,19 @@
+{
+  "captured_utc": "2026-11-14T17:33:39.041549+00:00",
+  "account": "828676179987",
+  "region": "ap-southeast-2",
+  "monitoring": "PASSED_REAL_ALARM_AND_OK_DELIVERY",
+  "shared_demo_accounts": "PASSED_SIX_HTTPS_LOGINS",
+  "admin_rotation": "NEW_ACCEPTED_OLD_REJECTED_AND_SECRET_REFRESHED",
+  "scaling_policy": "DEPLOYED_LOAD_TEST_PENDING",
+  "owned_domain_https": "PENDING_DNS_VALIDATION",
+  "full_project_acceptance": "NOT_YET_COMPLETE",
+  "unit_tests": {
+    "run": 99,
+    "passed": 97,
+    "skipped_windows_linux_permissions": 2
+  },
+  "terraform_mock_tests": {
+    "passed": 2
+  }
+}

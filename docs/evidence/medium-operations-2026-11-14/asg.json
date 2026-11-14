@@ -1,0 +1,56 @@
+{
+  "AutoScalingGroupName": "moodle-medium-dev-med-app",
+  "MinSize": 2,
+  "MaxSize": 3,
+  "DesiredCapacity": 2,
+  "HealthCheckType": "EC2",
+  "EnabledMetrics": [
+    {
+      "Metric": "GroupDesiredCapacity",
+      "Granularity": "1Minute"
+    },
+    {
+      "Metric": "GroupTotalInstances",
+      "Granularity": "1Minute"
+    },
+    {
+      "Metric": "GroupInServiceInstances",
+      "Granularity": "1Minute"
+    },
+    {
+      "Metric": "GroupPendingInstances",
+      "Granularity": "1Minute"
+    }
+  ],
+  "SuspendedProcesses": [],
+  "Instances": [
+    {
+      "InstanceId": "i-01ad32fc93cddc01a",
+      "InstanceType": "t3.small",
+      "AvailabilityZone": "ap-southeast-2a",
+      "AvailabilityZoneId": "apse2-az1",
+      "LifecycleState": "InService",
+      "HealthStatus": "Healthy",
+      "LaunchTemplate": {
+        "LaunchTemplateId": "lt-0871e7ecb1f972ad0",
+        "LaunchTemplateName": "moodle-medium-dev-med-fb8821a6122db2af02f76e398f",
+        "Version": "2"
+      },
+      "ProtectedFromScaleIn": false
+    },
+    {
+      "InstanceId": "i-09b67f1fba0d90bec",
+      "InstanceType": "t3.small",
+      "AvailabilityZone": "ap-southeast-2b",
+      "AvailabilityZoneId": "apse2-az3",
+      "LifecycleState": "InService",
+      "HealthStatus": "Healthy",
+      "LaunchTemplate": {
+        "LaunchTemplateId": "lt-0871e7ecb1f972ad0",
+        "LaunchTemplateName": "moodle-medium-dev-med-fb8821a6122db2af02f76e398f",
+        "Version": "2"
+      },
+      "ProtectedFromScaleIn": false
+    }
+  ]
+}
