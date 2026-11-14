@@ -1,0 +1,10 @@
+{
+  "CommandId": "4b588ab6-a5cd-49e8-a959-a57531f00343",
+  "InstanceId": "i-08254d31ea012c8dc",
+  "Status": "Success",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-14T02:10:12.539Z",
+  "ExecutionEndDateTime": "2026-11-14T02:10:12.539Z",
+  "StandardOutputContent": "2026-11-14T02:10:12Z\nId=moodle-cron.service\nActiveState=activating\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\n\nId=moodle-backup.service\nActiveState=inactive\nResult=success\nExecMainExitTimestamp=Sat 2026-11-14 02:01:33 UTC\nExecMainStatus=0\nactive\nactive\n{\"scheduled_failures\" : 0, \"adhoc_failures\" : 0, \"last_scheduled_run\" : 1794622202, \"checked_epoch\" : 1794622213}\n{\n  \"status\": \"verified\",\n  \"format\": 2,\n  \"moodle_version\": \"4.5.15\",\n  \"code_commit\": \"215f44380bdc3ccf852a3a22e34f8423ff64033a\",\n  \"runtime_image\": \"sha256:b5666a1a60d7336fa86c02b6a3223bbf6d4ffa6a88c4d86edbffe280d478a322\",\n  \"checksums\": {\n    \"database.dump\": \"e706f29ceddfd14b45d4942d295d1b7718a16a978757a654cf8f8c78533620ce\",\n    \"moodledata.tar.gz\": \"8a73a581613d3ed1904edb2eb0c1f3fc15cc32662bd7a166127554181cf77b9c\",\n    \"config.php\": \"7e36c6588d7c2549433ec5bbcd43ba9c00331f6677dcbb804e2d26d40074376c\",\n    \"code.txt\": \"2741674d89824bdad64ab3c3355d4a02dcac4b281b5a31b14abfb6f47fadfc9f\",\n    \"runtime-image.txt\": \"0948e7019f73d386e783a8de275791fa572acbc342946f98f6df3c5c7a0eb451\",\n    \"runtime-Dockerfile\": \"745c1bde3b3b00dde22feedbfe62ede7977c4603006c899656ca5b30697a9fae\"\n  },\n  \"restore_tested\": false\n}\n",
+  "StandardErrorContent": ""
+}

@@ -10,6 +10,9 @@ output "region" {
 output "url_after_port_forward" {
   value = var.wwwroot
 }
+output "public_url" {
+  value = var.public_url
+}
 output "backup_bucket" {
   value = var.backup_bucket
 }

@@ -1,0 +1,15 @@
+{
+  "url": "https://d1cnnw3mivc0q5.cloudfront.net",
+  "tls_verification": "curl default trust and hostname verification; no insecure flags",
+  "checks": {
+    "https_login_200": true,
+    "secure_session_cookie": true,
+    "httponly_session_cookie": true,
+    "hsts": true,
+    "no_http_or_localhost_assets_forms": true,
+    "no_localhost_redirect": true,
+    "http_redirect_301": true,
+    "redirect_preserves_path_query": true
+  },
+  "status": "passed"
+}

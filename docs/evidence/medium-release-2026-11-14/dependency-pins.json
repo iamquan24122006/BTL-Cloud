@@ -1,0 +1,19 @@
+{
+  "region": "ap-southeast-2",
+  "account_id": "828676179987",
+  "project": "moodle-medium",
+  "environment": "dev",
+  "base_ami": "ami-0ba218121447b72f3",
+  "instance_type": "t3.small",
+  "bake": {
+    "awscli_version": "2.38.5",
+    "awscli_sha256": "5def7d1b7e55d892f9a381bb2cb2081a685712464be0d36d5d706af0ac48d0d3",
+    "cloudwatch_url": "https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb",
+    "cloudwatch_sha256": "3477032345ce3b325ed21269505f992813ee0508aafc516feb2eaf00f58270de",
+    "efs_version": "v3.3.4",
+    "efs_commit": "c9ffb014114311406fc2a8a4b4025ad3fe7f87ee",
+    "efs_deb_url": "https://amazon-efs-utils.aws.com/repo/deb/ubuntu/26.04/pool/main/a/amazon-efs-utils/amazon-efs-utils-3.3.4-1_amd64.deb",
+    "efs_deb_sha256": "c12d15144cdefc8ea11bd95d3e698fe56a20679e89cc95ead9228775b1e058f9"
+  },
+  "scope": "Proposal for Sydney; prepared only; not applied; no secret values"
+}

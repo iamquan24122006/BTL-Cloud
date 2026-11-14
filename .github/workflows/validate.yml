@@ -50,6 +50,8 @@ jobs:
       - run: terraform -chdir=infra/small init -backend=false -input=false
       - run: terraform -chdir=infra/small validate
       - run: terraform -chdir=infra/small test
+      - run: terraform -chdir=infra/small_public init -backend=false -input=false
+      - run: terraform -chdir=infra/small_public validate
       - run: terraform -chdir=infra/backup init -backend=false -input=false
       - run: terraform -chdir=infra/backup validate
       - run: terraform -chdir=infra/backup test

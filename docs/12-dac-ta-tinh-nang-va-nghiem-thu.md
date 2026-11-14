@@ -1,6 +1,8 @@
 # Đặc tả tính năng và tiêu chí nghiệm thu Moodle Cloud
 
-Ngày lập: 03/11/2026. Phạm vi: nhóm 3 người, small (P0) và medium (P1).
+Ngày lập: 03/11/2026. Phạm vi kỹ thuật: small (P0) và medium (P1). Nhóm hiện có **4 thành viên** theo kế hoạch đã chốt; N1/N2/N3 trong tài liệu này là ba mảng công việc, không phải số thành viên. Phân công A/B/C/D nằm trong [kế hoạch nhóm](00-project-plan.md).
+
+**Đối chiếu mới nhất 14/11:** [ma trận nghiệm thu](18-project-closeout.md). Các bảng “hiện trạng” và mục 1.2 bên dưới giữ snapshot ngày lập đặc tả, không còn mô tả trạng thái source/cloud hiện tại. Tiêu chí đích vẫn được giữ để không tự hạ phạm vi nghiệm thu.
 
 ## 1. Cách sử dụng tài liệu
 

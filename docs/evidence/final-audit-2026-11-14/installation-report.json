@@ -1,0 +1,70 @@
+{
+  "phases": [
+    {
+      "phase": "acceptance-20261107T152455Z",
+      "command": "42bba7ca-6613-4d99-8e48-57d9b6b7327e",
+      "elapsed_seconds": 1.683,
+      "start": "2026-11-07T15:24:56.605Z",
+      "end": "2026-11-07T15:24:57.605Z"
+    },
+    {
+      "phase": "code-20261107T152215Z",
+      "command": "6e01e1ad-f62e-4a74-bd92-f98a88086c02",
+      "elapsed_seconds": 15.922,
+      "start": "2026-11-07T15:22:16.860Z",
+      "end": "2026-11-07T15:22:31.860Z"
+    },
+    {
+      "phase": "host-20261105T173656Z",
+      "command": "94b73b61-b247-41c6-8aee-4be56a5ee9f3",
+      "elapsed_seconds": 219.871,
+      "start": "2026-11-05T17:36:58.883Z",
+      "end": "2026-11-05T17:40:37.883Z"
+    },
+    {
+      "phase": "prepare-20261105T172643Z",
+      "command": "98151da5-3b43-4fc0-80c1-d58083a4aa70",
+      "elapsed_seconds": 0.425,
+      "start": "2026-11-05T17:26:43.480Z",
+      "end": "2026-11-05T17:26:43.480Z"
+    },
+    {
+      "phase": "schema-20261107T152242Z",
+      "command": "37b4386d-a21c-4ef5-960c-0a841c184bfe",
+      "elapsed_seconds": 98.083,
+      "start": "2026-11-07T15:22:42.165Z",
+      "end": "2026-11-07T15:24:20.165Z"
+    },
+    {
+      "phase": "secrets-db-20261105T184631Z",
+      "command": "883878c4-fabd-4cc9-9278-ea6a4065b5ee",
+      "elapsed_seconds": 1.935,
+      "start": "2026-11-05T18:46:34.871Z",
+      "end": "2026-11-05T18:46:35.871Z"
+    },
+    {
+      "phase": "services-20261107T152436Z",
+      "command": "0db1bdb1-750d-4284-a222-c17180b29abf",
+      "elapsed_seconds": 5.456,
+      "start": "2026-11-07T15:24:36.230Z",
+      "end": "2026-11-07T15:24:41.230Z"
+    },
+    {
+      "phase": "transfer-1-20261105T172852Z",
+      "command": "dca74b23-742c-4968-ba85-fcf2da8c1fa4",
+      "elapsed_seconds": 0.062,
+      "start": "2026-11-05T17:28:53.436Z",
+      "end": "2026-11-05T17:28:53.436Z"
+    },
+    {
+      "phase": "transfer-2-20261105T172855Z",
+      "command": "2994a546-a6e5-4dff-9792-34517a466a18",
+      "elapsed_seconds": 0.072,
+      "start": "2026-11-05T17:28:56.574Z",
+      "end": "2026-11-05T17:28:56.574Z"
+    }
+  ],
+  "summed_remote_phase_seconds": 343.509,
+  "method": "Agent-operated stepwise runbook on clean EC2; not an independent human trial.",
+  "limits": "Wall time includes a multi-day pause. Remote phase sum excludes operator thought, corrections and idle time; not directly comparable to automated wall time."
+}

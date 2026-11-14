@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "markdown_links_checked": 154,
+  "json_files_parsed": 37,
+  "sydney_matrix_rows_verified": 9,
+  "ci_scope": "Committed baseline only; current public changes have local/live checks recorded separately",
+  "checks": [
+    "relative links",
+    "JSON/JSONL parse",
+    "new-file credential patterns",
+    "load CSV vs source summary",
+    "billing Decimal sums",
+    "live acceptance and operation status",
+    "CI head SHA"
+  ],
+  "limitations": "Pattern scan is not a full credential audit; no new browser walkthrough or independent reviewer signature"
+}

@@ -1,0 +1,17 @@
+{
+  "unit_tests": 95,
+  "status": "passed",
+  "scope": "Current local changes; prior GitHub CI covers committed baseline 2130963 only",
+  "files": {
+    "scripts\\small_public.py": "eaedca3acb10a67c5f856b2841b5ed771e3da3eff5781e1f6820980c67c7e34d",
+    "scripts\\small-public-host.py": "6a582cfe689418695129ff0066f76f8ead79700d953ddd6ddf440dfae760af8c",
+    "scripts\\small-public-rollback.py": "b39145419f476cb2bfb60fd616e4da6c010b241bc95f2e1a81455b4795fb696d",
+    "src\\moodle_cloud.py": "991bb8baf31f0a7f33f2ba3845aba80f52e4d0e4d977a6374174770849c90944",
+    "infra\\small_public\\main.tf": "e34a259784dc96af24833eaca5d68da3357ffc028eceaf55d29463228f2524af",
+    "scripts/small-public-rollback.py": "b39145419f476cb2bfb60fd616e4da6c010b241bc95f2e1a81455b4795fb696d"
+  },
+  "terraform_small_mock_tests": {
+    "passed": 2,
+    "failed": 0
+  }
+}

@@ -1,105 +1,408 @@
-# Moodle Cloud Distribution — đồ án triển khai LMS trên AWS
+# Moodle Cloud Distribution
 
-**Mục tiêu:** xây dựng quy trình tái lập từ cài Moodle thủ công, tới Terraform, rồi CLI đọc YAML; chứng minh bằng đăng nhập, tạo khóa học, cron, backup và khôi phục.
+Công cụ triển khai và vận hành **Moodle Learning Management System trên Amazon Web Services**, sử dụng **Terraform**, **Python CLI** và cấu hình **YAML**. Dự án hỗ trợ mô hình một máy chủ (**small**) và mô hình nhiều máy ứng dụng (**medium**), cùng quy trình kiểm tra, sao lưu và phục hồi dữ liệu.
 
-**Cập nhật ngày 14/11/2026:** bổ sung commit N3 `2440d08` từ khoi: builder có thể chọn `t3.small`, integration kiểm tra purge cache không ảnh hưởng namespace khác và hồ sơ [nghiệm thu/tải N3](docs/evidence/aws-n3-2026-11-11/README.md). Lượt N3 ở account riêng có đủ ba lần lặp 10/25/50 user; 50-user r2/r3 không đạt ngưỡng p95 tương tác 3 giây dù không lỗi nghiệp vụ. Đây không phải kết quả Sydney cũ hoặc bằng chứng medium mới đã triển khai xong. Bản sửa tạo thư mục cha cho load runner cũng được đưa vào source.
+![Moodle](https://img.shields.io/badge/Moodle-4.5.15-orange)
+![PHP](https://img.shields.io/badge/PHP-8.3-777BB4)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1)
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC)
+![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900)
 
-**Thông số nhóm:** 4 thành viên; tổng ngân sách AWS **150 USD**, giảm theo yêu cầu ngày 07/11/2026. Giữ tỷ lệ phân bổ hiện có: 112,50 USD cho các giai đoạn và 37,50 USD dự phòng; thời hạn 4 tuần vẫn là giả định chờ chốt. Ưu tiên hoàn tất small; medium cần dự toán lại trong hạn mức còn lại. Xem [phân công 4 người](docs/00-project-plan.md) và [hạn mức chi tiêu](docs/07-report-and-cost.md).
+## Truy cập demo
 
-**Bản tích hợp ngày 12/11/2026:** mã small của master và medium của khoi được hợp nhất vào một CLI; xem [cách dùng và kiểm chứng bản tích hợp](docs/17-small-medium-integration.md). Medium đã có [bằng chứng chạy AWS](docs/12-medium-live-lab.md), [HTTPS tại ALB](docs/13-medium-med02.md), và [cleanup ngày 10/11](docs/15-aws-cleanup.md). URL/AMI/ARN của medium trong hồ sơ là lịch sử, cần dựng lại trước demo. Large/production chưa được hỗ trợ.
+**Moodle small public:** [https://d1cnnw3mivc0q5.cloudfront.net](https://d1cnnw3mivc0q5.cloudfront.net)
 
-**Hồ sơ small ngày 08/11/2026:** `small` ở Sydney đã đạt kiểm tra chức năng, backup S3, restore, reboot staging và các ca lỗi phục hồi. **63 unit test chạy lại đều đạt**; CI commit `904c113` trước đó xanh ở cả push và pull request. Cài từng bước trên EC2 sạch đã chạy và kiểm tra nghiệp vụ đầy đủ. Bằng chứng tải riêng trong VPC đã lưu đủ ba lượt 10-user, ba lượt 25-user và hai lượt 50-user, tất cả 0 lỗi; còn thu kết quả lượt 50-user cuối, metric và xác nhận cleanup. Phiên AWS hết hạn khi kiểm tra lại, nên chưa xác minh trạng thái cloud mới. Budget AWS 150 USD và kênh cảnh báo nội bộ đã kiểm chứng trước đó. Còn kiểm tra giao diện và kiểm tra chéo của người nhận để ký P0. Kết quả small này không thay thế hồ sơ medium hoặc nghiệm thu tích hợp. Xem [biên bản small](docs/13-small-acceptance.md), [hướng dẫn bàn giao](docs/14-small-handover.md) và [nhật ký chi tiết](docs/08-validation.md).
+Mở trực tiếp bằng trình duyệt, không cần localhost hoặc SSM tunnel. Sử dụng tài khoản được nhóm bàn giao qua kênh riêng; mật khẩu không được công bố trong README.
 
-**Demo small:** làm theo [kịch bản thao tác 12–15 phút](docs/15-small-demo.md); mở site bằng `.\scripts\demo-small.ps1 -Environment dev -ExpectedAccount <ACCOUNT_ID>`, thay `<ACCOUNT_ID>` bằng account lab đã xác minh. [Danh sách dịch vụ thực tế](docs/16-small-services.md) giải thích vai trò từng dịch vụ AWS và phần mềm trong bản small.
+Demo minh họa luồng **đăng nhập → khóa học → học liệu → bài nộp → điểm và phản hồi**. Xem [kịch bản demo](docs/15-small-demo.md) và [hướng dẫn small public](docs/20-small-public.md).
 
-**Lab hiện tại:** [config/sydney.yaml](config/sydney.yaml), tên `moodle-sydney-dev`, region `ap-southeast-2`; staging dùng [config/sydney-staging.yaml](config/sydney-staging.yaml). CLI mặc định dùng cấu hình Sydney; nên luôn truyền `--config` để thấy rõ môi trường đích. Giữ nguyên state riêng trong `.work/moodle-sydney-dev/` và `.work/moodle-sydney-staging/`.
+Small dev Sydney đang dùng CloudFront HTTPS; staging giữ truy cập qua SSM. Khả dụng của demo phụ thuộc lịch giữ/dừng tài nguyên của nhóm.
 
-**Lab Singapore cũ:** `config/small-new.yaml` / `moodle-lab-v2-dev` từng dừng sau khi tạo 6 tài nguyên mạng vì thiếu `iam:CreateRole`. [Hướng dẫn IAM cũ](docs/10-iam-permissions.md) chỉ áp dụng lab đó; không dùng policy này để sửa quyền cho Sydney. Chưa đối chiếu lại inventory Singapore trong lượt tiếp tục này.
+## Kiến trúc hệ thống
 
-## Đọc theo thứ tự
+```mermaid
+flowchart TB
+    OP[Người vận hành] --> CFG[Cấu hình YAML]
+    CFG --> CLI[Python CLI]
+    CLI --> TF[Terraform: plan và apply]
 
-**Bàn giao N3 và vòng đời lab:** người dùng đã yêu cầu dọn AWS để ngừng phí. Xem [trạng thái cleanup thực tế](docs/15-aws-cleanup.md) trước khi dùng URL/ARN/AMI lịch sử. [Hướng dẫn N3](docs/14-n3-acceptance-guide.md) trình bày dựng lại, kiểm thử bổ sung, restore, cảnh báo, đo tải và bàn giao; có [mẫu biên bản](docs/templates/n3-run.md) và [ma trận 20 ca](docs/templates/n3-results.csv). Nhánh `master` tích hợp phần N1 từ `mq` và N2 từ `khoi`; luôn chọn đúng YAML, AWS profile và account cho môi trường đích. Cleanup Singapore của N2 không chứng nhận trạng thái account Sydney của N1.
+    subgraph SMALL[Small: một máy chủ]
+        U1[Người dùng] --> CF[CloudFront HTTPS: tùy chọn public]
+        CF --> NG[Nginx origin: prefix list và header riêng]
+        NG --> EC2[EC2: Apache/PHP và Moodle trong Docker]
+        EC2 --> PG[(PostgreSQL trên host)]
+        EC2 --> EBS[(EBS: moodledata)]
+        SSM[SSM tunnel: chế độ mặc định] --> EC2
+    end
 
-Nếu tiếp tục từ trạng thái mã hiện tại, dùng [hướng dẫn hoàn tất các phần còn thiếu](docs/09-completion-guide.md): build Docker, deploy/kiểm tra small, restore, phát triển medium, đo tải và bàn giao.
+    subgraph MEDIUM[Medium: nhiều app node]
+        U2[Người dùng] --> ALB[ALB HTTPS và ACM]
+        ALB --> ASG[ASG: hai app node private]
+        ASG --> RDS[(RDS PostgreSQL)]
+        ASG --> EFS[(EFS: moodledata dùng chung)]
+        ASG --> REDIS[(Redis: session và MUC)]
+        RUN[Runner: release, cron, backup] --> RDS
+        RUN --> EFS
+    end
 
-1. [Phạm vi, yêu cầu và kế hoạch 4 tuần](docs/00-project-plan.md).
-2. [Lựa chọn phiên bản](docs/01-version-decisions.md).
-3. [Kiến trúc, luồng dữ liệu và thiết kế mở rộng](docs/02-architecture.md).
-4. [Lab cài thủ công trên EC2](docs/03-manual-lab.md).
-5. [Terraform và CLI: từ cấu hình đến triển khai](docs/04-deployment.md).
-6. [Backup, restore, nâng cấp, rollback và dọn dẹp](docs/05-operations.md).
-7. [Kiểm thử, đo tải và bằng chứng nghiệm thu](docs/06-test-plan.md).
-8. [Dự toán chi phí, dàn ý báo cáo và kịch bản demo](docs/07-report-and-cost.md).
-9. [Medium: hướng dẫn N2, artifact, backend, release và nghiệm thu](docs/10-medium-n2.md).
-10. [MED-02: domain miễn phí, ACM, HTTPS tại ALB và bằng chứng](docs/13-medium-med02.md).
+    TF --> EC2
+    TF --> ALB
+    TF --> ASG
+    EC2 --> BK[(S3 backup)]
+    RUN --> BK
+```
 
-## Stack của bản đầu
+| Thành phần | Small | Medium |
+|---|---|---|
+| Compute | Một EC2 Ubuntu, EBS gp3 mã hóa | Hai app node, ASG và runner riêng |
+| Database | PostgreSQL 16 trên cùng host | RDS PostgreSQL Single-AZ |
+| Dữ liệu Moodle | `moodledata` trên EBS, ngoài webroot | EFS dùng chung |
+| Session/cache | Runtime của một máy | Redis tách session và MUC |
+| Truy cập | SSM mặc định; addon CloudFront cho URL public | ALB HTTPS/ACM; CloudFront là tùy chọn lab |
+| Terraform state | Local, tách project/environment | S3 backend, versioning và lockfile |
 
-| Thành phần | Lựa chọn |
+Sơ đồ medium thể hiện mô hình đã có mã và bằng chứng triển khai trước đây; không có nghĩa lab medium đang hoạt động. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md).
+
+## Tính năng
+
+### Học tập và quản lý khóa học
+
+Các chức năng học tập sử dụng **Moodle chuẩn** và theme Boost:
+
+- Đăng nhập/đăng xuất, phân quyền admin, teacher và student.
+- Tạo khóa học, gán giảng viên và ghi danh học viên.
+- Đăng học liệu, upload/download file theo quyền truy cập.
+- Nộp bài, chấm điểm và xem phản hồi riêng của từng học viên.
+- Chạy Moodle scheduled/ad hoc tasks thông qua cron.
+
+### Triển khai và quản lý cấu hình
+
+- Chọn preset small hoặc medium bằng YAML.
+- Kiểm tra trường bắt buộc, kiểu dữ liệu, khóa trùng/lạ và cấu hình ngoài phạm vi.
+- Kiểm tra AWS account và prerequisite trước khi triển khai.
+- Lưu Terraform plan, đối chiếu source/config/account/hash trước apply.
+- Tách state theo môi trường; medium có backend dùng chung và khóa.
+- Theo dõi SSM command đến trạng thái cuối bằng `--wait`.
+
+### Sao lưu và phục hồi
+
+- Sao lưu nhất quán database và `moodledata` bằng cách chặn writer và chờ cron.
+- Lưu checksum, manifest cùng tham chiếu code/runtime.
+- Backup local hoặc S3 theo preset/cấu hình.
+- Từ chối backup hỏng hoặc thiếu file trước khi restore.
+- Restore vào staging với xác nhận đích và nguy cơ mất dữ liệu.
+
+### Truy cập public và mở rộng
+
+- Small có addon CloudFront HTTPS, cache tắt cho Moodle và origin được giới hạn truy cập.
+- Medium tách app, database, file và session để chạy nhiều node.
+- Release/migration medium chạy trên runner, không chạy đồng thời trên từng app.
+- Có workload JMeter, công cụ thu metric và hồ sơ nghiệm thu.
+
+Large, production HA, giao diện tạo site một nút, tự chọn cấu hình theo số người dùng và tự cài plugin ngoài chưa được hỗ trợ.
+
+## Công nghệ sử dụng
+
+### Ứng dụng và công cụ
+
+| Công nghệ | Vai trò |
 |---|---|
-| Máy chủ | Ubuntu Server 26.04 LTS, EC2 x86_64; cấu hình mẫu `t3.medium` |
-| Web/PHP | Apache + PHP 8.3, OPcache trong Docker; base image Debian Bookworm ghim digest |
-| Moodle | 4.5.15, ghim Git tag `v4.5.15` |
-| Database | PostgreSQL 16 từ kho PGDG cho `resolute`, trên cùng EC2 |
-| File | `moodledata` ngoài webroot, EBS gp3 mã hóa |
-| Truy cập lab | SSM port forwarding tới `localhost:8080`; không có ingress SG |
-| IaC/tool | Terraform >=1.10,<2; AWS provider 6.x; Python >=3.11 + PyYAML |
-| Backup | `pg_dump` + archive file khi dừng ghi; S3 là tùy chọn cấu hình |
+| Moodle 4.5.15 | LMS và chức năng học tập |
+| Apache + PHP 8.3, OPcache | Web runtime trong Docker |
+| PostgreSQL 16 | Database |
+| Python ≥3.11, PyYAML | CLI, schema và công cụ kiểm tra |
+| Terraform ≥1.10,<2; AWS provider 6.x | Infrastructure as Code |
+| Docker | Đóng gói runtime và kiểm thử tích hợp |
+| systemd timers | Lập lịch cron và backup trên host/runner |
+| Apache JMeter | Kiểm thử tải |
+| GitHub Actions | Kiểm tra source, runtime và Terraform |
 
-Đây là lựa chọn cho một lab học tập. Một EC2 là điểm lỗi đơn; không có HA, domain public, HTTPS public hay RDS ở bản này. Mục tiêu số người dùng chỉ được xác nhận sau khi đo tải. Moodle 4.5 vẫn còn hỗ trợ bảo mật nhưng không phải LTS mới nhất; [ADR phiên bản](docs/01-version-decisions.md) giải thích lựa chọn và đường nâng cấp.
+### Hạ tầng AWS
 
-Ubuntu 26.04 là hệ điều hành máy chủ. PHP chạy trong container để giữ phiên bản 8.3 tương thích Moodle 4.5; không cài gói PHP mặc định 8.5 của Ubuntu. Cron, health và backup dùng chung image với web. Xem [lab Ubuntu 26.04](docs/03-manual-lab.md) để thao tác từng bước.
+| Dịch vụ | Vai trò |
+|---|---|
+| EC2, EBS, VPC, IAM | Compute, storage và phân quyền |
+| Systems Manager | Quản trị, Run Command và tunnel |
+| S3 | Backup, artifact và state medium |
+| CloudFront | URL Amazon HTTPS cho small public hoặc medium lab |
+| Secrets Manager | Secret medium và origin credential của small public |
+| ALB, ACM, ASG | HTTPS và nhiều app node medium |
+| RDS, EFS, ElastiCache Redis | Database, file và trạng thái dùng chung medium |
+| CloudWatch, AWS Budgets | Log/metric/alarm và theo dõi ngân sách theo cấu hình |
 
-## Chạy cục bộ, không tạo AWS
+Baseline host là **Ubuntu Server 26.04**; PHP chạy trong container. Chi tiết lựa chọn và giới hạn phiên bản nằm trong [ADR công nghệ](docs/01-version-decisions.md).
+
+## Yêu cầu chuẩn bị
+
+Để kiểm tra cấu hình và chạy unit tests:
+
+- Python 3.11 trở lên.
+- Dependency trong [requirements.txt](requirements.txt).
+
+Để triển khai và vận hành AWS:
+
+- Terraform ≥1.10,<2 và AWS CLI v2.
+- Phiên AWS hợp lệ, đúng account/region và quyền cho các dịch vụ cần dùng.
+- Session Manager plugin cho small preflight và truy cập SSM.
+- Docker Linux engine nếu build/test runtime cục bộ.
+- Domain/DNS và ACM cho medium dùng HTTPS trực tiếp tại ALB.
+
+`aws login` yêu cầu AWS CLI ≥2.32.0. Không lưu AWS access key, mật khẩu hoặc token trong YAML/repository.
+
+## Bắt đầu sử dụng
+
+### 1. Clone repository
+
+```bash
+git clone https://github.com/iamquan24122006/BTL-Cloud.git
+cd BTL-Cloud
+```
+
+### 2. Chuẩn bị Python
 
 PowerShell tại thư mục repository:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m src.moodle_cloud validate
-.\.venv\Scripts\python.exe -m src.moodle_cloud render
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+$Py = if (Test-Path '.venv/Scripts/python.exe') {
+    (Resolve-Path '.venv/Scripts/python.exe').Path
+} else {
+    (Resolve-Path '.venv/bin/python.exe').Path
+}
+& $Py -m pip install -r requirements.txt
 ```
 
-Nếu `python` là Microsoft Store alias, dùng đường dẫn tới bản Python đã cài. `render` chỉ tạo `.work/<project>-<environment>/config.tfvars.json`. Không điền mật khẩu vào YAML.
+Python Windows thường tạo `.venv/Scripts/`; MSYS2 có thể tạo `.venv/bin/`. Linux/macOS dùng `.venv/bin/python`. Nếu đã có virtualenv hợp lệ, có thể dùng lại; không sao chép virtualenv giữa các máy.
 
-Khi Docker Desktop đang chạy Linux containers, kiểm tra runtime rồi cài/thử Moodle với PostgreSQL và backup/restore cục bộ:
+### 3. Chọn cấu hình và kiểm tra offline
 
 ```powershell
-python -m scripts.check_runtime
-python -m scripts.check_moodle
+& $Py -m src.moodle_cloud --config config/sydney.yaml validate
+& $Py -m src.moodle_cloud --config config/medium.example.yaml validate
+& $Py -m unittest discover -s tests -v
 ```
 
-Hai lệnh không gọi AWS; report nằm trong `.work/runtime-check/` và `.work/moodle-check/`. Kiểm thử ứng dụng dùng dữ liệu giả, tự dọn container/volume riêng và không thay thế nghiệm thu trên EC2. Xem [phạm vi kiểm thử](docs/06-test-plan.md).
+Các lệnh trên không tạo tài nguyên AWS. YAML medium mẫu chứa placeholder, không dùng nguyên trạng để deploy.
+
+### 4. Kết nối AWS
+
+Ví dụ cho profile lab Sydney hiện có:
 
 ```powershell
-python -m src.moodle_cloud doctor
-python -m src.moodle_cloud --config config/dev.yaml plan
-# Xem tài nguyên và chi phí trước bước tiếp theo.
-python -m src.moodle_cloud --config config/dev.yaml apply --confirm moodle-lab-dev
-python -m src.moodle_cloud status
+$env:AWS_PROFILE = 'moodle-project'
+$Config = 'config/sydney.yaml'
+$ExpectedAccount = '<ACCOUNT_ID_CUA_LAB>'
+
+aws sts get-caller-identity --region ap-southeast-2
+# Khi cần đăng nhập lại, hoàn tất xác thực trên trình duyệt:
+aws login --profile moodle-project --region ap-southeast-2
+
+& $Py -m src.moodle_cloud doctor
+& $Py -m src.moodle_cloud --config $Config preflight --expected-account $ExpectedAccount
 ```
 
-`plan/apply` cần AWS CLI có phiên đăng nhập hợp lệ và Terraform trong PATH. `apply` phát sinh tài nguyên tính phí. Không xem việc Terraform hoàn tất là Moodle đã sẵn sàng: còn phải kiểm tra cloud-init và chức năng ứng dụng.
+Điền account nhóm đã xác nhận. Với lab/account khác, dùng profile, YAML và state riêng. `doctor` kiểm tra tool; preflight không chứng nhận toàn bộ quyền tạo/sửa tài nguyên.
 
-## Cấu trúc
+## Cấu hình
+
+### Các file YAML
+
+| File | Mục đích |
+|---|---|
+| [config/dev.yaml](config/dev.yaml) | Mẫu small để tham khảo cho lab riêng |
+| [config/sydney.yaml](config/sydney.yaml) | Small dev Sydney hiện có |
+| [config/sydney-staging.yaml](config/sydney-staging.yaml) | Small staging Sydney |
+| [config/medium.example.yaml](config/medium.example.yaml) | Schema mẫu medium, cần thay identifiers |
+
+Ví dụ cấu hình cho một small lab mới:
+
+```yaml
+project: team-lms
+environment: dev
+region: ap-southeast-2
+size: small
+instance_type: t3.small
+volume_gib: 30
+moodle_version: "4.5.15"
+wwwroot: http://localhost:8080
+backup_bucket: ""
+tags:
+  Purpose: coursework
+```
+
+Lưu thành file riêng, ví dụ `config/team-lms.yaml`, rồi truyền đường dẫn qua `--config`. `backup_bucket` rỗng chỉ tạo backup local, dữ liệu đó sẽ mất nếu volume bị hủy; muốn backup S3 phải chuẩn bị bucket/quyền phù hợp.
+
+### Các tham số chính
+
+| Tham số | Ý nghĩa |
+|---|---|
+| `project`, `environment` | Tên tài nguyên và môi trường `dev`/`staging` |
+| `region`, `size` | Region triển khai và preset `small`/`medium` |
+| `instance_type`, `volume_gib` | Loại T3 hỗ trợ và dung lượng EBS |
+| `moodle_version` | Hiện ghim `4.5.15` |
+| `wwwroot` | Small bootstrap dùng localhost; medium theo frontend |
+| `backup_bucket`, `tags` | Tham chiếu bucket và metadata |
+| `account_id`, `backend` | Account/backend medium |
+| `frontend`, `domain`, `certificate_arn` | Endpoint HTTPS medium |
+| `artifact`, `ami_id`, `secrets` | Release, AMI và secret reference medium |
+
+Small public được bật bằng addon riêng, giữ YAML bootstrap gốc để tránh thay user-data/EC2 chỉ vì đổi URL. Runtime marker giúp CLI báo URL public và giữ SG origin khi render. Xem [runbook small public](docs/20-small-public.md).
+
+## Tham chiếu CLI
+
+Dự án cung cấp CLI quản trị hạ tầng; không có bộ REST API riêng do nhóm xây dựng.
+
+| Lệnh `python -m src.moodle_cloud` | Chức năng |
+|---|---|
+| `doctor` | Kiểm tra tool trên máy |
+| `--config <yaml> validate` / `render` | Kiểm tra YAML / sinh tfvars offline |
+| `--config <yaml> preflight` | Kiểm tra account và prerequisite; small cần `--expected-account` |
+| `--config <yaml> plan` | Tạo saved plan và bản tóm tắt thay đổi |
+| `--config <yaml> apply --confirm <project>-<environment>` | Áp dụng plan đã kiểm tra |
+| `--config <yaml> status` | Đọc outputs; có URL public nếu addon được kích hoạt |
+| `--config <yaml> health --wait` | Đợi kết quả health trên máy đích |
+| `--config <yaml> backup --wait` | Backup và đợi trạng thái cuối |
+| `--config <yaml> command-status --command-id <id> --wait` | Theo dõi SSM command |
+| `--config <yaml> restore ...` | Restore staging với các chốt xác nhận |
+| `--config <yaml> plan --destroy` / `destroy ...` | Lập và áp dụng kế hoạch dọn dẹp |
+
+Dùng `--help` cho cú pháp đầy đủ. `status` không thay thế health hoặc nghiệm thu nghiệp vụ; timeout/pending không được tính là thao tác thành công.
+
+## Ví dụ sử dụng
+
+### Kiểm tra site và backup
+
+```powershell
+& $Py -m src.moodle_cloud --config $Config status
+& $Py -m src.moodle_cloud --config $Config health --wait
+& $Py -m src.moodle_cloud --config $Config backup --wait
+```
+
+Backup thành công chưa có nghĩa chính bộ đó đã restore-test. Quy trình phục hồi database và file nằm trong [runbook vận hành](docs/05-operations.md).
+
+### Quản lý frontend small public
+
+```powershell
+& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount status
+
+# Với small đã dựng, chưa có frontend public:
+& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount plan
+# Review saved plan trước khi apply.
+& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount apply --confirm moodle-sydney-dev
+```
+
+Đổi `--confirm` theo đúng project/environment khi dùng YAML khác. Small dev hiện đã có frontend, không cần tạo lại để mở demo. Lệnh `activate` dùng để retry bước cấu hình host sau partial failure; `disable` dùng rollback về SSM. [Chi tiết và cleanup addon](docs/20-small-public.md).
+
+## Kiểm thử
+
+```powershell
+& $Py -m unittest discover -s tests -v
+& $Py -m scripts.check_runtime
+& $Py -m scripts.check_moodle
+```
+
+Hai lệnh sau cần Docker Linux engine. Runtime check kiểm tra PHP/Apache; Moodle check kiểm tra cài ứng dụng và backup/restore bằng dữ liệu giả. Medium có bộ integration hai app riêng trong `scripts.check_medium_runtime`.
+
+[GitHub Actions](.github/workflows/validate.yml) chạy unit tests, schema/bundle, Bash/PHP checks, runtime small/medium và Terraform validate/mock tests. Workflow không deploy AWS.
+
+| Bộ kiểm tra | Kết quả được ghi nhận |
+|---|---|
+| Thay đổi small public hiện tại | 95 unit tests, 2 small Terraform mock tests đạt |
+| Small public live | HTTPS, login các role, học liệu/hash, bài nộp/điểm, privacy, logout và origin protection đạt |
+| Medium release local | Build từ checkout sạch và integration hai app đạt |
+| CI baseline `2130963` | [Success](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43480887498); chưa bao gồm các thay đổi public local tiếp theo |
+
+Kết quả đo tải và giới hạn workload: [ma trận Sydney](docs/evidence/final-audit-2026-11-14/README.md), [hồ sơ N3](docs/evidence/aws-n3-2026-11-11/README.md). Không gộp số liệu khác account/commit hoặc suy sức tải tối đa từ một lượt đo.
+
+## Cấu trúc dự án
 
 ```text
-config/        YAML theo môi trường, không chứa secret
-docs/          Kế hoạch, sơ đồ và các runbook
-infra/small/   Terraform: VPC, subnet, IAM, SG, EC2
-infra/medium/  Terraform: hai AZ, ALB/ASG, RDS, EFS, Redis, runner, CloudWatch
-infra/backend/ Bootstrap bucket state riêng (versioning/encryption/public access block)
-scripts/       Host setup, Dockerfile, bootstrap, PHP CLI, health, backup
-scripts/medium/ Runtime nhiều node và operations có khóa chung
-src/           CLI Python
-tests/         Kiểm tra đầu vào và chốt an toàn của CLI
-.work/         State/plan/artifact cục bộ, không commit
+BTL-Cloud/
+├── config/                  YAML theo môi trường
+├── src/                     Python CLI và schema medium
+├── infra/
+│   ├── small/               VPC, IAM, EC2 và EBS
+│   ├── small_public/        CloudFront và origin access cho small
+│   ├── medium/              ALB/ASG, RDS, EFS, Redis, runner
+│   ├── medium_support/      Bucket, ECR và secret metadata
+│   ├── medium_builder/      Máy build AMI medium
+│   ├── backend/             S3 backend
+│   ├── backup/              Bucket/chính sách backup small
+│   └── budget/              Budget và cảnh báo
+├── scripts/                 Bootstrap, runtime, vận hành, demo
+├── tests/                   Unit, integration fixture và JMeter
+├── docs/                    Thiết kế, runbook, báo cáo và evidence
+└── .github/workflows/       CI
 ```
 
-Mật khẩu được sinh trên EC2. State và saved plan vẫn là dữ liệu riêng tư: không chia sẻ, không commit. Backup chứa dữ liệu người học và `config.php`; bảo vệ quyền truy cập tương ứng.
+`.work/` chứa state, saved plan, log và artifact riêng tư; không commit.
 
-## Đóng góp của distribution
+## Bảo mật
 
-Điểm khác biệt là quy trình cài có kiểm soát, cấu hình lab thống nhất, CLI kiểm tra đầu vào, kế hoạch trước áp dụng, cron có log, backup có checksum và quy trình restore. Bản đầu dùng theme Boost đi kèm Moodle. Plugin bên ngoài chỉ thêm sau khi kiểm tra tương thích và ghim phiên bản; chưa có tính năng tự cài plugin.
+- Xác nhận AWS account và target trước thao tác; dùng IAM role/credential chain.
+- Không lưu mật khẩu, token, private key hoặc giá trị secret trong YAML/Git.
+- Saved plan chỉ dùng một lần; từ chối khi source/config/account/hash thay đổi.
+- Nhận diện EC2 replacement và nguy cơ mất dữ liệu trước apply.
+- Mã/config Moodle chỉ đọc với web user; `moodledata` nằm ngoài webroot.
+- Small public dùng HTTPS viewer, cookie Secure/HttpOnly, cache disabled và origin prefix list + private header.
+- Restore staging yêu cầu exact confirm và `--allow-data-loss`.
+
+Small public kết thúc TLS tại CloudFront, chặng tới nginx origin dùng HTTP được giới hạn truy cập; chưa phải TLS đầu cuối. Không suy lab small/medium là hệ thống production đã harden hoặc có SLA.
+
+## Triển khai AWS
+
+### Small
+
+```powershell
+& $Py -m src.moodle_cloud --config $Config plan
+# Review account, tài nguyên tạo/sửa/xóa/thay thế và chi phí.
+& $Py -m src.moodle_cloud --config $Config apply --confirm moodle-sydney-dev
+& $Py -m src.moodle_cloud --config $Config health --wait
+```
+
+`apply` tạo tài nguyên có phí. Thay AMI/bootstrap/user-data có thể thay EC2 và xóa DB/file trên root volume; cần backup đã kiểm chứng và review plan. Không chạy lại các lệnh triển khai chỉ để mở site demo đang có. [Hướng dẫn small](docs/04-deployment.md).
+
+### Medium
+
+Thực hiện theo [runbook medium](docs/10-medium-n2.md): chuẩn bị backend/bucket/ECR/secret, build AMI và artifact ghim digest, điền YAML thật, chạy preflight/plan/apply, release trên runner rồi nghiệm thu site. Chỉ Terraform apply xong chưa có nghĩa Moodle đã ready.
+
+Medium từng dùng **`www.moodle-cloud-distribution.mywire.org`**, DNS tại Dynu, HTTPS trực tiếp ALB. Lab N2 đã cleanup; DNS còn trỏ tới ALB cũ không tồn tại tại lần đối chiếu. Có thể dùng lại hostname khi có quyền DNS và cập nhật certificate/origin mới; không dùng nguyên ARN/AMI/URL lịch sử để tái triển khai. [Hồ sơ domain](docs/13-medium-med02.md), [cleanup](docs/15-aws-cleanup.md).
+
+### Dọn dẹp
+
+Backup và xác minh dữ liệu cần giữ trước khi review saved destroy plan. Đối chiếu bucket, snapshot, public IP, network và tài nguyên ngoài state. Rollback ứng dụng không đồng nghĩa đã xóa hạ tầng/ngừng mọi chi phí. Public addon có root/state riêng; không destroy small để chỉ gỡ URL public.
+
+## Giám sát và vận hành
+
+| Thành phần | Cách kiểm tra |
+|---|---|
+| Ứng dụng | `health --wait` và bộ nghiệm thu nghiệp vụ |
+| Host | Cloud-init, Docker/systemd và SSM |
+| Cron | Timer, lần task thực sự chạy, failure/backlog |
+| Backup | Service/SSM status, checksum, manifest S3 và restore drill |
+| Medium | Readiness, runner operation log, CloudWatch log/metric/alarm |
+| Chi phí | AWS Budgets, Cost Explorer và inventory theo từng account |
+
+Không chỉ dựa vào timer active hoặc HTTP 200. Backup mới không tự được coi đã restore-test; budget không tự dừng tài nguyên. [Vận hành](docs/05-operations.md), [chi phí và demo](docs/07-report-and-cost.md).
+
+## Trạng thái và tài liệu bàn giao
+
+**Cập nhật 14/11/2026:** small public đang hoạt động; medium có mã, release đã test local và bằng chứng AWS lịch sử nhưng chưa dựng lại môi trường public mới. GUI small, kiểm tra chéo độc lập, các ca medium còn thiếu và chi phí N2/N3 chưa được ký đóng toàn bộ.
+
+Nhóm có **4 thành viên**, ngân sách toàn đồ án **150 USD**. Billing Sydney đã lấy trong kỳ kiểm tra không đại diện tổng chi phí cả nhóm/account khác. Xem trạng thái và giới hạn đầy đủ tại:
+
+- [Ma trận nghiệm thu và checklist chốt](docs/18-project-closeout.md).
+- [Báo cáo tổng hợp](docs/19-final-report.md).
+- [Evidence small public](docs/evidence/small-public-2026-11-14/README.md).
+- [Evidence medium release](docs/evidence/medium-release-2026-11-14/README.md).
+- [Kế hoạch và phân công](docs/00-project-plan.md).
+- [Cài Moodle thủ công](docs/03-manual-lab.md).
+
+## Đóng góp
+
+1. Tạo nhánh cho thay đổi; chọn đúng preset và môi trường thử nghiệm.
+2. Cập nhật code, cấu hình mẫu và tài liệu liên quan.
+3. Chạy unit tests và các runtime/Terraform checks phù hợp.
+4. Ghi rõ bằng chứng, giới hạn và tác động dữ liệu/chi phí.
+5. Mở pull request để thành viên khác review; không đưa credential, state, saved plan hoặc payload backup vào PR.

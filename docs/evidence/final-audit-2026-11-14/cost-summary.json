@@ -1,0 +1,68 @@
+{
+  "scope": "Whole Sydney account, all regions; NOT all project accounts; estimated billing, not final invoice",
+  "checked_utc": "2026-11-14T02:06:21.999025+00:00",
+  "start": "2026-10-01",
+  "end_exclusive": "2026-11-14",
+  "unit": "USD",
+  "by_record_type": {
+    "Credit": "-27.3117946649",
+    "Tax": "0",
+    "Usage": "27.3117946308"
+  },
+  "before_credit_refund": "27.3117946308",
+  "net": "-3.41E-8",
+  "estimated_periods": [
+    {
+      "Start": "2026-10-01",
+      "End": "2026-11-01"
+    },
+    {
+      "Start": "2026-11-01",
+      "End": "2026-11-14"
+    }
+  ],
+  "net_rounded_usd": "0.00",
+  "usage_by_service": {
+    "Amazon Elastic Compute Cloud - Compute": "20.4981846696",
+    "Amazon Virtual Private Cloud": "3.91549167",
+    "EC2 - Other": "2.8644906918",
+    "AWS Cost Explorer": "0.03",
+    "Amazon Simple Storage Service": "0.0036275994",
+    "Tax": "0",
+    "AWS Key Management Service": "0",
+    "Amazon Simple Notification Service": "0",
+    "Amazon Simple Queue Service": "0",
+    "AmazonCloudWatch": "0"
+  },
+  "budget": [
+    {
+      "Name": "moodle-sydney-small-202611",
+      "Limit": {
+        "Amount": "150.0",
+        "Unit": "USD"
+      },
+      "Actual": {
+        "Amount": "27.312",
+        "Unit": "USD"
+      },
+      "Forecast": null,
+      "Period": {
+        "Start": "2026-11-01T07:00:00+07:00",
+        "End": "2026-12-01T07:00:00+07:00"
+      },
+      "CostTypes": {
+        "IncludeTax": true,
+        "IncludeSubscription": true,
+        "UseBlended": false,
+        "IncludeRefund": false,
+        "IncludeCredit": false,
+        "IncludeUpfront": true,
+        "IncludeRecurring": true,
+        "IncludeOtherSubscription": true,
+        "IncludeSupport": true,
+        "IncludeDiscount": true,
+        "UseAmortized": false
+      }
+    }
+  ]
+}

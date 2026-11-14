@@ -1,5 +1,7 @@
 # Chi phí, báo cáo và demo
 
+**Đã có báo cáo tổng hợp ngày 14/11/2026:** [bản báo cáo](19-final-report.md), [ma trận chốt](18-project-closeout.md), [billing và inventory mới](evidence/final-audit-2026-11-14/README.md). Cost Explorer toàn account Sydney, kỳ 01/10–14/11 exclusive, trả usage trước credit/refund **27,3117946308 USD** và credit **−27,3117946649 USD**, các kỳ còn Estimated. Chưa có số tổng N2/N3; không coi số Sydney là tổng chi phí toàn dự án. Các dự toán và snapshot phía dưới giữ đúng thời điểm lịch sử.
+
 ## 1. Dự toán theo thời gian dùng thực tế
 
 Ngày 07/11/2026, người dùng giảm tổng ngân sách AWS xuống **150 USD** cho cả đồ án. Nhóm dùng tài khoản AWS thường; đây không phải hạn mức mỗi người hoặc mỗi tháng. Môi trường small đang dùng Sydney `ap-southeast-2`; lịch 4 tuần là kế hoạch tham khảo và medium cần dự toán lại trước triển khai.

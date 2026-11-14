@@ -129,7 +129,7 @@ resource "aws_instance" "moodle" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.lab.id
-  vpc_security_group_ids      = [aws_security_group.lab.id]
+  vpc_security_group_ids      = concat([aws_security_group.lab.id], var.additional_security_group_ids)
   iam_instance_profile        = aws_iam_instance_profile.ec2.name
   associate_public_ip_address = true
   user_data_base64            = base64gzip("#cloud-config\n${yamlencode(local.cloud_config)}")

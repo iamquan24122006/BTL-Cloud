@@ -62,3 +62,19 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+variable "additional_security_group_ids" {
+  type    = list(string)
+  default = []
+  validation {
+    condition     = alltrue([for id in var.additional_security_group_ids : can(regex("^sg-[a-f0-9]+$", id))])
+    error_message = "Additional security groups must be EC2 group IDs."
+  }
+}
+variable "public_url" {
+  type    = string
+  default = ""
+  validation {
+    condition     = var.public_url == "" || can(regex("^https://[a-z0-9]+\\.cloudfront\\.net$", var.public_url))
+    error_message = "The optional public endpoint must be a CloudFront HTTPS URL."
+  }
+}

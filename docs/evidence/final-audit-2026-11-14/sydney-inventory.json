@@ -1,0 +1,276 @@
+{
+  "ec2": [
+    {
+      "Id": "i-0de15ad67341ff026",
+      "State": "running",
+      "Type": "t3.small",
+      "Name": "moodle-sydney-staging",
+      "LaunchTime": "2026-11-05T01:04:15+00:00",
+      "Vpc": "vpc-02f3798cecbb4fb6e",
+      "SG": [
+        {
+          "GroupId": "sg-04c8c1fe455c839bd",
+          "GroupName": "moodle-sydney-staging-9870d450757aed7de1464ac33f"
+        },
+        {
+          "GroupId": "sg-07b2ba7ece9ba3561",
+          "GroupName": "moodle-sydney-load-bridge-0fc124018df124f659d6d14f3f"
+        }
+      ],
+      "Metadata": {
+        "State": "applied",
+        "HttpTokens": "required",
+        "HttpPutResponseHopLimit": 1,
+        "HttpEndpoint": "enabled",
+        "HttpProtocolIpv6": "disabled",
+        "InstanceMetadataTags": "disabled"
+      },
+      "Volumes": [
+        "vol-05108829637bc0323"
+      ]
+    },
+    {
+      "Id": "i-0d0b4ae0bf5167d27",
+      "State": "running",
+      "Type": "t3.small",
+      "Name": "moodle-sydney-load-generator",
+      "LaunchTime": "2026-11-05T17:40:30+00:00",
+      "Vpc": "vpc-02f3798cecbb4fb6e",
+      "SG": [
+        {
+          "GroupId": "sg-0c56b7c24c25ab7df",
+          "GroupName": "moodle-sydney-loadgen-2b8d9d12c121c6c84dd38f24dc"
+        }
+      ],
+      "Metadata": {
+        "State": "applied",
+        "HttpTokens": "required",
+        "HttpPutResponseHopLimit": 1,
+        "HttpEndpoint": "enabled",
+        "HttpProtocolIpv6": "disabled",
+        "InstanceMetadataTags": "disabled"
+      },
+      "Volumes": [
+        "vol-0c0eaff80c6a88f4e"
+      ]
+    },
+    {
+      "Id": "i-08254d31ea012c8dc",
+      "State": "running",
+      "Type": "t3.small",
+      "Name": "moodle-sydney-dev",
+      "LaunchTime": "2026-11-05T00:48:38+00:00",
+      "Vpc": "vpc-081cdefb48f31a33d",
+      "SG": [
+        {
+          "GroupId": "sg-05cdbc6e3f33a1991",
+          "GroupName": "moodle-sydney-dev-d61ba77e2189a6a1d4c584a7ee"
+        }
+      ],
+      "Metadata": {
+        "State": "applied",
+        "HttpTokens": "required",
+        "HttpPutResponseHopLimit": 1,
+        "HttpEndpoint": "enabled",
+        "HttpProtocolIpv6": "disabled",
+        "InstanceMetadataTags": "disabled"
+      },
+      "Volumes": [
+        "vol-05ca854147857eda2"
+      ]
+    },
+    {
+      "Id": "i-070badc9a77dfa33a",
+      "State": "running",
+      "Type": "t3.small",
+      "Name": "moodle-sydney-manual-drill",
+      "LaunchTime": "2026-11-05T17:20:41+00:00",
+      "Vpc": "vpc-081cdefb48f31a33d",
+      "SG": [
+        {
+          "GroupId": "sg-05cdbc6e3f33a1991",
+          "GroupName": "moodle-sydney-dev-d61ba77e2189a6a1d4c584a7ee"
+        }
+      ],
+      "Metadata": {
+        "State": "applied",
+        "HttpTokens": "required",
+        "HttpPutResponseHopLimit": 1,
+        "HttpEndpoint": "enabled",
+        "HttpProtocolIpv6": "disabled",
+        "InstanceMetadataTags": "disabled"
+      },
+      "Volumes": [
+        "vol-023e62cb42e986070"
+      ]
+    }
+  ],
+  "volumes": [
+    {
+      "Id": "vol-05ca854147857eda2",
+      "Size": 30,
+      "Type": "gp3",
+      "Encrypted": true,
+      "State": "in-use",
+      "Attachments": [
+        "i-08254d31ea012c8dc"
+      ]
+    },
+    {
+      "Id": "vol-0c0eaff80c6a88f4e",
+      "Size": 20,
+      "Type": "gp3",
+      "Encrypted": true,
+      "State": "in-use",
+      "Attachments": [
+        "i-0d0b4ae0bf5167d27"
+      ]
+    },
+    {
+      "Id": "vol-05108829637bc0323",
+      "Size": 30,
+      "Type": "gp3",
+      "Encrypted": true,
+      "State": "in-use",
+      "Attachments": [
+        "i-0de15ad67341ff026"
+      ]
+    },
+    {
+      "Id": "vol-023e62cb42e986070",
+      "Size": 30,
+      "Type": "gp3",
+      "Encrypted": true,
+      "State": "in-use",
+      "Attachments": [
+        "i-070badc9a77dfa33a"
+      ]
+    }
+  ],
+  "ssm": [
+    {
+      "Id": "i-0d0b4ae0bf5167d27",
+      "Status": "Online",
+      "OS": "Ubuntu",
+      "Version": "26.04"
+    },
+    {
+      "Id": "i-08254d31ea012c8dc",
+      "Status": "Online",
+      "OS": "Ubuntu",
+      "Version": "26.04"
+    },
+    {
+      "Id": "i-0de15ad67341ff026",
+      "Status": "Online",
+      "OS": "Ubuntu",
+      "Version": "26.04"
+    },
+    {
+      "Id": "i-070badc9a77dfa33a",
+      "Status": "Online",
+      "OS": "Ubuntu",
+      "Version": "26.04"
+    }
+  ],
+  "rds": [],
+  "alb": [],
+  "efs": [],
+  "redis": [],
+  "nat": [],
+  "sg": [
+    {
+      "Id": "sg-068c4d03f4e7af0ed",
+      "Name": "default",
+      "Ingress": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [
+            {
+              "UserId": "828676179987",
+              "GroupId": "sg-068c4d03f4e7af0ed"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "Id": "sg-0145c1c3eb7891c70",
+      "Name": "default",
+      "Ingress": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [
+            {
+              "UserId": "828676179987",
+              "GroupId": "sg-0145c1c3eb7891c70"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "Id": "sg-0c56b7c24c25ab7df",
+      "Name": "moodle-sydney-loadgen-2b8d9d12c121c6c84dd38f24dc",
+      "Ingress": []
+    },
+    {
+      "Id": "sg-07b2ba7ece9ba3561",
+      "Name": "moodle-sydney-load-bridge-0fc124018df124f659d6d14f3f",
+      "Ingress": [
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 8081,
+          "ToPort": 8081,
+          "UserIdGroupPairs": [
+            {
+              "Description": "Private load generator only",
+              "UserId": "828676179987",
+              "GroupId": "sg-0c56b7c24c25ab7df"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    },
+    {
+      "Id": "sg-05cdbc6e3f33a1991",
+      "Name": "moodle-sydney-dev-d61ba77e2189a6a1d4c584a7ee",
+      "Ingress": []
+    },
+    {
+      "Id": "sg-04c8c1fe455c839bd",
+      "Name": "moodle-sydney-staging-9870d450757aed7de1464ac33f",
+      "Ingress": []
+    },
+    {
+      "Id": "sg-0130c57473295933f",
+      "Name": "default",
+      "Ingress": [
+        {
+          "IpProtocol": "-1",
+          "UserIdGroupPairs": [
+            {
+              "UserId": "828676179987",
+              "GroupId": "sg-0130c57473295933f"
+            }
+          ],
+          "IpRanges": [],
+          "Ipv6Ranges": [],
+          "PrefixListIds": []
+        }
+      ]
+    }
+  ],
+  "checked_utc": "2026-11-14T02:06:21.999025+00:00",
+  "scope": "Sydney only; Singapore inventory denied by organization policy; other accounts/regions not certified",
+  "temporary_instances_action": "Pending user choice; no resources stopped or deleted during initial inventory"
+}

@@ -1,0 +1,8 @@
+{
+  "CommandId": "78b265d5-f9c4-46d6-a799-cf6f5e0586aa",
+  "Status": "Success",
+  "ResponseCode": 0,
+  "StandardOutputContent": "origin-rejected-missing: HTTP 403\norigin-rejected-invalid: HTTP 403\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n",
+  "ExecutionStartDateTime": "2026-11-14T10:06:48.378Z",
+  "ExecutionEndDateTime": "2026-11-14T10:06:48.378Z"
+}

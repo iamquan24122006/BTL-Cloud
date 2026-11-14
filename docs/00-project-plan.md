@@ -1,6 +1,6 @@
 # Kế hoạch đồ án chi tiết
 
-Các bước và lệnh để tiếp tục từ mã hiện tại nằm trong [hướng dẫn hoàn tất project](09-completion-guide.md). Trạng thái dưới đây chỉ đổi khi nhóm có bằng chứng thực nghiệm.
+Trạng thái đối chiếu ngày 14/11/2026 nằm trong [hồ sơ chốt](18-project-closeout.md), kết quả thực nghiệm trong [báo cáo tổng hợp](19-final-report.md). Lịch và phân công phía dưới là kế hoạch tham khảo, không phải nhật ký thực hiện.
 
 ## 1. Đề tài và câu hỏi nghiên cứu
 
@@ -21,13 +21,13 @@ Thông tin đã xác nhận: **nhóm 4 người, dùng tài khoản AWS thườn
 | Mức | Sản phẩm cần có | Trạng thái trong repository |
 |---|---|---|
 | P0 — bắt buộc | Cài thủ công 1 EC2; lưu lệnh và kiểm tra | Runbook và script tương ứng |
-| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | 29 unit test đạt; lab mới `moodle-lab-v2-dev` đã apply 6 tài nguyên mạng, còn 4 tài nguyên do bị chặn `iam:CreateRole`; EC2 chưa tạo |
-| P0 | Cron, backup nhất quán, thử restore sang máy mới | Docker local đã qua cron và dump/archive/restore sang dữ liệu mới ngày 29/10/2026; script systemd/S3 và restore EC2 chưa được nghiệm thu |
-| P0 | Báo cáo, kịch bản demo, bảng đo tải/chi phí | Có mẫu và tiêu chí; chưa có số liệu thực nghiệm |
-| P1 — mở rộng | ALB, private app, RDS, EFS, Redis, ASG | Thiết kế; chưa có Terraform triển khai |
+| P0 | Terraform dựng small, CLI YAML validate/plan/apply/status | Small Sydney dev/staging hoạt động; 89 unit test và CI source tích hợp đạt; nghiệp vụ live ngày 14/11 đạt |
+| P0 | Cron, backup nhất quán, thử restore sang máy mới | Có evidence AWS restore/reboot/phục hồi lỗi; cron và toàn vẹn backup mới kiểm lại đạt; không suy mọi backup đã restore-test |
+| P0 | Báo cáo, kịch bản demo, bảng đo tải/chi phí | Có báo cáo, đủ ma trận Sydney 10/25/50 × 3 và metric; billing Sydney đã lấy, còn chi phí account khác/reviewer/GUI small |
+| P1 — mở rộng | ALB, private app, RDS, EFS, Redis, ASG | Có mã tích hợp, CI và evidence AWS/HTTPS/restore lịch sử; lab N2 đã cleanup, mục chưa đạt ghi tại hồ sơ chốt |
 | P2 — nâng cao | Multi-AZ cho các thành phần, AMI, plugin, upgrade tự động | Backlog; không đưa vào tuyên bố đã hoàn thành |
 
-Với nguồn lực hiện tại, chọn **P0 + P1 làm mục tiêu triển khai của nhóm**: small là baseline bắt buộc, medium là phần tích hợp tuần 3 sau khi small đã restore thành công và có dự toán vừa hạn mức. Large chỉ thiết kế; chưa đặt mục tiêu chứng minh 5.000 người dùng. Mã nguồn hiện vẫn chỉ hỗ trợ small, việc đổi mục tiêu kế hoạch không có nghĩa medium đã được cài đặt.
+Với nguồn lực hiện tại, chọn **P0 + P1 làm mục tiêu triển khai của nhóm**. Mã nguồn hiện hỗ trợ small và medium; mức hoàn thành từng tiêu chí phải đối chiếu evidence, không suy từ việc có code hoặc từ lịch dự kiến. Large ngoài phạm vi đã triển khai; chưa đặt mục tiêu chứng minh 5.000 người dùng.
 
 Không đưa dữ liệu sinh viên thật vào lab. Không cam kết SLA hoặc chứng nhận production từ kết quả demo.
 

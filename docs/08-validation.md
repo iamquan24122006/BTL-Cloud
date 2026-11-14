@@ -1,5 +1,17 @@
 # Nhật ký kiểm chứng repository
 
+## Small public HTTPS ngày 14/11/2026
+
+Theo yêu cầu truy cập bằng URL Amazon, đã bổ sung root `infra/small_public` và công cụ `scripts.small_public`, áp dụng 7 tài nguyên mới, không thay EC2/EBS/DB. Dev Sydney chuyển sang https://d1cnnw3mivc0q5.cloudfront.net; CloudFront cache disabled, origin prefix list/header, cookie Secure/HttpOnly và HTTP→HTTPS đã kiểm chứng. Backup trước cutover có S3 manifest; verifier role/file/bài nộp/điểm/privacy/logout trên public endpoint đạt. Origin từ chối header thiếu/sai HTTP403, health đạt. Bộ local hiện **95 unit tests và 2 Terraform small mock tests đạt**, Terraform fmt đạt. Chưa chạy CI remote của các thay đổi public; CI baseline 2130963 vẫn là bằng chứng riêng. [Evidence](evidence/small-public-2026-11-14/README.md), [runbook/rollback](20-small-public.md).
+
+## Rà soát chốt dự án ngày 14/11/2026
+
+Đăng nhập `moodle-project` thành công và kiểm tra đúng account Sydney. Dev/staging SSM Online; verifier nghiệp vụ hiện tại đạt trên cả hai site. Cron có scheduled task mới, scheduled/ad hoc failure bằng 0 tại snapshot; backup tự động `20261114T020000Z` có service success, checksum/format/archive đạt và manifest S3. Chính bộ mới chưa restore-test; không apply/redeploy EC2 trong lượt này.
+
+CI đúng commit `2130963f7fc3fd76007498ab766a0942b9db3f59` được xác minh [success](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43480887498), gồm runtime/restore small, runtime medium, Terraform validate/mock tests và unit. Đã thu hồi lượt 50-user r3, timeline và metric cũ trên S3 để hoàn chỉnh ma trận Sydney ngày 07/11; đủ 3 lượt mỗi mức 10/25/50, tất cả 0 lỗi. Báo cáo p95 steady được ghi riêng với p95 toàn lượt của biên bản cũ và không gộp với N3.
+
+Cost Explorer toàn account Sydney kỳ 01/10–14/11 exclusive trả usage trước credit/refund 27,3117946308 USD, các kỳ Estimated. Snapshot có bốn EC2 chạy; Singapore trong account này bị SCP từ chối. Đã cập nhật các bảng tiến độ cũ, lập [báo cáo tổng hợp](19-final-report.md), [ma trận nghiệm thu](18-project-closeout.md) và [bằng chứng đã lọc](evidence/final-audit-2026-11-14/README.md). GUI small/reviewer, so sánh tải medium và chi phí account khác vẫn được ghi rõ là chưa đóng.
+
 ## Tiếp tục tích hợp khoi ngày 14/11/2026
 
 Đã đối chiếu PR #2 merged ngày 12/11, cả hai CI tại head `8397e72` và CI merge commit master `699dfc6` đều success. Khoi có thêm commit `2440d08` (13/11), được ghép tiếp trên master: lựa chọn builder t3.small, kiểm tra canary namespace khác khi purge MUC và hồ sơ N3/offline. Đưa patch tạo thư mục cha load runner trong hồ sơ N3 vào source thực tế; không thay cơ chế thư mục kết quả độc quyền.

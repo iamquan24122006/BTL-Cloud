@@ -1,0 +1,17 @@
+﻿{
+    "source_commit":  "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "bundle_sha256":  "a5ec8210a307fc409fdb8caab503da59e04f8674754eae81c9072a9d30625604",
+    "moodle_commit":  "215f44380bdc3ccf852a3a22e34f8423ff64033a",
+    "local_image":  "moodle-medium:release-2130963",
+    "ecr_published":  false,
+    "aws_applied":  false,
+    "gui_status":  "blocked: browser access host is unavailable",
+    "proposed_region":  "ap-southeast-2",
+    "account_choice":  "awaiting user",
+    "domain_dns":  "awaiting user",
+    "sydney_acm_certificates_found":  0,
+    "sydney_route53_zones_found":  0,
+    "sydney_standard_vcpu_quota":  16,
+    "prerequisite_prepare":  "passed for Sydney proposal; not applied",
+    "prerequisite_saved_plan":  "passed: support create 20; builder create 10; update/delete 0; not applied"
+}

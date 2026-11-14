@@ -2,6 +2,8 @@
 
 Tài liệu này mô tả preset **small**. Với **medium**, dùng [bàn giao và quy trình N2](10-medium-n2.md), bao gồm backend S3, preflight và runner riêng.
 
+CLI tích hợp hiện hỗ trợ cả small/medium; mặc định là `config/sydney.yaml`. Các ví dụ `config/dev.yaml` phía dưới minh họa lab riêng, không phải lệnh cập nhật lab Sydney hiện có. Luôn truyền YAML/profile/account rõ ràng và đọc [hợp đồng tích hợp](17-small-medium-integration.md). Trạng thái kiểm chứng mới nhất: [hồ sơ chốt](18-project-closeout.md).
+
 ## Điều kiện
 
 Python >=3.11, PyYAML theo requirements, Terraform >=1.10,<2, AWS CLI, Session Manager plugin. Người vận hành cần quyền tạo/quản lý VPC, subnet/route/IGW/SG, EC2/EBS và IAM role/profile trong phạm vi đồ án; `iam:PassRole` chỉ role EC2 tương ứng. Quyền SSM StartSession/SendCommand chỉ instance lab và tài liệu SSM cần dùng. Chính sách chính xác phụ thuộc quyền tổ chức, không đề xuất gắn AdministratorAccess chỉ để tránh sửa lỗi quyền.
@@ -16,7 +18,7 @@ Sửa `config/dev.yaml`; `ap-southeast-1` chỉ là giá trị mẫu. Copy `conf
 |---|---|
 | project/environment | Tên tài nguyên và đường dẫn state; không tái dùng cho AWS account khác |
 | region | Region commercial AWS; phải nhất quán từ plan tới apply |
-| size | Hiện chỉ `small` |
+| size | `small` cho quy trình trong tài liệu này; `medium` dùng schema/runbook riêng |
 | instance_type | t3.small/medium/large; chỉ x86_64 |
 | volume_gib | Số nguyên 20–200; mặc định mẫu 30 |
 | moodle_version | Hiện khóa `4.5.15` |

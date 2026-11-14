@@ -1,0 +1,10 @@
+{
+  "account": "828676179987",
+  "plan_sha256": "c2c479b61e542a84774dac48987233a65704a967f65185bba32e1d8a3604d703",
+  "source_sha256": "c4a1921a38ca235df7139b93040bd87864317778573b9756de2d139ae8d3c859",
+  "summary": {
+    "create": 20,
+    "update": 0,
+    "delete": 0
+  }
+}

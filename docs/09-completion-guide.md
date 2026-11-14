@@ -1,5 +1,7 @@
 # Hướng dẫn hoàn tất các phần còn thiếu
 
+**Điểm tiếp tục ngày 14/11/2026:** dùng [hồ sơ chốt](18-project-closeout.md) và [báo cáo tổng hợp](19-final-report.md). AWS Sydney đã kết nối, dev/staging đạt nghiệp vụ, đủ ma trận tải Sydney và metric, CI đúng source đã xác minh. Các mục mang ngày 05/11 trở xuống là hướng dẫn/nhật ký lịch sử; không dùng trạng thái “chưa có medium”, “chưa đo 25/50” hoặc credential lúc đó để quyết định hiện tại.
+
 ## Điểm tiếp tục ngày 05/11/2026
 
 Biên bản mới nhất: [nghiệm thu small](13-small-acceptance.md). CI commit chức năng `6eff8de` đã đạt; ca lỗi thật, smoke và ba baseline 10-user đã có bằng chứng. Hai baseline không lỗi, lượt ba bị tunnel ngắt; chưa đo 25/50-user. GUI/demo, cài tay so sánh, kiểm tra chéo và chốt chi phí/cleanup vẫn mở. Không đánh dấu hoàn tất P0 khi chưa có đủ bằng chứng.

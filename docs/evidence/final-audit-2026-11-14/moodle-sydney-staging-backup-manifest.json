@@ -1,0 +1,19 @@
+{
+  "format": 2,
+  "created_utc": "2026-11-14T02:01:47.906547+00:00",
+  "moodle_version": "4.5.15",
+  "database": "PostgreSQL 16",
+  "host_os": "Ubuntu 26.04",
+  "php": "8.3 (container)",
+  "consistency": "single node, web stopped, cron drained",
+  "files": [
+    "database.dump",
+    "moodledata.tar.gz",
+    "config.php",
+    "code.txt",
+    "runtime-image.txt",
+    "runtime-Dockerfile",
+    "SHA256SUMS"
+  ],
+  "restore_tested": false
+}

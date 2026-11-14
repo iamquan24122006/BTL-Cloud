@@ -1,0 +1,197 @@
+{
+  "scope": "Local medium integration: real Moodle/PHP, TLS PostgreSQL, TLS Redis, two app containers.\n\nUses isolated Docker networks/volumes and disposable credentials. Excludes AWS,\nEFS semantics, ASG, systemd, S3, IAM and cloud restore acceptance.\n",
+  "started": "2026-11-14T02:31:57.648217+00:00",
+  "status": "passed",
+  "steps": [
+    {
+      "step": "image",
+      "returncode": 0
+    },
+    {
+      "step": "network",
+      "returncode": 0
+    },
+    {
+      "step": "volume-config",
+      "returncode": 0
+    },
+    {
+      "step": "volume-data",
+      "returncode": 0
+    },
+    {
+      "step": "volume-cache-a",
+      "returncode": 0
+    },
+    {
+      "step": "volume-cache-b",
+      "returncode": 0
+    },
+    {
+      "step": "volume-tls",
+      "returncode": 0
+    },
+    {
+      "step": "volume-db",
+      "returncode": 0
+    },
+    {
+      "step": "setup",
+      "returncode": 0
+    },
+    {
+      "step": "pull-postgres",
+      "returncode": 0
+    },
+    {
+      "step": "pull-redis",
+      "returncode": 0
+    },
+    {
+      "step": "database",
+      "returncode": 0
+    },
+    {
+      "step": "redis-session",
+      "returncode": 0
+    },
+    {
+      "step": "redis-cache",
+      "returncode": 0
+    },
+    {
+      "step": "lint-config",
+      "returncode": 0
+    },
+    {
+      "step": "lint-cron-audit",
+      "returncode": 0
+    },
+    {
+      "step": "lint-gate",
+      "returncode": 0
+    },
+    {
+      "step": "lint-install",
+      "returncode": 0
+    },
+    {
+      "step": "lint-lock-probe",
+      "returncode": 0
+    },
+    {
+      "step": "lint-muc",
+      "returncode": 0
+    },
+    {
+      "step": "lint-ready",
+      "returncode": 0
+    },
+    {
+      "step": "lint-tls-proof",
+      "returncode": 0
+    },
+    {
+      "step": "install",
+      "returncode": 0
+    },
+    {
+      "step": "muc",
+      "returncode": 0
+    },
+    {
+      "step": "muc-rerun",
+      "returncode": 0
+    },
+    {
+      "step": "tls-proof",
+      "returncode": 0
+    },
+    {
+      "step": "cache-write-a",
+      "returncode": 0
+    },
+    {
+      "step": "cache-read-b",
+      "returncode": 0
+    },
+    {
+      "step": "file-write-a",
+      "returncode": 0
+    },
+    {
+      "step": "file-read-b",
+      "returncode": 0
+    },
+    {
+      "step": "lock-contender",
+      "returncode": 0
+    },
+    {
+      "step": "lock-holder",
+      "returncode": 0
+    },
+    {
+      "step": "start-app-a",
+      "returncode": 0
+    },
+    {
+      "step": "start-app-b",
+      "returncode": 0
+    },
+    {
+      "step": "readiness",
+      "returncode": 0
+    },
+    {
+      "step": "login-across-nodes",
+      "returncode": 0
+    },
+    {
+      "step": "unrelated-cache-write",
+      "returncode": 0
+    },
+    {
+      "step": "purge-cache",
+      "returncode": 0
+    },
+    {
+      "step": "unrelated-cache-after-purge",
+      "returncode": 0
+    },
+    {
+      "step": "login-after-purge",
+      "returncode": 0
+    },
+    {
+      "step": "session-after-purge",
+      "returncode": 0
+    },
+    {
+      "step": "stop-session-dependency",
+      "returncode": 0
+    },
+    {
+      "step": "readiness-dependency-failure",
+      "returncode": 0
+    },
+    {
+      "step": "restart-session-dependency",
+      "returncode": 0
+    },
+    {
+      "step": "readiness-restored",
+      "returncode": 0
+    },
+    {
+      "step": "enable-maintenance",
+      "returncode": 0
+    },
+    {
+      "step": "fail-open-gate",
+      "returncode": 0
+    }
+  ],
+  "image_id": "sha256:5eebbc7bf860cdc67d34661bc6cd38295c1fcbf43099fdf52c8b07e1fdc3dfb6",
+  "finished": "2026-11-14T02:38:52.020033+00:00"
+}

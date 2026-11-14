@@ -1,0 +1,12 @@
+{
+  "account": "828676179987",
+  "region": "ap-southeast-2",
+  "instance_id": "i-0de15ad67341ff026",
+  "command_id": "51cc42c0-d1d7-457d-9dc0-57d3b875f746",
+  "status": "passed",
+  "source_fingerprint": "d54c0b459deeb51f6a75eb09738093d2aeafd1912d990391d16c41725f87b0fa",
+  "scope": "Synthetic courses, files, private submissions, grades, login/logout; no load or browser layout test",
+  "response_code": 0,
+  "output": "Database, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160015,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/16\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n",
+  "finished_utc": "2026-11-14T02:04:22.037106+00:00"
+}

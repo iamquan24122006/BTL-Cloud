@@ -2,7 +2,7 @@
 
 ## 0. Toàn cảnh hệ thống
 
-Sơ đồ dưới đây nối luồng triển khai/vận hành với runtime. Khung `small` là cấu hình đã có mã Terraform; `medium` là hướng mở rộng P1, chưa triển khai.
+Sơ đồ dưới đây nối luồng triển khai/vận hành với runtime. Cả `small` và `medium` đã có mã Terraform và bằng chứng AWS; small Sydney được kiểm tra live ngày 14/11, lab medium N2 đã cleanup. Xem [hồ sơ chốt](18-project-closeout.md) để phân biệt trạng thái hiện tại với evidence lịch sử.
 
 ```mermaid
 flowchart LR

@@ -1,0 +1,215 @@
+{
+    "Label": "CPUCreditBalance",
+    "Datapoints": [
+        {
+            "Timestamp": "2026-11-08T00:35:00+07:00",
+            "Average": 552.1684998166667,
+            "Minimum": 552.1684998166667,
+            "Maximum": 552.1684998166667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:00:00+07:00",
+            "Average": 572.8534689333334,
+            "Minimum": 572.8534689333334,
+            "Maximum": 572.8534689333334,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:25:00+07:00",
+            "Average": 575.4135900166667,
+            "Minimum": 575.4135900166667,
+            "Maximum": 575.4135900166667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T22:50:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:55:00+07:00",
+            "Average": 540.8468456166667,
+            "Minimum": 540.8468456166667,
+            "Maximum": 540.8468456166667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:20:00+07:00",
+            "Average": 561.2459895166667,
+            "Minimum": 561.2459895166667,
+            "Maximum": 561.2459895166667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:45:00+07:00",
+            "Average": 573.4553686666667,
+            "Minimum": 573.4553686666667,
+            "Maximum": 573.4553686666667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:10:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T22:35:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:55:00+07:00",
+            "Average": 572.85102035,
+            "Minimum": 572.85102035,
+            "Maximum": 572.85102035,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:20:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T22:45:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:50:00+07:00",
+            "Average": 544.3669176666667,
+            "Minimum": 544.3669176666667,
+            "Maximum": 544.3669176666667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:15:00+07:00",
+            "Average": 563.5303457333333,
+            "Minimum": 563.5303457333333,
+            "Maximum": 563.5303457333333,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:40:00+07:00",
+            "Average": 574.0549576666666,
+            "Minimum": 574.0549576666666,
+            "Maximum": 574.0549576666666,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:05:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:15:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T22:40:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:45:00+07:00",
+            "Average": 548.01076425,
+            "Minimum": 548.01076425,
+            "Maximum": 548.01076425,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:10:00+07:00",
+            "Average": 567.1154909,
+            "Minimum": 567.1154909,
+            "Maximum": 567.1154909,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:35:00+07:00",
+            "Average": 574.7744097,
+            "Minimum": 574.7744097,
+            "Maximum": 574.7744097,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:00:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:30:00+07:00",
+            "Average": 555.7218945333333,
+            "Minimum": 555.7218945333333,
+            "Maximum": 555.7218945333333,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:40:00+07:00",
+            "Average": 549.4410927333333,
+            "Minimum": 549.4410927333333,
+            "Maximum": 549.4410927333333,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:05:00+07:00",
+            "Average": 570.67543415,
+            "Minimum": 570.67543415,
+            "Maximum": 570.67543415,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:30:00+07:00",
+            "Average": 574.7007715,
+            "Minimum": 574.7007715,
+            "Maximum": 574.7007715,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T22:55:00+07:00",
+            "Average": 576.0,
+            "Minimum": 576.0,
+            "Maximum": 576.0,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T01:00:00+07:00",
+            "Average": 537.5462783666667,
+            "Minimum": 537.5462783666667,
+            "Maximum": 537.5462783666667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-08T00:25:00+07:00",
+            "Average": 559.4043020666667,
+            "Minimum": 559.4043020666667,
+            "Maximum": 559.4043020666667,
+            "Unit": "Count"
+        },
+        {
+            "Timestamp": "2026-11-07T23:50:00+07:00",
+            "Average": 573.5301689,
+            "Minimum": 573.5301689,
+            "Maximum": 573.5301689,
+            "Unit": "Count"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "Id": "EN889ZM5KZQ2S",
+    "Status": "Deployed",
+    "Domain": "d1cnnw3mivc0q5.cloudfront.net",
+    "Enabled": true,
+    "CachePolicy": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+    "ViewerProtocol": "redirect-to-https",
+    "OriginDNS": "ec2-16-176-231-2.ap-southeast-2.compute.amazonaws.com",
+    "OriginPort": 8081
+}

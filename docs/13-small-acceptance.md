@@ -1,5 +1,13 @@
 # Biên bản nghiệm thu small
 
+## Cập nhật chốt kỹ thuật ngày 14/11/2026
+
+AWS Sydney đã kết nối lại, dev/staging SSM Online và cả hai đạt verifier nghiệp vụ hiện tại. Cron có scheduled task vừa chạy, 0 task failure; backup tự động ngày 14/11 đạt kiểm toàn vẹn và có manifest S3, nhưng chính bộ mới chưa restore-test. CI đúng source `2130963` đã xác nhận success.
+
+Đã thu hồi từ S3 **lượt 50-user r3 còn thiếu**, timeline kết thúc và metric của ma trận ngày 07/11. Đủ ba lượt 10/25/50 user, tất cả 0 lỗi. Lượt 50 r3 có 13.318 sample, thời gian quan sát 1.200,114 giây; p95 steady Course 464 ms, Login 1.174 ms, Assignment 566 ms. Bảng cũ phía dưới dùng p95 toàn lượt; không trộn hai cửa sổ tính. [Bộ số liệu đầy đủ](evidence/final-audit-2026-11-14/README.md).
+
+Mục “chưa thu r3/metric” trong snapshot 08/11 đã được giải quyết. GUI small, reviewer độc lập và quyết định vòng đời lab vẫn cần nhóm chốt theo [ma trận hiện tại](18-project-closeout.md). Không dùng kết quả Sydney để thay thế hai lượt N3 50-user không đạt ở account khác.
+
 ## Đối chiếu bằng chứng cục bộ ngày 08/11/2026
 
 Chạy lại **63 unit test: đạt**. AWS CLI 2.39.4 báo phiên `moodle-project` hết hạn khi gọi STS/SSM; chưa có xác nhận cloud mới trong lượt này. Không suy ra trạng thái thực tế của ma trận từ state cục bộ `running`.

@@ -147,11 +147,29 @@ def fingerprint(config):
     return digest.hexdigest()
 
 
+def public_runtime(config):
+    marker = workspace(config) / 'public-runtime.json'
+    if config['size'] != 'small' or not marker.exists():
+        return {}
+    value = json.loads(marker.read_text(encoding='utf-8'))
+    if not isinstance(value, dict) or not re.fullmatch(r'https://[a-z0-9]+\.cloudfront\.net', value.get('url', '')):
+        raise ConfigError('Invalid public runtime marker; inspect the public frontend state')
+    group = value.get('origin_security_group_id')
+    if group is not None and not re.fullmatch(r'sg-[a-f0-9]+', group):
+        raise ConfigError('Invalid public origin security group')
+    return value
+
+
 def render(config):
     work = workspace(config)
     work.mkdir(parents=True, exist_ok=True)
     file = work / "config.tfvars.json"
     values = {k: v for k, v in config.items() if k != "backend"}
+    public = public_runtime(config)
+    if public:
+        values['public_url'] = public['url']
+        if public.get('origin_security_group_id'):
+            values['additional_security_group_ids'] = [public['origin_security_group_id']]
     file.write_text(json.dumps(values, indent=2) + "\n", encoding="utf-8")
     return file
 
@@ -299,7 +317,11 @@ def apply(config, confirmation, destroy=False, allow_data_loss=False):
 
 
 def outputs(config):
-    return json.loads(tf(config, "output", "-json", capture=True))
+    result = json.loads(tf(config, "output", "-json", capture=True))
+    public = public_runtime(config)
+    if public:
+        result['public_url'] = {'value': public['url'], 'sensitive': False}
+    return result
 
 
 def instance_id(config):
