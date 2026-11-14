@@ -20,38 +20,10 @@ Demo minh họa luồng **đăng nhập → khóa học → học liệu → bà
 Small dev Sydney đang dùng CloudFront HTTPS; staging giữ truy cập qua SSM. Khả dụng của demo phụ thuộc lịch giữ/dừng tài nguyên của nhóm.
 
 ## Kiến trúc hệ thống
+## Kiến trúc hệ thống
 
-```mermaid
-flowchart TB
-    OP[Người vận hành] --> CFG[Cấu hình YAML]
-    CFG --> CLI[Python CLI]
-    CLI --> TF[Terraform: plan và apply]
+![Sơ đồ triển khai Moodle trên AWS với hai cấu hình Small và Medium](docs/images/moodle-aws.png)
 
-    subgraph SMALL[Small: một máy chủ]
-        U1[Người dùng] --> CF[CloudFront HTTPS: tùy chọn public]
-        CF --> NG[Nginx origin: prefix list và header riêng]
-        NG --> EC2[EC2: Apache/PHP và Moodle trong Docker]
-        EC2 --> PG[(PostgreSQL trên host)]
-        EC2 --> EBS[(EBS: moodledata)]
-        SSM[SSM tunnel: chế độ mặc định] --> EC2
-    end
-
-    subgraph MEDIUM[Medium: nhiều app node]
-        U2[Người dùng] --> ALB[ALB HTTPS và ACM]
-        ALB --> ASG[ASG: hai app node private]
-        ASG --> RDS[(RDS PostgreSQL)]
-        ASG --> EFS[(EFS: moodledata dùng chung)]
-        ASG --> REDIS[(Redis: session và MUC)]
-        RUN[Runner: release, cron, backup] --> RDS
-        RUN --> EFS
-    end
-
-    TF --> EC2
-    TF --> ALB
-    TF --> ASG
-    EC2 --> BK[(S3 backup)]
-    RUN --> BK
-```
 
 | Thành phần | Small | Medium |
 |---|---|---|
