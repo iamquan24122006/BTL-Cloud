@@ -1,0 +1,114 @@
+[
+  {
+    "site": "small",
+    "url": "https://d1cnnw3mivc0q5.cloudfront.net",
+    "checked_utc": "2026-11-14T15:43:07.283145+00:00",
+    "checks": {
+      "tls_ca_hostname_verified": true,
+      "login_200": true,
+      "session_secure": true,
+      "session_httponly": true,
+      "hsts": true,
+      "no_http_asset_or_form": true,
+      "no_localhost_reference": true,
+      "http_to_https_path_query": true,
+      "no_sensitive_content_observed": true
+    },
+    "sensitive_path_observations": [
+      {
+        "path": "/.env",
+        "status": 404,
+        "bytes": 331,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/.git/config",
+        "status": 403,
+        "bytes": 334,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/config.php.bak",
+        "status": 404,
+        "bytes": 331,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/etc/moodle/runtime.json",
+        "status": 404,
+        "bytes": 331,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/admin/cli/cron.php",
+        "status": 200,
+        "bytes": 63,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/config.php",
+        "status": 403,
+        "bytes": 334,
+        "sensitive_content_detected": false
+      }
+    ],
+    "tls": "TLSv1.3",
+    "status": "passed"
+  },
+  {
+    "site": "medium",
+    "url": "https://dc988tccg64gh.cloudfront.net",
+    "checked_utc": "2026-11-14T15:43:10.364752+00:00",
+    "checks": {
+      "tls_ca_hostname_verified": true,
+      "login_200": true,
+      "session_secure": true,
+      "session_httponly": true,
+      "hsts": true,
+      "no_http_asset_or_form": true,
+      "no_localhost_reference": true,
+      "http_to_https_path_query": true,
+      "no_sensitive_content_observed": true
+    },
+    "sensitive_path_observations": [
+      {
+        "path": "/.env",
+        "status": 403,
+        "bytes": 239,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/.git/config",
+        "status": 403,
+        "bytes": 239,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/config.php.bak",
+        "status": 404,
+        "bytes": 236,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/etc/moodle/runtime.json",
+        "status": 404,
+        "bytes": 236,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/admin/cli/cron.php",
+        "status": 200,
+        "bytes": 63,
+        "sensitive_content_detected": false
+      },
+      {
+        "path": "/config.php",
+        "status": 403,
+        "bytes": 239,
+        "sensitive_content_detected": false
+      }
+    ],
+    "tls": "TLSv1.3",
+    "status": "passed"
+  }
+]

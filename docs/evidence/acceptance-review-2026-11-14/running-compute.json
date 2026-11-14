@@ -1,0 +1,55 @@
+{
+  "checked_utc": "2026-11-14T15:38:35.603843+00:00",
+  "scope": "All running EC2 in Sydney account; metadata only",
+  "instances": [
+    {
+      "id": "i-0de15ad67341ff026",
+      "type": "t3.small",
+      "az": "ap-southeast-2b",
+      "name": "moodle-sydney-staging",
+      "project": "moodle-sydney"
+    },
+    {
+      "id": "i-0d0b4ae0bf5167d27",
+      "type": "t3.small",
+      "az": "ap-southeast-2b",
+      "name": "moodle-sydney-load-generator",
+      "project": "moodle-sydney"
+    },
+    {
+      "id": "i-09b67f1fba0d90bec",
+      "type": "t3.small",
+      "az": "ap-southeast-2b",
+      "name": "moodle-medium-dev-med-app",
+      "project": "moodle-medium"
+    },
+    {
+      "id": "i-08254d31ea012c8dc",
+      "type": "t3.small",
+      "az": "ap-southeast-2a",
+      "name": "moodle-sydney-dev",
+      "project": "moodle-sydney"
+    },
+    {
+      "id": "i-070badc9a77dfa33a",
+      "type": "t3.small",
+      "az": "ap-southeast-2a",
+      "name": "moodle-sydney-manual-drill",
+      "project": "moodle-sydney"
+    },
+    {
+      "id": "i-0a905507feca34c32",
+      "type": "t3.small",
+      "az": "ap-southeast-2a",
+      "name": "moodle-medium-dev-med-runner",
+      "project": "moodle-medium"
+    },
+    {
+      "id": "i-01ad32fc93cddc01a",
+      "type": "t3.small",
+      "az": "ap-southeast-2a",
+      "name": "moodle-medium-dev-med-app",
+      "project": "moodle-medium"
+    }
+  ]
+}

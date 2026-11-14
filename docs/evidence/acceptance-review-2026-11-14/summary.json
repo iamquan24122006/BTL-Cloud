@@ -1,0 +1,23 @@
+{
+  "reviewed_utc": "2026-11-14T15:58:24.073634+00:00",
+  "reviewer": "Codex automated technical review requested by project owner; not an independent human signature",
+  "source_commit": "27aae962054219de7b8f3478647995cf012a31cd",
+  "specification_sha256": "7c5a7b5e97114e054f5a91a802fad263d71cafa183f79ec84e3841d428b20cbc",
+  "verdict": "NOT_ACCEPTED_FULL_P0_P1",
+  "functional_demo_status": "Core small/medium functions and specified tested recovery paths passed; full specification coverage remains incomplete",
+  "case_counts": {
+    "PASS": 9,
+    "PARTIAL": 8,
+    "PRIOR_EVIDENCE": 1,
+    "NOT_MET": 2
+  },
+  "case_total": 20,
+  "unit_tests": 96,
+  "medium_http_checks": 47,
+  "small_reboot_status": "passed",
+  "gui_status": "blocked_native_pipe_unavailable",
+  "dns_authorization": "No DNS change performed; current ALB HTTPS requirement remains not met",
+  "recorded_sydney_usage_usd_rounded": "29.06",
+  "billing_scope": "Whole Sydney account; all regions; not all project accounts; current UTC day excluded",
+  "signature_status": "Project owner/team or instructor acceptance not supplied; no name or signature fabricated"
+}

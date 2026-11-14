@@ -1,0 +1,65 @@
+[
+  {
+    "instance": "i-09b67f1fba0d90bec",
+    "command": "316dc1a8-9cff-4ace-9ca5-ebfee110bb06",
+    "role": "app",
+    "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "db_user": "moodle_runtime",
+    "runtime_superuser": false,
+    "runtime_createdb": false,
+    "runtime_createrole": false,
+    "runtime_create_schema_object": false,
+    "db_tls": "TLSv1.3",
+    "sslmode": "verify-full",
+    "scheduled_failures": 0,
+    "latest_task_unix": 1794671342,
+    "timer_enabled": {
+      "moodle-cron.timer": "disabled",
+      "moodle-backup.timer": "disabled"
+    },
+    "web_state": "active",
+    "checked_utc": "2026-11-14T15:49:29.171923+00:00"
+  },
+  {
+    "instance": "i-0a905507feca34c32",
+    "command": "316dc1a8-9cff-4ace-9ca5-ebfee110bb06",
+    "role": "runner",
+    "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "db_user": "moodle_runtime",
+    "runtime_superuser": false,
+    "runtime_createdb": false,
+    "runtime_createrole": false,
+    "runtime_create_schema_object": false,
+    "db_tls": "TLSv1.3",
+    "sslmode": "verify-full",
+    "scheduled_failures": 0,
+    "latest_task_unix": 1794671342,
+    "timer_enabled": {
+      "moodle-cron.timer": "enabled",
+      "moodle-backup.timer": "enabled"
+    },
+    "web_state": "inactive",
+    "checked_utc": "2026-11-14T15:49:29.151760+00:00"
+  },
+  {
+    "instance": "i-01ad32fc93cddc01a",
+    "command": "316dc1a8-9cff-4ace-9ca5-ebfee110bb06",
+    "role": "app",
+    "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "db_user": "moodle_runtime",
+    "runtime_superuser": false,
+    "runtime_createdb": false,
+    "runtime_createrole": false,
+    "runtime_create_schema_object": false,
+    "db_tls": "TLSv1.3",
+    "sslmode": "verify-full",
+    "scheduled_failures": 0,
+    "latest_task_unix": 1794671342,
+    "timer_enabled": {
+      "moodle-cron.timer": "disabled",
+      "moodle-backup.timer": "disabled"
+    },
+    "web_state": "active",
+    "checked_utc": "2026-11-14T15:49:29.151171+00:00"
+  }
+]

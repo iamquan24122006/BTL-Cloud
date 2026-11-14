@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "tests": 96,
+  "command": "python -m unittest discover -s tests -v",
+  "source_commit": "27aae962054219de7b8f3478647995cf012a31cd"
+}

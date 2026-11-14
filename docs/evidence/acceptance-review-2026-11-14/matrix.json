@@ -1,0 +1,142 @@
+[
+  {
+    "case": "AT-01",
+    "status": "PASS",
+    "assessment": "YAML/schema input guards; offline validation and 96 unit tests",
+    "evidence": "unit.json; ci.json",
+    "scope": "CI/offline"
+  },
+  {
+    "case": "AT-02",
+    "status": "PASS",
+    "assessment": "Saved-plan/account/config/source/single-use guards",
+    "evidence": "unit.json; ci.json",
+    "scope": "CI/offline"
+  },
+  {
+    "case": "AT-03",
+    "status": "PARTIAL",
+    "assessment": "Existing small installation and CI evidence; clean EC2 bootstrap/idempotence not repeated in this review",
+    "evidence": "../final-audit-2026-11-14/installation-report.json",
+    "scope": "prior/CI"
+  },
+  {
+    "case": "AT-04",
+    "status": "PASS",
+    "assessment": "Small dev/staging and medium login, role, enrolment and access checks",
+    "evidence": "small-dev.json; small-staging-after-reboot.json; medium-http.json",
+    "scope": "live"
+  },
+  {
+    "case": "AT-05",
+    "status": "PARTIAL",
+    "assessment": "File hashes/denied access pass; GUI upload/limits across all current and restored environments not fully repeated",
+    "evidence": "medium-http.json; http-surface.json",
+    "scope": "live/prior"
+  },
+  {
+    "case": "AT-06",
+    "status": "PASS",
+    "assessment": "Submission/grade/privacy checks pass; source and restored fixture evidence linked",
+    "evidence": "small-dev.json; medium-http.json; ../medium-sydney-2026-11-14/restored-http.json",
+    "scope": "live/same-day"
+  },
+  {
+    "case": "AT-07",
+    "status": "PASS",
+    "assessment": "Cron timers, recent tasks, no scheduled/ad-hoc failure or overdue backlog in the current snapshot",
+    "evidence": "cron-review.json; medium-runtime.json",
+    "scope": "live"
+  },
+  {
+    "case": "AT-08",
+    "status": "PASS",
+    "assessment": "Staging reboot observed by changed boot ID; post-reboot roles, file hash, submissions and grades pass",
+    "evidence": "staging-reboot.json; small-staging-after-reboot.json",
+    "scope": "live"
+  },
+  {
+    "case": "AT-09",
+    "status": "PASS",
+    "assessment": "Sensitive HTTP paths, small origin rejection, runtime DB limits and anonymous state/backup denial",
+    "evidence": "http-surface.json; storage-security.json; small-origin-protection.json; medium-runtime.json",
+    "scope": "live within tested scope"
+  },
+  {
+    "case": "AT-10",
+    "status": "PARTIAL",
+    "assessment": "Consistent backup evidence exists; full backup-versus-running-cron and S3-failure scenario not repeated in this review",
+    "evidence": "../medium-sydney-2026-11-14/operations.json",
+    "scope": "same-day/prior"
+  },
+  {
+    "case": "AT-11",
+    "status": "PRIOR_EVIDENCE",
+    "assessment": "Small restore and corrupt-set rejection have prior/CI evidence; latest AWS small backup set not restored again",
+    "evidence": "../final-audit-2026-11-14/README.md; ci.json",
+    "scope": "prior/CI"
+  },
+  {
+    "case": "AT-12",
+    "status": "NOT_MET",
+    "assessment": "Medium source/state/DB/release work; full criterion includes ALB HTTPS, which is absent",
+    "evidence": "operational-gaps.json; ../medium-sydney-2026-11-14/README.md",
+    "scope": "live F-01"
+  },
+  {
+    "case": "AT-13",
+    "status": "PASS",
+    "assessment": "Session/file/MUC across source and restored nodes, plus fresh replacement node evidence",
+    "evidence": "../medium-sydney-2026-11-14/source-cluster-b.json; ../medium-sydney-2026-11-14/restored-cluster-b.json",
+    "scope": "same-day deployment"
+  },
+  {
+    "case": "AT-14",
+    "status": "PASS",
+    "assessment": "Purge preserved logged-in session and other-site namespace",
+    "evidence": "../medium-sydney-2026-11-14/operations.json; ../medium-sydney-2026-11-14/source-session-after-purge.json",
+    "scope": "same-day deployment"
+  },
+  {
+    "case": "AT-15",
+    "status": "PARTIAL",
+    "assessment": "ASG replacement passed; load-triggered scaling policy is absent",
+    "evidence": "operational-gaps.json; ../medium-sydney-2026-11-14/asg-replacement.json",
+    "scope": "live/same-day F-02"
+  },
+  {
+    "case": "AT-16",
+    "status": "PARTIAL",
+    "assessment": "Moodle distributed lock and Terraform state contention proven; complete concurrent-release/interrupted-migration coverage not repeated",
+    "evidence": "../medium-sydney-2026-11-14/distributed-lock.json; ../medium-sydney-2026-11-14/state-lock.json",
+    "scope": "same-day/CI"
+  },
+  {
+    "case": "AT-17",
+    "status": "PARTIAL",
+    "assessment": "Fresh RDS/EFS restore and IDs/hash/47 HTTP/two-node tests proven; full new business-write flow after restore not independently captured in this review",
+    "evidence": "../medium-sydney-2026-11-14/restored-review-resume.json; ../medium-sydney-2026-11-14/restored-http.json",
+    "scope": "same-day deployment"
+  },
+  {
+    "case": "AT-18",
+    "status": "NOT_MET",
+    "assessment": "Alarms have no actions/receiver; dashboard absent; no notification/recovery acceptance",
+    "evidence": "operational-gaps.json",
+    "scope": "live F-03"
+  },
+  {
+    "case": "AT-19",
+    "status": "PARTIAL",
+    "assessment": "Historical small matrix exists; comparable medium matrix and complete manual/automatic timing absent",
+    "evidence": "historical-small-load.json; findings.json",
+    "scope": "historical F-05"
+  },
+  {
+    "case": "AT-20",
+    "status": "PARTIAL",
+    "assessment": "Docs/restore cleanup and current billing/inventory supplied; all-account ledger, reviewer signature and end dates pending",
+    "evidence": "running-compute.json; billing.json; other-account-access.json",
+    "scope": "live/prior F-06"
+  }
+]

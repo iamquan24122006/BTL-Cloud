@@ -1,0 +1,15 @@
+{
+  "scope": "Historical Sydney private-fixture measurements 2026-11-07; not a new public-CF or medium comparison",
+  "runs": 9,
+  "users": [
+    10,
+    25,
+    50
+  ],
+  "errors": 0,
+  "max_course_p95_ms": 464.0,
+  "max_login_p95_ms": 1174.0,
+  "max_assignment_p95_ms": 566.0,
+  "threshold_status": "Research threshold 3000ms proposed in specification; not a contractual SLA",
+  "source": "../final-audit-2026-11-14/sydney-load-matrix.csv"
+}

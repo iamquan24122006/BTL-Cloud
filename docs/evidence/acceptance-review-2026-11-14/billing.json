@@ -1,0 +1,27 @@
+{
+  "checked_utc": "2026-11-14T15:38:30.203040+00:00",
+  "scope": "Whole Sydney account; all regions; not all project accounts; current UTC day excluded",
+  "period": "Start=2026-10-01,End=2026-11-14",
+  "by_record_type": {
+    "Credit": "-29.0596878909",
+    "Tax": "0",
+    "Usage": "29.0596878545"
+  },
+  "net_usd": "-3.64E-8",
+  "usage_before_credit_refund_usd": "29.0596878545",
+  "estimated_periods": [
+    {
+      "Start": "2026-10-01",
+      "End": "2026-11-01"
+    },
+    {
+      "Start": "2026-11-01",
+      "End": "2026-11-14"
+    }
+  ],
+  "limitations": [
+    "Does not include charges posted for the current day",
+    "Credit line items are not remaining available credit",
+    "Other project accounts not included"
+  ]
+}

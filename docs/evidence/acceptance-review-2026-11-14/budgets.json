@@ -1,0 +1,19 @@
+{
+  "checked_utc": "2026-11-14T15:38:32.162510+00:00",
+  "budgets": [
+    {
+      "name": "moodle-sydney-small-202611",
+      "limit": {
+        "Amount": "150.0",
+        "Unit": "USD"
+      },
+      "actual": {
+        "ActualSpend": {
+          "Amount": "29.552",
+          "Unit": "USD"
+        }
+      },
+      "filters": {}
+    }
+  ]
+}

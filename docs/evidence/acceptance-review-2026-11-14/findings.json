@@ -1,0 +1,58 @@
+[
+  {
+    "id": "F-01",
+    "requirement": "MED-02 / AT-12",
+    "severity": "blocks-full-P1",
+    "status": "not_met",
+    "fact": "Live ALB has HTTP listener on port 80; no HTTPS listener/certificate. CloudFront viewer HTTPS does not satisfy the specified ALB HTTPS criterion.",
+    "close_when": "Owned DNS records validated, ACM issued in the ALB region, listener 443 enabled and HTTPS acceptance rerun."
+  },
+  {
+    "id": "F-02",
+    "requirement": "MED-07 / AT-15",
+    "severity": "blocks-full-P1",
+    "status": "not_met",
+    "fact": "ASG has no scaling policies. EC2 replacement passed earlier; no load-triggered scale-out/in is implemented.",
+    "close_when": "Implement a reviewed scaling policy with metrics/warmup/cooldown; prove scale-out 2 to 3 and return to 2 under a controlled workload."
+  },
+  {
+    "id": "F-03",
+    "requirement": "OBS-02 / AT-18",
+    "severity": "blocks-full-P1",
+    "status": "not_met",
+    "fact": "CloudWatch has 7 medium alarms, none has AlarmActions; no account dashboard returned. Alarm delivery/recovery is not proven.",
+    "close_when": "Dashboard covers app/ALB/RDS/Redis/EFS/runner, receiver is configured, controlled ALARM notification reaches the receiver and returns to OK."
+  },
+  {
+    "id": "F-04",
+    "requirement": "LMS-06 / AT-05",
+    "severity": "verification-required",
+    "status": "blocked",
+    "fact": "New GUI walkthrough could not be executed: Computer Use native pipe unavailable. HTTP checks do not verify layout or browser upload workflows.",
+    "close_when": "Record desktop/mobile viewport walkthrough, teacher upload, student access/submission/grade views and denied actions with browser/version."
+  },
+  {
+    "id": "F-05",
+    "requirement": "QA-03 / QA-04 / AT-19",
+    "severity": "verification-required",
+    "status": "incomplete",
+    "fact": "Historical small matrix exists; comparable medium matrix and independent manual-versus-automated timing evidence are incomplete.",
+    "close_when": "Complete the specified comparable workload/repetitions and report real p50/p95/p99/errors/metrics, dataset, network, cache and timing scopes."
+  },
+  {
+    "id": "F-06",
+    "requirement": "COST-01 / DONE-02 / AT-20",
+    "severity": "handover-required",
+    "status": "incomplete",
+    "fact": "Billing covers Sydney through the previous UTC day only; other account authentication unavailable. Load-generator/manual-drill EC2 remain running without a confirmed end date.",
+    "close_when": "Reconcile all project accounts and retained resources, assign owner/end date and confirm the total budget ledger."
+  },
+  {
+    "id": "F-07",
+    "requirement": "SEC-01",
+    "severity": "verification-required",
+    "status": "not_verified",
+    "fact": "Runtime DB privilege limits and storage protection passed. Rotation of the initial administrator password is not evidenced in this review.",
+    "close_when": "Provide a credential-safe rotation record and prove new login/old-password rejection without publishing passwords."
+  }
+]

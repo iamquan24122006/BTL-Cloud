@@ -1,0 +1,8 @@
+{
+  "CommandId": "10c087b3-ebc4-4dfe-b14d-4c6ea5afdb9a",
+  "Status": "Success",
+  "ResponseCode": 0,
+  "StandardOutputContent": "origin-rejected-missing: HTTP 403\norigin-rejected-invalid: HTTP 403\n",
+  "ExecutionStartDateTime": "2026-11-14T15:42:47.331Z",
+  "ExecutionEndDateTime": "2026-11-14T15:42:47.331Z"
+}

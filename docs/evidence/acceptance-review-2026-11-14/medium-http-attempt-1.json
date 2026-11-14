@@ -1,0 +1,9 @@
+{
+  "url": "https://dc988tccg64gh.cloudfront.net",
+  "started_unix": 1794670390.5894597,
+  "scope": "Real HTTPS, seeded roles/files/assignment; separate ASG/restore evidence required",
+  "checks": [],
+  "status": "failed",
+  "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>",
+  "finished_unix": 1794670401.6884105
+}

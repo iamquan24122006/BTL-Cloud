@@ -1,0 +1,63 @@
+{
+  "checked_utc": "2026-11-14T15:38:28.130190+00:00",
+  "account": "828676179987",
+  "scaling_policies": [],
+  "alarms": [
+    {
+      "name": "moodle-medium-dev-med-BackupSuccess-missing",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "BackupSuccess"
+    },
+    {
+      "name": "moodle-medium-dev-med-CronSuccess-missing",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "CronSuccess"
+    },
+    {
+      "name": "moodle-medium-dev-med-app-cpu",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "CPUUtilization"
+    },
+    {
+      "name": "moodle-medium-dev-med-disk_used_percent",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "disk_used_percent"
+    },
+    {
+      "name": "moodle-medium-dev-med-mem_used_percent",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "mem_used_percent"
+    },
+    {
+      "name": "moodle-medium-dev-med-target-5xx",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "HTTPCode_Target_5XX_Count"
+    },
+    {
+      "name": "moodle-medium-dev-med-unhealthy-targets",
+      "state": "OK",
+      "actions": [],
+      "ok_actions": [],
+      "metric": "UnHealthyHostCount"
+    }
+  ],
+  "dashboard_names": [],
+  "listeners": [
+    {
+      "port": 80,
+      "protocol": "HTTP"
+    }
+  ]
+}

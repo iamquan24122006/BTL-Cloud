@@ -1,0 +1,14 @@
+{
+  "instance": "i-0de15ad67341ff026",
+  "account": "828676179987",
+  "environment": "staging",
+  "started_utc": "2026-11-14T15:40:49.770986+00:00",
+  "boot_id_before": "14db9234-ecf2-432e-acd9-ef663fa3c01f",
+  "backup_manifest_key": "moodle-sydney-staging/20261114T020000Z/manifest.json",
+  "status": "passed",
+  "boot_id_after": "b0e6fa67-6fa0-4751-8669-ee89daa73012",
+  "reboot_observed_utc": "2026-11-14T15:41:28.582569+00:00",
+  "fixture_ids_and_file_hash_preserved": true,
+  "post_reboot_acceptance": "03721081-15a7-4139-a0fc-c627aa939528",
+  "post_reboot_finished_utc": "2026-11-14T15:46:19.582499+00:00"
+}

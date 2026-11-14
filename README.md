@@ -364,6 +364,8 @@ Không chỉ dựa vào timer active hoặc HTTP 200. Backup mới không tự �
 
 ## Trạng thái và tài liệu bàn giao
 
+**Nghiệm thu kỹ thuật 14/11:** [biên bản AT-01–AT-20](docs/22-technical-acceptance.md) ghi chức năng đã đạt và các mục còn chặn chốt đầy đủ. AWS hiện chưa có ALB HTTPS/ACM, scaling policy theo tải hoặc dashboard/kênh nhận alarm cho medium; GUI và ma trận so sánh vẫn cần bổ sung. Không coi kết quả demo là nghiệm thu toàn bộ P0+P1.
+
 **Cập nhật 14/11/2026:** small và medium Sydney đã có URL public. Medium đã được dựng lại, seed fixture, kiểm tra 47 ca HTTPS trên nguồn/restore và thử thay app bằng ASG; môi trường restore tạm được dọn sau thử nghiệm. MED-02 với domain/ACM tại ALB, walkthrough GUI mới, benchmark so sánh và reviewer/chi phí các account khác vẫn là các mục cần chốt riêng.
 
 Nhóm có **4 thành viên**, ngân sách toàn đồ án **150 USD**. Billing Sydney đã lấy trong kỳ kiểm tra không đại diện tổng chi phí cả nhóm/account khác. Xem trạng thái và giới hạn đầy đủ tại:

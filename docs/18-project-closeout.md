@@ -2,6 +2,8 @@
 
 Đây là điểm đọc trạng thái hiện tại, thay cho các bảng tiến độ lịch sử trong tài liệu kế hoạch. Phạm vi mục tiêu vẫn là small P0 và medium P1; chưa thu hẹp yêu cầu để biến các mục thiếu bằng chứng thành đạt.
 
+**Đã thực hiện review kỹ thuật theo yêu cầu chủ dự án:** xem [biên bản nghiệm thu 14/11](22-technical-acceptance.md) và [evidence mới](evidence/acceptance-review-2026-11-14/README.md). Kết luận **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1**: hiện thiếu cả ALB HTTPS, scaling policy và dashboard/receiver của alarm, ngoài các coverage chưa xác minh. Ma trận trong biên bản là kết luận review chi tiết hơn; không lấy trạng thái từng phần ở bảng dưới để ký đạt toàn bộ.
+
 ## Kết luận cho nhóm
 
 **Mã nguồn tích hợp đã qua CI đầy đủ; small Sydney đang chạy và đạt kiểm tra chức năng trên cả dev/staging.** Bộ bằng chứng tải Sydney đã được thu đủ 3 × 10/25/50 user và có metric đi kèm. Có thể dùng [báo cáo tổng hợp](19-final-report.md) để biên tập và trình bày kết quả đã làm.
@@ -43,17 +45,17 @@ Toàn bộ chứng cứ mới: [final-audit-2026-11-14](evidence/final-audit-202
 | AT-05 — file/upload/limit | Đạt từng phần H/L | Hash/file access small L; binary 60 MiB và từ chối 65 MiB N3 H; GUI HTTPS medium H. Chưa chứng nhận đủ cả hai preset sau restore |
 | AT-06 — bài nộp/điểm/privacy | Đạt small/medium L | Verifier small và bộ HTTPS medium nguồn/restore; giữ IDs và hash/điểm khi phục hồi |
 | AT-07 — cron/task | Đạt small/medium L | Medium có task gần thời điểm kiểm tra, audit không có failure; timer app disabled, runner enabled |
-| AT-08 — reboot | Đạt small H | Hồ sơ Sydney/N3 giữ dữ liệu và tự khởi động; không reboot lại trong lượt chốt |
+| AT-08 — reboot | Đạt small L | Review mới đã reboot staging, boot ID đổi, dữ liệu/roles/file/bài nộp/điểm kiểm tra lại đạt |
 | AT-09 — file/config/network | Đạt phạm vi đã kiểm | Protected paths/permission small L, inventory/IMDSv2/EBS; staging có SG relay private của fixture tải, không phải baseline không-ingress tuyệt đối |
 | AT-10 — backup/recovery | Đạt small H/L; medium H | Backup mới có checksum và manifest; ca AccessDenied/recovery có hồ sơ. Bộ 14/11 chưa restore-test |
 | AT-11 — restore small | Đạt H | Bộ hỏng bị từ chối; bộ đúng phục hồi fixture, ghi mới và reboot. Không lấy checksum để thay restore |
 | AT-12 — medium deployment/TLS/state | Đạt live theo phạm vi lab; MED-02 pending | Sydney private compute/data, TLS viewer/RDS/Redis và S3 lock; ALB origin dùng HTTP qua CloudFront, chưa có domain/ACM mới |
 | AT-13 — đa node/session/file | Đạt H/L | Kiểm tra trực tiếp cả hai app nguồn và hai app sau restore; file/hash và session dùng chung |
 | AT-14 — purge cache isolation | Đạt ca đã đo H/L | Canary namespace khác sống sau purge trên Sydney; cookie nguồn còn dùng được sau purge/backup |
-| AT-15 — thay node/scaling | Đạt thay node H/L, thiếu so sánh scaling tải | Sydney trở lại hai target healthy sau 139,67 giây; cookie/file dùng được ở node mới; chưa nghiệm thu scale policy dưới tải |
+| AT-15 — thay node/scaling | Đạt thay node H/L; chưa đủ toàn ca | Sydney replacement đạt; AWS describe-policies trả 0 scaling policy, nên chưa có bằng chứng scale theo tải |
 | AT-16 — lock/release tranh chấp | Đạt từng phần H/L | Sydney một ACQUIRED, hai BUSY và S3 lock 412; một số ca gián đoạn migration/release còn thiếu |
 | AT-17 — restore medium | Đạt H/L trong phạm vi đã đo | Backup `20261114T115610` phục hồi vào RDS/EFS mới; giữ IDs, file, bài nộp/điểm; 47/47 HTTPS và kiểm tra xuyên node; không suy cam kết RPO/RTO production |
-| AT-18 — alarm/recovery | Đạt từng phần | Budget SNS→SQS có thử kênh; không phải thông báo vận hành đến người nhận. Chưa đủ toàn bộ alarm/failure scenarios |
+| AT-18 — alarm/recovery | Chưa đạt P1 | AWS trả 7 alarm không AlarmActions, không dashboard; chưa có receiver và ca ALARM→notification→OK cho vận hành medium |
 | AT-19 — đo tải/so sánh | Đạt ma trận small; chưa đủ so sánh | Sydney đủ 9 lượt; N3 có 2 lượt 50-user chậm. Chưa benchmark medium và so sánh cài tay/tự động cùng phương pháp |
 | AT-20 — bàn giao/cleanup/chi phí | Chờ nhóm chốt | Có báo cáo, inventory và chi phí Sydney; còn reviewer, quyết định vòng đời lab, chi phí N2/N3 |
 | LMS-06 — GUI | Medium H; small chờ | Medium có ảnh desktop/mobile viewport. Small chưa có walkthrough GUI mới; HTTP không thay kiểm tra bố cục |

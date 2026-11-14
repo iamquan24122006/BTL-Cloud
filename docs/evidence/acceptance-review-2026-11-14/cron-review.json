@@ -1,0 +1,32 @@
+[
+  {
+    "site": "small-dev",
+    "instance": "i-08254d31ea012c8dc",
+    "CommandId": "58b14a56-6746-495e-bf5f-ec3b28fe5af1",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "active\nactive\n{\"scheduled_failures\":0,\"adhoc_failures\":0,\"adhoc_overdue_10m\":0,\"latest_task\":\"1794671642\"}\n",
+    "ExecutionStartDateTime": "2026-11-14T15:54:39.333Z",
+    "ExecutionEndDateTime": "2026-11-14T15:54:39.333Z"
+  },
+  {
+    "site": "small-staging",
+    "instance": "i-0de15ad67341ff026",
+    "CommandId": "887710bd-a55f-418b-a028-8d47e714a835",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "active\nactive\n{\"scheduled_failures\":0,\"adhoc_failures\":0,\"adhoc_overdue_10m\":0,\"latest_task\":\"1794671642\"}\n",
+    "ExecutionStartDateTime": "2026-11-14T15:54:44.083Z",
+    "ExecutionEndDateTime": "2026-11-14T15:54:44.083Z"
+  },
+  {
+    "site": "medium-runner",
+    "instance": "i-0a905507feca34c32",
+    "CommandId": "12c9e545-4b6e-41e8-8ddb-4ce095b464ec",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "StandardOutputContent": "active\nactive\n{\"scheduled_failures\":0,\"adhoc_failures\":0,\"adhoc_overdue_10m\":0}\n",
+    "ExecutionStartDateTime": "2026-11-14T15:54:51.823Z",
+    "ExecutionEndDateTime": "2026-11-14T15:54:51.823Z"
+  }
+]

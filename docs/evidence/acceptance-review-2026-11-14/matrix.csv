@@ -1,0 +1,21 @@
+case,status,assessment,evidence,scope
+AT-01,PASS,YAML/schema input guards; offline validation and 96 unit tests,unit.json; ci.json,CI/offline
+AT-02,PASS,Saved-plan/account/config/source/single-use guards,unit.json; ci.json,CI/offline
+AT-03,PARTIAL,Existing small installation and CI evidence; clean EC2 bootstrap/idempotence not repeated in this review,../final-audit-2026-11-14/installation-report.json,prior/CI
+AT-04,PASS,"Small dev/staging and medium login, role, enrolment and access checks",small-dev.json; small-staging-after-reboot.json; medium-http.json,live
+AT-05,PARTIAL,File hashes/denied access pass; GUI upload/limits across all current and restored environments not fully repeated,medium-http.json; http-surface.json,live/prior
+AT-06,PASS,Submission/grade/privacy checks pass; source and restored fixture evidence linked,small-dev.json; medium-http.json; ../medium-sydney-2026-11-14/restored-http.json,live/same-day
+AT-07,PASS,"Cron timers, recent tasks, no scheduled/ad-hoc failure or overdue backlog in the current snapshot",cron-review.json; medium-runtime.json,live
+AT-08,PASS,"Staging reboot observed by changed boot ID; post-reboot roles, file hash, submissions and grades pass",staging-reboot.json; small-staging-after-reboot.json,live
+AT-09,PASS,"Sensitive HTTP paths, small origin rejection, runtime DB limits and anonymous state/backup denial",http-surface.json; storage-security.json; small-origin-protection.json; medium-runtime.json,live within tested scope
+AT-10,PARTIAL,Consistent backup evidence exists; full backup-versus-running-cron and S3-failure scenario not repeated in this review,../medium-sydney-2026-11-14/operations.json,same-day/prior
+AT-11,PRIOR_EVIDENCE,Small restore and corrupt-set rejection have prior/CI evidence; latest AWS small backup set not restored again,../final-audit-2026-11-14/README.md; ci.json,prior/CI
+AT-12,NOT_MET,"Medium source/state/DB/release work; full criterion includes ALB HTTPS, which is absent",operational-gaps.json; ../medium-sydney-2026-11-14/README.md,live F-01
+AT-13,PASS,"Session/file/MUC across source and restored nodes, plus fresh replacement node evidence",../medium-sydney-2026-11-14/source-cluster-b.json; ../medium-sydney-2026-11-14/restored-cluster-b.json,same-day deployment
+AT-14,PASS,Purge preserved logged-in session and other-site namespace,../medium-sydney-2026-11-14/operations.json; ../medium-sydney-2026-11-14/source-session-after-purge.json,same-day deployment
+AT-15,PARTIAL,ASG replacement passed; load-triggered scaling policy is absent,operational-gaps.json; ../medium-sydney-2026-11-14/asg-replacement.json,live/same-day F-02
+AT-16,PARTIAL,Moodle distributed lock and Terraform state contention proven; complete concurrent-release/interrupted-migration coverage not repeated,../medium-sydney-2026-11-14/distributed-lock.json; ../medium-sydney-2026-11-14/state-lock.json,same-day/CI
+AT-17,PARTIAL,Fresh RDS/EFS restore and IDs/hash/47 HTTP/two-node tests proven; full new business-write flow after restore not independently captured in this review,../medium-sydney-2026-11-14/restored-review-resume.json; ../medium-sydney-2026-11-14/restored-http.json,same-day deployment
+AT-18,NOT_MET,Alarms have no actions/receiver; dashboard absent; no notification/recovery acceptance,operational-gaps.json,live F-03
+AT-19,PARTIAL,Historical small matrix exists; comparable medium matrix and complete manual/automatic timing absent,historical-small-load.json; findings.json,historical F-05
+AT-20,PARTIAL,"Docs/restore cleanup and current billing/inventory supplied; all-account ledger, reviewer signature and end dates pending",running-compute.json; billing.json; other-account-access.json,live/prior F-06

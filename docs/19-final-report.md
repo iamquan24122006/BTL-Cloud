@@ -4,6 +4,8 @@
 
 ## Tóm tắt
 
+**Kết quả nghiệm thu kỹ thuật mới:** [biên bản 14/11](22-technical-acceptance.md) xác nhận các kiểm tra chức năng mới và reboot staging, đồng thời kết luận chưa đạt đầy đủ P0+P1. Các thiếu hụt triển khai thực gồm ALB HTTPS, scaling policy và dashboard/kênh nhận alarm; coverage GUI/so sánh tải và các mục bàn giao còn thiếu được giữ nguyên, không đánh dấu đạt.
+
 **Bổ sung medium Sydney 14/11/2026:** đã dựng lab public tại https://dc988tccg64gh.cloudfront.net, hai app private và runner, RDS/EFS/Redis; 47/47 kiểm tra HTTPS trên nguồn và sau restore sang RDS/EFS mới. Các ca session/file/cache xuyên node, lock, cron, maintenance và ASG replacement đã có bằng chứng. CI `93bdc8b` thành công với 96 unit tests và các integration/Terraform checks. [Kết quả và giới hạn hiện hành](21-medium-sydney.md), [evidence](evidence/medium-sydney-2026-11-14/README.md). Những phần baseline/lịch sử phía dưới giữ nguyên thời điểm đo; lab mới chưa có domain/ACM tại ALB, walkthrough GUI mới hoặc benchmark so sánh tải.
 
 Đồ án xây dựng một công cụ triển khai Moodle LMS trên Amazon Web Services bằng Terraform, Python CLI và cấu hình YAML. Hệ thống hỗ trợ hai preset: small dùng một EC2 cho web, database và dữ liệu; medium tách các app node, database, lưu trữ và cache. Đóng góp của nhóm nằm ở quy trình dựng hạ tầng, kiểm tra cấu hình, quản lý thay đổi, vận hành và phục hồi dữ liệu; chức năng học tập sử dụng Moodle chuẩn.

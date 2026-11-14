@@ -1,0 +1,12 @@
+[
+  {
+    "profile": "default",
+    "identity_status": "unavailable",
+    "reason": "expired session"
+  },
+  {
+    "profile": "mquann",
+    "identity_status": "unavailable",
+    "reason": "invalid token"
+  }
+]
