@@ -1,0 +1,15 @@
+{
+  "command_id": "1fa54be4-8f26-4d8d-b486-16993409620b",
+  "results": [
+    {
+      "instance": "i-0956d3d2026faa7f7",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:50:12.785Z",
+      "ended": "2026-11-14T11:50:16.785Z",
+      "stdout": "{\"driver\":\"pgsql\",\"sslmode\":\"verify-full\",\"tls\":{\"ssl\":\"t\",\"version\":\"TLSv1.3\",\"cipher\":\"TLS_AES_256_GCM_SHA384\"}}\nSHARED_FILE_AND_CACHE_WRITTEN\n{\"session_file_checks\": 10, \"passed\": true, \"mode\": \"login\"}\n",
+      "stderr": ""
+    }
+  ]
+}

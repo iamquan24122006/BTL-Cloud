@@ -1,0 +1,19 @@
+{
+  "started_utc": "2026-11-14T15:08:56.215228+00:00",
+  "old_instance": "i-0956d3d2026faa7f7",
+  "healthy_before": [
+    "i-0956d3d2026faa7f7",
+    "i-01ad32fc93cddc01a"
+  ],
+  "desired_capacity": 2,
+  "scope": "Stateless source app replacement; persistent RDS/EFS/Redis are retained",
+  "activity_id": "e7f6876a-6b06-759d-d6bb-e33d03e13903",
+  "status": "passed",
+  "healthy_after": [
+    "i-09b67f1fba0d90bec",
+    "i-01ad32fc93cddc01a"
+  ],
+  "new_instance": "i-09b67f1fba0d90bec",
+  "healthy_utc": "2026-11-14T15:11:15.881817+00:00",
+  "seconds_to_two_healthy": 139.666589
+}

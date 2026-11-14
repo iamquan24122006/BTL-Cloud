@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "time": "2026-11-14T11:56:11.947936+00:00",
+  "source": "moodle-medium-dev-med",
+  "active": {
+    "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "artifact": {
+      "bucket": "moodle-medium-dev-828676179987-ap-southeast-2-artifacts",
+      "image": "828676179987.dkr.ecr.ap-southeast-2.amazonaws.com/moodle-medium-dev/moodle@sha256:5eebbc7bf860cdc67d34661bc6cd38295c1fcbf43099fdf52c8b07e1fdc3dfb6",
+      "key": "releases/2130963f7fc3fd76007498ab766a0942b9db3f59/medium.tar.gz",
+      "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+      "sha256": "a5ec8210a307fc409fdb8caab503da59e04f8674754eae81c9072a9d30625604"
+    },
+    "time": "2026-11-14T11:42:22.842733+00:00"
+  },
+  "wwwroot": "https://dc988tccg64gh.cloudfront.net",
+  "db_major": 16,
+  "moodle_version": "4.5.15",
+  "files": {
+    "database.dump": "4846a861e6a0c6c7c64a3d8c8a3217fbfa704c5502bdef4535c04bef484de57f",
+    "moodledata.tar.gz": "a1a7f62b4e29035f6373abc9036a5e88bd60f17543bac5a02cd959e72cdfc842"
+  }
+}

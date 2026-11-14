@@ -1,0 +1,15 @@
+{
+  "command_id": "b279869c-6dea-4f4c-a3cb-a0d3671531ad",
+  "results": [
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:58:15.322Z",
+      "ended": "2026-11-14T11:59:34.322Z",
+      "stdout": "{\"time\": \"2026-11-14T11:59:25.932456+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:59:35.014823+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\nSOURCE_QUIESCED_FOR_RESTORE_DRILL\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "url": "https://dc988tccg64gh.cloudfront.net",
+  "checked_utc": "2026-11-14T15:10:40.859906+00:00",
+  "scope": "CloudFront viewer HTTPS only; MED-02 ALB HTTPS remains pending",
+  "checks": {
+    "trusted_certificate_hostname": true,
+    "login_200": true,
+    "secure_session_cookie": true,
+    "httponly_session_cookie": true,
+    "hsts": true,
+    "no_localhost": true,
+    "no_http_assets_forms": true,
+    "cloudfront_no_cache_hit": true,
+    "http_redirect_preserves_path_query": true,
+    "readiness_200": true
+  },
+  "tls": "TLSv1.3",
+  "status": "passed"
+}

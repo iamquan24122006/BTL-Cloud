@@ -1,0 +1,15 @@
+{
+  "command_id": "32a55dde-ea66-4667-8566-7384bef76e62",
+  "results": [
+    {
+      "instance": "i-0cda5990e064c97dc",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T14:40:42.403Z",
+      "ended": "2026-11-14T14:41:53.403Z",
+      "stdout": "status: done\n{\"time\": \"2026-11-14T14:40:45.075782+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T14:40:54.317233+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T14:40:54.343084+00:00\", \"step\": \"restore-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T14:41:53.611822+00:00\", \"step\": \"restore-loaded-maintenance-retained-run-resume-after-review\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\nRESTORE_REVIEW\n{\n  \"started_utc\": \"2026-11-14T14:40:44.964812+00:00\",\n  \"scope\": \"Restore into preprovisioned fresh RDS/EFS; provisioning and credential interruption excluded from load duration\",\n  \"url_width_preflight\": {\n    \"columns_checked\": 820,\n    \"overflow_rows\": 0,\n    \"source_length\": 36,\n    \"target_length\": 37\n  },\n  \"loaded_utc\": \"2026-11-14T14:41:53.631314+00:00\",\n  \"status\": \"loaded-maintenance-retained\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

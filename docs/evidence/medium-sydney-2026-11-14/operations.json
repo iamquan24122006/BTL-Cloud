@@ -1,0 +1,16 @@
+{
+  "cron_task_recent_and_no_failures": true,
+  "purge_preserves_other_namespace": true,
+  "maintenance_gate": [
+    {
+      "instance": "i-0956d3d2026faa7f7",
+      "status": "503 login and readiness"
+    },
+    {
+      "instance": "i-01ad32fc93cddc01a",
+      "status": "503 login and readiness"
+    }
+  ],
+  "backup_uri": "s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261114T115610",
+  "status": "passed"
+}

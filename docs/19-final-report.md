@@ -4,6 +4,8 @@
 
 ## Tóm tắt
 
+**Bổ sung medium Sydney 14/11/2026:** đã dựng lab public tại https://dc988tccg64gh.cloudfront.net, hai app private và runner, RDS/EFS/Redis; 47/47 kiểm tra HTTPS trên nguồn và sau restore sang RDS/EFS mới. Các ca session/file/cache xuyên node, lock, cron, maintenance và ASG replacement đã có bằng chứng. CI `93bdc8b` thành công với 96 unit tests và các integration/Terraform checks. [Kết quả và giới hạn hiện hành](21-medium-sydney.md), [evidence](evidence/medium-sydney-2026-11-14/README.md). Những phần baseline/lịch sử phía dưới giữ nguyên thời điểm đo; lab mới chưa có domain/ACM tại ALB, walkthrough GUI mới hoặc benchmark so sánh tải.
+
 Đồ án xây dựng một công cụ triển khai Moodle LMS trên Amazon Web Services bằng Terraform, Python CLI và cấu hình YAML. Hệ thống hỗ trợ hai preset: small dùng một EC2 cho web, database và dữ liệu; medium tách các app node, database, lưu trữ và cache. Đóng góp của nhóm nằm ở quy trình dựng hạ tầng, kiểm tra cấu hình, quản lý thay đổi, vận hành và phục hồi dữ liệu; chức năng học tập sử dụng Moodle chuẩn.
 
 Source tích hợp `2130963` đã qua CI đầy đủ. Ngày 14/11, Moodle small Sydney trên dev và staging vượt qua kiểm tra chức năng, cron và toàn vẹn backup. Hồ sơ medium trước đó chứng minh HTTPS tại ALB, hoạt động nhiều node và restore vào cluster riêng. Ma trận tải Sydney có đủ ba lượt cho mỗi mức 10, 25 và 50 người dùng; kết quả và giới hạn được trình bày riêng với ma trận N3 ở account khác. Báo cáo không tuyên bố production HA, SLA hoặc hoàn tất các tiêu chí chưa có bằng chứng.
@@ -83,7 +85,7 @@ Kiểm thử được chia thành bốn tầng: unit tests cho CLI/guard; CI v�
 
 [CI được xác minh](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43480887498), [small dev](evidence/final-audit-2026-11-14/dev-acceptance.json), [small staging](evidence/final-audit-2026-11-14/staging-acceptance.json), [medium HTTPS/GUI](evidence/medium-med02-2026-11-10/README.md).
 
-Trong lượt tiếp tục ngày 14/11, image medium từ checkout sạch `2130963` còn được build và kiểm tra trực tiếp trên Docker Linux cục bộ. Bộ integration hai app đạt các ca PostgreSQL/Redis TLS, session/file/cache xuyên node, lock, purge isolation và readiness/maintenance gate. [Bằng chứng release mới](evidence/medium-release-2026-11-14/README.md). Kết quả này chưa phải một lần deploy AWS medium mới; GUI small vẫn chờ khôi phục kết nối browser host để kiểm tra.
+Trong giai đoạn chuẩn bị ngày 14/11, image medium từ checkout sạch `2130963` được build và kiểm tra trực tiếp trên Docker Linux cục bộ. Bộ integration hai app đạt PostgreSQL/Redis TLS, session/file/cache xuyên node, lock, purge isolation và readiness/maintenance gate. Sau đó release này đã publish và deploy Sydney, kiểm chứng nguồn/restore và ASG theo [bằng chứng live mới](evidence/medium-sydney-2026-11-14/README.md). GUI mới còn chờ xác minh riêng.
 
 Ca phục hồi đã có bằng chứng gồm reboot staging, bootstrap lại không reset fixture, backup bị S3 từ chối và restore từ bộ sai checksum bị chặn. Medium có kiểm tra session/file xuyên node, thay app qua ASG, MUC dùng chung, khóa liên node và S3 state lock. Một số ca gián đoạn migration, alarm đến người nhận và kiểm tra lại medium trên source tích hợp vẫn chưa đầy đủ. [Ma trận nghiệm thu](18-project-closeout.md) ghi riêng từng phần.
 
@@ -139,7 +141,7 @@ Snapshot đầu lượt kiểm kê có bốn EC2 running: dev, staging, generato
 
 Sản phẩm đã tạo được một quy trình vận hành có cấu hình, IaC, saved plan và kiểm tra sau triển khai. Backup/restore được kiểm bằng dữ liệu nghiệp vụ và tính toàn vẹn, thay vì chỉ chứng minh có file backup. Medium thể hiện cách tách trạng thái cho nhiều app node; các lỗi triển khai và giới hạn hiệu năng được lưu thành evidence để tái kiểm.
 
-Các giới hạn chính là cấu hình medium còn nhiều prerequisite, local state small cần một người vận hành, small có điểm lỗi đơn, medium chưa HA toàn hệ thống, chưa benchmark small/medium cùng điều kiện và chưa có thử nghiệm cài tay độc lập đủ để đo mức tiết kiệm. Source tích hợp đã qua CI nhưng runtime AWS đang chạy không được redeploy trong lượt chốt. GUI small và reviewer độc lập vẫn cần bổ sung.
+Các giới hạn chính là cấu hình medium còn nhiều prerequisite, local state small cần một người vận hành, small có điểm lỗi đơn, medium chưa HA toàn hệ thống, chưa benchmark small/medium cùng điều kiện và chưa có thử nghiệm cài tay độc lập đủ để đo mức tiết kiệm. Lượt tiếp tục đã dựng medium Sydney bằng release ghim từ `2130963`, với công cụ/IaC qua CI `93bdc8b`. DNS/ACM cho ALB Sydney, GUI mới và reviewer độc lập vẫn cần bổ sung.
 
 Hướng tiếp tục là trình tạo YAML có hướng dẫn, tự động chuẩn bị prerequisite có plan rõ ràng, kiểm thử medium cùng workload/dataset, quy trình cập nhật phiên bản có restore drill, theo dõi cost allocation và thông báo vận hành đến người nhận. Đây là hướng phát triển, không phải tính năng đã hoàn thành.
 

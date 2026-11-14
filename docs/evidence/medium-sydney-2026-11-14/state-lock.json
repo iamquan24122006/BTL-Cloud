@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "scope": "Source S3 backend; second read-only Terraform plan while apply held the lock",
+  "http_status": 412,
+  "error": "PreconditionFailed",
+  "lockfile_enabled": true,
+  "source": "Private lock-contention.log; raw state and plan excluded"
+}

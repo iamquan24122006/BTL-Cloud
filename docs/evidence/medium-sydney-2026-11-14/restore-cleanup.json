@@ -1,0 +1,19 @@
+{
+  "checked_utc": "2026-11-14T15:15:08.233068+00:00",
+  "status": "complete",
+  "temporary_project": "moodle-restore",
+  "environment": "staging",
+  "terraform_resources_destroyed": 71,
+  "remaining_state_resources": 0,
+  "temporary_final_snapshots_deleted": [
+    "moodle-restore-staging-med-final"
+  ],
+  "builder_resources_destroyed": 10,
+  "retained": [
+    "source moodle-medium-dev",
+    "small labs",
+    "source AMI/image/bundle",
+    "S3 backend version history and backup set"
+  ],
+  "scope": "Temporary builder and restore target only; source data protections remain in the main root"
+}

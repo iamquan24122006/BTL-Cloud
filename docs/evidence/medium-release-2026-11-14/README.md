@@ -1,5 +1,7 @@
 # Chuẩn bị release medium và kiểm tra GUI — 14/11/2026
 
+**Đã tiếp tục sau snapshot chuẩn bị này:** release đã publish ECR/S3 và medium Sydney đã được dựng, kiểm tra live và restore. Trạng thái mới tại [medium Sydney](../medium-sydney-2026-11-14/README.md); các mục “chưa apply/publish” bên dưới mô tả đúng giai đoạn chuẩn bị trước đó.
+
 ## Kết quả mới
 
 - Đã tạo checkout sạch riêng tại commit `2130963f7fc3fd76007498ab766a0942b9db3f59`; không sửa lab small hoặc trộn tài liệu đang chỉnh vào release.

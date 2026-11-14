@@ -1,0 +1,15 @@
+{
+  "command_id": "b28586f9-ce50-40da-ba78-04a97edb2e31",
+  "results": [
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:40:10.188Z",
+      "ended": "2026-11-14T11:42:26.188Z",
+      "stdout": "status: done\n{\"time\": \"2026-11-14T11:40:10.760259+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:40:19.919841+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:40:19.951324+00:00\", \"step\": \"install-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:42:26.807564+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n",
+      "stderr": ""
+    }
+  ]
+}

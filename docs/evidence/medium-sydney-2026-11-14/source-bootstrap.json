@@ -1,0 +1,35 @@
+{
+  "command_id": "fa24e43a-19c5-406c-9498-646952427157",
+  "results": [
+    {
+      "instance": "i-0956d3d2026faa7f7",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:37:28.019Z",
+      "ended": "2026-11-14T11:37:28.019Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"app\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://dc988tccg64gh.cloudfront.net\"}\ndisabled\ndisabled\nactive\n",
+      "stderr": ""
+    },
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:37:28.016Z",
+      "ended": "2026-11-14T11:37:28.016Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"runner\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://dc988tccg64gh.cloudfront.net\"}\nenabled\nenabled\ninactive\n",
+      "stderr": ""
+    },
+    {
+      "instance": "i-01ad32fc93cddc01a",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:37:28.016Z",
+      "ended": "2026-11-14T11:37:28.016Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"app\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://dc988tccg64gh.cloudfront.net\"}\ndisabled\ndisabled\nactive\n",
+      "stderr": ""
+    }
+  ]
+}

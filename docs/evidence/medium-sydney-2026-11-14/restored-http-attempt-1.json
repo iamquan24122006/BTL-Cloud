@@ -1,0 +1,34 @@
+{
+  "url": "https://d159yre89htaj0.cloudfront.net",
+  "started_unix": 1794667788.7342744,
+  "scope": "Real HTTPS, seeded roles/files/assignment; separate ASG/restore evidence required",
+  "checks": [
+    {
+      "name": "login-admin",
+      "passed": true
+    },
+    {
+      "name": "admin-site-settings",
+      "passed": true
+    },
+    {
+      "name": "login-teacher",
+      "passed": true
+    },
+    {
+      "name": "login-student_a",
+      "passed": true
+    },
+    {
+      "name": "login-student_b",
+      "passed": true
+    },
+    {
+      "name": "login-student_c",
+      "passed": true
+    }
+  ],
+  "status": "failed",
+  "error": "TimeoutError: The read operation timed out",
+  "finished_unix": 1794667872.964063
+}

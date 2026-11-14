@@ -1,0 +1,64 @@
+{
+  "seeded_at": "2026-11-14T11:46:31+00:00",
+  "courses": {
+    "CLOUD-C01": 2,
+    "CLOUD-C02": 3
+  },
+  "users": {
+    "teacher": {
+      "id": 3,
+      "username": "cloud_teacher"
+    },
+    "student_a": {
+      "id": 4,
+      "username": "cloud_student_a"
+    },
+    "student_b": {
+      "id": 5,
+      "username": "cloud_student_b"
+    },
+    "student_c": {
+      "id": 6,
+      "username": "cloud_student_c"
+    }
+  },
+  "resources": [
+    {
+      "name": "Học liệu tiếng Việt.txt",
+      "cmid": 3,
+      "contextid": 17,
+      "sha256": "318419d9fa516b0332dc9f32e8086d4c2ac0c99fbd8abf6ebff8107d12d45dbf",
+      "size": 55,
+      "path": "/pluginfile.php/17/mod_resource/content/1/H%E1%BB%8Dc%20li%E1%BB%87u%20ti%E1%BA%BFng%20Vi%E1%BB%87t.txt"
+    },
+    {
+      "name": "Dữ liệu nhị phân.bin",
+      "cmid": 4,
+      "contextid": 18,
+      "sha256": "07c304fe94aaef261c096f06ed8e6a1158927b91bae6ffb3da27841a52c7f7b0",
+      "size": 18,
+      "path": "/pluginfile.php/18/mod_resource/content/1/D%E1%BB%AF%20li%E1%BB%87u%20nh%E1%BB%8B%20ph%C3%A2n.bin"
+    }
+  ],
+  "assignment": {
+    "id": 1,
+    "cmid": "5",
+    "contextid": 19
+  },
+  "submissions": {
+    "student_a": {
+      "id": "1",
+      "userid": "4",
+      "sha256": "97adae3d3bc652f8c76059ea5f61234e53fe764da44612bbe4e84af8ca4c5fff",
+      "path": "/pluginfile.php/19/assignsubmission_file/submission_files/1/B%C3%A0i%20n%E1%BB%99p%20A.txt",
+      "grade": 93
+    },
+    "student_b": {
+      "id": "2",
+      "userid": "5",
+      "sha256": "06310e280293a240daaa70601ce23a3d46717d326319140973ad24548ebd37b9",
+      "path": "/pluginfile.php/19/assignsubmission_file/submission_files/2/B%C3%A0i%20n%E1%BB%99p%20B.txt",
+      "grade": 85
+    }
+  }
+}

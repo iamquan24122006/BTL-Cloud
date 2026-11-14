@@ -1,0 +1,15 @@
+{
+  "command_id": "1d005635-afd9-42b8-af4b-f3402488f681",
+  "results": [
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T15:18:37.347Z",
+      "ended": "2026-11-14T15:18:37.347Z",
+      "stdout": "TEMPORARY_FIXTURE_CREDENTIAL_AND_COOKIE_FILES_REMOVED\n",
+      "stderr": ""
+    }
+  ]
+}

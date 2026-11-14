@@ -1,0 +1,15 @@
+{
+  "command_id": "b6cdda76-3e58-45e8-9606-5e8e7de5c878",
+  "results": [
+    {
+      "instance": "i-09b67f1fba0d90bec",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T15:12:26.904Z",
+      "ended": "2026-11-14T15:12:31.904Z",
+      "stdout": "{\"session_file_checks\": 10, \"passed\": true, \"mode\": \"verify\"}\n",
+      "stderr": ""
+    }
+  ]
+}

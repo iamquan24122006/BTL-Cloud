@@ -1,0 +1,35 @@
+{
+  "command_id": "6bb12f69-3ae5-4dd3-910d-5f2a51c428bc",
+  "results": [
+    {
+      "instance": "i-0ca8b732dfed907fa",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T14:39:40.147Z",
+      "ended": "2026-11-14T14:39:40.147Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"app\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://d159yre89htaj0.cloudfront.net\"}\ndisabled\ndisabled\nactive\n",
+      "stderr": ""
+    },
+    {
+      "instance": "i-0cda5990e064c97dc",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T14:39:40.543Z",
+      "ended": "2026-11-14T14:39:40.543Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"runner\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://d159yre89htaj0.cloudfront.net\"}\nenabled\nenabled\ninactive\n",
+      "stderr": ""
+    },
+    {
+      "instance": "i-0baa92b2417d0150d",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T14:39:40.090Z",
+      "ended": "2026-11-14T14:39:40.090Z",
+      "stdout": "status: done\n/var/lib/moodledata is a mountpoint\nactive\nactive\n{\"role\": \"app\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"wwwroot\": \"https://d159yre89htaj0.cloudfront.net\"}\ndisabled\ndisabled\nactive\n",
+      "stderr": ""
+    }
+  ]
+}

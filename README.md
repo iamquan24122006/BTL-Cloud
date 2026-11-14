@@ -13,6 +13,8 @@ Công cụ triển khai và vận hành **Moodle Learning Management System trê
 
 **Moodle small public:** [https://d1cnnw3mivc0q5.cloudfront.net](https://d1cnnw3mivc0q5.cloudfront.net)
 
+**Moodle medium public:** [https://dc988tccg64gh.cloudfront.net](https://dc988tccg64gh.cloudfront.net) — [vận hành và nghiệm thu medium Sydney](docs/21-medium-sydney.md).
+
 Mở trực tiếp bằng trình duyệt, không cần localhost hoặc SSM tunnel. Sử dụng tài khoản được nhóm bàn giao qua kênh riêng; mật khẩu không được công bố trong README.
 
 Demo minh họa luồng **đăng nhập → khóa học → học liệu → bài nộp → điểm và phản hồi**. Xem [kịch bản demo](docs/15-small-demo.md) và [hướng dẫn small public](docs/20-small-public.md).
@@ -32,7 +34,7 @@ Small dev Sydney đang dùng CloudFront HTTPS; staging giữ truy cập qua SSM.
 | Truy cập | SSM mặc định; addon CloudFront cho URL public | ALB HTTPS/ACM; CloudFront là tùy chọn lab |
 | Terraform state | Local, tách project/environment | S3 backend, versioning và lockfile |
 
-Sơ đồ medium thể hiện mô hình đã có mã và bằng chứng triển khai trước đây; không có nghĩa lab medium đang hoạt động. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md).
+Sơ đồ medium minh họa chế độ ALB HTTPS/ACM. Lab Sydney hiện dùng CloudFront HTTPS phía trước ALB HTTP, hai app private và runner riêng; HTTPS trực tiếp tại ALB còn chờ DNS/ACM. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md) và [cấu hình live](docs/21-medium-sydney.md).
 
 ## Tính năng
 
@@ -216,6 +218,7 @@ Lưu thành file riêng, ví dụ `config/team-lms.yaml`, rồi truyền đườ
 | `account_id`, `backend` | Account/backend medium |
 | `frontend`, `domain`, `certificate_arn` | Endpoint HTTPS medium |
 | `artifact`, `ami_id`, `secrets` | Release, AMI và secret reference medium |
+| `db_backup_retention_days` | RDS automated backup 1–35 ngày, mặc định 7; lab Free Plan hiện dùng 1 |
 
 Small public được bật bằng addon riêng, giữ YAML bootstrap gốc để tránh thay user-data/EC2 chỉ vì đổi URL. Runtime marker giúp CLI báo URL public và giữ SG origin khi render. Xem [runbook small public](docs/20-small-public.md).
 
@@ -281,7 +284,8 @@ Hai lệnh sau cần Docker Linux engine. Runtime check kiểm tra PHP/Apache; M
 | Thay đổi small public hiện tại | 95 unit tests, 2 small Terraform mock tests đạt |
 | Small public live | HTTPS, login các role, học liệu/hash, bài nộp/điểm, privacy, logout và origin protection đạt |
 | Medium release local | Build từ checkout sạch và integration hai app đạt |
-| CI baseline `2130963` | [Success](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43480887498); chưa bao gồm các thay đổi public local tiếp theo |
+| Medium Sydney live | 47/47 ca HTTPS trên nguồn và 47/47 sau restore vào RDS/EFS mới; session/file/cache xuyên node, khóa chung, cron, backup và ASG replacement đạt |
+| CI `93bdc8b` | [Success](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43605256815); 96 unit tests, runtime small/medium, backup/restore local và Terraform checks |
 
 Kết quả đo tải và giới hạn workload: [ma trận Sydney](docs/evidence/final-audit-2026-11-14/README.md), [hồ sơ N3](docs/evidence/aws-n3-2026-11-11/README.md). Không gộp số liệu khác account/commit hoặc suy sức tải tối đa từ một lượt đo.
 
@@ -335,6 +339,8 @@ Small public kết thúc TLS tại CloudFront, chặng tới nginx origin dùng 
 
 ### Medium
 
+Lab Sydney hiện có URL Amazon HTTPS, hai app và runner `t3.small`, RDS PostgreSQL 16.13, EFS và hai Redis riêng. YAML thật trên máy triển khai là `.work/medium-sydney-live/medium.yaml`; không chứa mật khẩu. [Runbook live, giới hạn Free Plan và chi phí](docs/21-medium-sydney.md).
+
 Thực hiện theo [runbook medium](docs/10-medium-n2.md): chuẩn bị backend/bucket/ECR/secret, build AMI và artifact ghim digest, điền YAML thật, chạy preflight/plan/apply, release trên runner rồi nghiệm thu site. Chỉ Terraform apply xong chưa có nghĩa Moodle đã ready.
 
 Medium từng dùng **`www.moodle-cloud-distribution.mywire.org`**, DNS tại Dynu, HTTPS trực tiếp ALB. Lab N2 đã cleanup; DNS còn trỏ tới ALB cũ không tồn tại tại lần đối chiếu. Có thể dùng lại hostname khi có quyền DNS và cập nhật certificate/origin mới; không dùng nguyên ARN/AMI/URL lịch sử để tái triển khai. [Hồ sơ domain](docs/13-medium-med02.md), [cleanup](docs/15-aws-cleanup.md).
@@ -358,7 +364,7 @@ Không chỉ dựa vào timer active hoặc HTTP 200. Backup mới không tự �
 
 ## Trạng thái và tài liệu bàn giao
 
-**Cập nhật 14/11/2026:** small public đang hoạt động; medium có mã, release đã test local và bằng chứng AWS lịch sử nhưng chưa dựng lại môi trường public mới. GUI small, kiểm tra chéo độc lập, các ca medium còn thiếu và chi phí N2/N3 chưa được ký đóng toàn bộ.
+**Cập nhật 14/11/2026:** small và medium Sydney đã có URL public. Medium đã được dựng lại, seed fixture, kiểm tra 47 ca HTTPS trên nguồn/restore và thử thay app bằng ASG; môi trường restore tạm được dọn sau thử nghiệm. MED-02 với domain/ACM tại ALB, walkthrough GUI mới, benchmark so sánh và reviewer/chi phí các account khác vẫn là các mục cần chốt riêng.
 
 Nhóm có **4 thành viên**, ngân sách toàn đồ án **150 USD**. Billing Sydney đã lấy trong kỳ kiểm tra không đại diện tổng chi phí cả nhóm/account khác. Xem trạng thái và giới hạn đầy đủ tại:
 
@@ -366,6 +372,7 @@ Nhóm có **4 thành viên**, ngân sách toàn đồ án **150 USD**. Billing S
 - [Báo cáo tổng hợp](docs/19-final-report.md).
 - [Evidence small public](docs/evidence/small-public-2026-11-14/README.md).
 - [Evidence medium release](docs/evidence/medium-release-2026-11-14/README.md).
+- [Vận hành medium Sydney](docs/21-medium-sydney.md) và [bằng chứng live/restore](docs/evidence/medium-sydney-2026-11-14/README.md).
 - [Kế hoạch và phân công](docs/00-project-plan.md).
 - [Cài Moodle thủ công](docs/03-manual-lab.md).
 

@@ -1,0 +1,15 @@
+{
+  "command_id": "3476b740-71de-4064-884b-241949ce9100",
+  "results": [
+    {
+      "instance": "i-0cda5990e064c97dc",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T14:45:26.656Z",
+      "ended": "2026-11-14T14:45:32.656Z",
+      "stdout": "{\"status\":\"passed\",\"source_ids_preserved\":true,\"courses\":2,\"users\":4,\"resources\":2,\"submissions_and_grades\":2}\n{\"time\": \"2026-11-14T14:45:32.915864+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n",
+      "stderr": ""
+    }
+  ]
+}

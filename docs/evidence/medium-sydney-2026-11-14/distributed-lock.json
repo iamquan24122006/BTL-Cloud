@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "expected_busy_exit_code": 3,
+  "command_id": "8d64e893-7ba8-48b5-b71e-261ac8a58232",
+  "results": [
+    {
+      "instance": "i-0956d3d2026faa7f7",
+      "role": "app",
+      "status": "Failed",
+      "code": 3,
+      "started": "2026-11-14T11:53:46.347Z",
+      "ended": "2026-11-14T11:53:46.347Z",
+      "stdout": "BUSY\n",
+      "stderr": "failed to run commands: exit status 3"
+    },
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Failed",
+      "code": 3,
+      "started": "2026-11-14T11:53:46.369Z",
+      "ended": "2026-11-14T11:53:46.369Z",
+      "stdout": "BUSY\n",
+      "stderr": "failed to run commands: exit status 3"
+    },
+    {
+      "instance": "i-01ad32fc93cddc01a",
+      "role": "app",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:53:46.324Z",
+      "ended": "2026-11-14T11:54:06.324Z",
+      "stdout": "ACQUIRED\n",
+      "stderr": ""
+    }
+  ]
+}

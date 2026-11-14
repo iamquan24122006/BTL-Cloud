@@ -1,0 +1,15 @@
+{
+  "command_id": "4aeb3c2c-b1dc-4e2b-a1c3-c29bf81cf190",
+  "results": [
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T11:53:50.700Z",
+      "ended": "2026-11-14T11:56:19.700Z",
+      "stdout": "{\"time\": \"2026-11-14T11:55:45.245405+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:55:54.320372+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:56:10.878277+00:00\", \"step\": \"backup-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:56:15.959905+00:00\", \"step\": \"backup-uploaded:s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261114T115610\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-14T11:56:19.933472+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\nOPERATIONS_ACCEPTANCE\n{\n  \"cron_task_recent_and_no_failures\": true,\n  \"purge_preserves_other_namespace\": true,\n  \"maintenance_gate\": [\n    {\n      \"instance\": \"i-0956d3d2026faa7f7\",\n      \"status\": \"503 login and readiness\"\n    },\n    {\n      \"instance\": \"i-01ad32fc93cddc01a\",\n      \"status\": \"503 login and readiness\"\n    }\n  ],\n  \"backup_uri\": \"s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261114T115610\",\n  \"status\": \"passed\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "Restore into preprovisioned fresh RDS/EFS; provisioning and credential interruption excluded from load duration",
+  "restore_started": "2026-11-14T14:40:44.964812+00:00",
+  "restore_loaded": "2026-11-14T14:41:53.631314+00:00",
+  "load_seconds": 68.666502,
+  "target_resumed": "2026-11-14T14:45:32.656Z",
+  "start_to_review_and_resume_seconds": 287.691188,
+  "backup_manifest_time": "2026-11-14T11:56:11.947936+00:00",
+  "backup_age_at_restore_seconds": 9873.016876,
+  "rpo_limit": "Fixture writes stopped after backup; IDs, files, submissions and grades preserved. Does not establish a production RPO or a zero-loss guarantee.",
+  "provisioning_limit": "Full provisioning began before an interrupted AWS credential session; load duration excludes infrastructure provisioning, credential handoff and HTTP acceptance."
+}

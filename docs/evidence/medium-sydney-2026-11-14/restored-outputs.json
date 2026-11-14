@@ -1,0 +1,14 @@
+{
+  "alb_dns_name": "moodle-restore-staging-med-1968906429.ap-southeast-2.elb.amazonaws.com",
+  "asg_name": "moodle-restore-staging-med-app",
+  "backup_bucket": "moodle-medium-dev-828676179987-ap-southeast-2-backups",
+  "db_endpoint": "moodle-restore-staging-med.clougquq8ypg.ap-southeast-2.rds.amazonaws.com",
+  "efs_id": "fs-0af9fdf65902839a7",
+  "frontend": "cloudfront",
+  "log_group": "/moodle/moodle-restore-staging-med",
+  "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+  "runner_id": "i-0cda5990e064c97dc",
+  "ssm_shell_command": "aws --region ap-southeast-2 ssm start-session --target i-0cda5990e064c97dc",
+  "target_group_arn": "arn:aws:elasticloadbalancing:ap-southeast-2:828676179987:targetgroup/mdl-956e7c8f23c616ca698c2ab754/5f13924fc34d61d9",
+  "url": "https://d159yre89htaj0.cloudfront.net"
+}

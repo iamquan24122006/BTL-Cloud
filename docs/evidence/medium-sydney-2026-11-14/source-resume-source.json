@@ -1,0 +1,15 @@
+{
+  "command_id": "b348908b-fa1b-43c5-be5c-e9104a41c542",
+  "results": [
+    {
+      "instance": "i-0a905507feca34c32",
+      "role": "runner",
+      "status": "Success",
+      "code": 0,
+      "started": "2026-11-14T15:04:31.059Z",
+      "ended": "2026-11-14T15:04:42.059Z",
+      "stdout": "status: done\n{\"time\": \"2026-11-14T15:04:40.455615+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"driver\":\"pgsql\",\"sslmode\":\"verify-full\",\"tls\":{\"ssl\":\"t\",\"version\":\"TLSv1.3\",\"cipher\":\"TLS_AES_256_GCM_SHA384\"}}\n",
+      "stderr": ""
+    }
+  ]
+}

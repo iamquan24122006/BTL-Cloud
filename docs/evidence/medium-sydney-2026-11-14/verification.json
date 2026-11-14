@@ -1,0 +1,11 @@
+{
+  "checked_utc": "2026-11-14T15:20:59.779502+00:00",
+  "source_http": 47,
+  "restored_http": 47,
+  "ci_head": "93bdc8b0fa4bfa6e61650d7f32934a729827befe",
+  "ci_status": "success",
+  "gui_status": "not_verified",
+  "gui_reason": "Windows Computer Use automatically stopped because browser URL could not be determined confidently for policy enforcement",
+  "med02": "pending owned DNS and ACM HTTPS listener at ALB",
+  "status": "passed within documented lab scope"
+}

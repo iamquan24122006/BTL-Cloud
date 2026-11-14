@@ -1,0 +1,113 @@
+{
+  "checked_utc": "2026-11-14T15:15:29.485173+00:00",
+  "account": "828676179987",
+  "region": "ap-southeast-2",
+  "url": "https://dc988tccg64gh.cloudfront.net",
+  "nodes": [
+    {
+      "id": "i-09b67f1fba0d90bec",
+      "name": "moodle-medium-dev-med-app",
+      "state": "running",
+      "instance_type": "t3.small",
+      "az": "ap-southeast-2b",
+      "private_ip": "10.46.11.222",
+      "public_ip": null,
+      "ami": "ami-019136ffe53249b1e",
+      "imds_tokens": "required",
+      "vpc": "vpc-01d37e0336425c14f"
+    },
+    {
+      "id": "i-0a905507feca34c32",
+      "name": "moodle-medium-dev-med-runner",
+      "state": "running",
+      "instance_type": "t3.small",
+      "az": "ap-southeast-2a",
+      "private_ip": "10.46.10.192",
+      "public_ip": null,
+      "ami": "ami-019136ffe53249b1e",
+      "imds_tokens": "required",
+      "vpc": "vpc-01d37e0336425c14f"
+    },
+    {
+      "id": "i-01ad32fc93cddc01a",
+      "name": "moodle-medium-dev-med-app",
+      "state": "running",
+      "instance_type": "t3.small",
+      "az": "ap-southeast-2a",
+      "private_ip": "10.46.10.152",
+      "public_ip": null,
+      "ami": "ami-019136ffe53249b1e",
+      "imds_tokens": "required",
+      "vpc": "vpc-01d37e0336425c14f"
+    }
+  ],
+  "asg": {
+    "name": "moodle-medium-dev-med-app",
+    "desired": 2,
+    "min": 2,
+    "max": 3,
+    "suspended_processes": []
+  },
+  "targets": [
+    {
+      "id": "i-09b67f1fba0d90bec",
+      "health": "healthy"
+    },
+    {
+      "id": "i-01ad32fc93cddc01a",
+      "health": "healthy"
+    }
+  ],
+  "rds": {
+    "DBInstanceIdentifier": "moodle-medium-dev-med",
+    "DBInstanceStatus": "available",
+    "EngineVersion": "16.13",
+    "DBInstanceClass": "db.t4g.micro",
+    "BackupRetentionPeriod": 1,
+    "DeletionProtection": true,
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true
+  },
+  "efs": {
+    "FileSystemId": "fs-0be9bf83e04fd81af",
+    "LifeCycleState": "available",
+    "Encrypted": true,
+    "ThroughputMode": "bursting"
+  },
+  "redis": [
+    {
+      "ReplicationGroupId": "moodle-medium-dev-med-cache",
+      "Status": "available",
+      "TransitEncryptionEnabled": true,
+      "AtRestEncryptionEnabled": true,
+      "AuthTokenEnabled": true,
+      "CacheNodeType": "cache.t4g.micro"
+    },
+    {
+      "ReplicationGroupId": "moodle-medium-dev-med-session",
+      "Status": "available",
+      "TransitEncryptionEnabled": true,
+      "AtRestEncryptionEnabled": true,
+      "AuthTokenEnabled": true,
+      "CacheNodeType": "cache.t4g.micro"
+    }
+  ],
+  "cloudfront": {
+    "Id": "E1J9JJQAYOTF6C",
+    "DomainName": "dc988tccg64gh.cloudfront.net",
+    "Status": "Deployed",
+    "Enabled": true
+  },
+  "cloudwatch_log_streams": [
+    "i-01ad32fc93cddc01a/bootstrap",
+    "i-01ad32fc93cddc01a/web",
+    "i-0956d3d2026faa7f7/bootstrap",
+    "i-0956d3d2026faa7f7/web",
+    "i-09b67f1fba0d90bec/bootstrap",
+    "i-09b67f1fba0d90bec/web",
+    "i-0a905507feca34c32/bootstrap",
+    "i-0a905507feca34c32/operations",
+    "i-0a905507feca34c32/web"
+  ],
+  "scope": "Source lab only. Source data protections and two healthy app targets verified after restore drill and ASG test."
+}

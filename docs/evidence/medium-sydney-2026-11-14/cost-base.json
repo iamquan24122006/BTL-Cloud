@@ -1,0 +1,85 @@
+{
+  "checked_utc": "2026-11-14T11:33:19.434898+00:00",
+  "scope": "Source medium only, Sydney public on-demand list prices, before credits/tax",
+  "rows": [
+    {
+      "name": "EC2: 2 app + 1 runner",
+      "quantity": 3,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0264000000",
+      "hourly_usd": "0.0792000000"
+    },
+    {
+      "name": "RDS db.t4g.micro",
+      "quantity": 1,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0250000000",
+      "hourly_usd": "0.0250000000"
+    },
+    {
+      "name": "Redis 7.1: session + MUC",
+      "quantity": 2,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0240000000",
+      "hourly_usd": "0.0480000000"
+    },
+    {
+      "name": "Application Load Balancer",
+      "quantity": 1,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0252000000",
+      "hourly_usd": "0.0252000000"
+    },
+    {
+      "name": "NAT Gateway",
+      "quantity": 1,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0590000000",
+      "hourly_usd": "0.0590000000"
+    },
+    {
+      "name": "Public IPv4: minimum 2 ALB + 1 NAT",
+      "quantity": 3,
+      "unit": "Hrs",
+      "usd_per_unit": "0.0050000000",
+      "hourly_usd": "0.0150000000"
+    },
+    {
+      "name": "EC2 gp3 3 x 30 GiB",
+      "quantity": 90,
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.0960000000",
+      "hourly_usd": "0.01183561643835616438356164384"
+    },
+    {
+      "name": "RDS gp3 20 GiB",
+      "quantity": 20,
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.1380000000",
+      "hourly_usd": "0.003780821917808219178082191781"
+    },
+    {
+      "name": "EFS Standard: illustration 1 GiB",
+      "quantity": 1,
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.3600000000",
+      "hourly_usd": "0.0004931506849315068493150684932"
+    }
+  ],
+  "base_hourly_usd": "0.2675095890410958904109589041",
+  "base_daily_usd": "6.420230136986301369863013698",
+  "base_730_hour_month_usd": "195.2820000000000000000000000",
+  "excludes": [
+    "Small, builder/support resources, restore drill",
+    "ALB LCU and cross-AZ traffic",
+    "NAT data processing",
+    "CloudFront/S3/ECR storage and requests, Secrets Manager, logs/metrics",
+    "Tax, exchange rates, discounts and credits"
+  ],
+  "assumptions": [
+    "3 in-use public IPv4 minimum; ALB can allocate more",
+    "1 GiB EFS illustration; actual storage varies",
+    "730-hour month allocation for provisioned EBS/RDS storage",
+    "Not a final invoice or guarantee of total project budget"
+  ]
+}
