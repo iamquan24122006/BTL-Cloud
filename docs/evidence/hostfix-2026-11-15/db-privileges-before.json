@@ -1,0 +1,65 @@
+{
+  "captured_utc": "2026-11-15T06:52:00Z",
+  "runner_id": "i-0bcafad1d2d89cad9",
+  "privileges": {
+    "release": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+    "bundle_sha256": "a5ec8210a307fc409fdb8caab503da59e04f8674754eae81c9072a9d30625604",
+    "sample_privileges": [
+      {
+        "table": "mdl_config",
+        "owner": "moodle_migration",
+        "runtime_truncate": false
+      },
+      {
+        "table": "mdl_logstore_standard_log",
+        "owner": "moodle_migration",
+        "runtime_truncate": false
+      },
+      {
+        "table": "mdl_tag_correlation",
+        "owner": "moodle_migration",
+        "runtime_truncate": false
+      },
+      {
+        "table": "mdl_user",
+        "owner": "moodle_migration",
+        "runtime_truncate": false
+      }
+    ],
+    "tables_with_runtime_truncate": 0,
+    "public_tables_total": 494,
+    "migration_default_acl": [
+      {
+        "type": "r",
+        "acl": "{moodle_runtime=arwd/moodle_migration}"
+      },
+      {
+        "type": "S",
+        "acl": "{moodle_runtime=rwU/moodle_migration}"
+      }
+    ],
+    "roles": [
+      {
+        "role": "moodle_migration",
+        "super": false,
+        "createdb": false,
+        "createrole": false,
+        "login": true
+      },
+      {
+        "role": "moodle_runtime",
+        "super": false,
+        "createdb": false,
+        "createrole": false,
+        "login": true
+      }
+    ],
+    "accepted": true
+  },
+  "tag_task_evidence": {
+    "faildelay": 7680,
+    "lastruntime": 0,
+    "source": "mdl_task_scheduled read through the runner; recorded in cron-before-fix and recovery-review logs"
+  },
+  "note": "Before the fix: 0/494 public tables granted TRUNCATE to moodle_runtime and the tag task had never completed."
+}

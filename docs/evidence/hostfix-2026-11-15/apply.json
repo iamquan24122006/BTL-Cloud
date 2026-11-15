@@ -1,0 +1,7 @@
+{
+  "completed_utc": "2026-11-15T06:57:40Z",
+  "summary_line": "Apply complete! Resources: 1 added, 6 changed, 1 destroyed.",
+  "runner_id_after": "i-0d43470f88eb13a58",
+  "asg_name": "moodle-medium-dev-med-app",
+  "source": "terraform apply of the reviewed saved plan; CLI guard required --confirm moodle-medium-dev --allow-data-loss"
+}

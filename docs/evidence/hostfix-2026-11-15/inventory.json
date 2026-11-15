@@ -1,0 +1,117 @@
+{
+  "captured_utc": "2026-11-15T07:19:17.045564+00:00",
+  "region": "ap-southeast-2",
+  "identity": {
+    "UserId": "AROA4B4HTBAJT3KHGIMDS:6488f4d8-4041-70a6-a85e-3344aff4c051",
+    "Account": "828676179987",
+    "Arn": "arn:aws:sts::828676179987:assumed-role/AccountFullAccessRole/6488f4d8-4041-70a6-a85e-3344aff4c051"
+  },
+  "running_instances": [
+    {
+      "id": "i-0de15ad67341ff026",
+      "name": "moodle-sydney-staging",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-0d0b4ae0bf5167d27",
+      "name": "moodle-sydney-load-generator",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-093f1efa8a5546034",
+      "name": "moodle-medium-dev-med-app",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-08254d31ea012c8dc",
+      "name": "moodle-sydney-dev",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-070badc9a77dfa33a",
+      "name": "moodle-sydney-manual-drill",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-0d43470f88eb13a58",
+      "name": "moodle-medium-dev-med-runner",
+      "type": "t3.small"
+    },
+    {
+      "id": "i-0a67f2d6b579eae5e",
+      "name": "moodle-medium-dev-med-app",
+      "type": "t3.small"
+    }
+  ],
+  "asg": {
+    "name": "moodle-medium-dev-med-app",
+    "min": 2,
+    "max": 3,
+    "desired": 2,
+    "instances": [
+      {
+        "id": "i-093f1efa8a5546034",
+        "state": "InService",
+        "health": "Healthy",
+        "az": "ap-southeast-2b"
+      },
+      {
+        "id": "i-0a67f2d6b579eae5e",
+        "state": "InService",
+        "health": "Healthy",
+        "az": "ap-southeast-2a"
+      }
+    ]
+  },
+  "instance_refresh": {
+    "status": "Successful",
+    "percent": 100,
+    "start": "2026-11-15T06:57:07+00:00",
+    "end": "2026-11-15T07:07:40+00:00"
+  },
+  "targets": {
+    "arn:aws:elasticloadbalancing:ap-southeast-2:828676179987:targetgroup/mdl-70739a79bea2d9f13977d3f1e8/bd6d4b95523529c1": [
+      {
+        "id": "i-093f1efa8a5546034",
+        "state": "healthy"
+      },
+      {
+        "id": "i-0a67f2d6b579eae5e",
+        "state": "healthy"
+      }
+    ]
+  },
+  "alarms": {
+    "count": 17,
+    "with_actions": 17
+  },
+  "scaling_policies": [
+    {
+      "name": "moodle-medium-dev-med-requests",
+      "type": "TargetTrackingScaling",
+      "target": 200.0
+    }
+  ],
+  "medium_backup_manifests": [
+    {
+      "key": "moodle-medium-dev-med/20261114T115610/manifest.json",
+      "size": 3374,
+      "modified": "2026-11-14T11:56:15+00:00"
+    },
+    {
+      "key": "moodle-medium-dev-med/20261114T175559/manifest.json",
+      "size": 3374,
+      "modified": "2026-11-14T17:56:06+00:00"
+    },
+    {
+      "key": "moodle-medium-dev-med/20261114T200711/manifest.json",
+      "size": 3374,
+      "modified": "2026-11-14T20:07:16+00:00"
+    },
+    {
+      "key": "moodle-medium-dev-med/20261115T070856/manifest.json",
+      "size": 3420,
+      "modified": "2026-11-15T07:09:02+00:00"
+    }
+  ]
+}

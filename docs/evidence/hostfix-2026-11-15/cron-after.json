@@ -1,0 +1,22 @@
+{
+  "CommandId": "a87f6444-eef3-4cb5-8af2-2667d50b2c2a",
+  "InstanceId": "i-0d43470f88eb13a58",
+  "Comment": "moodle finalization",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-15T07:09:28.313Z",
+  "ExecutionElapsedTime": "PT3M3.967S",
+  "ExecutionEndDateTime": "2026-11-15T07:12:31.313Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "utc=2026-11-15T07:09:28Z\n--- tag task direct execution\nExecute scheduled task: Background processing for tags (core\\task\\tag_cron_task)\n... started 07:09:29. Current memory use 14.1\ufffdMB.\nDebugging increased temporarily due to faildelay of 7680\n... used 10 dbqueries\n... used 0.024749040603638 seconds\nScheduled task complete: Background processing for tags (core\\task\\tag_cron_task)\ntask_exit=0\n--- cron operation\n{\"time\": \"2026-11-15T07:12:32.070761+00:00\", \"step\": \"cron-completed-and-task-audit-clear\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\ncron_exit=0\n--- timer\nactive\n--- task state\n[\n  {\n    \"class\": \"\\\\core\\\\task\\\\tag_cron_task\",\n    \"faildelay\": 0,\n    \"lastruntime\": 1794726569,\n    \"nextruntime\": 1794800340\n  }\n]\nscheduled_with_faildelay=0\nadhoc_queued=0\ntables_with_runtime_truncate=494\n--- operation.json\n{\n  \"time\": \"2026-11-15T07:12:32.070761+00:00\",\n  \"step\": \"cron-completed-and-task-audit-clear\",\n  \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"\n}\n\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

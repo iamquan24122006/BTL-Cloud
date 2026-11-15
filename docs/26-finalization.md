@@ -16,4 +16,10 @@ Host bundle được phát hành ở key mới có source commit và SHA-256; kh
 
 ## Trạng thái xác minh
 
-Bản sửa đã có kiểm thử cục bộ; triển khai AWS, CI đúng commit và kết quả sau triển khai đang được thực hiện. Chưa dùng trang này để khẳng định toàn bộ dự án đã nghiệm thu. Ma trận đầy đủ tại [hồ sơ chốt](18-project-closeout.md).
+**Đã triển khai và kiểm chứng trên Sydney ngày 15/11/2026.** Bundle host mới (`ae885c1d238f`, SHA-256 `f135174d…`) được phát hành dưới key mới, image/release giữ nguyên. Runner mới `i-0d43470f88eb13a58`, ASG refresh `Successful`, release hoàn tất lúc `07:09:13Z`.
+
+- Trước sửa: `moodle_runtime` không có `TRUNCATE` trên 0/494 bảng; `tag_cron_task` có `faildelay=7680`, `lastruntime=0`, cron dừng ở `cron-audit.php` và để lại `worker-pending.json`.
+- Sau sửa: tag task chạy thành công, `faildelay=0`, 494/494 bảng có `TRUNCATE`, cron kết thúc `cron-completed-and-task-audit-clear`, plan cuối `No changes`, 47/47 ca HTTPS đạt.
+- Small: `verify_backup.py` dev/staging được cập nhật qua SSM lên `59063f33…`; backup dev chạy đủ, upload S3 và manifest ghi `cron drained`. Không thay EC2 small.
+
+[Bằng chứng chi tiết](evidence/hostfix-2026-11-15/README.md), [runbook phát hành](27-host-bundle-deploy.md). Ma trận đầy đủ tại [hồ sơ chốt](18-project-closeout.md); trang này không khẳng định toàn bộ dự án đã nghiệm thu.

@@ -1,0 +1,22 @@
+{
+  "CommandId": "04d903ae-a87a-4689-8b34-a0ffef19d5bb",
+  "InstanceId": "i-0d43470f88eb13a58",
+  "Comment": "moodle finalization",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-15T07:08:46.607Z",
+  "ExecutionElapsedTime": "PT26.685S",
+  "ExecutionEndDateTime": "2026-11-15T07:09:12.607Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "start_utc=2026-11-15T07:08:46Z\ninactive\n{\"time\": \"2026-11-15T07:08:46.819565+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:08:56.809318+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:08:56.833569+00:00\", \"step\": \"backup-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:09:03.299432+00:00\", \"step\": \"backup-uploaded:s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261115T070856\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:09:03.327246+00:00\", \"step\": \"upgrade-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:09:13.206221+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\nrelease_exit=0\nend_utc=2026-11-15T07:09:13Z\n--- markers\nactive.json\nfixture.json\noperation.json\noperations-acceptance.json\n--- operation.json\n{\n  \"time\": \"2026-11-15T07:09:13.206221+00:00\",\n  \"step\": \"complete-check-health-and-LMS\",\n  \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"\n}\n\n--- active.json\n{\n  \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\",\n  \"artifact\": {\n    \"bucket\": \"moodle-medium-dev-828676179987-ap-southeast-2-artifacts\",\n    \"image\": \"828676179987.dkr.ecr.ap-southeast-2.amazonaws.com/moodle-medium-dev/moodle@sha256:5eebbc7bf860cdc67d34661bc6cd38295c1fcbf43099fdf52c8b07e1fdc3dfb6\",\n    \"key\": \"releases/2130963f7fc3fd76007498ab766a0942b9db3f59/host-ae885c1d238f.tar.gz\",\n    \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\",\n    \"sha256\": \"f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\"\n  },\n  \"time\": \"2026-11-15T07:09:09.319722+00:00\"\n}\n\n--- log tail\n{\"time\": \"2026-11-15T07:08:46.819565+00:00\", \"step\": \"maintenance-enabled\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:08:56.809318+00:00\", \"step\": \"writers-stopped\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:08:56.833569+00:00\", \"step\": \"backup-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:09:03.299432+00:00\", \"step\": \"backup-uploaded:s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261115T070856\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n{\"time\": \"2026-11-15T07:09:03.327246+00:00\", \"step\": \"upgrade-started\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\nNo upgrade needed for the installed version 4.5.15 (Build: 20261005) (2024100715). Thanks for coming anyway!\n\nMUC application mapping configured; session cache uses the shared session handler.\n{\"driver\":\"pgsql\",\"sslmode\":\"verify-full\",\"tls\":{\"ssl\":\"t\",\"version\":\"TLSv1.3\",\"cipher\":\"TLS_AES_256_GCM_SHA384\"}}\n{\"time\": \"2026-11-15T07:09:13.206221+00:00\", \"step\": \"complete-check-health-and-LMS\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

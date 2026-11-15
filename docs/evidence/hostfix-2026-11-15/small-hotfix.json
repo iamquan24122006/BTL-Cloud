@@ -1,0 +1,49 @@
+{
+  "script": ".work/finalization-2026-11-15/make_small_hotfix.generated.sh",
+  "results": {
+    "i-08254d31ea012c8dc": {
+      "CommandId": "c7f88509-3e57-4956-829f-8fb953c23bc7",
+      "InstanceId": "i-08254d31ea012c8dc",
+      "Comment": "moodle finalization",
+      "DocumentName": "AWS-RunShellScript",
+      "DocumentVersion": "$DEFAULT",
+      "PluginName": "aws:runShellScript",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-15T07:12:58.152Z",
+      "ExecutionElapsedTime": "PT0.038S",
+      "ExecutionEndDateTime": "2026-11-15T07:12:58.152Z",
+      "Status": "Success",
+      "StatusDetails": "Success",
+      "StandardOutputContent": "before_sha=d2cbdbad5f2b4cb0f051e0f63c9da5dbe13fff5a2452178f2d122a3320fd8257\n/opt/moodle-distribution/verify_backup.py.new: OK\nafter_sha=59063f331752293f9ca98cb63af1f8a7be8341719671dfd04fc72a3b020646d2\nexpected_sha=59063f331752293f9ca98cb63af1f8a7be8341719671dfd04fc72a3b020646d2\nutc=2026-11-15T07:12:58Z\n",
+      "StandardOutputUrl": "",
+      "StandardErrorContent": "",
+      "StandardErrorUrl": "",
+      "CloudWatchOutputConfig": {
+        "CloudWatchLogGroupName": "",
+        "CloudWatchOutputEnabled": false
+      }
+    },
+    "i-0de15ad67341ff026": {
+      "CommandId": "41ea09cf-bcbd-4015-8dbe-9072aba1e75d",
+      "InstanceId": "i-0de15ad67341ff026",
+      "Comment": "moodle finalization",
+      "DocumentName": "AWS-RunShellScript",
+      "DocumentVersion": "$DEFAULT",
+      "PluginName": "aws:runShellScript",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-15T07:12:59.621Z",
+      "ExecutionElapsedTime": "PT0.039S",
+      "ExecutionEndDateTime": "2026-11-15T07:12:59.621Z",
+      "Status": "Success",
+      "StatusDetails": "Success",
+      "StandardOutputContent": "before_sha=d2cbdbad5f2b4cb0f051e0f63c9da5dbe13fff5a2452178f2d122a3320fd8257\n/opt/moodle-distribution/verify_backup.py.new: OK\nafter_sha=59063f331752293f9ca98cb63af1f8a7be8341719671dfd04fc72a3b020646d2\nexpected_sha=59063f331752293f9ca98cb63af1f8a7be8341719671dfd04fc72a3b020646d2\nutc=2026-11-15T07:12:59Z\n",
+      "StandardOutputUrl": "",
+      "StandardErrorContent": "",
+      "StandardErrorUrl": "",
+      "CloudWatchOutputConfig": {
+        "CloudWatchLogGroupName": "",
+        "CloudWatchOutputEnabled": false
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 URL chính: **https://www.moodle-cloud-distribution.mywire.org**. URL CloudFront cũ chuyển hướng sang tên miền. Hồ sơ dựng/restore ban đầu nằm trong [bằng chứng 14/11](evidence/medium-sydney-2026-11-14/README.md), kết quả cutover trong [bằng chứng 15/11](evidence/current-review-2026-11-15/README.md).
 
-Cập nhật 15/11: URL chính là https://www.moodle-cloud-distribution.mywire.org, HTTPS/ACM trực tiếp tại ALB Sydney; CloudFront cũ chuyển hướng sang tên miền. 47/47 ca nghiệp vụ và ba tài khoản demo đạt; hai target healthy, runner mới `i-0bcafad1d2d89cad9`, ASG refresh Successful và plan không drift. Policy target 200 đã tự chạy chu kỳ 2→3→2. [Bằng chứng mới](evidence/current-review-2026-11-15/README.md), [runbook cutover](25-domain-cutover.md). Dashboard/ALARM/OK có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Các kết quả restore ban đầu phía dưới giữ nguyên thời điểm và phạm vi.
+Cập nhật 15/11: URL chính là https://www.moodle-cloud-distribution.mywire.org, HTTPS/ACM trực tiếp tại ALB Sydney; CloudFront cũ chuyển hướng sang tên miền. 47/47 ca nghiệp vụ và ba tài khoản demo đạt; hai target healthy, runner `i-0d43470f88eb13a58`, ASG refresh Successful và plan không drift. Policy target 200 đã tự chạy chu kỳ 2→3→2. Bản sửa backup/cron được phát hành bằng bundle host `ae885c1d238f` (image/release giữ nguyên) và kiểm chứng lại sau release. [Bằng chứng mới](evidence/current-review-2026-11-15/README.md), [deploy host bundle](evidence/hostfix-2026-11-15/README.md), [runbook cutover](25-domain-cutover.md). Dashboard/ALARM/OK có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Các kết quả restore ban đầu phía dưới giữ nguyên thời điểm và phạm vi.
 
 ## Cấu hình thực tế
 
@@ -18,7 +18,7 @@ Cập nhật 15/11: URL chính là https://www.moodle-cloud-distribution.mywire.
 | Session / MUC | Hai Redis 7.1 riêng, `cache.t4g.micro`, TLS/AUTH, mã hóa |
 | Runner | Release, cron và backup; app không bật các timer này |
 | State | S3 backend riêng theo account/project/environment, versioning và lockfile |
-| Moodle | 4.5.15, image/bundle ghim theo release `2130963f7fc3fd76007498ab766a0942b9db3f59` |
+| Moodle | 4.5.15, image ghim theo release `2130963f7fc3fd76007498ab766a0942b9db3f59`; host bundle `ae885c1d238f` (SHA-256 riêng) |
 
 Free Plan của account này đã từ chối `t3.medium` và RDS retention 7 ngày. Lab dùng loại `t3.small` được AWS trả về là eligible và `db_backup_retention_days: 1`. Preset **medium** mô tả topology nhiều app với state dùng chung; không có nghĩa máy phải thuộc instance size `.medium`. Dung lượng RAM này phục vụ lab, chưa được chứng nhận đáp ứng một mức tải cụ thể.
 

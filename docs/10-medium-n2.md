@@ -116,6 +116,8 @@ Role runtime có quyền đọc/ghi và `TRUNCATE` trên bảng Moodle do migrat
 
 Trước thay source/schema, giữ image/bundle cũ và backup tương ứng. Cập nhật YAML artifact, plan/review/apply; runtime mới vẫn gated khi chưa khớp release đang active. Trên runner mới chạy `operation.sh release`; luồng dừng mọi app qua SSM, chặn runtime DB login, backup baseline cũ, migrate bằng migration credential và mở lại app. Release lỗi giữ blocked; plan apply lỗi phải giữ state và lập plan mới. Rollback sau thay schema dùng **DB + file + source artifact** của backup, không chỉ quay image.
 
+Khi chỉ đổi mã chạy trên host (`scripts/medium/*`), không build lại image: giữ `artifact.image` và `artifact.release`, phát hành bundle ở **key mới** với SHA riêng rồi vẫn chạy `operation.sh release`. Bootstrap so label image với `artifact.release`, nên đổi `release` mà không đổi image sẽ làm node mới không lên. Quy trình đầy đủ và bản small nằm trong [phát hành mã host](27-host-bundle-deploy.md).
+
 ```powershell
 python -m src.moodle_cloud --config config/medium.dev.yaml backup
 # Lấy CommandId/InstanceId từ output, theo dõi đến trạng thái cuối:

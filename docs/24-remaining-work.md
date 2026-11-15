@@ -1,6 +1,6 @@
 # Trạng thái công việc — 15/11/2026
 
-Đối chiếu commit `d3df8cf`, review kỹ thuật ban đầu, [bổ sung vận hành](evidence/medium-operations-2026-11-14/README.md) và kiểm tra AWS mới. Chưa nghiệm thu đầy đủ P0+P1; không tính tỷ lệ hoàn thành bằng cách cộng các ca có phạm vi khác nhau.
+Đối chiếu commit `ae885c1`, review kỹ thuật ban đầu, [bổ sung vận hành](evidence/medium-operations-2026-11-14/README.md), lượt cutover tên miền và lượt deploy bản sửa host buổi tối 15/11. Chưa nghiệm thu đầy đủ P0+P1; không tính tỷ lệ hoàn thành bằng cách cộng các ca có phạm vi khác nhau.
 
 ## Đã có bằng chứng
 
@@ -9,6 +9,7 @@
 - Dashboard 11 widget, 14 alarm vận hành; probe metric thật nhận ALARM và OK qua SNS/SQS.
 - Policy target tracking đã tự tăng 2→3 và giảm về 2; target lab 200 request/app/phút, burst 20 user/8 phút có 4.890 lượt đọc và không lỗi. Ba target healthy lúc `19:34:51 UTC`, trở lại hai lúc `19:55:58 UTC`.
 - Tên miền Dynu → ALB Sydney HTTPS/ACM đã hoàn tất, 47/47 ca nghiệp vụ và ba tài khoản demo đạt. Hai app cùng runner mới bootstrap đúng URL/release, ASG refresh Successful, hai target healthy, cron sạch và full plan không drift. [Bằng chứng](evidence/current-review-2026-11-15/README.md), [runbook tên miền](25-domain-cutover.md).
+- Bản sửa backup/cron đã lên live (không chỉ nằm trong repo): bundle host `ae885c1d238f` với SHA riêng, image/release giữ nguyên; `moodle_runtime` nay có `TRUNCATE` trên **494/494 bảng**, `tag_cron_task` chạy lại thành công (`faildelay=0`), cron kết thúc `cron-completed-and-task-audit-clear`, plan cuối không drift và 47/47 ca HTTPS vẫn đạt. Small dev/staging được cập nhật `verify_backup.py` và backup dev chạy đủ. [Bằng chứng](evidence/hostfix-2026-11-15/README.md), [runbook](27-host-bundle-deploy.md).
 
 ## Còn phải hoàn thành
 
@@ -16,10 +17,18 @@
 |---|---|---|
 | 1 | QA-03 / AT-19: so sánh small/medium | Cùng dataset/workload/đường HTTPS, đủ lượt 10/25/50 user; lưu percentile, lỗi và metric. Ma trận trước bị dừng, chưa đủ kết luận |
 | 1 | LMS-06 / AT-05: GUI | Walkthrough desktop/viewport hẹp, teacher upload, student xem/nộp/điểm, kiểm tra quyền; lưu ảnh và browser/version |
-| 2 | AT-03/05/10/11/16/17: coverage còn thiếu | Dựng sạch/idempotence bản hiện tại, upload/limit sau restore, tranh cron/lỗi backup, restore bộ small mới, concurrent release/interrupted migration và ghi nghiệp vụ mới sau restore |
+| 2 | AT-03/05/10/11/16/17: coverage còn thiếu | Dựng sạch/idempotence bản hiện tại, upload/limit sau restore, restore bộ small mới, concurrent release/interrupted migration và ghi nghiệp vụ mới sau restore. AT-10 đã có thêm bằng chứng live (backup small chờ cron drain; release medium tự backup baseline trước upgrade), còn thiếu ca lỗi upload/S3 |
 | 2 | QA-04: cài tay so với tự động | Timing cùng mốc bắt đầu/kết thúc, số thao tác/lỗi/thời gian sửa và giới hạn số lần đo |
 | 2 | COST-01 / AT-20: chi phí và vòng đời | Billing toàn kỳ mọi account, owner/end date từng tài nguyên giữ lại và kiểm kê sau cleanup |
 | 2 | DONE: bàn giao nhóm | Tên thành viên/reviewer, chạy lại demo độc lập, quyết định phạm vi và chữ ký |
+
+## Deploy bản sửa host và quyền cron (tối 15/11)
+
+Bản sửa trong repo chưa từng lên live trước lượt này: runtime đang chạy thiếu nhánh cấp `TRUNCATE` và `tag_cron_task` có `faildelay=7680`, `lastruntime=0`; cron dừng ở `cron-audit.php`, để lại `worker-pending.json` và chặn operation kế tiếp.
+
+Đã phát hành bundle host `ae885c1d238f` (SHA-256 `f135174d…`) dưới key mới, giữ nguyên image digest và release tag vì bootstrap so label image với `artifact.release`. Runner được thay (`i-0d43470f88eb13a58`), ASG refresh `Successful` lúc `07:07:40Z`; sau recovery review (container worker không còn, 0 session DB) marker được gỡ và release chạy `07:08:46–07:09:13Z` với cửa sổ chặn ghi khoảng 27 giây.
+
+Kết quả: tag task chạy thành công, `faildelay=0`, `scheduled_with_faildelay=0`, `adhoc_queued=0`, **494/494 bảng có `TRUNCATE`**, cron `cron-completed-and-task-audit-clear`, 47/47 ca HTTPS đạt lại và plan cuối `No changes`. Small dev/staging nhận `verify_backup.py` mới qua SSM; backup dev chạy đủ, upload S3, manifest ghi `cron drained`. Không thay EC2 small vì root volume giữ database và `moodledata`. [Bằng chứng](evidence/hostfix-2026-11-15/README.md), [runbook](27-host-bundle-deploy.md).
 
 ## Kết quả điều tra scaling
 

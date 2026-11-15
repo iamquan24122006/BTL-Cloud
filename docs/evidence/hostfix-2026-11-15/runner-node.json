@@ -1,0 +1,6 @@
+{
+  "runner_id": "i-0d43470f88eb13a58",
+  "Status": "Success",
+  "captured_utc": "2026-11-15T06:59:20Z",
+  "output": "host=ip-10-46-10-6 utc=2026-11-15T06:59:20Z\ncloud_init=status: done extended_status: done boot_status_code: enabled-by-generator last_update: Thu, 01 Jan 1970 00:01:31 +0000 detail: DataSourceEc2Local errors: [] recoverable_errors: {} \nrole=runner\nrelease=2130963f7fc3fd76007498ab766a0942b9db3f59\nbundle_key=releases/2130963f7fc3fd76007498ab766a0942b9db3f59/host-ae885c1d238f.tar.gz\nbundle_sha_expected=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\nbundle_sha_actual=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\noperations_sha=a77536d877fb63f77156af8faca9ef2adf2e6c2ddb471fa47cb295729faaeed7\nimage=missing\nmoodle-web.service=inactive\nmoodle-cron.timer=active\nmoodle-cron.service=failed\nmoodle-backup.timer=active\nhealth=000\n--- bootstrap log tail\n--- cloud-init tail\n|. + B o . * O    |\n| o + B o . o =   |\n|  . . O S . =    |\n| .   * o .   .   |\n|  . . o =        |\n|   .   =         |\n|     .E..        |\n+----[SHA256]-----+\n"
+}

@@ -1,0 +1,57 @@
+{
+  "captured_utc": "2026-11-15T06:56:00Z",
+  "change": "publish host bundle ae885c1d238f, keep Moodle image digest and release tag 2130963",
+  "plan": {
+    "create": 1,
+    "update": 6,
+    "delete": 1,
+    "replace": 1,
+    "data_loss_risk": true,
+    "resources": [
+      {
+        "address": "aws_autoscaling_group.app",
+        "actions": [
+          "update"
+        ]
+      },
+      {
+        "address": "aws_cloudwatch_dashboard.medium",
+        "actions": [
+          "update"
+        ]
+      },
+      {
+        "address": "aws_cloudwatch_metric_alarm.runner_cpu",
+        "actions": [
+          "update"
+        ]
+      },
+      {
+        "address": "aws_iam_role_policy.runtime[\"app\"]",
+        "actions": [
+          "update"
+        ]
+      },
+      {
+        "address": "aws_iam_role_policy.runtime[\"runner\"]",
+        "actions": [
+          "update"
+        ]
+      },
+      {
+        "address": "aws_instance.runner",
+        "actions": [
+          "delete",
+          "create"
+        ]
+      },
+      {
+        "address": "aws_launch_template.app",
+        "actions": [
+          "update"
+        ]
+      }
+    ]
+  },
+  "note": "Runner replacement and ASG instance refresh are expected; apps keep the same release marker so the gate stays open."
+}

@@ -1,0 +1,13 @@
+{
+  "release_tag": "2130963f7fc3fd76007498ab766a0942b9db3f59",
+  "image": "828676179987.dkr.ecr.ap-southeast-2.amazonaws.com/moodle-medium-dev/moodle@sha256:5eebbc7bf860cdc67d34661bc6cd38295c1fcbf43099fdf52c8b07e1fdc3dfb6",
+  "image_changed": false,
+  "host_source_commit": "ae885c1d238f966a9fe36a9e7698a5dded43f43e",
+  "bucket": "moodle-medium-dev-828676179987-ap-southeast-2-artifacts",
+  "key": "releases/2130963f7fc3fd76007498ab766a0942b9db3f59/host-ae885c1d238f.tar.gz",
+  "sha256": "f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323",
+  "size_bytes": 15163,
+  "s3_version_id": ".SKs3GPop0Zr_KVfJBaN9oX3EExITXGc",
+  "previous_key_untouched": "releases/2130963f7fc3fd76007498ab766a0942b9db3f59/medium.tar.gz",
+  "note": "Only host scripts changed. The image revision label must equal the release tag, so the published image and release tag were kept and the new bundle was published under a new key with its own SHA-256."
+}

@@ -2,7 +2,7 @@
 
 Đây là điểm đọc trạng thái hiện tại, thay cho các bảng tiến độ lịch sử trong tài liệu kế hoạch. Phạm vi mục tiêu vẫn là small P0 và medium P1; chưa thu hẹp yêu cầu để biến các mục thiếu bằng chứng thành đạt.
 
-**Cập nhật 15/11:** HTTPS tên miền tại ALB đã đạt 47/47 ca nghiệp vụ và ba tài khoản demo; autoscaling đã tự chạy 2→3→2, rollout app hoàn tất, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK cùng rotation admin có bằng chứng trước đó. Vẫn **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1** do GUI, benchmark, coverage lỗi và bàn giao/chi phí còn thiếu. Xem [bằng chứng mới](evidence/current-review-2026-11-15/README.md) và [công việc còn lại](24-remaining-work.md); [review ban đầu](22-technical-acceptance.md) giữ nguyên phạm vi lịch sử.
+**Cập nhật 15/11:** HTTPS tên miền tại ALB đã đạt 47/47 ca nghiệp vụ và ba tài khoản demo; autoscaling đã tự chạy 2→3→2, rollout app hoàn tất, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK cùng rotation admin có bằng chứng trước đó. Bản sửa backup/cron đã được **phát hành lên live** (bundle host mới, 494/494 bảng có `TRUNCATE`, tag task chạy lại, 47/47 ca đạt, plan không drift) — xem [bằng chứng deploy](evidence/hostfix-2026-11-15/README.md). Vẫn **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1** do GUI, benchmark, coverage lỗi và bàn giao/chi phí còn thiếu. Xem [bằng chứng mới](evidence/current-review-2026-11-15/README.md) và [công việc còn lại](24-remaining-work.md); [review ban đầu](22-technical-acceptance.md) giữ nguyên phạm vi lịch sử.
 
 ## Kết luận cho nhóm
 
@@ -25,6 +25,7 @@
 | Chức năng | Login/logout, role/enrolment, học liệu/hash, bài nộp/điểm, quyền riêng tư: dev/staging đạt |
 | Vận hành | Cron có scheduled task vừa chạy, 0 task failure; backup tự động 14/11 và kiểm toàn vẹn đạt |
 | Thay đổi trong lượt chốt | Small public và medium Sydney đã được triển khai bằng state riêng; medium restore vào target mới và target được cleanup sau kiểm chứng |
+| Deploy bản sửa host 15/11 | Bundle `ae885c1d238f` (SHA `f135174d…`), image/release giữ nguyên; runner mới, refresh `Successful`; `TRUNCATE` 494/494 bảng, tag task `faildelay=0`, cron audit clear, 47/47 HTTPS, plan `No changes` |
 
 Toàn bộ chứng cứ mới: [final-audit-2026-11-14](evidence/final-audit-2026-11-14/README.md). Thông tin credential, raw backup và Terraform state được giữ ngoài Git.
 

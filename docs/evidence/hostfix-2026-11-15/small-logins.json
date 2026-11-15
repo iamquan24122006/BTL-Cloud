@@ -1,0 +1,18 @@
+{
+  "url": "https://d1cnnw3mivc0q5.cloudfront.net",
+  "checks": {
+    "admin": {
+      "passed": true,
+      "final_path": "/my/"
+    },
+    "teacher": {
+      "passed": true,
+      "final_path": "/my/"
+    },
+    "student": {
+      "passed": true,
+      "final_path": "/my/"
+    }
+  },
+  "status": "passed"
+}

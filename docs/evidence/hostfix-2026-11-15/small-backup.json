@@ -1,0 +1,22 @@
+{
+  "CommandId": "70cdcce2-b4f5-4693-a48c-c44374e4a86b",
+  "InstanceId": "i-08254d31ea012c8dc",
+  "Comment": "moodle finalization",
+  "DocumentName": "AWS-RunShellScript",
+  "DocumentVersion": "$DEFAULT",
+  "PluginName": "aws:runShellScript",
+  "ResponseCode": 0,
+  "ExecutionStartDateTime": "2026-11-15T07:13:15.521Z",
+  "ExecutionElapsedTime": "PT40.202S",
+  "ExecutionEndDateTime": "2026-11-15T07:13:55.521Z",
+  "Status": "Success",
+  "StatusDetails": "Success",
+  "StandardOutputContent": "start_utc=2026-11-15T07:13:15Z\ntimer_before=active\nweb_before=active\n== Maintenance mode (https://d1cnnw3mivc0q5.cloudfront.net) ==\nYour site is currently in CLI maintenance mode, no web access is allowed.\n== Maintenance mode (https://d1cnnw3mivc0q5.cloudfront.net) ==\nMaintenance mode has been disabled and the site is running normally again\nBackup uploaded: s3://moodle-sydney-backup-828676179987/moodle-sydney-dev/20261115T071316Z ; restore has NOT been tested.\nBackup files contain private data. Retention and restore procedure: docs/05-operations.md.\n== Maintenance mode (https://d1cnnw3mivc0q5.cloudfront.net) ==\nMaintenance mode has been disabled and the site is running normally again\nbackup_exit=0\ntimer_after=active\nweb_after=active\nhealth=303\nlatest=/var/backups/moodle/20261115T071316Z\ntotal 4192\n-rw------- 1 root root     485 Nov 15 07:13 SHA256SUMS\n-rw------- 1 root root      41 Nov 15 07:13 code.txt\n-rw------- 1 root root     803 Nov 15 07:13 config.php\n-rw------- 1 root root 4248133 Nov 15 07:13 database.dump\n-rw------- 1 root root     440 Nov 15 07:13 manifest.json\n-rw------- 1 root root   14771 Nov 15 07:13 moodledata.tar.gz\n-rw------- 1 root root    1294 Nov 15 07:13 runtime-Dockerfile\n-rw------- 1 root root      72 Nov 15 07:13 runtime-image.txt\n{'format': 2, 'created_utc': '2026-11-15T07:13:46.620669+00:00', 'moodle_version': '4.5.15', 'consistency': 'single node, web stopped, cron drained', 'restore_tested': False}\nend_utc=2026-11-15T07:13:55Z\n",
+  "StandardOutputUrl": "",
+  "StandardErrorContent": "",
+  "StandardErrorUrl": "",
+  "CloudWatchOutputConfig": {
+    "CloudWatchLogGroupName": "",
+    "CloudWatchOutputEnabled": false
+  }
+}

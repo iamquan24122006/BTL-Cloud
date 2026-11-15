@@ -1,0 +1,12 @@
+{
+  "i-093f1efa8a5546034": {
+    "Status": "Success",
+    "InstanceId": "i-093f1efa8a5546034",
+    "StandardOutputContent": "host=ip-10-46-11-179 utc=2026-11-15T07:23:54Z\ncloud_init=status: done extended_status: done boot_status_code: enabled-by-generator last_update: Thu, 01 Jan 1970 00:01:26 +0000 detail: DataSourceEc2Local errors: [] recoverable_errors: {} \nrole=app\nrelease=2130963f7fc3fd76007498ab766a0942b9db3f59\nbundle_key=releases/2130963f7fc3fd76007498ab766a0942b9db3f59/host-ae885c1d238f.tar.gz\nbundle_sha_expected=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\nbundle_sha_actual=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\noperations_sha=a77536d877fb63f77156af8faca9ef2adf2e6c2ddb471fa47cb295729faaeed7\nimage=missing\nmoodle-web.service=active\nmoodle-cron.timer=inactive\nmoodle-cron.service=inactive\nmoodle-backup.timer=inactive\nhealth=000\n--- bootstrap log tail\n--- cloud-init tail\n|        oo..+=+=o|\n|       . *+. =+o.|\n|        S.+.. oo+|\n|         .o.  .= |\n|           o o.  |\n|           o+ o .|\n|          ooEo.+o|\n+----[SHA256]-----+\n"
+  },
+  "i-0a67f2d6b579eae5e": {
+    "Status": "Success",
+    "InstanceId": "i-0a67f2d6b579eae5e",
+    "StandardOutputContent": "host=ip-10-46-10-55 utc=2026-11-15T07:23:55Z\ncloud_init=status: done extended_status: done boot_status_code: enabled-by-generator last_update: Thu, 01 Jan 1970 00:01:23 +0000 detail: DataSourceEc2Local errors: [] recoverable_errors: {} \nrole=app\nrelease=2130963f7fc3fd76007498ab766a0942b9db3f59\nbundle_key=releases/2130963f7fc3fd76007498ab766a0942b9db3f59/host-ae885c1d238f.tar.gz\nbundle_sha_expected=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\nbundle_sha_actual=f135174dc8a4d7b192f81c558211d162825d74ca88f59a942e9e155e597ea323\noperations_sha=a77536d877fb63f77156af8faca9ef2adf2e6c2ddb471fa47cb295729faaeed7\nimage=missing\nmoodle-web.service=active\nmoodle-cron.timer=inactive\nmoodle-cron.service=inactive\nmoodle-backup.timer=inactive\nhealth=000\n--- bootstrap log tail\n--- cloud-init tail\n|     * E  .  . ..|\n|    ..o ..o.  + .|\n|     +o.S+.o o o.|\n|   .o+.+..+   o +|\n|    B * o. .   o.|\n|   . * o o... .  |\n|     .+   o.oo   |\n+----[SHA256]-----+\n"
+  }
+}

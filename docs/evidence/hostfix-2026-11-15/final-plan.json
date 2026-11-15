@@ -1,0 +1,13 @@
+{
+  "captured_utc": "2026-11-15T07:14:00Z",
+  "terraform": "No changes. Your infrastructure matches the configuration.",
+  "plan": {
+    "create": 0,
+    "update": 0,
+    "delete": 0,
+    "replace": 0,
+    "data_loss_risk": false,
+    "resources": []
+  },
+  "note": "Re-planned after apply, release and host hotfix; no drift."
+}

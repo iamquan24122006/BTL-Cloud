@@ -290,6 +290,7 @@ Hai lệnh sau cần Docker Linux engine. Runtime check kiểm tra PHP/Apache; M
 | Medium release local | Build từ checkout sạch và integration hai app đạt |
 | Medium Sydney live | 47/47 ca HTTPS trên nguồn và 47/47 sau restore vào RDS/EFS mới; session/file/cache xuyên node, khóa chung, cron, backup và ASG replacement đạt |
 | CI `93bdc8b` | [Success](https://github.com/iamquan24122006/BTL-Cloud/actions/runs/43605256815); 96 unit tests, runtime small/medium, backup/restore local và Terraform checks |
+| Deploy bản sửa host 15/11 | Bundle `ae885c1d238f`; 110 unit local (2 skip Windows), 47/47 HTTPS sau release, `TRUNCATE` 494/494 bảng, tag task `faildelay=0`, backup small đạt, plan cuối không drift |
 
 Kết quả đo tải và giới hạn workload: [ma trận Sydney](docs/evidence/final-audit-2026-11-14/README.md), [hồ sơ N3](docs/evidence/aws-n3-2026-11-11/README.md). Không gộp số liệu khác account/commit hoặc suy sức tải tối đa từ một lượt đo.
 

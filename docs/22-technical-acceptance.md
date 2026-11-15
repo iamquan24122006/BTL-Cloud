@@ -1,6 +1,6 @@
 # Biên bản nghiệm thu kỹ thuật — 14/11/2026
 
-Cập nhật 15/11: [bằng chứng lượt tiếp tục](evidence/current-review-2026-11-15/README.md) đã bổ sung policy tự scale 2→3→2, HTTPS tên miền tại ALB, 47/47 kiểm tra nghiệp vụ và ba tài khoản demo, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK và rotation admin có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Biên bản bên dưới giữ nguyên review ban đầu; các quan sát “0 policy”, thiếu dashboard/ALB HTTPS là lịch sử, không phải trạng thái live sau sửa. Toàn dự án vẫn còn các mục trong [danh sách hiện hành](24-remaining-work.md).
+Cập nhật 15/11: [bằng chứng lượt tiếp tục](evidence/current-review-2026-11-15/README.md) đã bổ sung policy tự scale 2→3→2, HTTPS tên miền tại ALB, 47/47 kiểm tra nghiệp vụ và ba tài khoản demo, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK và rotation admin có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Bản sửa backup/cron sau đó đã được phát hành lên live và kiểm chứng lại ([deploy](evidence/hostfix-2026-11-15/README.md)): 494/494 bảng có `TRUNCATE`, tag task chạy lại thành công, 47/47 ca HTTPS giữ nguyên. Biên bản bên dưới giữ nguyên review ban đầu; các quan sát “0 policy”, thiếu dashboard/ALB HTTPS là lịch sử, không phải trạng thái live sau sửa. Toàn dự án vẫn còn các mục trong [danh sách hiện hành](24-remaining-work.md).
 
 ## Kết luận
 

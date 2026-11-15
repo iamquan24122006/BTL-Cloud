@@ -1,0 +1,14 @@
+{
+  "reviewed_utc": "2026-11-15T07:02:40Z",
+  "worker_pending_before": {
+    "container": "moodle-operation-e1e7437f7d1747f084148bbfcc9f0df8",
+    "step": "cron-audit.php",
+    "time": "2026-11-15T06:35:31Z",
+    "sha256": "2a36d43df0121a2e21ffe4a341086e533e261138d12c11411a532818f030896e"
+  },
+  "container_present": false,
+  "client_sessions": 0,
+  "action": "marker removed, cron timer stopped for the release window",
+  "clear_output": "before_utc=2026-11-15T07:02:46Z\nmarker_sha_before=2a36d43df0121a2e21ffe4a341086e533e261138d12c11411a532818f030896e\n{\n  \"container\": \"moodle-operation-e1e7437f7d1747f084148bbfcc9f0df8\",\n  \"step\": \"cron-audit.php\",\n  \"time\": \"2026-11-15T06:35:31.142473+00:00\"\n}\n0\nmarker_exists_after=no\ninactive\nservice_state=failed\ndone_utc=2026-11-15T07:02:46Z\n",
+  "review_output": "worker_container=moodle-operation-e1e7437f7d1747f084148bbfcc9f0df8\ndocker_match=0\ndocker_all_moodle=0\n{\n  \"client_sessions\": 0,\n  \"tag_tasks\": [\n    {\n      \"class\": \"\\\\core\\\\task\\\\tag_cron_task\",\n      \"faildelay\": 7680,\n      \"disabled\": 0,\n      \"lastruntime\": 0,\n      \"nextruntime\": 1794729251\n    },\n    {\n      \"class\": \"\\\\enrol_lti\\\\local\\\\ltiadvantage\\\\task\\\\sync_grades\",\n      \"faildelay\": 0,\n      \"disabled\": 0,\n      \"lastruntime\": 0,\n      \"nextruntime\": 1794657600\n    },\n    {\n      \"class\": \"\\\\enrol_lti\\\\local\\\\ltiadvantage\\\\task\\\\sync_members\",\n      \"faildelay\": 0,\n      \"disabled\": 0,\n      \"lastruntime\": 0,\n      \"nextruntime\": 1794657600\n    }\n  ],\n  \"scheduled_with_faildelay\": 1,\n  \"adhoc_queued\": 0\n}\n--- cron timer/service state\nactive\nActiveState=failed\n"
+}
