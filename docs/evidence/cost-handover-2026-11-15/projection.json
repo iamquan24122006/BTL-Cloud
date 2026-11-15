@@ -1,0 +1,121 @@
+{
+  "model": "Constant captured configuration at current public OnDemand prices; before credits/tax; not an AWS Cost Explorer forecast",
+  "price_checked_utc": "2026-11-15T08:38:55.961921+00:00",
+  "inventory_checked_utc": "2026-11-15T08:36:28.560349+00:00",
+  "keep_through_local": "2026-11-30T23:59:59+07:00",
+  "end_exclusive_utc": "2026-11-30T17:00:00+00:00",
+  "billing_end_exclusive_utc": "2026-11-15T00:00:00+00:00",
+  "hours_after_billing_cutoff": "377.0",
+  "hours_after_inventory_capture": "368.3920665697222222222222222",
+  "monthly_storage_proration_hours": 730,
+  "rows": [
+    {
+      "name": "EC2 running t3.small (7 at capture)",
+      "quantity": "7",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0264000000",
+      "sku": "ZJF5Q3KWKS8VD3X2",
+      "hourly_usd": "0.1848000000",
+      "daily_usd": "4.4352000000"
+    },
+    {
+      "name": "RDS PostgreSQL db.t4g.micro Single-AZ",
+      "quantity": "1",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0250000000",
+      "sku": "MGQEJQ9TZUN7KB8H",
+      "hourly_usd": "0.0250000000",
+      "daily_usd": "0.6000000000"
+    },
+    {
+      "name": "Redis cache.t4g.micro",
+      "quantity": "2",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0240000000",
+      "sku": "8U9XHAW8CAW3JNBY",
+      "hourly_usd": "0.0480000000",
+      "daily_usd": "1.1520000000"
+    },
+    {
+      "name": "Application Load Balancer (hours only)",
+      "quantity": "1",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0252000000",
+      "sku": "M84CYHYUVJ4USFHD",
+      "hourly_usd": "0.0252000000",
+      "daily_usd": "0.6048000000"
+    },
+    {
+      "name": "NAT Gateway (hours only)",
+      "quantity": "1",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0590000000",
+      "sku": "NUKV5QPTHVFBW7DE",
+      "hourly_usd": "0.0590000000",
+      "daily_usd": "1.4160000000"
+    },
+    {
+      "name": "Public IPv4: EC2/EIP union + minimum 2 ALB",
+      "quantity": "9",
+      "unit": "Hrs",
+      "usd_per_unit": "0.0050000000",
+      "sku": "JZP2PURP9VVQ96GH",
+      "hourly_usd": "0.0450000000",
+      "daily_usd": "1.0800000000"
+    },
+    {
+      "name": "EBS gp3 provisioned storage",
+      "quantity": "200",
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.0960000000",
+      "sku": "QR74UAP3E9WUYT9B",
+      "hourly_usd": "0.02630136986301369863013698630",
+      "daily_usd": "0.6312328767123287671232876712"
+    },
+    {
+      "name": "RDS gp3 provisioned storage",
+      "quantity": "20",
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.1380000000",
+      "sku": "XVCEBKZQD46QGPYP",
+      "hourly_usd": "0.003780821917808219178082191781",
+      "daily_usd": "0.09073972602739726027397260274"
+    },
+    {
+      "name": "EFS Standard, 1 GiB planning allowance",
+      "quantity": "1",
+      "unit": "GB-Mo",
+      "usd_per_unit": "0.3600000000",
+      "sku": "3DVQ7PV23A9TDKS7",
+      "hourly_usd": "0.0004931506849315068493150684932",
+      "daily_usd": "0.01183561643835616438356164384"
+    }
+  ],
+  "base_hourly_usd": "0.4175753424657534246575342466",
+  "base_daily_usd": "10.02180821917808219178082192",
+  "base_daily_display_usd": "10.02",
+  "unbilled_period_base_estimate_usd": "157.4259041095890410958904110",
+  "known_billing_gross_usd": "35.3129951942",
+  "known_billing_gross_display_usd": "35.31",
+  "known_billing_net_display_usd": "0.00",
+  "known_usage_percent_of_budget": "23.54",
+  "budget_minus_known_usage_usd": "114.6870048058",
+  "projected_gross_through_keep_date_usd": "192.7388993037890410958904110",
+  "projected_gross_display_usd": "192.74",
+  "projected_over_budget_display_usd": "42.74",
+  "exclusions": [
+    "Credits/discounts/free-tier entitlements/tax/FX",
+    "ALB LCU, NAT processed GB, cross-AZ/internet transfer, CPU surplus credits",
+    "S3/ECR/snapshot storage, requests, Secrets Manager, CloudWatch logs/metrics/alarms",
+    "Other AWS regions/accounts and autoscaling beyond captured 2 app nodes"
+  ],
+  "assumptions": [
+    "All 7 captured instances keep running until the selected date",
+    "All captured provisioned EBS/RDS storage is retained",
+    "ALB uses at least two public IPv4 addresses; actual can be higher",
+    "Allocated EIPs and EC2 public IPv4 were deduplicated before counting",
+    "Current configuration is extrapolated from the last billing cutoff, including the current unbilled day",
+    "EFS is budgeted at 1 GiB; monthly storage is prorated using 730 hours",
+    "No resource changes or automatic cleanup are performed by this calculation"
+  ]
+}

@@ -1,0 +1,58 @@
+account,region,kind,identifier,responsible_recipient,keep_through_local,review_from_local,after_demo_action
+828676179987,ap-southeast-2,alarms,TargetTracking-moodle-medium-dev-med-app-AlarmHigh-71dcae8a-1301-401e-b0d5-6a3a4cab2eaa,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,TargetTracking-moodle-medium-dev-med-app-AlarmLow-3e7f0b04-5d6e-4d72-93bc-93f4d93c1cc2,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-BackupSuccess-missing,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-CronSuccess-missing,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-app-cpu,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-cache-memory,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-db-CPUUtilization,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-db-FreeStorageSpace,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-db-FreeableMemory,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-disk_used_percent,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-efs-io,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-mem_used_percent,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-notification-probe,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-runner-cpu,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-session-memory,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-target-5xx,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alarms,moodle-medium-dev-med-unhealthy-targets,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,alb,moodle-medium-dev-med,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,amis,ami-019136ffe53249b1e,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,asg,moodle-medium-dev-med-app,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,global,cloudfront,EN889ZM5KZQ2S,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,global,cloudfront,E1J9JJQAYOTF6C,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-0de15ad67341ff026,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-0d0b4ae0bf5167d27,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-093f1efa8a5546034,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-08254d31ea012c8dc,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-070badc9a77dfa33a,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-0d43470f88eb13a58,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ec2,i-0a67f2d6b579eae5e,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ecr,moodle-medium-dev/moodle,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,efs,fs-0be9bf83e04fd81af,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,ipv4,eipalloc-0fb3dd8a092af33c4,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ipv4,eipalloc-01783593df710828c,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,ipv4,eipalloc-0c830bffbf051ba21,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,logs,/moodle/moodle-medium-dev-med,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,nat,nat-05a4f7332bf0760b4,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,rds,moodle-medium-dev-med,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,redis,moodle-medium-dev-med-cache-001,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,ap-southeast-2,redis,moodle-medium-dev-med-session-001,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review stop/destroy plan; no automatic action
+828676179987,global,s3,moodle-medium-dev-828676179987-ap-southeast-2-artifacts,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,global,s3,moodle-medium-dev-828676179987-ap-southeast-2-backups,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,global,s3,moodle-medium-dev-828676179987-ap-southeast-2-state,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,global,s3,moodle-sydney-backup-828676179987,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,moodle-sydney-dev-public-origin-408b663d1c1ec637d9b7122933,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,moodle-medium-dev/redis,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,moodle-medium-dev/migration,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,moodle-medium-dev/runtime,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,moodle-medium-dev/admin,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,secrets,rds!db-a2256f72-d84f-41f6-8e4c-bfdbb42b4801,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,snapshots,snap-0a809e7c1378650f1,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-0968e93fed8697d5b,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-05ca854147857eda2,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-0e1baee95b81304bd,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-0c0eaff80c6a88f4e,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-0fda4ddb5d49641c1,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-05108829637bc0323,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion
+828676179987,ap-southeast-2,volumes,vol-023e62cb42e986070,Quân,2026-11-30T23:59:59+07:00,2026-12-01T00:00:00+07:00,Review retention after verified backup; no automatic deletion

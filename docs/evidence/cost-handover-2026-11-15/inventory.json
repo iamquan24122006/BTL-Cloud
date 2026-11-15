@@ -1,0 +1,478 @@
+{
+  "checked_utc": "2026-11-15T08:36:28.560349+00:00",
+  "account": "828676179987",
+  "region": "ap-southeast-2",
+  "global_services": [
+    "s3",
+    "cloudfront"
+  ],
+  "scope": "Sydney service inventory plus global S3/CloudFront; not an all-region cleanup certificate",
+  "counts": {
+    "nat": 1,
+    "amis": 1,
+    "snapshots": 1,
+    "volumes": 7,
+    "ec2": 7,
+    "rds_snapshots": 0,
+    "ipv4": 3,
+    "alb": 1,
+    "rds": 1,
+    "redis": 2,
+    "efs": 1,
+    "ecr": 1,
+    "secrets": 6,
+    "logs": 1,
+    "asg": 1,
+    "alarms": 17,
+    "s3": 4,
+    "cloudfront": 2
+  },
+  "resources": {
+    "nat": [
+      {
+        "id": "nat-05a4f7332bf0760b4",
+        "state": "available",
+        "tags": {
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "Team",
+          "Purpose": "coursework"
+        }
+      }
+    ],
+    "amis": [
+      {
+        "id": "ami-019136ffe53249b1e",
+        "name": "moodle-medium-dev-2130963-20261114T104530Z",
+        "state": "available"
+      }
+    ],
+    "snapshots": [
+      {
+        "id": "snap-0a809e7c1378650f1",
+        "gib": 30,
+        "state": "completed"
+      }
+    ],
+    "volumes": [
+      {
+        "id": "vol-0968e93fed8697d5b",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-093f1efa8a5546034"
+        ]
+      },
+      {
+        "id": "vol-05ca854147857eda2",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-08254d31ea012c8dc"
+        ],
+        "tags": {
+          "Project": "moodle-sydney",
+          "Environment": "dev",
+          "Owner": "student",
+          "Purpose": "coursework"
+        }
+      },
+      {
+        "id": "vol-0e1baee95b81304bd",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-0d43470f88eb13a58"
+        ],
+        "tags": {
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "Team",
+          "Purpose": "coursework"
+        }
+      },
+      {
+        "id": "vol-0c0eaff80c6a88f4e",
+        "gib": 20,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-0d0b4ae0bf5167d27"
+        ],
+        "tags": {
+          "Project": "moodle-sydney",
+          "Environment": "load-drill",
+          "Purpose": "private-load-generator"
+        }
+      },
+      {
+        "id": "vol-0fda4ddb5d49641c1",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-0a67f2d6b579eae5e"
+        ]
+      },
+      {
+        "id": "vol-05108829637bc0323",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-0de15ad67341ff026"
+        ],
+        "tags": {
+          "Project": "moodle-sydney",
+          "Environment": "staging",
+          "Owner": "student",
+          "Purpose": "restore-drill"
+        }
+      },
+      {
+        "id": "vol-023e62cb42e986070",
+        "gib": 30,
+        "type": "gp3",
+        "state": "in-use",
+        "attachments": [
+          "i-070badc9a77dfa33a"
+        ],
+        "tags": {
+          "Project": "moodle-sydney",
+          "Environment": "manual-drill",
+          "Purpose": "independent-stepwise-install"
+        }
+      }
+    ],
+    "ec2": [
+      {
+        "id": "i-0de15ad67341ff026",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-sydney-staging",
+          "Project": "moodle-sydney",
+          "Environment": "staging",
+          "Owner": "student",
+          "Purpose": "restore-drill"
+        }
+      },
+      {
+        "id": "i-0d0b4ae0bf5167d27",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-sydney-load-generator",
+          "Project": "moodle-sydney",
+          "Environment": "load-drill",
+          "Purpose": "private-load-generator"
+        }
+      },
+      {
+        "id": "i-093f1efa8a5546034",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-medium-dev-med-app",
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "N2"
+        }
+      },
+      {
+        "id": "i-08254d31ea012c8dc",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-sydney-dev",
+          "Project": "moodle-sydney",
+          "Environment": "dev",
+          "Owner": "student",
+          "Purpose": "coursework"
+        }
+      },
+      {
+        "id": "i-070badc9a77dfa33a",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-sydney-manual-drill",
+          "Project": "moodle-sydney",
+          "Environment": "manual-drill",
+          "Purpose": "independent-stepwise-install"
+        }
+      },
+      {
+        "id": "i-0d43470f88eb13a58",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-medium-dev-med-runner",
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "Team",
+          "Purpose": "coursework"
+        }
+      },
+      {
+        "id": "i-0a67f2d6b579eae5e",
+        "type": "t3.small",
+        "state": "running",
+        "tags": {
+          "Name": "moodle-medium-dev-med-app",
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "N2"
+        }
+      }
+    ],
+    "rds_snapshots": [],
+    "alb": [
+      {
+        "name": "moodle-medium-dev-med",
+        "type": "application",
+        "state": "active"
+      }
+    ],
+    "rds": [
+      {
+        "id": "moodle-medium-dev-med",
+        "class": "db.t4g.micro",
+        "state": "available",
+        "gib": 20,
+        "storage": "gp3",
+        "multi_az": false,
+        "backup_days": 1
+      }
+    ],
+    "redis": [
+      {
+        "id": "moodle-medium-dev-med-cache-001",
+        "type": "cache.t4g.micro",
+        "nodes": 1,
+        "state": "available"
+      },
+      {
+        "id": "moodle-medium-dev-med-session-001",
+        "type": "cache.t4g.micro",
+        "nodes": 1,
+        "state": "available"
+      }
+    ],
+    "efs": [
+      {
+        "id": "fs-0be9bf83e04fd81af",
+        "name": "moodle-medium-dev-med",
+        "state": "available",
+        "size": 3143680,
+        "tags": {
+          "Name": "moodle-medium-dev-med",
+          "Project": "moodle-medium",
+          "Environment": "dev",
+          "Owner": "Team",
+          "Purpose": "coursework"
+        }
+      }
+    ],
+    "ecr": [
+      {
+        "name": "moodle-medium-dev/moodle"
+      }
+    ],
+    "secrets": [
+      {
+        "name": "moodle-sydney-dev-public-origin-408b663d1c1ec637d9b7122933",
+        "deleted": null
+      },
+      {
+        "name": "moodle-medium-dev/redis",
+        "deleted": null
+      },
+      {
+        "name": "moodle-medium-dev/migration",
+        "deleted": null
+      },
+      {
+        "name": "moodle-medium-dev/runtime",
+        "deleted": null
+      },
+      {
+        "name": "moodle-medium-dev/admin",
+        "deleted": null
+      },
+      {
+        "name": "rds!db-a2256f72-d84f-41f6-8e4c-bfdbb42b4801",
+        "deleted": null
+      }
+    ],
+    "logs": [
+      {
+        "name": "/moodle/moodle-medium-dev-med",
+        "bytes": 17809273,
+        "retention": 14
+      }
+    ],
+    "asg": [
+      {
+        "name": "moodle-medium-dev-med-app",
+        "min": 2,
+        "max": 3,
+        "desired": 2,
+        "instances": [
+          {
+            "id": "i-093f1efa8a5546034",
+            "health": "Healthy",
+            "state": "InService"
+          },
+          {
+            "id": "i-0a67f2d6b579eae5e",
+            "health": "Healthy",
+            "state": "InService"
+          }
+        ]
+      }
+    ],
+    "alarms": [
+      {
+        "name": "TargetTracking-moodle-medium-dev-med-app-AlarmHigh-71dcae8a-1301-401e-b0d5-6a3a4cab2eaa",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "TargetTracking-moodle-medium-dev-med-app-AlarmLow-3e7f0b04-5d6e-4d72-93bc-93f4d93c1cc2",
+        "state": "ALARM",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-BackupSuccess-missing",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-CronSuccess-missing",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-app-cpu",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-cache-memory",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-db-CPUUtilization",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-db-FreeStorageSpace",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-db-FreeableMemory",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-disk_used_percent",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-efs-io",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-mem_used_percent",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-notification-probe",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-runner-cpu",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-session-memory",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-target-5xx",
+        "state": "OK",
+        "actions_enabled": true
+      },
+      {
+        "name": "moodle-medium-dev-med-unhealthy-targets",
+        "state": "OK",
+        "actions_enabled": true
+      }
+    ],
+    "s3": [
+      {
+        "name": "moodle-medium-dev-828676179987-ap-southeast-2-artifacts"
+      },
+      {
+        "name": "moodle-medium-dev-828676179987-ap-southeast-2-backups"
+      },
+      {
+        "name": "moodle-medium-dev-828676179987-ap-southeast-2-state"
+      },
+      {
+        "name": "moodle-sydney-backup-828676179987"
+      }
+    ],
+    "cloudfront": [
+      {
+        "id": "EN889ZM5KZQ2S",
+        "domain": "d1cnnw3mivc0q5.cloudfront.net",
+        "enabled": true,
+        "status": "Deployed"
+      },
+      {
+        "id": "E1J9JJQAYOTF6C",
+        "domain": "dc988tccg64gh.cloudfront.net",
+        "enabled": true,
+        "status": "Deployed"
+      }
+    ],
+    "ipv4": [
+      {
+        "id": "eipalloc-0fb3dd8a092af33c4",
+        "attached": true
+      },
+      {
+        "id": "eipalloc-01783593df710828c",
+        "attached": true
+      },
+      {
+        "id": "eipalloc-0c830bffbf051ba21",
+        "attached": true
+      }
+    ]
+  },
+  "ipv4_counts": {
+    "ec2_public": 4,
+    "elastic_ip_allocations": 3,
+    "ec2_or_allocated_unique": 7,
+    "assumed_public_alb_minimum": 2,
+    "model_total": 9,
+    "addresses_redacted": true
+  },
+  "errors": {},
+  "no_cloud_mutations": true
+}

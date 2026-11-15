@@ -1,0 +1,129 @@
+{
+  "checked_utc": "2026-11-15T08:36:28.560349+00:00",
+  "account": "828676179987",
+  "user_selected_scope": "Only current Sydney account; N2/N3 excluded by user instruction",
+  "period": {
+    "Start": "2026-10-01",
+    "End": "2026-11-15"
+  },
+  "scope": "Own linked account, all services and all regions; current UTC day excluded",
+  "record_types_usd": {
+    "Usage": "35.3129951942",
+    "Credit": "-35.3129952361",
+    "Tax": "0"
+  },
+  "gross_before_credit_refund_usd": "35.3129951942",
+  "net_usd": "-4.19E-8",
+  "gross_display_usd": "35.31",
+  "net_display_usd": "0.00",
+  "services_gross_usd": {
+    "Amazon Elastic Compute Cloud - Compute": "24.5377470273",
+    "Amazon Virtual Private Cloud": "4.74079447",
+    "EC2 - Other": "4.6541379928",
+    "Amazon ElastiCache": "0.576",
+    "Amazon Elastic Load Balancing": "0.3654747362",
+    "Amazon Relational Database Service": "0.3377824746",
+    "AWS Cost Explorer": "0.06",
+    "AWS Secrets Manager": "0.03554874",
+    "Amazon Simple Storage Service": "0.0050827718",
+    "Amazon EC2 Container Registry (ECR)": "0.0004075506",
+    "Amazon Elastic File System": "0.0000117311",
+    "Amazon CloudFront": "0.0000076998",
+    "AWS Certificate Manager": "0",
+    "AWS Key Management Service": "0",
+    "Amazon Simple Notification Service": "0",
+    "Amazon Simple Queue Service": "0",
+    "AmazonCloudWatch": "0",
+    "Tax": "0"
+  },
+  "months": [
+    {
+      "period": {
+        "Start": "2026-10-01",
+        "End": "2026-11-01"
+      },
+      "estimated": true,
+      "record_types_usd": {}
+    },
+    {
+      "period": {
+        "Start": "2026-11-01",
+        "End": "2026-11-15"
+      },
+      "estimated": true,
+      "record_types_usd": {
+        "Usage": "35.3129951942",
+        "Credit": "-35.3129952361",
+        "Tax": "0"
+      }
+    }
+  ],
+  "estimated": true,
+  "independent_daily_gross_usd": "35.3129951942",
+  "reconciliation_delta_usd": "0E-10",
+  "reconciled": true,
+  "recent_daily_gross_usd": [
+    {
+      "date": "2026-11-08",
+      "usd": "3.3665446188"
+    },
+    {
+      "date": "2026-11-09",
+      "usd": "3.366551637"
+    },
+    {
+      "date": "2026-11-10",
+      "usd": "3.3665579506"
+    },
+    {
+      "date": "2026-11-11",
+      "usd": "3.3706392788"
+    },
+    {
+      "date": "2026-11-12",
+      "usd": "3.3666408106"
+    },
+    {
+      "date": "2026-11-13",
+      "usd": "3.3669856028"
+    },
+    {
+      "date": "2026-11-14",
+      "usd": "6.2533073397"
+    }
+  ],
+  "budget_usd": "150",
+  "budget_snapshot": [
+    {
+      "name": "moodle-sydney-small-202611",
+      "limit": {
+        "Amount": "150.0",
+        "Unit": "USD"
+      },
+      "actual": {
+        "Amount": "35.313",
+        "Unit": "USD"
+      },
+      "forecast": null,
+      "period": {
+        "Start": "2026-11-01T07:00:00+07:00",
+        "End": "2026-12-01T07:00:00+07:00"
+      },
+      "cost_types": {
+        "IncludeTax": true,
+        "IncludeSubscription": true,
+        "UseBlended": false,
+        "IncludeRefund": false,
+        "IncludeCredit": false,
+        "IncludeUpfront": true,
+        "IncludeRecurring": true,
+        "IncludeOtherSubscription": true,
+        "IncludeSupport": true,
+        "IncludeDiscount": true,
+        "UseAmortized": false
+      }
+    }
+  ],
+  "whole_project_all_accounts_total_certified": false,
+  "final_invoice_certified": false
+}

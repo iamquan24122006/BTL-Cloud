@@ -1,6 +1,8 @@
 # Chi phí, báo cáo và demo
 
-**Đã có báo cáo tổng hợp ngày 14/11/2026:** [bản báo cáo](19-final-report.md), [ma trận chốt](18-project-closeout.md), [billing và inventory mới](evidence/final-audit-2026-11-14/README.md). Cost Explorer toàn account Sydney, kỳ 01/10–14/11 exclusive, trả usage trước credit/refund **27,3117946308 USD** và credit **−27,3117946649 USD**, các kỳ còn Estimated. Chưa có số tổng N2/N3; không coi số Sydney là tổng chi phí toàn dự án. Các dự toán và snapshot phía dưới giữ đúng thời điểm lịch sử.
+**Chốt billing và tiếp nhận ngày 15/11/2026:** [biên bản chi phí/bàn giao](28-cost-and-handover.md), [bản báo cáo](19-final-report.md), [ma trận chốt](18-project-closeout.md). Theo phạm vi người dùng chọn, chỉ chốt account Sydney `828676179987`: kỳ 01/10 inclusive–15/11 exclusive, trước credit/refund **35,3129951942 USD**, credit **−35,3129952361 USD**, ròng làm tròn **0,00 USD**, còn Estimated. Tổng theo dịch vụ và DAILY độc lập khớp nhau. N2/N3 ngoài phạm vi đã chọn, không đặt bằng 0 hoặc cộng estimate vào billing.
+
+**Quân nhận vận hành, giữ demo đến hết 30/11/2026 (UTC+7).** Nếu giữ nguyên 7 EC2 cùng hạ tầng hiện tại, dự toán cơ bản trước credit/thuế đến mốc đó khoảng **192,74 USD**, chưa gồm một số phí theo usage và dịch vụ phụ; không cam kết nằm dưới ngân sách 150 USD. [Phép tính tái lập](evidence/cost-handover-2026-11-15/projection.json), [inventory và vòng đời](evidence/cost-handover-2026-11-15/README.md). Các dự toán/snapshot phía dưới giữ nguyên thời điểm lịch sử.
 
 ## 1. Dự toán theo thời gian dùng thực tế
 

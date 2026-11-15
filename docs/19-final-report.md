@@ -1,10 +1,12 @@
 # Báo cáo đồ án: Triển khai và vận hành Moodle LMS trên AWS
 
-**Phiên bản tổng hợp:** 14/11/2026. **Nhóm:** 4 thành viên. **Ngân sách toàn dự án:** 150 USD. Tên, mã sinh viên, lớp và người hướng dẫn do nhóm bổ sung khi đưa vào mẫu nộp của môn học.
+**Phiên bản tổng hợp:** cập nhật billing/bàn giao 15/11/2026; số liệu thực nghiệm giữ đúng thời điểm từng lượt. **Nhóm:** 4 thành viên. **Ngân sách toàn dự án:** 150 USD. **Người nhận vận hành:** Quân. Tên đầy đủ, mã sinh viên, lớp và người hướng dẫn do nhóm bổ sung khi đưa vào mẫu nộp của môn học.
 
 ## Tóm tắt
 
-**Cập nhật 15/11:** tên miền `www.moodle-cloud-distribution.mywire.org` dùng HTTPS/ACM trực tiếp tại ALB Sydney; 47/47 ca nghiệp vụ, ba tài khoản demo, cookie/redirect, cron và readiness đạt. Policy target 200 đã tự chạy 2→3→2 app; rollout tên miền thành công, plan sau triển khai không drift. Kiểm thử cục bộ: 103 ca unit (101 đạt, 2 skip Linux permission trên Windows), 3 Terraform mock đạt. [Bằng chứng mới](evidence/current-review-2026-11-15/README.md). Toàn dự án còn GUI/so sánh tải, coverage lỗi và bàn giao/chi phí theo [danh sách hiện hành](24-remaining-work.md); không tự ký nghiệm thu đầy đủ.
+**Chốt tiếp nhận 15/11:** Quân nhận vận hành, giữ demo đến hết 30/11/2026 (UTC+7). Người dùng chọn chỉ chốt billing account Sydney hiện có: **35,31 USD trước credit/refund**, ròng làm tròn **0,00 USD**, kỳ đến hết 14/11 UTC còn Estimated. Đã có sổ tài nguyên và dự toán giữ nguyên cấu hình khoảng **192,74 USD** trước credit/thuế và các khoản chưa tính; không cam kết dưới ngân sách 150 USD. [Biên bản và phương pháp](28-cost-and-handover.md). GUI Quân tự kiểm tra/bổ sung bằng chứng; xác nhận tiếp nhận không đồng nghĩa đạt mọi tiêu chí.
+
+**Cập nhật kỹ thuật 15/11:** tên miền `www.moodle-cloud-distribution.mywire.org` dùng HTTPS/ACM trực tiếp tại ALB Sydney; 47/47 ca nghiệp vụ, ba tài khoản demo, cookie/redirect, cron và readiness đạt tại lượt cutover. Policy target 200 đã tự chạy 2→3→2 app; rollout tên miền thành công, plan sau triển khai không drift. Kiểm thử cục bộ: 103 ca unit (101 đạt, 2 skip Linux permission trên Windows), 3 Terraform mock đạt. [Bằng chứng cutover](evidence/current-review-2026-11-15/README.md), [hostfix và sự cố cron sau đó](evidence/hostfix-2026-11-15/README.md). Toàn dự án còn GUI/so sánh tải, coverage lỗi và chuyển giao/cleanup theo [danh sách hiện hành](24-remaining-work.md); không tự ký nghiệm thu đầy đủ.
 
 **Hồ sơ medium Sydney 14/11/2026 (lịch sử):** lab public CloudFront có hai app private và runner, RDS/EFS/Redis; 47/47 kiểm tra HTTPS trên nguồn và sau restore sang RDS/EFS mới. Các ca session/file/cache xuyên node, lock, cron, maintenance và ASG replacement có bằng chứng. CI `93bdc8b` thành công với 96 unit tests và integration/Terraform checks. [Hồ sơ live](21-medium-sydney.md), [evidence lịch sử](evidence/medium-sydney-2026-11-14/README.md). Domain/ACM đã bổ sung trong lượt 15/11; các số baseline phía dưới giữ nguyên thời điểm và điều kiện đo.
 
@@ -125,19 +127,22 @@ Lượt cài từng pha trên EC2 sạch có tổng các pha remote 343,509 giâ
 
 ## 7. Chi phí và trạng thái tài nguyên
 
-Ngân sách nhóm là 150 USD, gồm 112,50 USD kế hoạch và 37,50 USD dự phòng. Cost Explorer được truy vấn ngày 14/11 cho khoảng **01/10/2026 inclusive–14/11/2026 exclusive**, toàn account Sydney và mọi region. Tổng usage trước credit/refund là **27,3117946308 USD**; credit là **−27,3117946649 USD**. Chênh lệch sau credit làm tròn gần 0 USD, không có nghĩa AWS không phát sinh usage. Các kỳ vẫn có cờ Estimated.
+Ngân sách nhóm là 150 USD, gồm 112,50 USD kế hoạch và 37,50 USD dự phòng. Lượt chốt ngày 15/11 truy vấn Cost Explorer cho khoảng **01/10/2026 inclusive–15/11/2026 exclusive**, toàn account Sydney `828676179987` và mọi region/dịch vụ, lọc đúng LINKED_ACCOUNT. Người dùng chọn chỉ billing account hiện có; N2/N3 không thuộc số chốt này. Trước credit/refund là **35,3129951942 USD**, credit **−35,3129952361 USD**, thuế ghi nhận bằng 0; ròng làm tròn **0,00 USD**. Các kỳ còn Estimated, chưa phải hóa đơn cuối cùng; credit đã áp dụng không phải số dư credit tương lai.
 
 | Nhóm dịch vụ | Usage trước credit/refund (USD) |
 |---|---:|
-| EC2 Compute | 20,4981846696 |
-| EC2 - Other | 2,8644906918 |
-| Amazon VPC | 3,91549167 |
-| S3 | 0,0036275994 |
-| Cost Explorer | 0,03 |
+| EC2 Compute | 24,5377470273 |
+| Amazon VPC | 4,74079447 |
+| EC2 - Other | 4,6541379928 |
+| ElastiCache | 0,576 |
+| Elastic Load Balancing | 0,3654747362 |
+| RDS | 0,3377824746 |
+| Các dịch vụ khác | Xem bảng đầy đủ trong billing JSON |
+| **Tổng mọi dịch vụ** | **35,3129951942** |
 
-Đây là số toàn account, không gán mọi khoản tuyệt đối cho LMS khi chưa có cost allocation tương ứng. Không cộng số estimate cũ vào billing vì có thể trùng khoảng và tài nguyên. Chưa có số chi phí tương ứng của account N2/N3, nên chưa thể chứng nhận tổng đồ án đã chốt dưới 150 USD chỉ từ bảng này. [Cost summary](evidence/final-audit-2026-11-14/cost-summary.json).
+Tổng nhóm dịch vụ, tổng loại phí và tổng DAILY độc lập khớp nhau. Đây là số toàn account, không gán mọi khoản tuyệt đối cho LMS khi chưa có cost allocation tương ứng. Không cộng snapshot cũ hoặc estimate vào billing vì có thể trùng kỳ. Không kết luận đây là tổng mọi account của đồ án. [Billing đối chiếu](evidence/cost-handover-2026-11-15/billing.json), [snapshot 14/11 lịch sử](evidence/final-audit-2026-11-14/cost-summary.json).
 
-Snapshot đầu lượt kiểm kê có bốn EC2 running: dev, staging, generator và manual drill. Lab medium N2 đã cleanup ngày 10/11 theo evidence riêng; không coi điều đó là cleanup account Sydney hoặc N3. Budget tháng 11 là 150 USD, loại credit/refund khỏi actual; kênh cảnh báo đã được kiểm qua SNS→SQS trong hồ sơ trước. Budget không tự ngắt tài nguyên và chưa có bằng chứng thông báo đến người nhận cuối. [Inventory](evidence/final-audit-2026-11-14/sydney-inventory.json), [cleanup N2](15-aws-cleanup.md).
+Inventory 15/11 có **7 EC2 running**: small dev/staging, generator, manual drill, hai app medium và runner; còn RDS, hai Redis, EFS, ALB/NAT, volume và các dịch vụ phụ. Quân tiếp nhận, giữ demo đến hết 30/11 UTC+7 và review cleanup từ 01/12. Giữ nguyên cấu hình tương đương khoảng **10,02 USD/ngày** cho các khoản cơ bản đã mô hình hóa; tổng usage đã biết cộng 377 giờ từ cutoff billing tới cuối lịch giữ khoảng **192,74 USD**, trước credit/thuế và chưa gồm mọi khoản. Đây là dự toán bằng giá public hiện tại, không phải forecast AWS; Quân cần review máy thử/phát tải khi không dùng. Budget 150 USD không tự ngắt tài nguyên; chưa thực hiện stop/destroy hoặc lập lịch tự động trong lượt bàn giao. [Inventory, vòng đời và giả định](28-cost-and-handover.md).
 
 ## 8. Đánh giá đóng góp và giới hạn
 
@@ -151,4 +156,4 @@ Hướng tiếp tục là trình tạo YAML có hướng dẫn, tự động chu
 
 Demo 12–15 phút gồm bài toán/kiến trúc, YAML và lỗi validate, trạng thái site live, teacher/student/course/file/bài nộp/điểm, cron/backup, staging đã restore và số liệu tải/chi phí. Dùng log/video của lần dựng sạch vì provision có thể vượt thời gian trình bày. Không chạy restore/destroy dữ liệu đang demo. [Kịch bản thao tác](15-small-demo.md).
 
-Hồ sơ bàn giao gồm source/lockfile, YAML mẫu, runbook dựng và vận hành, CI đúng commit, evidence đã lọc, CSV tải, báo cáo này và [ma trận chốt](18-project-closeout.md). State/plan/backup và tài khoản demo bàn giao qua kênh riêng. Nhóm cần hoàn tất tên thành viên, reviewer, walkthrough small và quyết định phạm vi/giới hạn trước khi ký nghiệm thu. Báo cáo mô tả kết quả đã kiểm chứng; không tự thay thế quyết định nghiệm thu của nhóm hoặc giảng viên.
+Hồ sơ bàn giao gồm source/lockfile, YAML mẫu, runbook dựng và vận hành, CI đúng commit, evidence đã lọc, CSV tải, báo cáo này và [ma trận chốt](18-project-closeout.md). **Quân đã được xác nhận là người nhận, giữ demo đến hết 30/11/2026 UTC+7; chỉ chốt billing Sydney theo lựa chọn của người dùng.** [Biên bản bàn giao](28-cost-and-handover.md) kèm inventory, sổ vòng đời từng tài nguyên và phép tính chi phí. State/plan/backup và mật khẩu phải chuyển qua kênh riêng; việc chuyển quyền/dữ liệu riêng chưa được kiểm chứng trong lượt này. Quân tự kiểm tra GUI và bổ sung bằng chứng trước khi đánh dấu đạt. Xác nhận tiếp nhận không thay chữ ký nghiệm thu mọi yêu cầu của nhóm/giảng viên; cleanup sau demo chưa diễn ra.

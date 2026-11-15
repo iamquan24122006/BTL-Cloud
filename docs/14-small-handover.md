@@ -1,12 +1,12 @@
 # Bàn giao Small
 
-Môi trường vận hành: Sydney (`ap-southeast-2`), profile `moodle-project`; dev dùng `config/sydney.yaml`, staging dùng `config/sydney-staging.yaml`. Chọn rõ cấu hình trước mỗi lệnh. Kết quả và các mục còn chờ ký nằm trong [biên bản nghiệm thu](13-small-acceptance.md); medium/large chưa triển khai.
+Môi trường vận hành: Sydney (`ap-southeast-2`), profile `moodle-project`; dev dùng `config/sydney.yaml`, staging dùng `config/sydney-staging.yaml`. Chọn rõ cấu hình trước mỗi lệnh. Small dev đã có URL public; medium Sydney cũng đã triển khai, có [runbook riêng](21-medium-sydney.md). **Quân nhận vận hành và giữ demo đến hết 30/11/2026 UTC+7**; [billing và xác nhận bàn giao hiện hành](28-cost-and-handover.md). [Biên bản small](13-small-acceptance.md) giữ bằng chứng lịch sử, không thay trạng thái hiện tại.
 
 Thao tác demo cụ thể, tài khoản/vai trò và cách xử lý sự cố: [Demo Small](15-small-demo.md). Danh sách dịch vụ AWS và công cụ dùng thật: [Dịch vụ Small](16-small-services.md). Script `scripts/demo-small.ps1` chọn dev/staging, kiểm tra đúng account, EC2 và SSM trước khi mở tunnel; `-CheckOnly` chỉ kiểm tra, không mở session.
 
 ## Nhận mã và kiểm tra
 
-Nhánh bàn giao là `mq`. Cài Python theo `requirements.txt`, Terraform, AWS CLI và Session Manager plugin; kiểm tra phiên bằng STS. So khớp account với hồ sơ riêng của lab trước khi thực hiện thao tác AWS. Không dùng profile mặc định của máy nếu chưa đối chiếu.
+Nhánh bàn giao hiện tại là `master`; các gói `mq` cũ là hồ sơ lịch sử. Cài Python theo `requirements.txt`, Terraform, AWS CLI và Session Manager plugin; kiểm tra phiên bằng STS. So khớp account với hồ sơ riêng của lab trước khi thực hiện thao tác AWS. Không dùng profile mặc định của máy nếu chưa đối chiếu.
 
 ```powershell
 $env:AWS_PROFILE = 'moodle-project'
@@ -21,13 +21,13 @@ python -m src.moodle_cloud --config config/sydney.yaml health --wait
 
 ## Mở site và kiểm tra giao diện
 
-Lấy instance ID từ `status`, thay `<INSTANCE_ID>` trong lệnh sau rồi giữ terminal chạy:
+Dev mở trực tiếp tại https://d1cnnw3mivc0q5.cloudfront.net theo [runbook public](20-small-public.md). Với staging còn dùng tunnel, lấy instance ID từ `status`, thay `<INSTANCE_ID>` trong lệnh sau rồi giữ terminal chạy:
 
 ```powershell
 aws --region ap-southeast-2 ssm start-session --target <INSTANCE_ID> --document-name AWS-StartPortForwardingSession --parameters '{"portNumber":["8080"],"localPortNumber":["8080"]}'
 ```
 
-Mở `http://localhost:8080`. Mỗi lần chỉ forward một môi trường vào cổng này vì `wwwroot` đã ghim URL đó. Không mở ingress public để demo. Xem credential qua SSM bằng tài khoản người vận hành được phép; không ghi mật khẩu vào video, báo cáo, chat hay Git. Credential admin hiện hành được giữ ở `/root/moodle-initial-admin.txt`; quy tắc sau restore xem [vận hành](05-operations.md).
+Với staging qua tunnel, mở `http://localhost:8080` và chỉ forward một môi trường vào cổng này. Dev public dùng URL riêng đã kích hoạt; không đổi `wwwroot` hoặc mở thêm ingress chỉ để demo. Xem credential qua SSM bằng tài khoản người vận hành được phép; không ghi mật khẩu vào video, báo cáo, chat hay Git. Credential admin small được giữ ở `/root/moodle-initial-admin.txt`; quy tắc sau restore xem [vận hành](05-operations.md).
 
 Người kiểm tra độc lập thực hiện và lưu ảnh/video đã che thông tin nhạy cảm:
 
@@ -52,7 +52,7 @@ Backup mới không tự có nghĩa đã restore-tested. Bộ đã diễn tập 
 
 Tổng ngân sách dự án **150 USD**: dự kiến 112,50 USD, dự phòng 37,50 USD. Budget AWS tháng 11/2026 theo dõi usage trước credit/refund của toàn account; cảnh báo nội bộ actual >75% và forecast >100% qua SNS→SQS. Không có email recipient và budget không tự dừng tài nguyên. Xem [chi phí](07-report-and-cost.md) và [module budget](../infra/budget/README.md).
 
-Dev/staging giữ để demo, owner là nhóm thực hiện đồ án. Mốc giữ mặc định: đến khi kết thúc demo; người nhận ghi ngày cụ thể vào hồ sơ riêng. Tắt EC2 khi không dùng nếu phù hợp lịch backup; EBS và một số tài nguyên vẫn tính phí. Sau demo, tạo/kiểm chứng backup ngoài EC2, review destroy plan từng state rồi dọn. Không xóa lab cũ ngoài state hoặc bucket backup/state chỉ để làm sạch checklist. Generator và máy cài thử là tài nguyên tạm, được dọn sau khi lưu bằng chứng.
+Dev/staging giữ để demo; **người chịu trách nhiệm đã xác nhận là Quân, giữ đến hết 30/11/2026 UTC+7**, review cleanup từ 01/12. Không có lịch tự động stop/destroy. Tắt EC2 khi không dùng nếu phù hợp lịch backup; EBS và một số tài nguyên vẫn tính phí. Sau demo, tạo/kiểm chứng backup ngoài EC2, review destroy plan từng state rồi dọn. Không xóa lab cũ ngoài state hoặc bucket backup/state chỉ để làm sạch checklist. Generator và máy cài thử hiện vẫn running theo inventory 15/11; Quân review dừng/dọn sau khi giữ đủ bằng chứng. [Sổ vòng đời và dự toán](28-cost-and-handover.md).
 
 Budget kỳ hiện tại kết thúc 01/12/2026 UTC. Nếu dự án kéo dài qua tháng, cập nhật kỳ theo số tiền còn lại của tổng 150 USD; không coi tháng mới là được cấp thêm 150 USD.
 

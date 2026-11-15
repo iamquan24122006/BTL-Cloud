@@ -366,3 +366,7 @@ Backup và xác minh dữ liệu cần giữ trước khi review saved destroy p
 | Chi phí | AWS Budgets, Cost Explorer và inventory theo từng account |
 
 Không chỉ dựa vào timer active hoặc HTTP 200. Backup mới không tự được coi đã restore-test; budget không tự dừng tài nguyên. [Vận hành](docs/05-operations.md), [chi phí và demo](docs/07-report-and-cost.md).
+
+**Bàn giao 15/11:** Quân nhận vận hành, giữ demo đến hết **30/11/2026 (UTC+7)**. Người dùng chọn chốt riêng billing account Sydney: **35,31 USD trước credit**, ròng làm tròn **0,00 USD** đến hết 14/11 UTC (Estimated). Giữ nguyên toàn bộ cấu hình đến cuối lịch giữ được dự toán cơ bản **192,74 USD** trước credit/thuế và khoản chưa tính. [Biên bản, inventory và lịch review cleanup](docs/28-cost-and-handover.md).
+
+**Đã chốt dự án theo yêu cầu người dùng ngày 15/11/2026.** Giữ nguyên kết quả và giới hạn đã ghi nhận để làm báo cáo; Quân tự kiểm tra GUI và tự xóa tài nguyên khi cần. Không triển khai cơ chế tự xóa theo ngưỡng 150 USD hoặc lịch cleanup tự động. [Phạm vi bản chốt](docs/29-project-freeze.md).

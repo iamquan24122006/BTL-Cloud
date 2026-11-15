@@ -1,8 +1,10 @@
-# Hồ sơ chốt dự án — 14/11/2026
+# Hồ sơ chốt dự án — cập nhật 15/11/2026
 
 Đây là điểm đọc trạng thái hiện tại, thay cho các bảng tiến độ lịch sử trong tài liệu kế hoạch. Phạm vi mục tiêu vẫn là small P0 và medium P1; chưa thu hẹp yêu cầu để biến các mục thiếu bằng chứng thành đạt.
 
-**Cập nhật 15/11:** HTTPS tên miền tại ALB đã đạt 47/47 ca nghiệp vụ và ba tài khoản demo; autoscaling đã tự chạy 2→3→2, rollout app hoàn tất, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK cùng rotation admin có bằng chứng trước đó. Bản sửa backup/cron đã được **phát hành lên live** (bundle host mới, 494/494 bảng có `TRUNCATE`, tag task chạy lại, 47/47 ca đạt, plan không drift) — xem [bằng chứng deploy](evidence/hostfix-2026-11-15/README.md). Vẫn **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1** do GUI, benchmark, coverage lỗi và bàn giao/chi phí còn thiếu. Xem [bằng chứng mới](evidence/current-review-2026-11-15/README.md) và [công việc còn lại](24-remaining-work.md); [review ban đầu](22-technical-acceptance.md) giữ nguyên phạm vi lịch sử.
+**Đã chốt tiếp nhận và billing trong phạm vi được chọn:** người nhận **Quân**, giữ demo đến hết **30/11/2026 (UTC+7)**, chỉ billing account Sydney hiện có. Trước credit **35,31 USD**, ròng làm tròn **0,00 USD** cho kỳ đến hết 14/11 UTC; Estimated, không đại diện tổng mọi account. Dự toán giữ nguyên cấu hình đến mốc giữ khoảng **192,74 USD** trước credit/thuế và khoản chưa tính. [Biên bản bàn giao và chi phí](28-cost-and-handover.md). GUI do Quân tự kiểm tra/bổ sung bằng chứng; xác nhận người nhận không thay chữ ký nghiệm thu mọi tiêu chí hoặc việc chuyển credential/state.
+
+**Cập nhật kỹ thuật 15/11:** HTTPS tên miền tại ALB đã đạt 47/47 ca nghiệp vụ và ba tài khoản demo; autoscaling đã tự chạy 2→3→2, rollout app hoàn tất, cron sạch và plan không drift tại lượt kiểm tra tương ứng. Dashboard/thông báo ALARM/OK cùng rotation admin có bằng chứng trước đó. Bản sửa backup/cron đã được **phát hành lên live** (bundle host mới, 494/494 bảng có `TRUNCATE`, tag task chạy lại, 47/47 ca đạt, plan không drift) — xem [bằng chứng deploy và sự cố sau đó](evidence/hostfix-2026-11-15/README.md). Vẫn **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1** do GUI, benchmark, coverage lỗi và các phần chuyển giao/cleanup chưa kiểm chứng. Tiếp nhận và billing Sydney đã chốt riêng ở trên. Xem [bằng chứng cutover](evidence/current-review-2026-11-15/README.md) và [công việc còn lại](24-remaining-work.md); [review ban đầu](22-technical-acceptance.md) giữ nguyên phạm vi lịch sử.
 
 ## Kết luận cho nhóm
 
@@ -58,7 +60,7 @@ Toàn bộ chứng cứ mới: [final-audit-2026-11-14](evidence/final-audit-202
 | AT-17 — restore medium | Đạt H/L trong phạm vi đã đo | Backup `20261114T115610` phục hồi vào RDS/EFS mới; giữ IDs, file, bài nộp/điểm; 47/47 HTTPS và kiểm tra xuyên node; không suy cam kết RPO/RTO production |
 | AT-18 — alarm/recovery | Đạt đường gửi/nhận và recovery đã đo | Bổ sung dashboard 11 widget, 14 alarm vận hành; probe metric thật nhận ALARM và OK qua SNS/SQS. Kiểm tra inbox thuộc trách nhiệm operator |
 | AT-19 — đo tải/so sánh | Đạt ma trận small; chưa đủ so sánh | Sydney đủ 9 lượt; N3 có 2 lượt 50-user chậm. Chưa benchmark medium và so sánh cài tay/tự động cùng phương pháp |
-| AT-20 — bàn giao/cleanup/chi phí | Chờ nhóm chốt | Có báo cáo, inventory và chi phí Sydney; còn reviewer, quyết định vòng đời lab, chi phí N2/N3 |
+| AT-20 — bàn giao/cleanup/chi phí | Đã chốt tiếp nhận và billing Sydney theo phạm vi người dùng chọn | Quân nhận, giữ đến hết 30/11; có billing đối chiếu và sổ tài nguyên. N2/N3 ngoài phạm vi; GUI, chuyển quyền/state và cleanup sau demo chưa kiểm chứng. [Biên bản](28-cost-and-handover.md) |
 | LMS-06 — GUI | Medium H; small chờ | Medium có ảnh desktop/mobile viewport. Small chưa có walkthrough GUI mới; HTTP không thay kiểm tra bố cục |
 
 Yêu cầu gốc: [đặc tả nghiệm thu](12-dac-ta-tinh-nang-va-nghiem-thu.md). Các tiêu chí có phần chưa chạy được giữ nguyên trạng thái; không tính tỷ lệ hoàn thành bằng cách cộng các phép kiểm không tương đương.
@@ -67,7 +69,7 @@ Yêu cầu gốc: [đặc tả nghiệm thu](12-dac-ta-tinh-nang-va-nghiem-thu.m
 
 1. **Reviewer độc lập** chạy [demo small](15-small-demo.md): teacher/student, tải học liệu, bài nộp/điểm và lỗi truy cập. Lưu ảnh desktop và viewport hẹp, ghi browser/version/ngày; không đưa mật khẩu vào ảnh.
 2. **Chốt phạm vi trình bày medium**: dùng lab Sydney hiện tại và bộ bằng chứng mới; phân biệt CloudFront viewer HTTPS với yêu cầu HTTPS trực tiếp tại ALB. Hồ sơ Singapore vẫn là lịch sử; không dùng IDs/ARN của nó cho lab Sydney.
-3. **Bổ sung chi phí N2/N3** và xác nhận lịch giữ/dừng/hủy tài nguyên. Hai profile còn lại đã được kiểm tra: `default` hết hạn, `mquann` trả token không hợp lệ; chưa có phiên hợp lệ để lấy billing account khác. Số 27,31 USD Sydney chưa đại diện tổng 150 USD của nhóm. Không xóa lab đang demo hoặc backup/state để đóng checklist.
+3. **Vận hành theo lịch đã xác nhận:** Quân giữ demo đến hết 30/11, review cleanup từ 01/12. Người dùng chọn chỉ billing Sydney; không chờ đăng nhập N2/N3 trong phạm vi bàn giao này, không tuyên bố đã có tổng mọi account. Dự toán giữ nguyên tài nguyên có thể vượt mốc 150 USD trước credit; ưu tiên review các máy thử/phát tải khi hết nhu cầu. Không xóa lab đang demo hoặc backup/state để đóng checklist.
 4. Điền tên nhóm, mã sinh viên/lớp, người kiểm tra và quyết định nghiệm thu vào phần dưới. Đây là thông tin và phê duyệt của nhóm, không do agent tự tạo.
 
 ## Biên bản nhóm
@@ -75,10 +77,12 @@ Yêu cầu gốc: [đặc tả nghiệm thu](12-dac-ta-tinh-nang-va-nghiem-thu.m
 | Mục | Nhóm điền sau review |
 |---|---|
 | Thành viên A/B/C/D, mã sinh viên, lớp | Chưa cung cấp |
-| Reviewer và ngày chạy lại demo | Chưa xác nhận |
-| Bằng chứng walkthrough small | Chưa bổ sung |
-| Phạm vi được chấp nhận: small / small + medium lịch sử / full P0+P1 | Chưa quyết định |
-| Giới hạn được chấp nhận và lý do | Chưa quyết định |
-| Chi phí các account còn lại | Chưa cung cấp |
-| Lịch dừng/hủy lab sau demo và người chịu trách nhiệm | Chưa chốt |
-| Kết luận và chữ ký | Chờ nhóm |
+| Người nhận/chịu trách nhiệm vận hành | **Quân — người dùng xác nhận ngày 15/11/2026** |
+| Reviewer và ngày chạy lại demo | Quân tự thực hiện; chưa có kết quả/ngày chạy lại được kiểm chứng |
+| Bằng chứng walkthrough small | Quân bổ sung; chưa ghi đạt trước khi có ảnh/kết quả |
+| Phạm vi bản chốt | Người dùng yêu cầu chốt small + medium Sydney trong trạng thái đã kiểm chứng để làm báo cáo; không ký đạt mọi P0+P1. [Quyết định chốt](29-project-freeze.md) |
+| Giới hạn khi chốt | Giữ nguyên các phần GUI, benchmark, coverage lỗi và vận hành chưa kiểm chứng trong báo cáo; không biến mục thiếu bằng chứng thành đạt |
+| Phạm vi chi phí | Chỉ account Sydney hiện có, theo lựa chọn của người dùng; N2/N3 không thuộc số chốt |
+| Lịch giữ lab và người chịu trách nhiệm | **Quân; giữ đến hết 30/11/2026 UTC+7; review cleanup từ 01/12, chưa tự động hóa** |
+| Kết luận tiếp nhận | Đã xác nhận người nhận, lịch giữ và phạm vi billing qua hội thoại; [biên bản](28-cost-and-handover.md) |
+| Chữ ký nghiệm thu mọi tiêu chí/chuyển credential-state | Chưa kiểm chứng; không ký thay |

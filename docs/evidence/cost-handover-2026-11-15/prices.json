@@ -1,0 +1,709 @@
+{
+  "checked_utc": "2026-11-15T08:38:55.961921+00:00",
+  "region": "ap-southeast-2",
+  "source": "AWS Price List GetProducts, public OnDemand prices",
+  "rates": {
+    "ipv4": [
+      {
+        "sku": "JZP2PURP9VVQ96GH",
+        "unit": "Hrs",
+        "usd": "0.0050000000",
+        "description": "$0.005 per In-use public IPv4 address per hour",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-PublicIPv4:InUseAddress"
+        }
+      },
+      {
+        "sku": "QY2D8KY5X94X6NEB",
+        "unit": "Hrs",
+        "usd": "0.0050000000",
+        "description": "$0.005 per Idle public IPv4 address per hour",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-PublicIPv4:IdleAddress"
+        }
+      }
+    ],
+    "ec2": [
+      {
+        "sku": "ZJF5Q3KWKS8VD3X2",
+        "unit": "Hrs",
+        "usd": "0.0264000000",
+        "description": "$0.0264 per On Demand Linux t3.small Instance Hour",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-BoxUsage:t3.small"
+        }
+      }
+    ],
+    "snapshot": [
+      {
+        "sku": "759N2ESGG4Z2C95V",
+        "unit": "GB-Mo",
+        "usd": "0.0550000000",
+        "description": "$0.055 per GB-Month of snapshot data stored - Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-EBS:SnapshotUsage"
+        }
+      },
+      {
+        "sku": "7V9YKCSJ543TVNTE",
+        "unit": "GB-Mo",
+        "usd": "0.0137500000",
+        "description": "$0.01375 per GB-Month of snapshot archive data deleted earlier than 90 days - Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-EBS:SnapshotArchiveEarlyDelete"
+        }
+      },
+      {
+        "sku": "9Z3HNA3BNMP7PSN3",
+        "unit": "GB",
+        "usd": "0.0330000000",
+        "description": "$0.033 per GB of snapshot archive data retrieved - Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-EBS:SnapshotArchiveRetrieval"
+        }
+      },
+      {
+        "sku": "R3XF83EDNVS4YYWG",
+        "unit": "GB-Mo",
+        "usd": "0.0137500000",
+        "description": "$0.01375 per GB-Month of snapshot archive data stored - Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-EBS:SnapshotArchiveStorage"
+        }
+      },
+      {
+        "sku": "TNHFET3BS9BPZ9K5",
+        "unit": "GB-Mo",
+        "usd": "0.0290000000",
+        "description": "$0.029 per GB-Mo for EBS local snapshots on Outposts in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-EBS:SnapshotUsage.outposts"
+        }
+      }
+    ],
+    "ebs": [
+      {
+        "sku": "QR74UAP3E9WUYT9B",
+        "unit": "GB-Mo",
+        "usd": "0.0960000000",
+        "description": "$0.096 per GB-month of General Purpose (gp3) provisioned storage - Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "volumeType": "General Purpose",
+          "usagetype": "APS2-EBS:VolumeUsage.gp3",
+          "regionCode": "ap-southeast-2"
+        }
+      }
+    ],
+    "rds_storage": [
+      {
+        "sku": "XVCEBKZQD46QGPYP",
+        "unit": "GB-Mo",
+        "usd": "0.1380000000",
+        "description": "$0.138 per GB-month of provisioned GP3 storage running PostgreSQL",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "volumeType": "General Purpose-GP3",
+          "usagetype": "APS2-RDS:GP3-Storage",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-southeast-2",
+          "deploymentOption": "Single-AZ"
+        }
+      }
+    ],
+    "redis": [
+      {
+        "sku": "8U9XHAW8CAW3JNBY",
+        "unit": "Hrs",
+        "usd": "0.0240000000",
+        "description": "$0.024 per T4G Micro Cache node-hour (or partial hour) running Redis",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "usagetype": "APS2-NodeUsage:cache.t4g.micro",
+          "cacheEngine": "Redis",
+          "regionCode": "ap-southeast-2"
+        }
+      },
+      {
+        "sku": "AHBXMGSNVQA8779C",
+        "unit": "Hrs",
+        "usd": "0.0380000000",
+        "description": "$0.038 per Hr for ExtendedSupportYr3-NodeUsage:cache.t4g.micro in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ExtendedSupportYr3-NodeUsage:cache.t4g.micro",
+          "cacheEngine": "Redis"
+        }
+      },
+      {
+        "sku": "TMTD3RYJ6FKQFYXS",
+        "unit": "Hrs",
+        "usd": "0.0190000000",
+        "description": "$0.019 per Hr for ExtendedSupportYr1_Yr2-NodeUsage:cache.t4g.micro in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ExtendedSupportYr1_Yr2-NodeUsage:cache.t4g.micro",
+          "cacheEngine": "Redis"
+        }
+      }
+    ],
+    "rds": [
+      {
+        "sku": "MGQEJQ9TZUN7KB8H",
+        "unit": "Hrs",
+        "usd": "0.0250000000",
+        "description": "$ 0.025 per RDS db.t4g.micro Single-AZ instance hour (or partial hour) running PostgreSQL",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "usagetype": "APS2-InstanceUsage:db.t4g.micro",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-southeast-2",
+          "deploymentOption": "Single-AZ"
+        }
+      },
+      {
+        "sku": "MW4D9H37B3YN7M6Y",
+        "unit": "Hrs",
+        "usd": "0.0250000000",
+        "description": "$ 0.025 per RDS db.t4g.micro Single-AZ unused capacity reservation hour (or partial hour) for PostgreSQL",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "usagetype": "APS2-UnusedBox:db.t4g.micro",
+          "databaseEngine": "PostgreSQL",
+          "regionCode": "ap-southeast-2",
+          "deploymentOption": "Single-AZ"
+        }
+      }
+    ],
+    "alb": [
+      {
+        "sku": "6CFSD9EDEA5XS33F",
+        "unit": "LCU-Hrs",
+        "usd": "0.0080000000",
+        "description": "$0.008 per used Application load balancer capacity unit-hour (or partial hour)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-LCUUsage"
+        }
+      },
+      {
+        "sku": "77HB4MT7WAEME762",
+        "unit": "Hrs",
+        "usd": "0.0056000000",
+        "description": "$0.0056 per associated Application load balancer Trust Store unit-hour ",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-TS-LoadBalancerUsage"
+        }
+      },
+      {
+        "sku": "H452BZGFB96QEDXQ",
+        "unit": "LCU-Hrs",
+        "usd": "0.0000000000",
+        "description": "$0.0 per LCU-Hrs for Outposts-LCUUsage:LoadBalancing:Application in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-Outposts-LCUUsage"
+        }
+      },
+      {
+        "sku": "JW2ZSWKNHB8PSRWS",
+        "unit": "Hrs",
+        "usd": "0.0252000000",
+        "description": "$0.0252 per Hrs for Outposts-LoadBalancerUsage:LoadBalancing:Application in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-Outposts-LoadBalancerUsage"
+        }
+      },
+      {
+        "sku": "M84CYHYUVJ4USFHD",
+        "unit": "Hrs",
+        "usd": "0.0252000000",
+        "description": "$0.0252 per Application LoadBalancer-hour (or partial hour)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-LoadBalancerUsage"
+        }
+      },
+      {
+        "sku": "N5A6UY2BUNBDNXN7",
+        "unit": "ReservedLCU-Hr",
+        "usd": "0.0080000000",
+        "description": "$0.008 per reserved Application load balancer capacity unit-hour",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ReservedLCUUsage"
+        }
+      }
+    ],
+    "nat": [
+      {
+        "sku": "24FAMWDNKZ2FAZYA",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayDirectConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "2VRX3DBVJ36HV98Z",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "Charge for per GB data processed by NAT Gateways",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "5QPP9A56W2BA6CYW",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (CloudWANS2SVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "7YS9QBZ92SVDEU6V",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (CloudWANConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "8KQSTN8FYNFUYG4H",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (CloudWANDirectConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "9BJQNCCTGF4JYGK4",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayVPC)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "ANQ8AXARKVA76CBA",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "CWGC7UCB9NHPWBVH",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (CloudWANS2SVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "CWTASQXE3WKRT7KG",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (CloudWANDirectConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "DTAB6SGA82BGNN9U",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayVPC)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "EEAV6N3YSBUJKC6V",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (CloudWANVPC)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "FGEDR2PSJN6P3CVV",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "HGC77769H5QRZ6KV",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayPeering)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "HWY9N5YTT7A8JY8B",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayConcentratorVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "KSHYFCUNWFSUXCAV",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB Data Processed by NAT Gateways",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-NatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "M8YWYH4RX6HGYCDU",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayDirectConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "NUKV5QPTHVFBW7DE",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per NAT Gateway Hour",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-NatGateway-Hours"
+        }
+      },
+      {
+        "sku": "NXX2XEE5DNC56A66",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayPeering)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "PBEBGHVVD7VRKA86",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (CloudWANConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "T8PYXE6WGNN6ZJAF",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (CloudWANVPC)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      },
+      {
+        "sku": "TB9G32ZP98NJG9WT",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "Hourly charge for Regional NAT Gateways",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "TQAUYMKDB3GGF6Z2",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayConnect)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "Y7J54YBBC89K7NJT",
+        "unit": "Hrs",
+        "usd": "0.0590000000",
+        "description": "$0.059 per Regional NAT Gateway Hour (TransitGatewayConcentratorVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Hours"
+        }
+      },
+      {
+        "sku": "YXRBVWZRNR98FDRD",
+        "unit": "GB",
+        "usd": "0.0590000000",
+        "description": "$0.059 per GB data processed by Regional NAT Gateways (TransitGatewayVPN)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-RegionalNatGateway-Bytes"
+        }
+      }
+    ],
+    "efs": [
+      {
+        "sku": "28ED426R7PDNT9TM",
+        "unit": "GB",
+        "usd": "0.0700000000",
+        "description": "USD $0.07 per GB for Elastic Throughput writes (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ETDataAccess-Bytes"
+        }
+      },
+      {
+        "sku": "2W3HPF5EMCVF77XK",
+        "unit": "GB",
+        "usd": "0.0400000000",
+        "description": "USD $0.04 per GB for Elastic Throughput reads (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ETDataAccess-Bytes"
+        }
+      },
+      {
+        "sku": "3DVQ7PV23A9TDKS7",
+        "unit": "GB-Mo",
+        "usd": "0.3600000000",
+        "description": "USD $0.36 per GB-Mo for Standard storage (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-TimedStorage-ByteHrs"
+        }
+      },
+      {
+        "sku": "9SJ36SY5CGY8DP5P",
+        "unit": "GB-Mo",
+        "usd": "0.1920000000",
+        "description": "$0.192 per GB-Mo for One Zone Storage in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-TimedStorage-Z-ByteHrs"
+        }
+      },
+      {
+        "sku": "CMSPETMVCMA6V99J",
+        "unit": "GB",
+        "usd": "0.0120000000",
+        "description": "USD $0.012 per GB for Infrequent Access reads (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IADataAccess-Bytes"
+        }
+      },
+      {
+        "sku": "E94TBX54NWX3DPMZ",
+        "unit": "GB",
+        "usd": "0.0360000000",
+        "description": "USD $0.036 per GB-Mo for Archive writes/tiering (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ArchiveDataAccess-Bytes"
+        }
+      },
+      {
+        "sku": "JG33RPPY78QZ8R65",
+        "unit": "GB-Mo",
+        "usd": "0.0200000000",
+        "description": "USD $0.02 per GB-Mo for Infrequent Access storage with Elastic Throughput (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IATimedStorage-ET-ByteHrs"
+        }
+      },
+      {
+        "sku": "MSC4Z2489QCYQG4W",
+        "unit": "GB-Mo",
+        "usd": "0.0100000000",
+        "description": "USD $0.01 per GB-Mo for prorated Archive usage for small file rounding on early deletions (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ArchiveEarlyDelete-SmallFiles"
+        }
+      },
+      {
+        "sku": "NFHSVSTRF9JRB275",
+        "unit": "GB-Mo",
+        "usd": "0.0200000000",
+        "description": "USD $0.02 per GB-Mo for Infrequent Access usage from small file rounding (<128 KB) with Elastic Throughput (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IATimedStorage-ET-SmallFiles"
+        }
+      },
+      {
+        "sku": "PCQY6NEXXDJXYTK6",
+        "unit": "GB",
+        "usd": "0.0360000000",
+        "description": "USD $0.036 per GB-Mo for Archive reads (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ArchiveDataAccess-Bytes"
+        }
+      },
+      {
+        "sku": "PSTFX28SVSTFFSKZ",
+        "unit": "GB-Mo",
+        "usd": "0.0100000000",
+        "description": "USD $0.01 per GB-Mo for Archive usage from small file rounding (<128 KB) (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ArchiveTimedStorage-SmallFiles"
+        }
+      },
+      {
+        "sku": "RG7AC3E46SC8NED7",
+        "unit": "GB-Mo",
+        "usd": "0.0100000000",
+        "description": "USD $0.01 per GB-Mo for Archive storage (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-ArchiveTimedStorage-ByteHrs"
+        }
+      },
+      {
+        "sku": "SSX4UP2484SE3S37",
+        "unit": "GB-Mo",
+        "usd": "0.0145000000",
+        "description": "$0.0145 per GB-Mo for One Zone-Infrequent Access Storage in Asia Pacific (Sydney)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IATimedStorage-Z-ByteHrs"
+        }
+      },
+      {
+        "sku": "VJ6YBUKPQBUANZAZ",
+        "unit": "GB-Mo",
+        "usd": "0.0272000000",
+        "description": "USD $0.0272 per GB-Mo for Infrequent Access usage from small file rounding (<128 KB) (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IATimedStorage-SmallFiles"
+        }
+      },
+      {
+        "sku": "YJ37FEKHVQNYX373",
+        "unit": "GB-Mo",
+        "usd": "0.0272000000",
+        "description": "USD $0.0272 per GB-Mo for Standard-Infrequent Access storage (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IATimedStorage-ByteHrs"
+        }
+      },
+      {
+        "sku": "YWRRN6F6CNV4CDZJ",
+        "unit": "GB",
+        "usd": "0.0120000000",
+        "description": "USD $0.012 per GB for Infrequent Access writes (APS2)",
+        "effective_date": "2026-11-01T00:00:00Z",
+        "attributes": {
+          "regionCode": "ap-southeast-2",
+          "usagetype": "APS2-IADataAccess-Bytes"
+        }
+      }
+    ]
+  }
+}

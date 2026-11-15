@@ -1,6 +1,10 @@
 # Trạng thái công việc — 15/11/2026
 
+**Dự án đã được người dùng yêu cầu chốt tại trạng thái hiện có để làm báo cáo.** Danh sách bên dưới giữ lại các giới hạn/chưa kiểm chứng, không phải chỉ thị tiếp tục chạy tác vụ AWS. Quân tự kiểm tra GUI và tự xóa tài nguyên khi cần; không triển khai tự xóa theo budget. [Quyết định chốt](29-project-freeze.md).
+
 Đối chiếu commit `ae885c1`, review kỹ thuật ban đầu, [bổ sung vận hành](evidence/medium-operations-2026-11-14/README.md), lượt cutover tên miền và lượt deploy bản sửa host buổi tối 15/11. Chưa nghiệm thu đầy đủ P0+P1; không tính tỷ lệ hoàn thành bằng cách cộng các ca có phạm vi khác nhau.
+
+**Chốt phạm vi bàn giao 15/11:** Quân đã xác nhận tiếp nhận, giữ demo đến hết 30/11/2026 UTC+7 và chọn chỉ billing account Sydney hiện có. Billing trước credit **35,31 USD**, ròng làm tròn **0,00 USD**; có sổ vòng đời và dự toán giữ cấu hình **192,74 USD** trước credit/thuế và khoản chưa tính. [Biên bản](28-cost-and-handover.md). GUI do Quân tự kiểm tra/bổ sung ảnh; chưa coi là đã đạt.
 
 ## Đã có bằng chứng
 
@@ -19,8 +23,8 @@
 | 1 | LMS-06 / AT-05: GUI | Walkthrough desktop/viewport hẹp, teacher upload, student xem/nộp/điểm, kiểm tra quyền; lưu ảnh và browser/version |
 | 2 | AT-03/05/10/11/16/17: coverage còn thiếu | Dựng sạch/idempotence bản hiện tại, upload/limit sau restore, restore bộ small mới, concurrent release/interrupted migration và ghi nghiệp vụ mới sau restore. AT-10 đã có thêm bằng chứng live (backup small chờ cron drain; release medium tự backup baseline trước upgrade), còn thiếu ca lỗi upload/S3 |
 | 2 | QA-04: cài tay so với tự động | Timing cùng mốc bắt đầu/kết thúc, số thao tác/lỗi/thời gian sửa và giới hạn số lần đo |
-| 2 | COST-01 / AT-20: chi phí và vòng đời | Billing toàn kỳ mọi account, owner/end date từng tài nguyên giữ lại và kiểm kê sau cleanup |
-| 2 | DONE: bàn giao nhóm | Tên thành viên/reviewer, chạy lại demo độc lập, quyết định phạm vi và chữ ký |
+| Sau demo | COST-01 / AT-20: vòng đời và số cuối kỳ | Billing Sydney, người nhận Quân và mốc giữ 30/11 đã chốt theo phạm vi người dùng chọn; từ 01/12 review cleanup và đối chiếu hóa đơn. N2/N3 ngoài phạm vi, không ghi là 0 |
+| Phần kiểm chứng còn lại | DONE: demo độc lập/quyền và dữ liệu riêng | Tiếp nhận và lịch giữ đã xác nhận; Quân bổ sung GUI, xác minh quyền/state/credential qua kênh riêng. Chưa ký đạt mọi yêu cầu P0+P1 |
 
 ## Deploy bản sửa host và quyền cron (tối 15/11)
 
