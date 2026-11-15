@@ -89,6 +89,18 @@ mv /opt/moodle-distribution/verify_backup.py.new /opt/moodle-distribution/verify
 
 Sau hotfix, chạy một backup thật để chứng minh script mới hoạt động và ghi lại SHA trước/sau. **Không thay EC2 small chỉ để cập nhật script**: root volume chứa database và `moodledata`. User-data của instance hiện tại vẫn mang bản cũ cho tới lần thay máy tiếp theo; hồ sơ phải ghi rõ điểm này.
 
+## Sự cố đã gặp: bản nâng cấp tự động restart containerd
+
+Ngày 15/11/2026, ngay sau release, `unattended-upgrades` trên runner nâng `libc6` và kernel; containerd restart lúc `07:20:41Z`, kill container `cron.php` đang chạy. Wrapper giữ `worker-pending.json` (đúng thiết kế) nên cron dừng khoảng 15 phút cho tới khi có người review.
+
+Cách xử lý (đã dùng):
+
+1. Xác nhận container worker không còn, không còn process `cron.php`, 0 session DB.
+2. Ghi lại hash/step/thời điểm marker, rồi gỡ `worker-pending.json`.
+3. Dừng timer, chạy `operation.sh cron` bằng tay, bật lại timer và theo dõi ít nhất hai chu kỳ.
+
+Phòng ngừa: đặt cửa sổ nâng cấp hoặc loại trừ các gói buộc restart container runtime trên runner trong giờ vận hành; không tắt cơ chế giữ marker. Đồng thời phải kiểm chứng alarm `CronSuccess-missing` — trong sự cố này alarm không chuyển ALARM dù cron dừng 15 phút. Chi tiết trong [bằng chứng sự cố](evidence/hostfix-2026-11-15/cron-incident.json) và [danh sách còn lại](24-remaining-work.md).
+
 ## Rollback
 
 - Medium: đổi `artifact.key`/`sha256` về bundle cũ (key cũ vẫn tồn tại), plan/apply, rồi `operation.sh release`. Nếu schema đã đổi, rollback phải dùng DB + file + artifact của backup tương ứng, không chỉ quay bundle.

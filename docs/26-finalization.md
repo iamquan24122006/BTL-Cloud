@@ -21,5 +21,6 @@ Host bundle được phát hành ở key mới có source commit và SHA-256; kh
 - Trước sửa: `moodle_runtime` không có `TRUNCATE` trên 0/494 bảng; `tag_cron_task` có `faildelay=7680`, `lastruntime=0`, cron dừng ở `cron-audit.php` và để lại `worker-pending.json`.
 - Sau sửa: tag task chạy thành công, `faildelay=0`, 494/494 bảng có `TRUNCATE`, cron kết thúc `cron-completed-and-task-audit-clear`, plan cuối `No changes`, 47/47 ca HTTPS đạt.
 - Small: `verify_backup.py` dev/staging được cập nhật qua SSM lên `59063f33…`; backup dev chạy đủ, upload S3 và manifest ghi `cron drained`. Không thay EC2 small.
+- Ngay sau release, `unattended-upgrades` trên runner restart containerd và kill worker `cron.php`; wrapper giữ marker nên cron dừng khoảng 15 phút cho tới khi review. Đã phục hồi `07:33:35Z`, chu kỳ kế `07:36:38Z` sạch. Alarm `CronSuccess-missing` không chuyển ALARM trong khoảng trống — còn mở để kiểm chứng.
 
 [Bằng chứng chi tiết](evidence/hostfix-2026-11-15/README.md), [runbook phát hành](27-host-bundle-deploy.md). Ma trận đầy đủ tại [hồ sơ chốt](18-project-closeout.md); trang này không khẳng định toàn bộ dự án đã nghiệm thu.

@@ -30,6 +30,15 @@ Bản sửa trong repo chưa từng lên live trước lượt này: runtime đa
 
 Kết quả: tag task chạy thành công, `faildelay=0`, `scheduled_with_faildelay=0`, `adhoc_queued=0`, **494/494 bảng có `TRUNCATE`**, cron `cron-completed-and-task-audit-clear`, 47/47 ca HTTPS đạt lại và plan cuối `No changes`. Small dev/staging nhận `verify_backup.py` mới qua SSM; backup dev chạy đủ, upload S3, manifest ghi `cron drained`. Không thay EC2 small vì root volume giữ database và `moodledata`. [Bằng chứng](evidence/hostfix-2026-11-15/README.md), [runbook](27-host-bundle-deploy.md).
 
+## Sự cố vận hành ngay sau deploy (07:18–07:33Z 15/11)
+
+`unattended-upgrades` trên runner nâng `libc6`/`perl`/kernel từ `07:20:22Z`; containerd restart lúc `07:20:41Z` và kill container `cron.php` đang chạy dưới cluster lock. Wrapper giữ `worker-pending.json` (đúng thiết kế an toàn) nên mọi lượt cron sau đó fail-fast; Moodle cron dừng khoảng 15 phút. Đã review (không còn container worker, 0 session DB, không còn process `cron.php`), gỡ marker và chạy lại cron `07:33:35Z`; chu kỳ timer kế `07:36:38Z` sạch. [Bằng chứng sự cố](evidence/hostfix-2026-11-15/cron-incident.json).
+
+Hai việc còn mở từ sự cố:
+
+- Cấu hình cửa sổ hoặc loại trừ `unattended-upgrades` trên runner để bản nâng cấp không tự restart containerd trong giờ vận hành; nếu giữ nguyên thì phải dùng runbook xử lý ở [27](27-host-bundle-deploy.md).
+- Alarm `CronSuccess-missing` (period 600 giây, treat missing = breaching) **không ghi ALARM** trong khoảng trống 15 phút, dù metric `CronSuccess` thiếu hẳn. Cần rà cấu hình và làm một ca thử có kiểm soát trước khi coi alarm này là lưới an toàn.
+
 ## Kết quả điều tra scaling
 
 AWS đọc lại lúc `2026-11-14T19:20:32Z` (15/11 giờ UTC+7): hai app healthy, desired=2, target tracking=600 request/app/phút. Trong burst `18:06–18:12 UTC`, `RequestCountPerTarget` cao nhất 311/phút, chưa vượt ngưỡng 600 trong ba chu kỳ một phút của alarm tăng máy. Vì vậy chưa quan sát scale-out không phải bằng chứng policy bị lỗi.

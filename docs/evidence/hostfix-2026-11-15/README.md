@@ -38,6 +38,10 @@ Bootstrap kiểm tra label image bằng `artifact.release`, nên khi chỉ đổ
 - [Backup dev](small-backup.json): chạy đủ, upload `s3://moodle-sydney-backup-828676179987/moodle-sydney-dev/20261115T071316Z`, manifest `consistency: single node, web stopped, cron drained`, `restore_tested: false`, timer và web bật lại.
 - [Đăng nhập demo](small-logins.json): admin/teacher/student đều vào `/my/` qua HTTPS.
 
+## Sự cố ngay sau deploy (07:18–07:33Z)
+
+Bản nâng cấp tự động trên runner (`unattended-upgrades`, từ `07:20:22Z`) restart containerd lúc `07:20:41Z` và kill container `cron.php`. Wrapper giữ marker an toàn nên cron dừng khoảng 15 phút; đã review và chạy lại thành công `07:33:35Z`, chu kỳ kế `07:36:38Z`. Đồng thời phát hiện alarm `CronSuccess-missing` không chuyển ALARM trong khoảng trống này — mục kiểm chứng vẫn mở. Chi tiết: [cron-incident.json](cron-incident.json); việc còn lại: [danh sách](../../24-remaining-work.md).
+
 ## Giới hạn
 
 - Không chạy lại GUI walkthrough; HTTP không thay kiểm tra bố cục.

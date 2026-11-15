@@ -1,0 +1,52 @@
+{
+  "window_utc": [
+    "2026-11-15T07:18:37Z",
+    "2026-11-15T07:33:35Z"
+  ],
+  "cause": "unattended-upgrades upgraded libc6, perl and the kernel packages on the runner between 07:20:22Z and 07:21:39Z; containerd restarted at 07:20:41Z and killed the cron.php container that was running under the cluster operation lock.",
+  "evidence": {
+    "marker": {
+      "container": "moodle-operation-a25173549f714ca4a5627975fa766666",
+      "step": "cron.php",
+      "time": "2026-11-15T07:18:37.441630+00:00",
+      "sha256": "2188992c5f1b50840f75ebe2f42e7ad75ef09750845468505828c43c11f6e023"
+    },
+    "containerd_active_enter": "2026-11-15T07:20:41Z",
+    "docker_journal": "Failed to get event ... Unavailable: error reading from server: EOF at 07:20:41Z",
+    "apt_history": [
+      "07:20:22Z python3-pyasn1",
+      "07:20:29Z libc6/libc-bin/locales",
+      "07:20:47Z perl",
+      "07:20:52Z linux-tools/perf",
+      "07:20:57Z linux-image-7.0.0-1017-aws (ends 07:21:39Z)"
+    ],
+    "effect": "every later cron start failed fast with RuntimeError because worker-pending.json was retained, so Moodle cron did not run for about 15 minutes."
+  },
+  "recovery": {
+    "reviewed_checks": {
+      "worker_containers": 0,
+      "client_sessions": 0,
+      "cron_php": "absent"
+    },
+    "marker_removed_utc": "2026-11-15T07:30:14Z",
+    "manual_cron_success_utc": "2026-11-15T07:33:35Z",
+    "timer_restarted": "active",
+    "next_timer_cycle_utc": "2026-11-15T07:36:38Z",
+    "raw_output": "utc=2026-11-15T07:30:14Z\nmarker_sha=2188992c5f1b50840f75ebe2f42e7ad75ef09750845468505828c43c11f6e023\n{\n  \"container\": \"moodle-operation-a25173549f714ca4a5627975fa766666\",\n  \"step\": \"cron.php\",\n  \"time\": \"2026-11-15T07:18:37.441630+00:00\"\n}\n\ncontainerd_started=Sun 2026-11-15 07:20:41 UTC\nworker_containers=0\nclient_sessions=0\ncron_php=absent\nmarker_removed=yes\ntimer_stopped=yes\n{\"time\": \"2026-11-15T07:33:35.985410+00:00\", \"step\": \"cron-completed-and-task-audit-clear\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"}\ncron_exit=0\ntimer_restarted=active\n{\n  \"time\": \"2026-11-15T07:33:35.985410+00:00\",\n  \"step\": \"cron-completed-and-task-audit-clear\",\n  \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\"\n}\n"
+  },
+  "alarm_observation": {
+    "alarm": "moodle-medium-dev-med-CronSuccess-missing",
+    "period_seconds": 600,
+    "evaluation_periods": 1,
+    "treat_missing_data": "breaching",
+    "cron_success_datapoints_utc": [
+      "07:12",
+      "07:15",
+      "07:18",
+      "07:33",
+      "07:36"
+    ],
+    "history_state_updates": "ALARM->OK at 07:13:32Z only; no ALARM recorded during the 15-minute gap",
+    "status": "open - the missing-data alarm did not signal a real 15-minute cron stall; needs configuration review and a controlled test"
+  }
+}
