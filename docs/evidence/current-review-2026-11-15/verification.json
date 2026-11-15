@@ -1,0 +1,29 @@
+{
+  "captured_utc": "2026-11-14T20:32:09.636171+00:00",
+  "unit_tests": {
+    "run": 103,
+    "passed": 101,
+    "skipped_linux_permissions_on_windows": 2
+  },
+  "bash_syntax": "passed",
+  "acm_status": "ISSUED",
+  "acm_domain_validation": "SUCCESS",
+  "public_dns_observed": "Dynu and Cloudflare CNAME point to Sydney ALB",
+  "full_domain_acceptance": "PASSED_47_BUSINESS_CHECKS_11_HTTPS_CHECKS_3_DEMO_LOGINS",
+  "initial_tls_probe": {
+    "domain": "www.moodle-cloud-distribution.mywire.org",
+    "connect_to": "moodle-medium-dev-med-22320273.ap-southeast-2.elb.amazonaws.com",
+    "port": 443,
+    "http_status": 303,
+    "tls_verify_result": 0,
+    "dns_override": "curl --connect-to only; certificate validation enabled; no OS DNS changes"
+  },
+  "terraform_mock_tests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "scaling": "PASSED_POLICY_2_TO_3_TO_2",
+  "rollout": "Successful; two healthy app targets and one runner",
+  "terraform_final_plan": "no changes",
+  "full_project_acceptance": "NOT_YET_COMPLETE_GUI_BENCHMARK_COVERAGE_COST_HANDOVER_REMAIN"
+}

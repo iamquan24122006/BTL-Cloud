@@ -1,0 +1,9 @@
+{
+  "command_status": "Success",
+  "response_code": 0,
+  "start_utc": "2026-11-14T19:37:10.685Z",
+  "end_utc": "2026-11-14T19:37:10.685Z",
+  "health_output": "Database, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\nCACHE_OWNER_REPAIRED\n",
+  "stderr": "",
+  "scope": "Owner repair limited to root-owned entries in /var/lib/moodledata/cache and /var/cache/moodle; no business data changes; origin of root ownership not established"
+}

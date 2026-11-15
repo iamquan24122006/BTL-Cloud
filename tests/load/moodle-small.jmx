@@ -2,7 +2,7 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Small P0 workload: 60/20/10/10 logical actions" enabled="true">
-      <stringProp name="TestPlan.comments">Each random choice is one logical action: 60% course, 20% download, 10% assignment view, 10% logout/login cycle. The cycle emits multiple HTTP samples; percentages do not describe HTTP request counts. Submission writes are covered by the separate functional acceptance, not this load test. HTTP keep-alive is disabled for the SSM tunnel; every request opens a fresh connection. No HTTP retries.</stringProp>
+      <stringProp name="TestPlan.comments">Each random choice is one logical action: 60% course, 20% download, 10% assignment view, 10% logout/login cycle. The cycle emits multiple HTTP samples; percentages do not describe HTTP request counts. Submission writes are covered by the separate functional acceptance, not this load test. With smoke=true, cycle course/download/assignment/auth deterministically; exclude smoke from benchmark ratios. HTTP keep-alive is disabled for the SSM tunnel; every request opens a fresh connection. No HTTP retries.</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments">
@@ -138,7 +138,7 @@
           </UniformRandomTimer>
           <hashTree />
           <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Choose one logical action" enabled="true">
-            <stringProp name="SwitchController.value">${__Random(0,9,)}</stringProp>
+            <stringProp name="SwitchController.value">${__groovy(if (props.getProperty('smoke') == 'true') { def n = (vars.get('__jm__Read workload until duration ends__idx') ?: '0') as int; return '0;6;8;9'.split(';')[n % 4] }; return java.util.concurrent.ThreadLocalRandom.current().nextInt(10))}</stringProp>
           </SwitchController>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="0" enabled="true" />

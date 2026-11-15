@@ -2,7 +2,7 @@
 
 Đây là điểm đọc trạng thái hiện tại, thay cho các bảng tiến độ lịch sử trong tài liệu kế hoạch. Phạm vi mục tiêu vẫn là small P0 và medium P1; chưa thu hẹp yêu cầu để biến các mục thiếu bằng chứng thành đạt.
 
-**Đã thực hiện review kỹ thuật theo yêu cầu chủ dự án:** xem [biên bản nghiệm thu 14/11](22-technical-acceptance.md) và [evidence mới](evidence/acceptance-review-2026-11-14/README.md). Kết luận **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1**: hiện thiếu cả ALB HTTPS, scaling policy và dashboard/receiver của alarm, ngoài các coverage chưa xác minh. Ma trận trong biên bản là kết luận review chi tiết hơn; không lấy trạng thái từng phần ở bảng dưới để ký đạt toàn bộ.
+**Cập nhật 15/11:** HTTPS tên miền tại ALB đã đạt 47/47 ca nghiệp vụ và ba tài khoản demo; autoscaling đã tự chạy 2→3→2, rollout app hoàn tất, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK cùng rotation admin có bằng chứng trước đó. Vẫn **chưa đủ điều kiện nghiệm thu đầy đủ P0+P1** do GUI, benchmark, coverage lỗi và bàn giao/chi phí còn thiếu. Xem [bằng chứng mới](evidence/current-review-2026-11-15/README.md) và [công việc còn lại](24-remaining-work.md); [review ban đầu](22-technical-acceptance.md) giữ nguyên phạm vi lịch sử.
 
 ## Kết luận cho nhóm
 
@@ -10,7 +10,7 @@
 
 **Medium Sydney đã được dựng lại và nghiệm thu trong lượt tiếp tục:** URL https://dc988tccg64gh.cloudfront.net, 47/47 ca HTTPS trên nguồn và target restore mới, file/session/MUC xuyên node, cron, lock, maintenance gate và ASG thay app. [Runbook và giới hạn](21-medium-sydney.md), [bằng chứng](evidence/medium-sydney-2026-11-14/README.md).
 
-**Chưa đủ cơ sở ký “toàn bộ P0 + P1 đạt mọi tiêu chí”.** Còn MED-02 DNS/ACM trực tiếp tại ALB của lab mới, walkthrough GUI mới, kiểm tra chéo của thành viên, benchmark so sánh small/medium, một số ca lỗi và chi phí ở các account khác. Các mục đó cần được thực hiện hoặc được nhóm/giảng viên chấp nhận là giới hạn khi chốt.
+**Chưa đủ cơ sở ký “toàn bộ P0 + P1 đạt mọi tiêu chí”.** MED-02 DNS/ACM tại ALB đã có kết quả mới; còn walkthrough GUI, kiểm tra chéo của thành viên, benchmark so sánh small/medium, một số ca lỗi và chi phí ở các account khác. Các mục đó cần thực hiện hoặc được nhóm/giảng viên chấp nhận là giới hạn khi chốt.
 
 ## Phiên bản và kiểm chứng
 
@@ -49,13 +49,13 @@ Toàn bộ chứng cứ mới: [final-audit-2026-11-14](evidence/final-audit-202
 | AT-09 — file/config/network | Đạt phạm vi đã kiểm | Protected paths/permission small L, inventory/IMDSv2/EBS; staging có SG relay private của fixture tải, không phải baseline không-ingress tuyệt đối |
 | AT-10 — backup/recovery | Đạt small H/L; medium H | Backup mới có checksum và manifest; ca AccessDenied/recovery có hồ sơ. Bộ 14/11 chưa restore-test |
 | AT-11 — restore small | Đạt H | Bộ hỏng bị từ chối; bộ đúng phục hồi fixture, ghi mới và reboot. Không lấy checksum để thay restore |
-| AT-12 — medium deployment/TLS/state | Đạt live theo phạm vi lab; MED-02 pending | Sydney private compute/data, TLS viewer/RDS/Redis và S3 lock; ALB origin dùng HTTP qua CloudFront, chưa có domain/ACM mới |
+| AT-12 — medium deployment/TLS/state | MED-02 đạt live; dựng sạch có hồ sơ H | Tên miền Dynu → ALB 443/ACM, 47/47 HTTPS, redirect/cookie đạt; compute/data private, TLS RDS/Redis và S3 lock |
 | AT-13 — đa node/session/file | Đạt H/L | Kiểm tra trực tiếp cả hai app nguồn và hai app sau restore; file/hash và session dùng chung |
 | AT-14 — purge cache isolation | Đạt ca đã đo H/L | Canary namespace khác sống sau purge trên Sydney; cookie nguồn còn dùng được sau purge/backup |
-| AT-15 — thay node/scaling | Đạt thay node H/L; chưa đủ toàn ca | Sydney replacement đạt; AWS describe-policies trả 0 scaling policy, nên chưa có bằng chứng scale theo tải |
+| AT-15 — thay node/scaling | Đạt chu kỳ policy và replacement đã đo | Target 200; 20 user/8 phút, 4.890 lượt đọc không lỗi; ba healthy rồi trở lại hai; sau rollout tên miền 47/47 nghiệp vụ đạt. Không suy SLA/công suất tối đa |
 | AT-16 — lock/release tranh chấp | Đạt từng phần H/L | Sydney một ACQUIRED, hai BUSY và S3 lock 412; một số ca gián đoạn migration/release còn thiếu |
 | AT-17 — restore medium | Đạt H/L trong phạm vi đã đo | Backup `20261114T115610` phục hồi vào RDS/EFS mới; giữ IDs, file, bài nộp/điểm; 47/47 HTTPS và kiểm tra xuyên node; không suy cam kết RPO/RTO production |
-| AT-18 — alarm/recovery | Chưa đạt P1 | AWS trả 7 alarm không AlarmActions, không dashboard; chưa có receiver và ca ALARM→notification→OK cho vận hành medium |
+| AT-18 — alarm/recovery | Đạt đường gửi/nhận và recovery đã đo | Bổ sung dashboard 11 widget, 14 alarm vận hành; probe metric thật nhận ALARM và OK qua SNS/SQS. Kiểm tra inbox thuộc trách nhiệm operator |
 | AT-19 — đo tải/so sánh | Đạt ma trận small; chưa đủ so sánh | Sydney đủ 9 lượt; N3 có 2 lượt 50-user chậm. Chưa benchmark medium và so sánh cài tay/tự động cùng phương pháp |
 | AT-20 — bàn giao/cleanup/chi phí | Chờ nhóm chốt | Có báo cáo, inventory và chi phí Sydney; còn reviewer, quyết định vòng đời lab, chi phí N2/N3 |
 | LMS-06 — GUI | Medium H; small chờ | Medium có ảnh desktop/mobile viewport. Small chưa có walkthrough GUI mới; HTTP không thay kiểm tra bố cục |

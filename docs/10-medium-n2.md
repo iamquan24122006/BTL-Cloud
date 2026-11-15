@@ -112,6 +112,8 @@ Nếu runner/client bị gián đoạn, `worker-pending.json` ghi container cầ
 
 Mọi operation dùng PostgreSQL advisory lock theo site; process chết thì PostgreSQL giải phóng session lock. Moodle scheduled/ad hoc task có Lock API riêng; Terraform có S3 lock riêng. Hai runner không được cùng migration. Cron chạy `cron.php` rồi `cron-audit.php`; task failure hoặc ad hoc quá hạn 10 phút không phát metric thành công. Kiểm tra lại kết quả task cụ thể theo LMS-05, không chỉ timer/metric.
 
+Role runtime có quyền đọc/ghi và `TRUNCATE` trên bảng Moodle do migration sở hữu; Moodle dùng `TRUNCATE TABLE` khi `delete_records()` không có điều kiện, chẳng hạn tác vụ tag. Quyền này không chuyển ownership, không cho tạo/sửa/xóa cấu trúc trong schema `public`. Bản sửa được kiểm bằng tác vụ `core\task\tag_cron_task` thật trong integration, đồng thời áp dụng cho bảng hiện có và default privileges của migration. [Quyền TRUNCATE của PostgreSQL](https://www.postgresql.org/docs/16/sql-truncate.html).
+
 Trước thay source/schema, giữ image/bundle cũ và backup tương ứng. Cập nhật YAML artifact, plan/review/apply; runtime mới vẫn gated khi chưa khớp release đang active. Trên runner mới chạy `operation.sh release`; luồng dừng mọi app qua SSM, chặn runtime DB login, backup baseline cũ, migrate bằng migration credential và mở lại app. Release lỗi giữ blocked; plan apply lỗi phải giữ state và lập plan mới. Rollback sau thay schema dùng **DB + file + source artifact** của backup, không chỉ quay image.
 
 ```powershell
@@ -121,6 +123,8 @@ aws --region <region> ssm get-command-invocation --command-id <command-id> --ins
 ```
 
 Timeout/pending/failed chưa phải backup thành công. SSM trả Success vẫn phải kiểm tra prefix S3, manifest cuối, đủ hai file, checksum và restore drill. Backup timer hằng ngày 02:00 UTC. Backup dừng writer trong cả thời gian dump/archive/upload; đây là downtime có chủ đích của lab. Đảm bảo đĩa runner đủ dung lượng tạm cho toàn dataset. Các CLI/script ngoài runner có thể ghi dữ liệu phải được người vận hành dừng trước đợt backup.
+
+Lệnh `backup` dùng khóa local trên runner, tạm dừng `moodle-cron.timer` nếu timer đang active, rồi đợi cron đang chạy kết thúc (tối đa 15 phút) trước khi lấy khóa PostgreSQL. Lần backup thứ hai bị từ chối trước khi tác động timer. Timer được trả về trạng thái ban đầu sau thành công, timeout hoặc lỗi; không bật timer vốn đã dừng. Không giết cron đang ghi file. Nếu dump/upload hoặc recovery lỗi, maintenance vẫn giữ để operator kiểm tra; cron được bật lại cũng không chạy nghiệp vụ trên site còn blocked. Quy tắc này áp dụng cả lệnh CLI và backup timer khi host bundle chứa bản sửa; image Moodle được ghim riêng, không suy source host từ nhãn image.
 
 Restore sang **medium mới**, DB trống và EFS chưa có site active. Dùng config/project mới (state/key/tài nguyên mới), cùng image/source release với backup; `restore_source_prefix` bằng site nguồn (ví dụ `moodle-lab-dev-med`), cùng bucket backup. IAM đích chỉ có quyền đọc source prefix này, không ghi đè nó. Không chạy `release`/seed trước restore.
 

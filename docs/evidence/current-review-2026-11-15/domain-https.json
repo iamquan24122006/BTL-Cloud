@@ -1,0 +1,24 @@
+{
+  "url": "https://www.moodle-cloud-distribution.mywire.org",
+  "utc": "2026-11-14T20:23:31.582337+00:00",
+  "checks": {
+    "trusted_hostname_certificate": true,
+    "login_200": true,
+    "secure_session_cookie": true,
+    "httponly_session_cookie": true,
+    "hsts": true,
+    "canonical_form_hostname": true,
+    "no_localhost": true,
+    "no_mixed_assets_forms": true,
+    "http_redirect_preserves_path_query": true,
+    "legacy_cloudfront_redirect_preserves_path_query": true,
+    "readiness_200": true
+  },
+  "scope": "Owned hostname HTTPS at ALB, canonical URL, cookies and legacy URL redirects; no cookie values or bodies retained",
+  "tls_version": "TLSv1.3",
+  "http_status": 301,
+  "http_location": "https://www.moodle-cloud-distribution.mywire.org:443/login/index.php?domain_probe=1",
+  "legacy_cloudfront_status": 301,
+  "legacy_cloudfront_location": "https://www.moodle-cloud-distribution.mywire.org:443/login/index.php?domain_probe=1",
+  "status": "passed"
+}

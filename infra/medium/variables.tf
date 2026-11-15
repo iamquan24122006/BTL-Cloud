@@ -47,6 +47,14 @@ variable "frontend" {
   }
 }
 variable "certificate_arn" { type = string }
+variable "retain_cloudfront" {
+  type    = bool
+  default = false
+  validation {
+    condition     = !var.retain_cloudfront || var.frontend == "acm"
+    error_message = "retain_cloudfront is only for preserving a previous CloudFront URL when switching to ACM."
+  }
+}
 variable "hosted_zone_id" { type = string }
 variable "ami_id" { type = string }
 variable "availability_zones" {

@@ -2,6 +2,7 @@
 """Runner-only operations. Failures deliberately leave the site blocked for inspection."""
 from __future__ import annotations
 import argparse
+from contextlib import contextmanager, ExitStack
 import datetime as dt
 import hashlib
 import json
@@ -21,6 +22,7 @@ ETC = Path('/etc/moodle')
 DATA = Path('/var/lib/moodledata')
 CONTROL = DATA / '.distribution'
 BIN = Path('/opt/moodle-medium')
+BACKUP_LOCK = Path('/run/moodle-medium-backup.lock')
 
 
 def read(path):
@@ -46,6 +48,52 @@ def digest(path):
     return result.hexdigest()
 
 
+@contextmanager
+def backup_window(timeout=900):
+    """Drain cron before taking its DB lock; preserve the timer's previous state.
+
+    The local lock prevents a second backup from restarting cron while the first
+    is still draining. The database lock remains the cluster-wide authority.
+    This context never clears maintenance or kills a running Moodle task.
+    """
+    import fcntl  # The runner is Linux; import lazily for offline Windows tests.
+
+    if read(ETC / 'deploy.json')['role'] != 'runner':
+        raise RuntimeError('Backup must run on the dedicated runner')
+
+    def state(unit):
+        return subprocess.check_output(
+            ['systemctl', 'show', unit, '--property=ActiveState', '--value'],
+            text=True, timeout=30).strip()
+
+    with BACKUP_LOCK.open('a') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as exc:
+            raise RuntimeError('Another backup owns the local cron-drain lock') from exc
+        timer_state = state('moodle-cron.timer')
+        if timer_state not in ('active', 'inactive', 'failed'):
+            raise RuntimeError('Cron timer is transitioning; retry after it settles')
+        restart_timer = timer_state == 'active'
+        try:
+            if restart_timer:
+                subprocess.run(['systemctl', 'stop', 'moodle-cron.timer'], check=True, timeout=30)
+            deadline = time.monotonic() + timeout
+            while True:
+                cron_state = state('moodle-cron.service')
+                if cron_state in ('inactive', 'failed'):
+                    break
+                if cron_state not in ('active', 'activating', 'deactivating'):
+                    raise RuntimeError('Unknown cron state; backup was not started')
+                if time.monotonic() >= deadline:
+                    raise RuntimeError('Cron did not drain within the backup timeout')
+                time.sleep(2)
+            yield
+        finally:
+            if restart_timer:
+                subprocess.run(['systemctl', 'start', 'moodle-cron.timer'], check=True, timeout=30)
+
+
 class Operations:
     def __init__(self, kind):
         self.d = read(ETC / 'deploy.json')
@@ -55,13 +103,17 @@ class Operations:
         self.migration = read(ETC / 'migration.json')
         self.master = read(ETC / 'master.json') if kind != 'cron' else None
         self.connection = self.connect(self.runtime if kind == 'cron' else self.master)
-        self.connection.autocommit = True
-        with self.connection.cursor() as cursor:
-            cursor.execute('SELECT pg_try_advisory_lock(hashtextextended(%s, 0))', (self.d['name'] + ':distribution',))
-            if not cursor.fetchone()[0]:
-                raise RuntimeError('Another cron/release/backup/restore owns the cluster operation lock')
-        if (CONTROL / 'worker-pending.json').exists():
-            raise RuntimeError('A previous worker needs recovery review; do not start another operation')
+        try:
+            self.connection.autocommit = True
+            with self.connection.cursor() as cursor:
+                cursor.execute('SELECT pg_try_advisory_lock(hashtextextended(%s, 0))', (self.d['name'] + ':distribution',))
+                if not cursor.fetchone()[0]:
+                    raise RuntimeError('Another cron/release/backup/restore owns the cluster operation lock')
+            if (CONTROL / 'worker-pending.json').exists():
+                raise RuntimeError('A previous worker needs recovery review; do not start another operation')
+        except Exception:
+            self.connection.close()
+            raise
         self.env = os.environ.copy()
         self.env.update(PGHOST=self.d['db_host'], PGDATABASE=self.d['db_name'], PGUSER=self.migration['username'],
                         PGPASSWORD=self.migration['password'], PGSSLMODE='verify-full',
@@ -136,12 +188,15 @@ class Operations:
                 objects = cursor.fetchall()
                 for kinds, privileges, object_type in [
                     ({'r', 'p', 'v', 'm', 'f'}, 'SELECT, INSERT, UPDATE, DELETE', 'TABLE'),
+                    # Moodle delete_records() uses TRUNCATE when no filter is supplied.
+                    # Keep schema ownership/DDL with the migration role.
+                    ({'r', 'p'}, 'TRUNCATE', 'TABLE'),
                     ({'S'}, 'USAGE, SELECT, UPDATE', 'SEQUENCE'),
                 ]:
                     names = [sql.Identifier('public', name) for name, kind in objects if kind in kinds]
                     if names:
                         cursor.execute(sql.SQL('GRANT ' + privileges + ' ON ' + object_type + ' {} TO moodle_runtime').format(sql.SQL(',').join(names)))
-                cursor.execute('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO moodle_runtime')
+                cursor.execute('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLES TO moodle_runtime')
                 cursor.execute('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO moodle_runtime')
         finally:
             owned.close()
@@ -326,39 +381,41 @@ def main():
     args = parser.parse_args()
     operation = None
     try:
-        operation = Operations(args.operation)
-        if args.operation == 'release':
-            operation.release()
-        elif args.operation == 'backup':
-            if not (CONTROL / 'active.json').exists() or (CONTROL / 'blocked').exists():
-                raise RuntimeError('Scheduled backup requires an active, unblocked release')
-            operation.block()
-            operation.backup()
-            operation.unblock()
-        elif args.operation == 'restore':
-            if not args.prefix:
-                parser.error('restore requires --prefix s3://bucket/source/backup-id')
-            operation.restore(args.prefix)
-        elif args.operation == 'resume':
-            if args.confirm != operation.d['name']:
-                raise RuntimeError('resume requires --confirm ' + operation.d['name'] + ' after reviewing restore/recovery')
-            if (CONTROL / 'migration-pending.json').exists():
-                raise RuntimeError('Unresolved migration; recover before resuming')
-            if read(CONTROL / 'active.json')['release'] != operation.d['artifact']['release']:
-                raise RuntimeError('Active release mismatch; inspect or restore before resuming')
-            operation.grants()
-            operation.unblock()
-        else:
-            operation.cron()
+        with ExitStack() as resources:
+            if args.operation == 'backup':
+                resources.enter_context(backup_window())
+            operation = Operations(args.operation)
+            # Release the DB lock before allowing the cron timer to fire again.
+            resources.callback(operation.connection.close)
+            if args.operation == 'release':
+                operation.release()
+            elif args.operation == 'backup':
+                if not (CONTROL / 'active.json').exists() or (CONTROL / 'blocked').exists():
+                    raise RuntimeError('Scheduled backup requires an active, unblocked release')
+                operation.block()
+                operation.backup()
+                operation.unblock()
+            elif args.operation == 'restore':
+                if not args.prefix:
+                    parser.error('restore requires --prefix s3://bucket/source/backup-id')
+                operation.restore(args.prefix)
+            elif args.operation == 'resume':
+                if args.confirm != operation.d['name']:
+                    raise RuntimeError('resume requires --confirm ' + operation.d['name'] + ' after reviewing restore/recovery')
+                if (CONTROL / 'migration-pending.json').exists():
+                    raise RuntimeError('Unresolved migration; recover before resuming')
+                if read(CONTROL / 'active.json')['release'] != operation.d['artifact']['release']:
+                    raise RuntimeError('Active release mismatch; inspect or restore before resuming')
+                operation.grants()
+                operation.unblock()
+            else:
+                operation.cron()
     except Exception as exc:
         # Do not print database connection exceptions containing credentials.
         print(f'Operation failed ({type(exc).__name__}); inspect private runner logs/state; maintenance was not cleared automatically.', file=sys.stderr)
         if operation:
             operation.log('failed-needs-intervention:' + type(exc).__name__)
         return 1
-    finally:
-        if operation:
-            operation.connection.close()
     return 0
 
 

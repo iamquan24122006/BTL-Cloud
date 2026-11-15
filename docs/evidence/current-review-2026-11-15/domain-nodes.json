@@ -1,0 +1,25 @@
+{
+  "command": "c60cda60-5193-4128-9873-b6a0b49f6993",
+  "utc": "2026-11-14T20:20:24.571507+00:00",
+  "results": {
+    "i-0aa6f4800ad4fefda": {
+      "status": "Success",
+      "response_code": 0,
+      "stdout": "{\"role\": \"app\", \"wwwroot\": \"https://www.moodle-cloud-distribution.mywire.org\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"bootstrap_complete\": true, \"runtime_readable\": true}\n",
+      "stderr": ""
+    },
+    "i-0bece06bdbcc05630": {
+      "status": "Success",
+      "response_code": 0,
+      "stdout": "{\"role\": \"app\", \"wwwroot\": \"https://www.moodle-cloud-distribution.mywire.org\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"bootstrap_complete\": true, \"runtime_readable\": true}\n",
+      "stderr": ""
+    },
+    "i-0bcafad1d2d89cad9": {
+      "status": "Success",
+      "response_code": 0,
+      "stdout": "{\"role\": \"runner\", \"wwwroot\": \"https://www.moodle-cloud-distribution.mywire.org\", \"release\": \"2130963f7fc3fd76007498ab766a0942b9db3f59\", \"bootstrap_complete\": true, \"runtime_readable\": true}\n",
+      "stderr": ""
+    }
+  },
+  "status": "passed"
+}

@@ -68,6 +68,23 @@ class LoadReportTests(unittest.TestCase):
             self.assertEqual(result["status"], "passed")
             self.assertEqual(result["steady"]["transactions"]["Course"]["samples"], 2)
 
+    def test_smoke_reports_missing_branch_without_hiding_it_as_http_success(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'run.jtl'
+            output = Path(directory) / 'summary.json'
+            with source.open('w', newline='', encoding='utf-8') as stream:
+                writer = csv.DictWriter(stream, fieldnames=('timeStamp', 'elapsed', 'label', 'success', 'threadName'))
+                writer.writeheader()
+                for label in ('Course', 'Download', 'Logout', 'Login'):
+                    writer.writerow(dict(timeStamp=1000, elapsed=1000, label=label, success='true', threadName='student-1'))
+            with patch('sys.stdout'):
+                code = summarize_jmeter([str(source), '--output', str(output), '--workload', 'small', '--smoke'])
+            result = json.loads(output.read_text())
+            self.assertEqual(code, 1)
+            self.assertEqual(result['failure_reasons'], ['missing_transactions: Assignment view'])
+            self.assertTrue(result['smoke'])
+            self.assertIn('excluded from comparative workload ratios', result['scope'])
+
 
 if __name__ == "__main__":
     unittest.main()

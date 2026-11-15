@@ -37,6 +37,7 @@ resource "aws_lb_listener" "http" {
     dynamic "redirect" {
       for_each = var.frontend == "acm" ? [1] : []
       content {
+        host        = var.domain
         port        = "443"
         protocol    = "HTTPS"
         status_code = "HTTP_301"

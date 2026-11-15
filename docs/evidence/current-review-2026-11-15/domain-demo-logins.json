@@ -1,0 +1,10 @@
+{
+  "url": "https://www.moodle-cloud-distribution.mywire.org",
+  "checks": {
+    "admin": true,
+    "teacher": true,
+    "student": true
+  },
+  "passwords_printed": false,
+  "status": "passed"
+}

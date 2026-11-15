@@ -1,0 +1,77 @@
+{
+  "utc": "2026-11-14T20:28:37.935588+00:00",
+  "desired": 2,
+  "launch_template": {
+    "LaunchTemplateId": "lt-0871e7ecb1f972ad0",
+    "LaunchTemplateName": "moodle-medium-dev-med-fb8821a6122db2af02f76e398f",
+    "Version": "3"
+  },
+  "instances": [
+    {
+      "InstanceId": "i-0aa6f4800ad4fefda",
+      "InstanceType": "t3.small",
+      "AvailabilityZone": "ap-southeast-2a",
+      "AvailabilityZoneId": "apse2-az1",
+      "LifecycleState": "InService",
+      "HealthStatus": "Healthy",
+      "LaunchTemplate": {
+        "LaunchTemplateId": "lt-0871e7ecb1f972ad0",
+        "LaunchTemplateName": "moodle-medium-dev-med-fb8821a6122db2af02f76e398f",
+        "Version": "3"
+      },
+      "ProtectedFromScaleIn": false
+    },
+    {
+      "InstanceId": "i-0bece06bdbcc05630",
+      "InstanceType": "t3.small",
+      "AvailabilityZone": "ap-southeast-2b",
+      "AvailabilityZoneId": "apse2-az3",
+      "LifecycleState": "InService",
+      "HealthStatus": "Healthy",
+      "LaunchTemplate": {
+        "LaunchTemplateId": "lt-0871e7ecb1f972ad0",
+        "LaunchTemplateName": "moodle-medium-dev-med-fb8821a6122db2af02f76e398f",
+        "Version": "3"
+      },
+      "ProtectedFromScaleIn": false
+    }
+  ],
+  "refresh": [
+    {
+      "InstanceRefreshId": "e2936168-5dd4-41e3-85e2-4c279d2bfcae",
+      "AutoScalingGroupName": "moodle-medium-dev-med-app",
+      "Status": "Successful",
+      "StartTime": "2026-11-14T20:11:01+00:00",
+      "EndTime": "2026-11-14T20:21:33+00:00",
+      "PercentageComplete": 100,
+      "InstancesToUpdate": 0,
+      "Preferences": {
+        "MinHealthyPercentage": 50,
+        "InstanceWarmup": 300,
+        "SkipMatching": false,
+        "AutoRollback": false,
+        "ScaleInProtectedInstances": "Ignore",
+        "StandbyInstances": "Ignore",
+        "AlarmSpecification": {},
+        "MaxHealthyPercentage": 100
+      },
+      "Strategy": "Rolling"
+    }
+  ],
+  "runner": [
+    {
+      "id": "i-0bcafad1d2d89cad9",
+      "state": "running"
+    }
+  ],
+  "targets": [
+    {
+      "id": "i-0aa6f4800ad4fefda",
+      "state": "healthy"
+    },
+    {
+      "id": "i-0bece06bdbcc05630",
+      "state": "healthy"
+    }
+  ]
+}

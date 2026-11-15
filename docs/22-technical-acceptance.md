@@ -1,6 +1,6 @@
 # Biên bản nghiệm thu kỹ thuật — 14/11/2026
 
-Cập nhật tiếp theo: đường thông báo ALARM/OK, dashboard và việc đổi mật khẩu admin/dùng chung tài khoản đã có [bằng chứng bổ sung](evidence/medium-operations-2026-11-14/README.md). Policy scaling đã triển khai; bài kiểm thử scale-out/in dưới tải và HTTPS tên miền vẫn cần kết quả riêng. Biên bản bên dưới phản ánh đúng lượt review ban đầu, không tự đổi thành nghiệm thu đầy đủ.
+Cập nhật 15/11: [bằng chứng lượt tiếp tục](evidence/current-review-2026-11-15/README.md) đã bổ sung policy tự scale 2→3→2, HTTPS tên miền tại ALB, 47/47 kiểm tra nghiệp vụ và ba tài khoản demo, cron sạch và plan không drift. Dashboard/thông báo ALARM/OK và rotation admin có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Biên bản bên dưới giữ nguyên review ban đầu; các quan sát “0 policy”, thiếu dashboard/ALB HTTPS là lịch sử, không phải trạng thái live sau sửa. Toàn dự án vẫn còn các mục trong [danh sách hiện hành](24-remaining-work.md).
 
 ## Kết luận
 

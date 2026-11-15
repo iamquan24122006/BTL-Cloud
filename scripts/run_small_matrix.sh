@@ -56,6 +56,9 @@ for spec in '2:30:150:1' '10:120:720:1' '10:120:720:2' '10:120:720:3' \
   IFS=: read -r users ramp duration repeat <<<"$spec"
   name="users-${users}-r${repeat}"
   prefix="$results/$name"
+  smoke=false
+  smoke_args=()
+  if [[ $users -eq 2 ]]; then smoke=true; smoke_args=(--smoke); fi
   test ! -e "$prefix.jtl"
   event "$name" started
   echo "START $name $(date -u +%FT%TZ)"
@@ -63,13 +66,13 @@ for spec in '2:30:150:1' '10:120:720:1' '10:120:720:2' '10:120:720:3' \
   timeout --signal=TERM --kill-after=30s "$((duration + 150))s" \
     java -Xms256m -Xmx768m -jar apache-jmeter-5.6.3/bin/ApacheJMeter.jar \
       -n -t tests/load/moodle-small.jmx -q config.properties \
-      "-Jusers=$users" "-Jramp=$ramp" "-Jduration=$duration" \
+      "-Jusers=$users" "-Jramp=$ramp" "-Jduration=$duration" "-Jsmoke=$smoke" \
       -Jhttpclient4.retrycount=0 -Jjmeter.save.saveservice.print_field_names=true \
       -l "$prefix.jtl" -j "$prefix-jmeter.log" >"$prefix-console.log" 2>&1 || java_code=$?
   summary_code=0
   python3 -m scripts.summarize_jmeter "$prefix.jtl" --output "$prefix-summary.json" \
     --workload small --expected-users "$users" --minimum-seconds "$((duration - 10))" \
-    --ramp-seconds "$ramp" >"$prefix-summary.log" 2>&1 || summary_code=$?
+    --ramp-seconds "$ramp" "${smoke_args[@]}" >"$prefix-summary.log" 2>&1 || summary_code=$?
   if [[ $java_code -ne 0 || $summary_code -ne 0 ]]; then
     event "$name" failed
     echo "FAIL $name java=$java_code summary=$summary_code; stopping load escalation"

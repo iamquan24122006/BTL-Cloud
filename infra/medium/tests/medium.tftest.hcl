@@ -52,6 +52,20 @@ mock_provider "aws" {
     }
   }
 }
+run "acm_cutover_preserves_old_cloudfront_url_without_a_redirect_loop" {
+  command = plan
+  variables {
+    retain_cloudfront = true
+  }
+  assert {
+    condition     = length(aws_cloudfront_distribution.lab) == 1 && length(aws_lb_listener.https) == 1 && local.public_url == var.wwwroot
+    error_message = "ACM cutover must preserve the existing CloudFront URL while using the owned canonical URL."
+  }
+  assert {
+    condition     = aws_lb_listener.http.default_action[0].redirect[0].host == var.domain && aws_lb_listener.http.default_action[0].redirect[0].protocol == "HTTPS"
+    error_message = "Requests from the old CloudFront hostname must redirect to the owned HTTPS domain, not back to CloudFront."
+  }
+}
 run "temporary_https_without_private_response_cache" {
   command = plan
   variables {

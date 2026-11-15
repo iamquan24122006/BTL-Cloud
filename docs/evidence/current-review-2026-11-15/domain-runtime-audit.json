@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "timers_active": true,
+  "maintenance_clear": true,
+  "database_tls_verified": true,
+  "last_scheduled_task_age_seconds": 6,
+  "scheduled_failures": 0,
+  "adhoc_failures": 0,
+  "adhoc_overdue_10m": 0
+}

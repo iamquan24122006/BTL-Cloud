@@ -4,9 +4,9 @@
 
 ## Tóm tắt
 
-**Kết quả nghiệm thu kỹ thuật mới:** [biên bản 14/11](22-technical-acceptance.md) xác nhận các kiểm tra chức năng mới và reboot staging, đồng thời kết luận chưa đạt đầy đủ P0+P1. Các thiếu hụt triển khai thực gồm ALB HTTPS, scaling policy và dashboard/kênh nhận alarm; coverage GUI/so sánh tải và các mục bàn giao còn thiếu được giữ nguyên, không đánh dấu đạt.
+**Cập nhật 15/11:** tên miền `www.moodle-cloud-distribution.mywire.org` dùng HTTPS/ACM trực tiếp tại ALB Sydney; 47/47 ca nghiệp vụ, ba tài khoản demo, cookie/redirect, cron và readiness đạt. Policy target 200 đã tự chạy 2→3→2 app; rollout tên miền thành công, plan sau triển khai không drift. Kiểm thử cục bộ: 103 ca unit (101 đạt, 2 skip Linux permission trên Windows), 3 Terraform mock đạt. [Bằng chứng mới](evidence/current-review-2026-11-15/README.md). Toàn dự án còn GUI/so sánh tải, coverage lỗi và bàn giao/chi phí theo [danh sách hiện hành](24-remaining-work.md); không tự ký nghiệm thu đầy đủ.
 
-**Bổ sung medium Sydney 14/11/2026:** đã dựng lab public tại https://dc988tccg64gh.cloudfront.net, hai app private và runner, RDS/EFS/Redis; 47/47 kiểm tra HTTPS trên nguồn và sau restore sang RDS/EFS mới. Các ca session/file/cache xuyên node, lock, cron, maintenance và ASG replacement đã có bằng chứng. CI `93bdc8b` thành công với 96 unit tests và các integration/Terraform checks. [Kết quả và giới hạn hiện hành](21-medium-sydney.md), [evidence](evidence/medium-sydney-2026-11-14/README.md). Những phần baseline/lịch sử phía dưới giữ nguyên thời điểm đo; lab mới chưa có domain/ACM tại ALB, walkthrough GUI mới hoặc benchmark so sánh tải.
+**Hồ sơ medium Sydney 14/11/2026 (lịch sử):** lab public CloudFront có hai app private và runner, RDS/EFS/Redis; 47/47 kiểm tra HTTPS trên nguồn và sau restore sang RDS/EFS mới. Các ca session/file/cache xuyên node, lock, cron, maintenance và ASG replacement có bằng chứng. CI `93bdc8b` thành công với 96 unit tests và integration/Terraform checks. [Hồ sơ live](21-medium-sydney.md), [evidence lịch sử](evidence/medium-sydney-2026-11-14/README.md). Domain/ACM đã bổ sung trong lượt 15/11; các số baseline phía dưới giữ nguyên thời điểm và điều kiện đo.
 
 Đồ án xây dựng một công cụ triển khai Moodle LMS trên Amazon Web Services bằng Terraform, Python CLI và cấu hình YAML. Hệ thống hỗ trợ hai preset: small dùng một EC2 cho web, database và dữ liệu; medium tách các app node, database, lưu trữ và cache. Đóng góp của nhóm nằm ở quy trình dựng hạ tầng, kiểm tra cấu hình, quản lý thay đổi, vận hành và phục hồi dữ liệu; chức năng học tập sử dụng Moodle chuẩn.
 
@@ -89,7 +89,7 @@ Kiểm thử được chia thành bốn tầng: unit tests cho CLI/guard; CI v�
 
 Trong giai đoạn chuẩn bị ngày 14/11, image medium từ checkout sạch `2130963` được build và kiểm tra trực tiếp trên Docker Linux cục bộ. Bộ integration hai app đạt PostgreSQL/Redis TLS, session/file/cache xuyên node, lock, purge isolation và readiness/maintenance gate. Sau đó release này đã publish và deploy Sydney, kiểm chứng nguồn/restore và ASG theo [bằng chứng live mới](evidence/medium-sydney-2026-11-14/README.md). GUI mới còn chờ xác minh riêng.
 
-Ca phục hồi đã có bằng chứng gồm reboot staging, bootstrap lại không reset fixture, backup bị S3 từ chối và restore từ bộ sai checksum bị chặn. Medium có kiểm tra session/file xuyên node, thay app qua ASG, MUC dùng chung, khóa liên node và S3 state lock. Một số ca gián đoạn migration, alarm đến người nhận và kiểm tra lại medium trên source tích hợp vẫn chưa đầy đủ. [Ma trận nghiệm thu](18-project-closeout.md) ghi riêng từng phần.
+Ca phục hồi đã có bằng chứng gồm reboot staging, bootstrap lại không reset fixture, backup bị S3 từ chối và restore từ bộ sai checksum bị chặn. Medium có kiểm tra session/file xuyên node, thay app qua ASG, MUC dùng chung, khóa liên node và S3 state lock. Đường thông báo ALARM/OK qua SNS/SQS đã được bổ sung; một số ca gián đoạn migration/release vẫn thiếu coverage. [Ma trận nghiệm thu](18-project-closeout.md) ghi riêng từng phần.
 
 ## 6. Đánh giá hiệu năng và khả năng phục hồi
 
@@ -143,7 +143,7 @@ Snapshot đầu lượt kiểm kê có bốn EC2 running: dev, staging, generato
 
 Sản phẩm đã tạo được một quy trình vận hành có cấu hình, IaC, saved plan và kiểm tra sau triển khai. Backup/restore được kiểm bằng dữ liệu nghiệp vụ và tính toàn vẹn, thay vì chỉ chứng minh có file backup. Medium thể hiện cách tách trạng thái cho nhiều app node; các lỗi triển khai và giới hạn hiệu năng được lưu thành evidence để tái kiểm.
 
-Các giới hạn chính là cấu hình medium còn nhiều prerequisite, local state small cần một người vận hành, small có điểm lỗi đơn, medium chưa HA toàn hệ thống, chưa benchmark small/medium cùng điều kiện và chưa có thử nghiệm cài tay độc lập đủ để đo mức tiết kiệm. Lượt tiếp tục đã dựng medium Sydney bằng release ghim từ `2130963`, với công cụ/IaC qua CI `93bdc8b`. DNS/ACM cho ALB Sydney, GUI mới và reviewer độc lập vẫn cần bổ sung.
+Các giới hạn chính là medium còn nhiều prerequisite, local state small cần một người vận hành, small có điểm lỗi đơn, medium chưa HA toàn hệ thống, chưa benchmark small/medium cùng điều kiện và chưa có thử nghiệm cài tay độc lập đủ để đo mức tiết kiệm. Medium giữ runtime ghim `2130963`; CI `93bdc8b` là kiểm chứng tích hợp lịch sử. Lượt 15/11 đã hoàn tất DNS/ACM, scaling cycle và kiểm thử local/live cho cutover; GUI mới và reviewer độc lập vẫn cần bổ sung.
 
 Hướng tiếp tục là trình tạo YAML có hướng dẫn, tự động chuẩn bị prerequisite có plan rõ ràng, kiểm thử medium cùng workload/dataset, quy trình cập nhật phiên bản có restore drill, theo dõi cost allocation và thông báo vận hành đến người nhận. Đây là hướng phát triển, không phải tính năng đã hoàn thành.
 

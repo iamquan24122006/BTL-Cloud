@@ -15,6 +15,7 @@ def main(argv=None):
     parser.add_argument("--expected-users", type=int)
     parser.add_argument("--minimum-seconds", type=float, default=0)
     parser.add_argument("--ramp-seconds", type=float, default=0)
+    parser.add_argument("--smoke", action="store_true", help="Deterministic branch coverage; excluded from workload-ratio comparisons")
     args = parser.parse_args(argv)
     with args.input.open(encoding="utf-8-sig", newline="") as stream:
         records = list(csv.DictReader(stream))
@@ -35,6 +36,16 @@ def main(argv=None):
         required |= {'Assignment view', 'Logout'}
     complete = (elapsed >= args.minimum_seconds and
                 (args.expected_users is None or len(users) == args.expected_users))
+    failure_reasons = []
+    if elapsed < args.minimum_seconds:
+        failure_reasons.append('insufficient_duration')
+    if args.expected_users is not None and len(users) != args.expected_users:
+        failure_reasons.append('unexpected_user_count')
+    missing = sorted(required - report['transactions'].keys())
+    if missing:
+        failure_reasons.append('missing_transactions: ' + ', '.join(missing))
+    if not all(row['ok'] for row in rows):
+        failure_reasons.append('failed_samples')
     steady = [row for raw, row in zip(records, rows) if int(raw['timeStamp']) >= started + args.ramp_seconds * 1000]
     steady_seconds = max(0, elapsed - args.ramp_seconds)
     report.update(scope=("JMeter small: 60% course / 20% download / 10% assignment view / 10% auth cycle by logical actions; fresh HTTP connections; no submission writes or browser rendering"
@@ -44,6 +55,9 @@ def main(argv=None):
                   steady=summarize(steady, steady_seconds),
                   status="passed" if complete and required <= report["transactions"].keys() and all(row['ok'] for row in rows) else "failed",
                   conclusion="Protocol smoke/load observations only; record workload, unique users, ramp, duration, CPU credits and repeats before capacity conclusions")
+    report.update(smoke=args.smoke, failure_reasons=failure_reasons)
+    if args.smoke:
+        report['scope'] = 'Deterministic protocol smoke: cycle course/download/assignment/auth; excluded from comparative workload ratios; no submission writes or browser rendering'
     args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
     return 0 if report["status"] == "passed" else 1

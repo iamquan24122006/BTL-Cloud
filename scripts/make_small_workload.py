@@ -36,7 +36,10 @@ def main():
             children.remove(item)
     _, choices = element(children, "SwitchController", "Choose one logical action", "SwitchControllerGui")
     selector = list(children)[-2]
-    prop(selector, "SwitchController.value", "${__Random(0,9,)}")
+    # The short two-user smoke must visit every branch type. Random selection can
+    # miss Assignment view entirely and correctly fail coverage despite no HTTP
+    # errors. Keep the measured workload random unless smoke is explicitly set.
+    prop(selector, "SwitchController.value", "${__groovy(if (props.getProperty('smoke') == 'true') { def n = (vars.get('__jm__Read workload until duration ends__idx') ?: '0') as int; return '0;6;8;9'.split(';')[n % 4] }; return java.util.concurrent.ThreadLocalRandom.current().nextInt(10))}")
     for number in range(10):
         _, branch = element(choices, "GenericController", str(number), "LogicControllerGui")
         if number < 6:
@@ -58,7 +61,8 @@ def main():
     plan.find("stringProp[@name='TestPlan.comments']").text = (
         "Each random choice is one logical action: 60% course, 20% download, 10% assignment view, "
         "10% logout/login cycle. The cycle emits multiple HTTP samples; percentages do not describe HTTP request counts. "
-        "Submission writes are covered by the separate functional acceptance, not this load test.")
+        "Submission writes are covered by the separate functional acceptance, not this load test. "
+        "With smoke=true, cycle course/download/assignment/auth deterministically; exclude smoke from benchmark ratios.")
     destination = source.with_name("moodle-small.jmx")
     # The private SSM tunnel can leave stale idle HTTP connections after think time.
     # Measure fresh connections explicitly; do not hide failed requests with retries.

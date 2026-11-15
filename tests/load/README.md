@@ -29,6 +29,8 @@ Run `bash scripts/run_small_matrix.sh /opt/moodle-load <private-s3-run-prefix> <
 
 Summary `passed` refers to assertions, users and duration; assess research latency/error thresholds separately. Record target OS/DB metrics, generator metrics and CPU credits before/after. Note dataset, code and cache conditions.
 
+The two-user smoke uses `-Jsmoke=true` to cycle course, download, assignment view and auth in order. This prevents a short random run from missing an entire branch. Summarize it with `--smoke`; exclude it from the 60/20/10/10 workload comparisons. Measurements at 10/25/50 users keep random selection (`-Jsmoke=false`). Summary `failure_reasons` distinguishes missing transactions from HTTP/assertion failures, duration and user-count failures.
+
 ## Cleanup
 
 Download evidence, stop the staging relay, and verify Moodle health/acceptance. Review and apply a destroy plan for only the fixture state. Confirm the original staging SG set is restored and generator/role/profile/fixture SGs are gone. Keep user CSV, raw logs, state and plans out of Git.

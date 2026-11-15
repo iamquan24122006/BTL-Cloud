@@ -97,6 +97,15 @@ class MediumTests(unittest.TestCase):
         with self.assertRaises(cli.ConfigError):
             self.load(dict(self.config, frontend='other'))
 
+    def test_retaining_cloudfront_requires_an_acm_canonical_url(self):
+        self.assertFalse(self.load(self.config)['retain_cloudfront'])
+        self.assertTrue(self.load(dict(self.config, retain_cloudfront=True))['retain_cloudfront'])
+        for value in ('true', 1, None):
+            with self.subTest(value=value), self.assertRaises(cli.ConfigError):
+                self.load(dict(self.config, retain_cloudfront=value))
+        with self.assertRaises(cli.ConfigError):
+            self.load(dict(self.config, frontend='cloudfront', domain='', certificate_arn='', hosted_zone_id='', wwwroot='auto', retain_cloudfront=True))
+
     def test_state_isolated_by_preset_account_and_environment(self):
         small = dict(self.config, size='small')
         self.assertNotEqual(cli.workspace(self.config), cli.workspace(small))

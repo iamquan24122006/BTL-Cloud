@@ -9,6 +9,7 @@ instance_type: t3.medium
 volume_gib: 30
 moodle_version: "4.5.15"
 frontend: acm # cloudfront is an explicitly limited temporary lab option; see docs/10-medium-n2.md.
+retain_cloudfront: false # Set true for ACM cutover only when preserving a previous CloudFront demo URL.
 domain: moodle.example.com
 wwwroot: https://moodle.example.com
 certificate_arn: arn:aws:acm:ap-southeast-1:111111111111:certificate/00000000-0000-0000-0000-000000000000

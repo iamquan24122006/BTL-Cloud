@@ -1,0 +1,24 @@
+{
+  "review": {
+    "create": 2,
+    "update": 0,
+    "delete": 0,
+    "replace": 0,
+    "data_loss_risk": false,
+    "resources": [
+      {
+        "address": "aws_lb_listener.https[0]",
+        "actions": [
+          "create"
+        ]
+      },
+      {
+        "address": "aws_vpc_security_group_ingress_rule.public[\"443\"]",
+        "actions": [
+          "create"
+        ]
+      }
+    ]
+  },
+  "sha256": "b9bff02dcd19c3d601d984e17e37f18ab921c3b0ffd3e94ea73abde166cd7c14"
+}

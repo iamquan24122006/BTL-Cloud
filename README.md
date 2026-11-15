@@ -13,7 +13,7 @@ Công cụ triển khai và vận hành **Moodle Learning Management System trê
 
 **Moodle small public:** [https://d1cnnw3mivc0q5.cloudfront.net](https://d1cnnw3mivc0q5.cloudfront.net)
 
-**Moodle medium public:** [https://dc988tccg64gh.cloudfront.net](https://dc988tccg64gh.cloudfront.net) — [vận hành và nghiệm thu medium Sydney](docs/21-medium-sydney.md).
+**Moodle medium public:** [https://www.moodle-cloud-distribution.mywire.org](https://www.moodle-cloud-distribution.mywire.org) — [vận hành và nghiệm thu medium Sydney](docs/21-medium-sydney.md). URL CloudFront cũ giữ lại và chuyển hướng sang tên miền.
 
 Mở trực tiếp bằng trình duyệt, không cần localhost hoặc SSM tunnel. Sử dụng tài khoản được nhóm bàn giao qua kênh riêng; mật khẩu không được công bố trong README.
 
@@ -23,7 +23,7 @@ Demo minh họa luồng **đăng nhập → khóa học → học liệu → bà
 
 Small dev Sydney đang dùng CloudFront HTTPS; staging giữ truy cập qua SSM. Khả dụng của demo phụ thuộc lịch giữ/dừng tài nguyên của nhóm.
 
-Medium đã có policy tự mở rộng trong giới hạn **2–3 app**, dashboard CloudWatch và **14 cảnh báo vận hành**. Luồng thông báo **ALARM → SNS/SQS → OK** đã được thử thực tế; HTTPS tên miền và kiểm thử scaling dưới tải được ghi riêng trong [hồ sơ vận hành medium](docs/23-medium-operations.md).
+Medium có policy tự mở rộng **2–3 app**, đã quan sát chu kỳ **2→3→2** với target 200 request/app/phút, dashboard CloudWatch và **14 cảnh báo vận hành**. Luồng **ALARM → SNS/SQS → OK** đã được thử thực tế. Tên miền dùng HTTPS/ACM trực tiếp tại ALB; **47/47 kiểm tra nghiệp vụ** sau chuyển đổi đạt. [Bằng chứng mới và giới hạn](docs/evidence/current-review-2026-11-15/README.md).
 
 ## Kiến trúc hệ thống
 
@@ -38,7 +38,7 @@ Medium đã có policy tự mở rộng trong giới hạn **2–3 app**, dashbo
 | Truy cập | SSM mặc định; addon CloudFront cho URL public | ALB HTTPS/ACM; CloudFront là tùy chọn lab |
 | Terraform state | Local, tách project/environment | S3 backend, versioning và lockfile |
 
-Sơ đồ medium minh họa chế độ ALB HTTPS/ACM. Lab Sydney hiện dùng CloudFront HTTPS phía trước ALB HTTP, hai app private và runner riêng; HTTPS trực tiếp tại ALB còn chờ DNS/ACM. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md) và [cấu hình live](docs/21-medium-sydney.md).
+Lab Sydney dùng tên miền Dynu với HTTPS/ACM trực tiếp tại ALB, hai app private và runner riêng; URL CloudFront cũ chuyển hướng sang tên miền. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md) và [cấu hình live](docs/21-medium-sydney.md).
 
 ## Tính năng
 
@@ -343,7 +343,7 @@ Small public kết thúc TLS tại CloudFront, chặng tới nginx origin dùng 
 
 ### Medium
 
-Lab Sydney hiện có URL Amazon HTTPS, hai app và runner `t3.small`, RDS PostgreSQL 16.13, EFS và hai Redis riêng. YAML thật trên máy triển khai là `.work/medium-sydney-live/medium.yaml`; không chứa mật khẩu. [Runbook live, giới hạn Free Plan và chi phí](docs/21-medium-sydney.md).
+Lab Sydney dùng tên miền HTTPS, hai app và runner `t3.small`, RDS PostgreSQL 16.13, EFS và hai Redis riêng. YAML thật trên máy triển khai là `.work/medium-sydney-live/medium.yaml`, đã đồng bộ `frontend: acm`, `retain_cloudfront: true` và target scaling 200; không chứa mật khẩu. [Runbook live, giới hạn Free Plan và chi phí](docs/21-medium-sydney.md).
 
 Thực hiện theo [runbook medium](docs/10-medium-n2.md): chuẩn bị backend/bucket/ECR/secret, build AMI và artifact ghim digest, điền YAML thật, chạy preflight/plan/apply, release trên runner rồi nghiệm thu site. Chỉ Terraform apply xong chưa có nghĩa Moodle đã ready.
 
@@ -365,27 +365,3 @@ Backup và xác minh dữ liệu cần giữ trước khi review saved destroy p
 | Chi phí | AWS Budgets, Cost Explorer và inventory theo từng account |
 
 Không chỉ dựa vào timer active hoặc HTTP 200. Backup mới không tự được coi đã restore-test; budget không tự dừng tài nguyên. [Vận hành](docs/05-operations.md), [chi phí và demo](docs/07-report-and-cost.md).
-
-## Trạng thái và tài liệu bàn giao
-
-**Nghiệm thu kỹ thuật 14/11:** [biên bản AT-01–AT-20](docs/22-technical-acceptance.md) ghi chức năng đã đạt và các mục còn chặn chốt đầy đủ. AWS hiện chưa có ALB HTTPS/ACM, scaling policy theo tải hoặc dashboard/kênh nhận alarm cho medium; GUI và ma trận so sánh vẫn cần bổ sung. Không coi kết quả demo là nghiệm thu toàn bộ P0+P1.
-
-**Cập nhật 14/11/2026:** small và medium Sydney đã có URL public. Medium đã được dựng lại, seed fixture, kiểm tra 47 ca HTTPS trên nguồn/restore và thử thay app bằng ASG; môi trường restore tạm được dọn sau thử nghiệm. MED-02 với domain/ACM tại ALB, walkthrough GUI mới, benchmark so sánh và reviewer/chi phí các account khác vẫn là các mục cần chốt riêng.
-
-Nhóm có **4 thành viên**, ngân sách toàn đồ án **150 USD**. Billing Sydney đã lấy trong kỳ kiểm tra không đại diện tổng chi phí cả nhóm/account khác. Xem trạng thái và giới hạn đầy đủ tại:
-
-- [Ma trận nghiệm thu và checklist chốt](docs/18-project-closeout.md).
-- [Báo cáo tổng hợp](docs/19-final-report.md).
-- [Evidence small public](docs/evidence/small-public-2026-11-14/README.md).
-- [Evidence medium release](docs/evidence/medium-release-2026-11-14/README.md).
-- [Vận hành medium Sydney](docs/21-medium-sydney.md) và [bằng chứng live/restore](docs/evidence/medium-sydney-2026-11-14/README.md).
-- [Kế hoạch và phân công](docs/00-project-plan.md).
-- [Cài Moodle thủ công](docs/03-manual-lab.md).
-
-## Đóng góp
-
-1. Tạo nhánh cho thay đổi; chọn đúng preset và môi trường thử nghiệm.
-2. Cập nhật code, cấu hình mẫu và tài liệu liên quan.
-3. Chạy unit tests và các runtime/Terraform checks phù hợp.
-4. Ghi rõ bằng chứng, giới hạn và tác động dữ liệu/chi phí.
-5. Mở pull request để thành viên khác review; không đưa credential, state, saved plan hoặc payload backup vào PR.

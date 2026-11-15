@@ -10,7 +10,7 @@ class ConfigError(ValueError):
 MEDIUM_KEYS = {
     "account_id", "domain", "certificate_arn", "ami_id", "availability_zones",
     "vpc_cidr", "artifact", "backend", "secrets", "db_instance_type", "app_requests_per_target",
-    "db_allocated_storage", "db_backup_retention_days", "redis_node_type", "hosted_zone_id", "restore_source_prefix", "frontend",
+    "db_allocated_storage", "db_backup_retention_days", "redis_node_type", "hosted_zone_id", "restore_source_prefix", "frontend", "retain_cloudfront",
 }
 
 
@@ -39,6 +39,9 @@ def validate_medium(data):
     data.setdefault('frontend', 'acm')
     data.setdefault('db_backup_retention_days', 7)
     data.setdefault('app_requests_per_target', 600)
+    data.setdefault('retain_cloudfront', False)
+    if type(data['retain_cloudfront']) is not bool or (data['retain_cloudfront'] and data['frontend'] != 'acm'):
+        raise ConfigError('retain_cloudfront: boolean; true is only for preserving an existing CloudFront URL during ACM cutover')
     missing = MEDIUM_KEYS - data.keys()
     if missing:
         raise ConfigError("medium missing keys: " + ", ".join(sorted(missing)))

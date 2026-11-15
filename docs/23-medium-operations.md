@@ -14,6 +14,8 @@ Instance warmup là 300 giây. ALB chờ readiness trước khi chuyển traffic
 
 ## Dashboard và thông báo
 
+**Hiệu chỉnh lab 15/11:** cấu hình Sydney hiện dùng target **200 request/app/phút**. Burst 20 user trong tám phút có 4.890 lượt đọc, không lỗi; policy tự tăng ba target healthy rồi trở lại hai. Sau chuyển tên miền, hai app mới/runner giữ cùng release, 47/47 ca nghiệp vụ đạt. Đây là drill scaling, không phải ma trận benchmark chuẩn hoặc chứng nhận công suất. [Bằng chứng](evidence/current-review-2026-11-15/README.md), [cutover tên miền và giữ URL cũ](25-domain-cutover.md).
+
 Các output `dashboard_name`, `alarm_topic_arn`, `alarm_queue_url`, `scaling_policy_arn` được trả bởi `status`. Dashboard có 11 widget: trạng thái alarm; latency p95, request/lỗi ALB; healthy targets/desired capacity; CPU app/runner; CPU và bộ nhớ/dung lượng RDS; Redis; EFS; bộ nhớ/đĩa host; cron/backup.
 
 14 alarm vận hành gửi cả ALARM và OK đến SNS. Inbox SQS mã hóa bằng SSE-SQS, lưu 14 ngày, chỉ cho topic của site gửi tin. Topic chỉ cho CloudWatch alarm của site/account/region publish. Message chỉ chứa metadata tài nguyên và metric. Người vận hành cần kiểm tra inbox hoặc bổ sung subscription email đã được chủ email xác nhận; SQS không tự gửi push đến người trực.

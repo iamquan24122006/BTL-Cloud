@@ -88,7 +88,7 @@ ALTER DATABASE moodle OWNER TO moodle_migration;
 REVOKE CREATE ON SCHEMA public FROM PUBLIC;
 ALTER SCHEMA public OWNER TO moodle_migration;
 GRANT USAGE ON SCHEMA public TO moodle_runtime;
-ALTER DEFAULT PRIVILEGES FOR ROLE moodle_migration IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO moodle_runtime;
+ALTER DEFAULT PRIVILEGES FOR ROLE moodle_migration IN SCHEMA public GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE ON TABLES TO moodle_runtime;
 ALTER DEFAULT PRIVILEGES FOR ROLE moodle_migration IN SCHEMA public GRANT USAGE,SELECT,UPDATE ON SEQUENCES TO moodle_runtime;
 """
         (self.private / 'init.sql').write_text(sql)
@@ -129,6 +129,10 @@ chown 0:999 /tls/server.key; chmod 640 /tls/server.key; chmod 644 /tls/server.cr
         for filename in sorted((ROOT / 'scripts/medium').glob('*.php')):
             self.docker('lint-' + filename.stem, 'run', '--rm', '--network', 'none', '--entrypoint', 'php', self.image, '-l', '/opt/moodle-medium/' + filename.name)
         self.cli('install', '/opt/moodle-medium/install.php', migration=True)
+        # This task calls delete_records('tag_correlation') without a filter;
+        # PostgreSQL uses TRUNCATE, which DELETE permission alone does not cover.
+        self.cli('runtime-tag-cron', '/var/www/moodle/admin/cli/scheduled_task.php',
+                 '--execute=\\core\\task\\tag_cron_task')
         self.cli('muc', '/opt/moodle-medium/muc.php', migration=True)
         self.cli('muc-rerun', '/opt/moodle-medium/muc.php', migration=True)
         self.cli('tls-proof', '/opt/moodle-medium/tls-proof.php')

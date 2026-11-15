@@ -1,0 +1,63 @@
+{
+  "changes": [
+    {
+      "address": "aws_autoscaling_group.app",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_dashboard.medium",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_cloudwatch_metric_alarm.runner_cpu",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_instance.runner",
+      "actions": [
+        "delete",
+        "create"
+      ]
+    },
+    {
+      "address": "aws_launch_template.app",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_lb_listener.http",
+      "actions": [
+        "update"
+      ]
+    },
+    {
+      "address": "aws_vpc_security_group_ingress_rule.public[\"80\"]",
+      "actions": [
+        "create"
+      ]
+    }
+  ],
+  "userdata_changes": {
+    "aws_instance.runner": {
+      "wwwroot": {
+        "before": "https://dc988tccg64gh.cloudfront.net",
+        "after": "https://www.moodle-cloud-distribution.mywire.org"
+      }
+    },
+    "aws_launch_template.app": {
+      "wwwroot": {
+        "before": "https://dc988tccg64gh.cloudfront.net",
+        "after": "https://www.moodle-cloud-distribution.mywire.org"
+      }
+    }
+  },
+  "backup_command": "982e611d-bce7-4255-9548-195d0bb3d568",
+  "backup_uri": "s3://moodle-medium-dev-828676179987-ap-southeast-2-backups/moodle-medium-dev-med/20261114T200711"
+}

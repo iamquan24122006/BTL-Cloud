@@ -1,8 +1,8 @@
 # Medium Sydney — vận hành và nghiệm thu 14/11/2026
 
-URL nguồn: **https://dc988tccg64gh.cloudfront.net**. Đây là lab nhiều app node dùng URL Amazon. Theo dõi kết quả và thời điểm kiểm tra trong [bằng chứng medium Sydney](evidence/medium-sydney-2026-11-14/README.md).
+URL chính: **https://www.moodle-cloud-distribution.mywire.org**. URL CloudFront cũ chuyển hướng sang tên miền. Hồ sơ dựng/restore ban đầu nằm trong [bằng chứng 14/11](evidence/medium-sydney-2026-11-14/README.md), kết quả cutover trong [bằng chứng 15/11](evidence/current-review-2026-11-15/README.md).
 
-Cập nhật sau lượt nghiệm thu ban đầu: đã triển khai policy tự mở rộng 2–3 app, dashboard và nơi nhận cảnh báo; xác minh cả thông báo ALARM/OK. Hai URL demo dùng chung `admin`, `teacher`, `student`, đã thử sáu lượt đăng nhập. Xem [hướng dẫn vận hành và tài khoản](23-medium-operations.md) và [bằng chứng bổ sung](evidence/medium-operations-2026-11-14/README.md). Các kết quả restore/ASG thay node dưới đây giữ nguyên thời điểm và phạm vi ban đầu.
+Cập nhật 15/11: URL chính là https://www.moodle-cloud-distribution.mywire.org, HTTPS/ACM trực tiếp tại ALB Sydney; CloudFront cũ chuyển hướng sang tên miền. 47/47 ca nghiệp vụ và ba tài khoản demo đạt; hai target healthy, runner mới `i-0bcafad1d2d89cad9`, ASG refresh Successful và plan không drift. Policy target 200 đã tự chạy chu kỳ 2→3→2. [Bằng chứng mới](evidence/current-review-2026-11-15/README.md), [runbook cutover](25-domain-cutover.md). Dashboard/ALARM/OK có [hồ sơ riêng](evidence/medium-operations-2026-11-14/README.md). Các kết quả restore ban đầu phía dưới giữ nguyên thời điểm và phạm vi.
 
 ## Cấu hình thực tế
 
@@ -12,7 +12,7 @@ Cập nhật sau lượt nghiệm thu ban đầu: đã triển khai policy tự 
 | Project / environment | `moodle-medium` / `dev` |
 | Compute | Hai app trong ASG, một runner; mỗi máy `t3.small`, 2 vCPU / 2 GiB RAM, EBS gp3 mã hóa 30 GiB |
 | Network | VPC riêng, hai AZ; compute không có public IP, quản trị qua SSM |
-| Frontend | CloudFront HTTPS, không cache response Moodle; ALB HTTP chỉ nhận CloudFront origin prefix list |
+| Frontend | Tên miền Dynu → ALB HTTPS/ACM; HTTP chuyển HTTPS; CloudFront cũ giữ làm đường chuyển hướng |
 | Database | RDS PostgreSQL **16.13**, `db.t4g.micro`, gp3 20 GiB, private, mã hóa, `verify-full` TLS |
 | Shared files | EFS mã hóa, mount TLS/IAM bằng access point trên cả ba máy |
 | Session / MUC | Hai Redis 7.1 riêng, `cache.t4g.micro`, TLS/AUTH, mã hóa |
@@ -22,7 +22,7 @@ Cập nhật sau lượt nghiệm thu ban đầu: đã triển khai policy tự 
 
 Free Plan của account này đã từ chối `t3.medium` và RDS retention 7 ngày. Lab dùng loại `t3.small` được AWS trả về là eligible và `db_backup_retention_days: 1`. Preset **medium** mô tả topology nhiều app với state dùng chung; không có nghĩa máy phải thuộc instance size `.medium`. Dung lượng RAM này phục vụ lab, chưa được chứng nhận đáp ứng một mức tải cụ thể.
 
-CloudFront kết thúc TLS ở viewer; chặng CloudFront → ALB dùng HTTP. **MED-02 yêu cầu domain sở hữu và HTTPS trực tiếp tại ALB vẫn chờ DNS/ACM.** Hostname Dynu lịch sử `www.moodle-cloud-distribution.mywire.org` chưa được chuyển sang lab Sydney. Không dùng hostname đó thay URL Amazon hiện tại.
+Tên miền Dynu đã chuyển CNAME sang ALB Sydney và ACM đã cấp chứng chỉ. **MED-02 HTTPS tại ALB đã có kiểm chứng live** với TLS 1.3, cookie Secure/HttpOnly, HSTS và 47/47 ca nghiệp vụ. CloudFront cũ dùng HTTP origin chỉ để nhận redirect về tên miền; không mô tả đường legacy này là mã hóa mọi chặng. Medium vẫn là lab, không phải HA/SLA production.
 
 ## Vận hành trên máy triển khai
 
