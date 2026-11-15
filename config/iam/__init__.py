@@ -1,0 +1,1 @@
+"""Packaged IAM policy examples."""

@@ -21,7 +21,23 @@ from .medium_config import ConfigError, MEDIUM_KEYS, validate_medium
 
 ROOT = Path(__file__).resolve().parents[1]
 INFRA = ROOT / "infra" / "small"
-VERSION = "0.2.0"
+PACKAGE_ROOT = ROOT
+VERSION = "0.3.0"
+
+
+def default_config():
+    return os.environ.get("MOODLE_CLOUD_CONFIG") or str(ROOT / "config" / "dev.yaml")
+
+
+def work_root():
+    override = os.environ.get("MOODLE_CLOUD_WORKDIR")
+    if override:
+        return Path(override).expanduser()
+    # Keep source-checkout and tests' temporary files beside the repo; regular
+    # pip installs use a writable per-user directory instead of site-packages.
+    if ROOT != PACKAGE_ROOT or (ROOT / ".git").exists():
+        return ROOT / ".work"
+    return Path.home() / ".moodle-cloud" / "work"
 
 
 class AwsError(ConfigError):
@@ -97,7 +113,7 @@ def load_config(filename):
 
 def workspace(config):
     suffix = f"-{config['account_id']}-medium" if config["size"] == "medium" else ""
-    return ROOT / ".work" / f"{config['project']}-{config['environment']}{suffix}"
+    return work_root() / f"{config['project']}-{config['environment']}{suffix}"
 
 
 def infra(config):
@@ -359,14 +375,34 @@ def wait_command(config, command, instance, timeout=3900, interval=5):
 
 def remote(config, script, *, wait=False, timeout=3900):
     instance = instance_id(config)
-    response = aws(config, "ssm", "send-command", "--instance-ids", instance,
-                   "--document-name", "AWS-RunShellScript", "--timeout-seconds", "60",
-                   "--parameters", json.dumps({"commands": ["set -eu\n" + script], "executionTimeout": ["3600"]}))
+    deadline = time.monotonic() + timeout
+    retried = False
+    while True:
+        try:
+            response = aws(config, "ssm", "send-command", "--instance-ids", instance,
+                           "--document-name", "AWS-RunShellScript", "--timeout-seconds", "60",
+                           "--parameters", json.dumps({"commands": ["set -eu\n" + script], "executionTimeout": ["3600"]}))
+            break
+        except AwsError as exc:
+            # InvalidInstanceId means AWS rejected the submission: no command
+            # was accepted. New instances may not have registered with SSM yet.
+            if not wait or exc.code != "InvalidInstanceId":
+                raise
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise ConfigError(f"Timed out waiting for SSM on {instance}; no command was queued. Check the instance and SSM agent.") from exc
+            if not retried:
+                print(f"Waiting for SSM agent registration on {instance}...", flush=True)
+            retried = True
+            time.sleep(min(5, remaining))
+            if time.monotonic() >= deadline:
+                raise ConfigError(f"Timed out waiting for SSM on {instance}; no command was queued. Check the instance and SSM agent.") from exc
     command = response["Command"]["CommandId"]
     print(f"Operation queued, NOT yet verified. CommandId: {command}; InstanceId: {instance}")
     print(f"Check completion: aws --region {config['region']} ssm get-command-invocation --command-id {command} --instance-id {instance}")
     if wait:
-        wait_command(config, command, instance, timeout=timeout)
+        remaining = max(0.001, deadline - time.monotonic()) if retried else timeout
+        wait_command(config, command, instance, timeout=remaining)
         print("Remote command completed with exit code 0. Application acceptance is separate.")
 
 
@@ -419,12 +455,16 @@ def restore(config, uri, confirmation, allow_data_loss=False, wait=False, timeou
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", default=str(ROOT / "config" / "sydney.yaml"))
+    parser.add_argument("-c", "--config", default=default_config(),
+                        help="YAML config (default: MOODLE_CLOUD_CONFIG or packaged config/dev.yaml)")
     parser.add_argument("--version", action="version", version=VERSION)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("doctor", "validate", "render", "init", "status"):
         sub.add_parser(name)
-    sub.add_parser("preflight").add_argument("--expected-account", help="Required for small; medium defaults to YAML account_id")
+    expected_account = os.environ.get("MOODLE_CLOUD_ACCOUNT") or None
+    sub.add_parser("preflight").add_argument(
+        "--expected-account", default=expected_account,
+        help="Required for small; defaults to MOODLE_CLOUD_ACCOUNT (medium checks YAML account_id)")
     for name in ("backup", "health"):
         action = sub.add_parser(name)
         action.add_argument("--wait", action="store_true")

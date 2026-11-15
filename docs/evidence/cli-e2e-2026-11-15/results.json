@@ -1,0 +1,145 @@
+{
+  "status": "passed",
+  "finished_utc": "2026-11-14T19:48:19.344731+00:00",
+  "account": "860366539351",
+  "region": "ap-southeast-1",
+  "project": "test-cli-tool-dev",
+  "old_lab": {
+    "destroyed_resources": 10,
+    "instance_id": "i-021c034e8054d5c4b",
+    "instance_state": "terminated",
+    "vpc_remaining": 0,
+    "root_volume_remaining": 0
+  },
+  "new_lab": {
+    "instance_id": "i-08653d064e268bc01",
+    "core_resources": 10,
+    "public_resources": 7,
+    "url": "https://d3icvsvd54j00n.cloudfront.net",
+    "distribution_id": "E2USTCPU087ALM",
+    "origin_security_group_id": "sg-0b44928e8b3c7f9f5"
+  },
+  "installation": {
+    "mode": "wheel in a fresh virtualenv, executed outside source root",
+    "version": "0.3.0",
+    "wheel_sha256": "b1ae6e3cb9d24c339ec13add03d83b417909ace2cf30adc960ec5bca8d5d09ae"
+  },
+  "unit_tests": {
+    "passed": 103
+  },
+  "health": "passed",
+  "https": {
+    "url": "https://d3icvsvd54j00n.cloudfront.net",
+    "started_unix": 1794685377.070932,
+    "checks": [
+      {
+        "name": "https-login-200-with-verified-certificate",
+        "passed": true
+      },
+      {
+        "name": "canonical-url",
+        "passed": true
+      },
+      {
+        "name": "hsts-header",
+        "passed": true
+      },
+      {
+        "name": "no-http-or-localhost-assets",
+        "passed": true
+      },
+      {
+        "name": "login-form-csrf-token",
+        "passed": true
+      },
+      {
+        "name": "http-redirect-preserves-path-and-query",
+        "passed": true
+      },
+      {
+        "name": "admin-login-over-public-https",
+        "passed": true
+      },
+      {
+        "name": "session-cookie-secure-httponly",
+        "passed": true
+      },
+      {
+        "name": "admin-can-access-site-settings",
+        "passed": true
+      },
+      {
+        "name": "protected-path-/config.php",
+        "passed": true
+      },
+      {
+        "name": "protected-path-/.git/config",
+        "passed": true
+      },
+      {
+        "name": "logout-ends-authenticated-session",
+        "passed": true
+      }
+    ],
+    "status": "passed",
+    "finished_unix": 1794685386.637909
+  },
+  "moodle_acceptance": [
+    {
+      "account": "860366539351",
+      "region": "ap-southeast-1",
+      "instance_id": "i-08653d064e268bc01",
+      "command_id": "d56a33da-7efd-4a5d-afbf-2acaed3dc6a8",
+      "status": "passed",
+      "source_fingerprint": "757b6aadcd6f56281d966fc3a6ddded1d14ac192ebbc62061747d7484e1896d4",
+      "scope": "Synthetic courses, files, private submissions, grades, login/logout; no load or browser layout test",
+      "response_code": 0,
+      "output": "{\"course_id\":2,\"users\":{\"student\":3,\"studentb\":4,\"outsider\":5,\"teacher\":6},\"resource_id\":2,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\"}\nDatabase, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160016,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/16\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n",
+      "finished_utc": "2026-11-14T19:36:34.235908+00:00"
+    },
+    {
+      "account": "860366539351",
+      "region": "ap-southeast-1",
+      "instance_id": "i-08653d064e268bc01",
+      "command_id": "1a0e59f7-6e57-45c7-bd4b-3ebd0efc3233",
+      "status": "passed",
+      "source_fingerprint": "757b6aadcd6f56281d966fc3a6ddded1d14ac192ebbc62061747d7484e1896d4",
+      "scope": "Synthetic courses, files, private submissions, grades, login/logout; no load or browser layout test",
+      "response_code": 0,
+      "output": "Database, admin account and container file permissions: OK\nBasic health: OK. Also verify login, upload, cron completion and restore as documented.\n{\"moodle\":\"4.5.15 (Build: 20261005)\",\"php\":\"8.3.35\",\"postgres\":160016,\"course_id\":2,\"student_id\":3,\"teacher_id\":6,\"file_sha256\":\"75678fd2982aa47d239ff7f0af04b0aa70e69de58ad98d41340b510c1de43c80\",\"http_logins\":[\"admin\",\"student\",\"studentb\",\"teacher\"],\"file_path\":\"\\/pluginfile.php\\/16\\/mod_resource\\/content\\/0\\/fixture.txt\",\"submissions_and_grades\":true,\"private_submission_access\":true,\"logout\":true,\"enrolments_and_roles\":true,\"anonymous_file_denied\":true,\"protected_paths\":true}\n",
+      "finished_utc": "2026-11-14T19:42:57.974499+00:00"
+    }
+  ],
+  "final_plan": {
+    "create": 0,
+    "update": 0,
+    "delete": 0,
+    "replace": 0,
+    "data_loss_risk": false,
+    "resources": []
+  },
+  "backup": {
+    "status": "passed",
+    "storage": "local EC2 volume",
+    "restore_tested": false
+  },
+  "scope": "CLI install, destroy/recreate, SSM readiness, Moodle roles/files/submissions/grades, public HTTPS, backup, infrastructure drift. No browser layout or load test.",
+  "cleanup": {
+    "status": "passed",
+    "verified_utc": "2026-11-15T10:15:08.359703+00:00",
+    "account": "860366539351",
+    "project": "test-cli-tool-dev",
+    "terraform_managed_resources_remaining": 0,
+    "core_resources_destroyed": 10,
+    "frontend_resources_destroyed": 7,
+    "instance_state": "terminated",
+    "root_volumes_remaining": 0,
+    "vpcs_remaining": 0,
+    "cloudfront_distribution": "NoSuchDistribution",
+    "origin_secret": {
+      "status": "scheduled_for_deletion",
+      "deleted_date": "2026-11-15T17:10:43.555000+07:00",
+      "recovery_window_days": 7
+    }
+  }
+}

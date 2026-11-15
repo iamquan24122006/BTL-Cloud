@@ -1,6 +1,7 @@
 """Regression checks for the shared small/medium CLI, without AWS calls."""
 import copy
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -15,13 +16,19 @@ class PresetIntegrationTests(unittest.TestCase):
         self.small = cli.load_config(cli.ROOT / "config/sydney.yaml")
         self.medium = cli.load_config(cli.ROOT / "config/medium.example.yaml")
 
-    def test_default_cli_still_selects_sydney_small(self):
-        with patch.object(cli, "outputs", return_value={}) as outputs:
+    def test_default_cli_selects_dev_small(self):
+        expected = cli.load_config(cli.ROOT / "config/dev.yaml")
+        with patch.dict(os.environ, {"MOODLE_CLOUD_CONFIG": ""}), patch.object(cli, "outputs", return_value={}) as outputs:
+            self.assertEqual(cli.main(["status"]), 0)
+        self.assertEqual(outputs.call_args.args[0], expected)
+
+    def test_environment_config_can_select_existing_lab(self):
+        with patch.dict(os.environ, {"MOODLE_CLOUD_CONFIG": str(cli.ROOT / "config/sydney.yaml")}), patch.object(cli, "outputs", return_value={}) as outputs:
             self.assertEqual(cli.main(["status"]), 0)
         self.assertEqual(outputs.call_args.args[0], self.small)
 
     def test_small_preflight_requires_an_explicit_account_before_aws(self):
-        with patch.object(cli, "aws") as aws:
+        with patch.dict(os.environ, {"MOODLE_CLOUD_ACCOUNT": ""}), patch.object(cli, "aws") as aws:
             self.assertEqual(cli.main(["preflight"]), 2)
         aws.assert_not_called()
 

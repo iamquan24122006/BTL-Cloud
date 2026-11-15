@@ -1,4 +1,4 @@
-project: moodle-lab
+project: test-cli-tool
 environment: dev
 region: ap-southeast-1
 size: small

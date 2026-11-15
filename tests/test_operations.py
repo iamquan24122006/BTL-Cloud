@@ -52,6 +52,43 @@ class OperationTests(unittest.TestCase):
                 cli.wait_command(self.config, "command", "instance")
         self.assertEqual(api.call_count, 1)
 
+    def test_remote_wait_retries_only_rejected_submissions_until_ssm_registers(self):
+        with patch.object(cli, 'instance_id', return_value='i-new'), \
+                patch.object(cli, 'aws', side_effect=[cli.AwsError('InvalidInstanceId', 'not registered'),
+                    {'Command': {'CommandId': 'accepted-once'}}]) as api, \
+                patch.object(cli.time, 'sleep'), patch.object(cli.time, 'monotonic', return_value=0), \
+                patch.object(cli, 'wait_command') as wait:
+            cli.remote(self.config, 'true', wait=True, timeout=10)
+        self.assertEqual(api.call_count, 2)
+        wait.assert_called_once_with(self.config, 'accepted-once', 'i-new', timeout=10)
+
+    def test_remote_wait_does_not_retry_permission_or_ambiguous_errors(self):
+        for code in ('AccessDeniedException', 'CLIError', 'ThrottlingException'):
+            with self.subTest(code=code), patch.object(cli, 'instance_id', return_value='i-new'), \
+                    patch.object(cli, 'aws', side_effect=cli.AwsError(code, 'failed')) as api, \
+                    patch.object(cli, 'wait_command') as wait:
+                with self.assertRaises(cli.AwsError):
+                    cli.remote(self.config, 'true', wait=True)
+                self.assertEqual(api.call_count, 1)
+                wait.assert_not_called()
+
+    def test_remote_without_wait_does_not_retry_invalid_instance(self):
+        with patch.object(cli, 'instance_id', return_value='i-new'), \
+                patch.object(cli, 'aws', side_effect=cli.AwsError('InvalidInstanceId', 'not registered')) as api:
+            with self.assertRaises(cli.AwsError):
+                cli.remote(self.config, 'true')
+        self.assertEqual(api.call_count, 1)
+
+    def test_remote_ssm_registration_timeout_does_not_queue_a_command(self):
+        with patch.object(cli, 'instance_id', return_value='i-new'), \
+                patch.object(cli, 'aws', side_effect=cli.AwsError('InvalidInstanceId', 'not registered')) as api, \
+                patch.object(cli.time, 'monotonic', side_effect=[0, 11]), \
+                patch.object(cli, 'wait_command') as wait:
+            with self.assertRaisesRegex(cli.ConfigError, 'no command was queued'):
+                cli.remote(self.config, 'true', wait=True, timeout=10)
+        self.assertEqual(api.call_count, 1)
+        wait.assert_not_called()
+
     def test_ssm_terminal_failures_and_false_success_are_rejected(self):
         for response in ({"Status": "Failed"}, {"Status": "TimedOut"},
                          {"Status": "Cancelled"}, {"Status": "Success", "ResponseCode": -1}):

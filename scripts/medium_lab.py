@@ -14,8 +14,10 @@ import subprocess
 import uuid
 from urllib.request import urlopen
 
+from src import moodle_cloud as cli
+
 ROOT = Path(__file__).resolve().parents[1]
-WORK = ROOT / '.work/medium-live'
+WORK = cli.work_root() / 'medium-live'
 
 
 def command(args, *, env=None, capture=False):
@@ -56,7 +58,7 @@ def source_hash(root):
 def terraform(root, *args, capture=False):
     work = WORK / root
     work.mkdir(parents=True, exist_ok=True)
-    cache = ROOT / '.work/terraform-plugin-cache'
+    cache = cli.work_root() / 'terraform-plugin-cache'
     cache.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env['TF_DATA_DIR'] = str(work / 'terraform-data')
@@ -160,7 +162,9 @@ def apply(args):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['prepare', 'plan', 'apply'])
-    parser.add_argument('--account', required=True)
+    account = os.environ.get('MOODLE_CLOUD_ACCOUNT') or None
+    parser.add_argument('--account', default=account, required=account is None,
+                        help='AWS account ID (default: MOODLE_CLOUD_ACCOUNT)')
     parser.add_argument('--region', default='ap-southeast-1')
     parser.add_argument('--project', default='moodle-n2')
     parser.add_argument('--awscli-version', default='2.38.5')

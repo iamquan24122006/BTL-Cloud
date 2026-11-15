@@ -110,7 +110,7 @@ Baseline host là **Ubuntu Server 26.04**; PHP chạy trong container. Chi tiế
 Để kiểm tra cấu hình và chạy unit tests:
 
 - Python 3.11 trở lên.
-- Dependency trong [requirements.txt](requirements.txt).
+- Dependency Python được ghim trong [pyproject.toml](pyproject.toml) và [requirements.txt](requirements.txt).
 
 Để triển khai và vận hành AWS:
 
@@ -124,6 +124,8 @@ Baseline host là **Ubuntu Server 26.04**; PHP chạy trong container. Chi tiế
 
 ## Bắt đầu sử dụng
 
+Muốn chọn và triển khai một LMS mới trên AWS bằng CLI, xem [hướng dẫn tạo Moodle](docs/23-create-lms.md). Có lựa chọn small riêng tư qua SSM hoặc small public với URL HTTPS của CloudFront.
+
 ### 1. Clone repository
 
 ```bash
@@ -133,26 +135,23 @@ cd BTL-Cloud
 
 ### 2. Chuẩn bị Python
 
-PowerShell tại thư mục repository:
+PowerShell tại thư mục repository. Cài CLI dạng editable để các lệnh `mcloud`, `mpublic` và `mmedium` có sẵn trong virtual environment:
 
 ```powershell
 python -m venv .venv
-$Py = if (Test-Path '.venv/Scripts/python.exe') {
-    (Resolve-Path '.venv/Scripts/python.exe').Path
-} else {
-    (Resolve-Path '.venv/bin/python.exe').Path
-}
-& $Py -m pip install -r requirements.txt
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e .
+mcloud --help
 ```
 
-Python Windows thường tạo `.venv/Scripts/`; MSYS2 có thể tạo `.venv/bin/`. Linux/macOS dùng `.venv/bin/python`. Nếu đã có virtualenv hợp lệ, có thể dùng lại; không sao chép virtualenv giữa các máy.
+`pip install -e .` cài từ repo hiện tại và cài dependency Python. Với cài đặt từ GitHub sau khi thay đổi đã được đẩy lên remote, dùng `python -m pip install "git+https://github.com/iamquan24122006/BTL-Cloud.git"`. Package chưa được publish lên PyPI. Terraform, AWS CLI và Session Manager plugin vẫn cài riêng theo hệ điều hành.
 
 ### 3. Chọn cấu hình và kiểm tra offline
 
 ```powershell
-& $Py -m src.moodle_cloud --config config/sydney.yaml validate
-& $Py -m src.moodle_cloud --config config/medium.example.yaml validate
-& $Py -m unittest discover -s tests -v
+mcloud -c config/sydney.yaml validate
+mcloud -c config/medium.example.yaml validate
+python -m unittest discover -s tests -v
 ```
 
 Các lệnh trên không tạo tài nguyên AWS. YAML medium mẫu chứa placeholder, không dùng nguyên trạng để deploy.
@@ -170,8 +169,8 @@ aws sts get-caller-identity --region ap-southeast-2
 # Khi cần đăng nhập lại, hoàn tất xác thực trên trình duyệt:
 aws login --profile moodle-project --region ap-southeast-2
 
-& $Py -m src.moodle_cloud doctor
-& $Py -m src.moodle_cloud --config $Config preflight --expected-account $ExpectedAccount
+mcloud doctor
+mcloud -c $Config preflight --expected-account $ExpectedAccount
 ```
 
 Điền account nhóm đã xác nhận. Với lab/account khác, dùng profile, YAML và state riêng. `doctor` kiểm tra tool; preflight không chứng nhận toàn bộ quyền tạo/sửa tài nguyên.
@@ -226,11 +225,13 @@ Small public được bật bằng addon riêng, giữ YAML bootstrap gốc đ�
 
 Dự án cung cấp CLI quản trị hạ tầng; không có bộ REST API riêng do nhóm xây dựng.
 
-| Lệnh `python -m src.moodle_cloud` | Chức năng |
+Xem [cẩm nang sử dụng CLI](docs/24-cli-user-guide.md) để biết luồng lệnh, ví dụ PowerShell và các chốt an toàn.
+
+| Lệnh `mcloud` | Chức năng |
 |---|---|
 | `doctor` | Kiểm tra tool trên máy |
 | `--config <yaml> validate` / `render` | Kiểm tra YAML / sinh tfvars offline |
-| `--config <yaml> preflight` | Kiểm tra account và prerequisite; small cần `--expected-account` |
+| `-c <yaml> preflight` | Kiểm tra account và prerequisite; small cần `MOODLE_CLOUD_ACCOUNT` hoặc `--expected-account` |
 | `--config <yaml> plan` | Tạo saved plan và bản tóm tắt thay đổi |
 | `--config <yaml> apply --confirm <project>-<environment>` | Áp dụng plan đã kiểm tra |
 | `--config <yaml> status` | Đọc outputs; có URL public nếu addon được kích hoạt |
@@ -239,6 +240,8 @@ Dự án cung cấp CLI quản trị hạ tầng; không có bộ REST API riên
 | `--config <yaml> command-status --command-id <id> --wait` | Theo dõi SSM command |
 | `--config <yaml> restore ...` | Restore staging với các chốt xác nhận |
 | `--config <yaml> plan --destroy` / `destroy ...` | Lập và áp dụng kế hoạch dọn dẹp |
+| `mpublic [-c <yaml>] plan/apply/status/activate/disable` | Quản lý frontend CloudFront small; account lấy từ `MOODLE_CLOUD_ACCOUNT` hoặc `--expected-account` |
+| `mmedium prepare/plan/apply` | Chuẩn bị và quản lý prerequisite cho medium; account lấy từ `MOODLE_CLOUD_ACCOUNT` hoặc `--account` |
 
 Dùng `--help` cho cú pháp đầy đủ. `status` không thay thế health hoặc nghiệm thu nghiệp vụ; timeout/pending không được tính là thao tác thành công.
 
@@ -247,9 +250,9 @@ Dùng `--help` cho cú pháp đầy đủ. `status` không thay thế health ho�
 ### Kiểm tra site và backup
 
 ```powershell
-& $Py -m src.moodle_cloud --config $Config status
-& $Py -m src.moodle_cloud --config $Config health --wait
-& $Py -m src.moodle_cloud --config $Config backup --wait
+mcloud -c $Config status
+mcloud -c $Config health --wait
+mcloud -c $Config backup --wait
 ```
 
 Backup thành công chưa có nghĩa chính bộ đó đã restore-test. Quy trình phục hồi database và file nằm trong [runbook vận hành](docs/05-operations.md).
@@ -257,12 +260,12 @@ Backup thành công chưa có nghĩa chính bộ đó đã restore-test. Quy tr�
 ### Quản lý frontend small public
 
 ```powershell
-& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount status
+mpublic -c $Config --expected-account $ExpectedAccount status
 
 # Với small đã dựng, chưa có frontend public:
-& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount plan
+mpublic -c $Config --expected-account $ExpectedAccount plan
 # Review saved plan trước khi apply.
-& $Py -m scripts.small_public --config $Config --expected-account $ExpectedAccount apply --confirm moodle-sydney-dev
+mpublic -c $Config --expected-account $ExpectedAccount apply --confirm moodle-sydney-dev
 ```
 
 Đổi `--confirm` theo đúng project/environment khi dùng YAML khác. Small dev hiện đã có frontend, không cần tạo lại để mở demo. Lệnh `activate` dùng để retry bước cấu hình host sau partial failure; `disable` dùng rollback về SSM. [Chi tiết và cleanup addon](docs/20-small-public.md).
@@ -270,9 +273,9 @@ Backup thành công chưa có nghĩa chính bộ đó đã restore-test. Quy tr�
 ## Kiểm thử
 
 ```powershell
-& $Py -m unittest discover -s tests -v
-& $Py -m scripts.check_runtime
-& $Py -m scripts.check_moodle
+python -m unittest discover -s tests -v
+python -m scripts.check_runtime
+python -m scripts.check_moodle
 ```
 
 Hai lệnh sau cần Docker Linux engine. Runtime check kiểm tra PHP/Apache; Moodle check kiểm tra cài ứng dụng và backup/restore bằng dữ liệu giả. Medium có bộ integration hai app riêng trong `scripts.check_medium_runtime`.
@@ -329,10 +332,10 @@ Small public kết thúc TLS tại CloudFront, chặng tới nginx origin dùng 
 ### Small
 
 ```powershell
-& $Py -m src.moodle_cloud --config $Config plan
+mcloud -c $Config plan
 # Review account, tài nguyên tạo/sửa/xóa/thay thế và chi phí.
-& $Py -m src.moodle_cloud --config $Config apply --confirm moodle-sydney-dev
-& $Py -m src.moodle_cloud --config $Config health --wait
+mcloud -c $Config apply --confirm moodle-sydney-dev
+mcloud -c $Config health --wait
 ```
 
 `apply` tạo tài nguyên có phí. Thay AMI/bootstrap/user-data có thể thay EC2 và xóa DB/file trên root volume; cần backup đã kiểm chứng và review plan. Không chạy lại các lệnh triển khai chỉ để mở site demo đang có. [Hướng dẫn small](docs/04-deployment.md).

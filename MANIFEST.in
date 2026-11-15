@@ -1,0 +1,8 @@
+include README.md requirements.txt
+recursive-include config *.yaml *.json
+recursive-include infra *.tf *.tftpl *.hcl *.md
+include infra/backend/.terraform.lock.hcl infra/backup/.terraform.lock.hcl
+include infra/budget/.terraform.lock.hcl infra/medium/.terraform.lock.hcl
+include infra/medium_builder/.terraform.lock.hcl infra/medium_support/.terraform.lock.hcl
+include infra/small/.terraform.lock.hcl infra/small_public/.terraform.lock.hcl
+recursive-include scripts *.py *.sh *.php *.ini *.conf *.ps1 Dockerfile*

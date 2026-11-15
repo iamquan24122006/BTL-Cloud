@@ -83,7 +83,7 @@ class PlanGuardsTests(unittest.TestCase):
         self.infra_patch.start()
         self.addCleanup(self.root_patch.stop)
         self.addCleanup(self.infra_patch.stop)
-        self.confirm = "moodle-lab-dev"
+        self.confirm = f"{self.config['project']}-{self.config['environment']}"
 
     def prepare(self, mode="apply"):
         cli.render(self.config)

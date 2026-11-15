@@ -1,4 +1,5 @@
 import hashlib
+import io
 import json
 from pathlib import Path
 import tempfile
@@ -29,6 +30,22 @@ class SmallPublicTests(unittest.TestCase):
         with patch.object(public,'context',return_value=('test-dev',self.work,'i-test',{})),patch.object(public,'tf') as tf,patch.object(public,'activate') as activate:
             with self.assertRaises(cli.ConfigError):public.apply(self.config,'111111111111','wrong')
             tf.assert_not_called();activate.assert_not_called()
+
+    def test_account_mismatch_reports_both_accounts_before_instance_lookup(self):
+        with patch.object(cli,'aws',return_value={'Account':'111111111111'}),patch.object(cli,'instance_id') as instance:
+            with self.assertRaisesRegex(cli.ConfigError,'111111111111.*222222222222'):
+                public.context(self.config,'222222222222')
+            instance.assert_not_called()
+
+    def test_status_without_public_state_explains_next_step_without_terraform(self):
+        output=io.StringIO()
+        with patch.object(public,'context',return_value=('test-dev',self.work,'i-test',{})),patch.object(public,'tf') as tf,patch('sys.stdout',output):
+            result=public.main(['--config',str(cli.ROOT/'config/sydney.yaml'),
+                                '--expected-account','111111111111','status'])
+        self.assertEqual(result,0)
+        self.assertIn('not deployed',output.getvalue())
+        self.assertIn('mpublic plan',output.getvalue())
+        tf.assert_not_called()
 
     def test_wrong_disable_confirmation_never_sends_a_remote_command(self):
         with patch.object(public,'context',return_value=('test-dev',self.work,'i-test',{})),patch.object(cli,'remote') as remote:

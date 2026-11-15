@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moodle-cloud-distribution"
+version = "0.3.0"
+description = "CLI for provisioning and operating Moodle labs on AWS"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["PyYAML==6.0.2"]
+
+[project.scripts]
+mcloud = "src.moodle_cloud:main"
+mpublic = "scripts.small_public:main"
+mmedium = "scripts.medium_lab:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+namespaces = false
+include = ["src*", "scripts*", "config*", "infra*"]
+exclude = ["tests*"]
+
+[tool.setuptools.package-data]
+config = ["*.yaml"]
+"config.iam" = ["*.json"]
+"infra.small" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.small_public" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.medium" = ["*.tf", "*.tftpl", "*.hcl", ".terraform.lock.hcl"]
+"infra.medium_support" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.medium_builder" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.backup" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.backend" = ["*.tf", "*.hcl", ".terraform.lock.hcl"]
+"infra.budget" = ["*.tf", "*.hcl", "*.md", ".terraform.lock.hcl"]
+scripts = ["*.py", "*.sh", "*.php", "*.ini", "*.conf", "*.ps1", "Dockerfile", "Dockerfile.*"]
+"scripts.medium" = ["*.py", "*.sh", "*.php", "*.conf", "Dockerfile*"]
+"scripts.acceptance" = ["*.py", "*.php"]

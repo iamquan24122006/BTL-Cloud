@@ -23,7 +23,11 @@ def source_hash(config):
 def context(config, account):
     if config['size']!='small': raise cli.ConfigError('This frontend supports small only')
     identity=cli.aws(config,'sts','get-caller-identity')
-    if identity['Account']!=account: raise cli.ConfigError('AWS account does not match --expected-account')
+    if identity['Account']!=account:
+        raise cli.ConfigError(
+            f"AWS account {identity['Account']} does not match expected account {account}. "
+            'Select the AWS_PROFILE used to deploy this lab, or correct '
+            'MOODLE_CLOUD_ACCOUNT/--expected-account after verifying the deployment account.')
     instance=cli.instance_id(config)
     target=cli.aws(config,'ec2','describe-instances','--instance-ids',instance)['Reservations'][0]['Instances'][0]
     if target['State']['Name']!='running' or not target.get('PublicDnsName'):
@@ -38,7 +42,9 @@ def context(config, account):
 def tf(config,work,*args,capture=False):
     env=os.environ.copy()
     env['TF_DATA_DIR']=str(work/'terraform-data')
-    env['TF_PLUGIN_CACHE_DIR']=str(cli.ROOT/'.work/provider-cache')
+    cache=cli.work_root()/'provider-cache'
+    cache.mkdir(parents=True,exist_ok=True)
+    env['TF_PLUGIN_CACHE_DIR']=str(cache)
     return cli.run(['terraform','-chdir='+str(cli.ROOT/'infra/small_public'),*args],env=env,capture=capture)
 
 def plan(config,account):
@@ -111,8 +117,11 @@ def disable(config,account,confirm):
 
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config',required=True)
-    parser.add_argument('--expected-account',required=True)
+    parser.add_argument('-c','--config',default=cli.default_config(),
+                        help='YAML config (default: MOODLE_CLOUD_CONFIG or packaged config/dev.yaml)')
+    account=os.environ.get('MOODLE_CLOUD_ACCOUNT') or None
+    parser.add_argument('--expected-account',default=account,required=account is None,
+                        help='AWS account ID (default: MOODLE_CLOUD_ACCOUNT)')
     sub=parser.add_subparsers(dest='action',required=True)
     sub.add_parser('plan')
     action=sub.add_parser('apply');action.add_argument('--confirm',required=True)
@@ -130,6 +139,11 @@ def main(argv=None):
             activate(config,args.expected_account)
         else:
             _,work,_,_=context(config,args.expected_account)
+            if not (work/'terraform.tfstate').exists():
+                print('Public frontend: not deployed for '+f"{config['project']}-{config['environment']}"+'.')
+                print('No CloudFront URL is available. Run mpublic plan, review it, then '
+                      'mpublic apply --confirm '+f"{config['project']}-{config['environment']}"+'.')
+                return 0
             out=json.loads(tf(config,work,'output','-json',capture=True))
             print(json.dumps({k:out[k]['value'] for k in ('url','distribution_id')},indent=2))
         return 0
