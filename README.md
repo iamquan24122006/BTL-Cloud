@@ -38,7 +38,7 @@ Medium có policy tự mở rộng **2–3 app**, đã quan sát chu kỳ **2→
 | Truy cập | SSM mặc định; addon CloudFront cho URL public | ALB HTTPS/ACM; CloudFront là tùy chọn lab |
 | Terraform state | Local, tách project/environment | S3 backend, versioning và lockfile |
 
-Lab Sydney dùng tên miền Dynu với HTTPS/ACM trực tiếp tại ALB, hai app private và runner riêng; URL CloudFront cũ chuyển hướng sang tên miền. Small có một điểm lỗi duy nhất; medium vẫn có các điểm lỗi đơn ở database, cache và NAT. Xem [thiết kế kiến trúc](docs/02-architecture.md) và [cấu hình live](docs/21-medium-sydney.md).
+Lab Sydney dùng tên miền Dynu với HTTPS/ACM trực tiếp tại ALB, hai app private và runner riêng; URL CloudFront cũ chuyển hướng sang tên miền. Xem [thiết kế kiến trúc](docs/02-architecture.md) và [cấu hình live](docs/21-medium-sydney.md).
 
 ## Tính năng
 
